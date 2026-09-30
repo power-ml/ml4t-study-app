@@ -1,0 +1,1507 @@
+Domain 6: Decision Trees 
+Domain Summary 
+ Tree structure and prediction ﬂow 
+ Splitting criteria intuition 
+ Model complexity and overﬁtting 
+ Hyperparameters such as depth and leaf size 
+ Stability and sensitivity to data changes 
+ Strengths such as nonlinearity handling and interpretability 
+ Weaknesses and failure modes 
+Topic Groups 
+G1: Tree Structure and Prediction Flow 
+ Splits, nodes, and leaves 
+ Path from root to prediction 
+ Interpreting tree decisions 
+G2: Splitting Criteria Intuition 
+ Reducing error or impurity 
+ Greedy nature of splits 
+ Local vs. global optimization 
+G3: Model Complexity and Overﬁtting 
+ Deep vs. shallow trees 
+ Overﬁtting tendencies 
+ Effect of unrestricted growth 
+G4: Hyperparameters as Control Mechanisms 
+ Max depth 
+ Minimum leaf size 
+ Tradeoffs in tuning 
+ 
+ 166 Rev:081020261230 
+G5: Stability and Sensitivity 
+ Sensitivity to small data changes 
+ Variance in tree structure 
+ Implications for reliability 
+G6: Strengths of Decision Trees 
+ Handling nonlinear relationships 
+ No need for scaling 
+ Interpretability advantages 
+G7: Weaknesses and Failure Modes 
+ Overﬁtting risk 
+ Instability 
+ Poor generalization without constraints 
+G1: Tree Structure and Prediction Flow 
+[ML-D6G1Q1] 
+A decision tree predicts whether the next trading day will have a positive return. Its root tests whether 20-day momentum 
+is greater than 2%. If yes, the next node tests whether volatility is below 1.5%; the resulting leaf predicts “positive. ” A 
+market day has 3% momentum and 1.2% volatility. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The following claim is false: The observation ﬁrst follows the branch corresponding to momentum greater than 2%. 
+B. The observation then follows the branch corresponding to volatility below 1.5%. 
+C. The prediction is produced by combining the outputs of every leaf in the tree. 
+D. For this observation, a split in an unvisited branch cannot change its prediction. 
+E. The leaf reached by the observation predicts “positive. ” 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. True – The root condition is satisﬁed because 3% exceeds 2%. 
+B. False – The observation's volatility of 1.2% satisﬁes the second condition. 
+ 
+ 167 Rev:081020261230 
+C. True – A single tree normally predicts from the one leaf reached by the observation. 
+D. False – Only tests along the observation's root-to-leaf path affect its prediction. 
+E. False – The scenario speciﬁes that the reached leaf carries the positive prediction. 
+ 
+[ML-D6G1Q2] 
+A regression tree estimates next-week portfolio return. One terminal leaf contains training targets of 1%, 2%, -1%, and 
+2%. A new observation follows the tree's tests into that leaf, and the implementation uses the mean target within each 
+leaf. 
+ 
+A. The prediction for the new observation is 1%. 
+B. Every observation reaching that leaf receives the same prediction under this implementation. 
+C. The tree must calculate a distance from the new observation to every training observation at prediction time. 
+D. An internal node applies a feature-based rule that determines which branch to follow. 
+E. A terminal leaf must contain exactly one training observation. 
+ 
+Answer Key: 
+ 
+A. True – The mean is (1% + 2% - 1% + 2%) / 4 = 1%. 
+B. True – The leaf stores one aggregate prediction used for all observations reaching it. 
+C. False – Tree inference follows split rules and does not require a KNN-style exhaustive distance search. 
+D. True – Internal nodes route observations according to their split conditions. 
+E. False – A leaf may contain one or many training observations. 
+ 
+[ML-D6G1Q3] 
+A risk officer reviews a tree that ﬂags trades for manual review. The path for one trade is: leverage > 2.0, liquidity score ≤ 
+40, and expected holding period > 10 days, leading to a “review” leaf. The tree contains many other nodes involving sector 
+and market capitalization. 
+ 
+A. The three listed conditions describe the decision path for this trade. 
+B. The sector and market-capitalization nodes must also have been evaluated because they appear somewhere in the 
+tree. 
+C. The root-to-leaf path can be translated into a conjunction of conditions explaining this prediction. 
+D. Changing the trade's leverage so that it takes the opposite root branch may lead to a different leaf. 
+ 
+ 168 Rev:081020261230 
+E. A leaf is another split that sends the trade to two child nodes. 
+ 
+Answer Key: 
+ 
+A. True – Those tests were encountered sequentially before the prediction was made. 
+B. False – Nodes outside the selected path are not evaluated for this trade. 
+C. True – The path provides an if-and-then rule for the individual prediction. 
+D. True – Taking a different branch changes the subsequent path and potentially the output. 
+E. False – A leaf is terminal and provides a prediction rather than another split. 
+ 
+[ML-D6G1Q4] 
+You are a Quantitative Researcher at an asset management ﬁrm building an interpretable machine learning model to 
+explain portfolio allocation decisions. The Chief Risk Officer prefers decision trees because the investment committee 
+wants to understand the logic behind each trade recommendation. A junior analyst claims that decision trees are difficult 
+to interpret because they behave like black-box models, and you are asked to evaluate whether that assumption is 
+correct. 
+ 
+A. Decision trees generate predictions by averaging the outputs of all possible paths through the tree rather than following 
+one speciﬁc path. 
+B. Decision trees require all numerical features to be standardized before creating splits. 
+C. Decision trees cannot represent nonlinear relationships because each split only considers a simple threshold. 
+D. Decision trees always produce identical structures when trained on the same dataset, regardless of small changes in 
+the data. 
+E. A decision tree makes a prediction by following a sequence of feature-based splits until reaching a terminal leaf node. 
+ 
+Answer Key: 
+ 
+A. False – A decision tree does not average across all possible paths. Each observation follows one speciﬁc path 
+determined by the splitting rules until it reaches a leaf node where the prediction is made.  
+B. False – Decision trees do not require feature scaling because they make decisions using threshold-based splits on 
+individual variables rather than distance calculations.  
+C. False – While each individual split is simple, a combination of many splits allows decision trees to capture nonlinear 
+relationships and interactions among variables.  
+D. False – Decision trees can be unstable because small changes in training data may change which splits are selected, 
+resulting in different tree structures.  
+ 
+ 169 Rev:081020261230 
+E. True – A decision tree makes predictions by routing an observation through a sequence of feature-based decisions 
+from the root node to a terminal leaf node containing the ﬁnal prediction.  
+ 
+[ML-D6G1Q5] 
+A quantitative portfolio manager is developing a dynamic asset-allocation strategy for an equity portfolio. The strategy 
+uses a Decision Tree Regressor to predict next-month excess returns from two technical indicators: 
+ 𝑋ଵ: 14-Day Relative Strength Index (RSI), bounded between 0 and 100  
+ 𝑋ଶ: Simple Moving Average Crossover Ratio, a continuous decimal-valued feature  
+The manager trains a standard CART regression tree using squared-error impurity. Before deployment, the risk team 
+examines how the tree’s axis-aligned splits, greedy construction process, instability, and piecewise-constant predictions 
+affect its use in a trading application. 
+Which of the following statements correctly describe the architecture and behavior of a standard CART Decision Tree 
+Regressor? 
+A. Feature scaling is required because CART compares the numerical magnitudes of different features when deciding 
+which feature should be used at a node. 
+B. CART partitions the feature space using axis-aligned splits of the form 𝑋௝ ≤𝑠. These splits can represent rectangular, 
+threshold-based regimes efficiently but may require many successive splits to approximate a diagonal relationship such 
+as 𝑋ଵ+𝑋ଶ >𝐶. 
+C. At each internal node, CART greedily searches candidate features and split thresholds and selects the split that 
+produces the largest reduction in the regression-tree objective, such as the weighted sum of squared errors within the 
+resulting child nodes. 
+D. A deep, minimally constrained tree generally has low training bias but high variance because relatively small changes 
+in the training sample can change an early split and consequently alter many downstream branches. 
+E. Because a Decision Tree Regressor is non-parametric, it can naturally extrapolate beyond the range of response values 
+observed in the training data. 
+Answer Key: 
+A. False – CART evaluates a split using one feature at a time. For a candidate split 𝑋௝ ≤𝑠, the algorithm depends on which 
+observations fall on each side of the threshold—not on whether 𝑋௝is measured on a numerically larger or smaller scale 
+than another feature. 
+Consequently, standardization and min-max normalization are not ordinarily required for decision trees. A strictly 
+monotonic transformation of a feature preserves its ordering and therefore preserves the candidate partitions available 
+to the tree, apart from numerical precision, ties, implementation details, and corresponding changes in the reported 
+threshold values. 
+This differs from distance-based methods such as KNN, in which the numerical scales of multiple features jointly 
+determine geometric distances.  
+B. True – A standard CART split has the form 
+𝑅ଵ(𝑗,𝑠) =൛𝑥:𝑥௝ ≤𝑠ൟ,  𝑅ଶ(𝑗,𝑠) =൛𝑥:𝑥௝ >𝑠ൟ. 
+ 
+ 
+ 170 Rev:081020261230 
+Each split is perpendicular to one feature axis and parallel to the remaining axes. Repeated splits therefore partition the 
+feature space into axis-aligned rectangular regions. 
+This structure is well suited to threshold effects, such as a return regime that changes when RSI exceeds a particular 
+value. However, a diagonal boundary such as 
+𝑋ଵ+𝑋ଶ >𝐶 
+does not align with either feature axis. A standard tree must approximate it using a staircase of horizontal and vertical 
+partitions, potentially requiring many splits. The precise number depends on the data distribution and the desired 
+approximation accuracy.  
+C. True – CART uses greedy, top-down recursive binary splitting. For regression with squared-error loss, it searches 
+candidate pairs (𝑗,𝑠)and selects the pair that minimizes the total within-node squared error: 
+෍ ൫𝑦௜ −𝑦തோభ൯ଶ
+௫೔∈ோభ൫𝑗,𝑠൯
++ ෍ ൫𝑦௜ −𝑦തோమ൯ଶ
+௫೔∈ோమ൫𝑗,𝑠൯
+. 
+Equivalently, it chooses the split that produces the greatest reduction in squared-error impurity relative to the parent 
+node. 
+The search is greedy because CART selects the best split for the current node without jointly optimizing the complete 
+future tree. Conceptually, it considers the available features and admissible thresholds, although implementations may 
+use sorting and other computational optimizations rather than recomputing every split naively.  
+D. True – A deep tree can adapt closely to the training observations, giving it low training bias and potentially very low 
+training error. That ﬂexibility also makes it unstable: a modest change in the sample can change which feature or 
+threshold appears best at an early node. Because all later branches depend on earlier partitions, the resulting tree and 
+its predictions can change substantially. 
+This high-variance behavior is one reason trees are commonly pruned or constrained using parameters such as maximum 
+depth, minimum leaf size, and minimum impurity reduction. Ensemble methods such as bagging and random forests 
+also reduce variance by averaging predictions across multiple trees. 
+The sensitivity is possible rather than inevitable: not every small data change will alter a root-level split, but individual 
+deep trees are generally less stable than lower-variance models.  
+E. False – A standard regression tree predicts a constant value within each terminal region. For a leaf 𝑅௠, the prediction 
+is typically the mean training response among the observations assigned to that leaf: 
+𝑓መ(𝑥) =𝑦തோ೘ = 1
+∣ 𝑅௠∣ ෍ 𝑦௜
+௜:௫೔∈ோ೘
+. 
+Even when a future observation has feature values far outside the training feature range, it is routed through the existing 
+splits into one of the existing leaves. Its prediction remains that leaf’s training-sample mean. 
+Therefore, for an ordinary mean-predicting regression tree, 
+𝑦ොnew∈ൣ𝑦୫୧୬,train,𝑦୫ୟ୶,train൧. 
+The model can extend an existing terminal prediction into a previously unobserved feature region, but it cannot 
+extrapolate a continuing linear trend to produce response values beyond the observed training-response range.  
+ 
+ 
+ 171 Rev:081020261230 
+[ML-D6G1Q6] 
+A quantitative analyst is constructing a Decision Tree Classiﬁer to classify short-term market environments as either 
+“High Liquidity” (𝑦= 1) or “Low Liquidity” (𝑦= 0). The training dataset contains 1,000 historical intraday observations 
+and three continuous market-microstructure features: 
+ 𝑋ଵ: Bid-Ask Spread  
+ 𝑋ଶ: Order Book Depth  
+ 𝑋ଷ: Trade Volume  
+The analyst uses the standard CART framework and evaluates candidate splits using Gini impurity. The risk team also 
+compares Gini impurity with cross-entropy and classiﬁcation error and examines how transformations of the input 
+features affect the resulting tree. 
+Which of the following statements correctly describe node impurity, split selection, and the structural behavior of 
+Decision Tree Classiﬁers? 
+A. Classiﬁcation error, 
+𝐸௠= 1 − max௞ (𝑝̂௠௞), 
+ 
+is generally less sensitive than Gini impurity or cross-entropy to changes in the class proportions within a node, making 
+it less suitable for growing a classiﬁcation tree. 
+B. In a binary node with 𝑝̂௠ଵ=𝑝, both Gini impurity and cross-entropy attain their maximum values at 𝑝= 0or 𝑝= 1, 
+because completely pure nodes provide the strongest possible evidence for a split. 
+C. When a binary node is completely pure, both its Gini impurity and cross-entropy equal zero. 
+D. Applying a strictly monotonic transformation to an individual continuous feature changes its numerical scale and 
+reported split thresholds, but ordinarily preserves the candidate partitions of the training observations and therefore need 
+not change the ﬁtted tree’s structure or predictions. 
+E. For Gini impurity or cross-entropy, the weighted average impurity of the two child nodes created by any candidate 
+binary split cannot exceed the impurity of the parent node, although the reduction may equal zero. 
+Answer Key: 
+A. True – Classiﬁcation error depends only on the probability of the majority class: 
+𝐸௠= 1 − max௞ (𝑝̂௠௞). 
+ 
+In binary classiﬁcation, this becomes 
+𝐸(𝑝) = min(𝑝,1 −𝑝). 
+ 
+The metric does respond to some changes in class proportions, so it is not literally constant whenever the majority class 
+remains unchanged. However, it is piecewise linear and less sensitive than Gini impurity or cross-entropy to changes in 
+the complete class-probability distribution. 
+This reduced sensitivity can make classiﬁcation error less effective for distinguishing among candidate splits during tree 
+construction. Gini impurity and cross-entropy are therefore commonly used to grow trees, while classiﬁcation error may 
+still be useful when evaluating or pruning them. (Ref: ISLR Ch. 8.1) 
+ 
+ 172 Rev:081020261230 
+B. False – For a binary node, Gini impurity is 
+𝐺(𝑝) =𝑝(1 −𝑝)+(1 −𝑝)𝑝= 2𝑝(1 −𝑝), 
+ 
+and cross-entropy is 
+𝐻(𝑝) = −𝑝ln(𝑝)−(1 −𝑝)ln(1 −𝑝). 
+ 
+Both measures equal zero at the pure-node endpoints 𝑝= 0and 𝑝= 1. They reach their maximum values at 𝑝= 0.5, 
+where the two classes are equally represented and uncertainty is greatest. 
+Thus, pure nodes minimize impurity; balanced, mixed-class nodes maximize it. 
+C. True – At a pure node, all observations belong to the same class. If 𝑝= 1, then 
+𝐺(1) = 2(1)(0) = 0, 
+ 
+and 
+𝐻(1) = −1ln(1)− 0ln(0) = 0. 
+ 
+The same result holds at 𝑝= 0. In the entropy expression, the conventional limiting deﬁnition 
+0ln(0) = 0 
+ 
+is used. Both metrics therefore assign zero impurity to a completely pure node. 
+D. True – CART evaluates candidate splits according to the partition they create, such as 
+𝑋௝ ≤𝑠 versus 𝑋௝ >𝑠. 
+ 
+A strictly increasing transformation preserves the ordering of the observations. A strictly decreasing transformation 
+reverses the ordering but still permits the corresponding complementary partitions. The numerical threshold changes, 
+but the same groups of training observations can ordinarily be separated. 
+For example, if 𝑋ଵ > 0, a split based on 𝑋ଵ ≤𝑠has a corresponding split on ln(𝑋ଵ)at ln(𝑠). Consequently, strictly 
+monotonic transformations ordinarily preserve the available partitions and ﬁtted predictions. 
+This invariance may fail when a transformation is not strictly monotonic, changes or creates ties, is undeﬁned for some 
+observations, or interacts with ﬁnite numerical precision or implementation-speciﬁc behavior. (Ref: ISLR Ch. 8.1) 
+E. True – Let a parent node contain class-probability vector 𝑝, and suppose a candidate split produces child nodes with 
+weights 𝑤௅and 𝑤ோand probability vectors 𝑝௅and 𝑝ோ. Then 
+𝑝=𝑤௅𝑝௅ +𝑤ோ𝑝ோ. 
+ 
+Because both Gini impurity and cross-entropy are concave functions of the class probabilities, 
+𝐼(𝑝) ≥𝑤௅𝐼(𝑝௅)+𝑤ோ𝐼(𝑝ோ). 
+ 
+Therefore, the weighted child impurity cannot exceed the parent impurity. The impurity reduction, 
+Δ𝐼 =𝐼(𝑝)−[𝑤௅𝐼(𝑝௅)+𝑤ோ𝐼(𝑝ோ)], 
+ 
+ 173 Rev:081020261230 
+ 
+is nonnegative. 
+Equality is possible—for example, when both children have the same class proportions as the parent—so a candidate 
+partition does not necessarily provide a strictly positive improvement. In practice, CART chooses the admissible split with 
+the greatest reduction and may decline to split when the best improvement is zero or fails a minimum-improvement or 
+stopping requirement. 
+ 
+G2: Splitting Criteria Intuition 
+[ML-D6G2Q1] 
+A classiﬁcation tree is considering two root splits for predicting whether a stock will outperform. Split A creates child 
+nodes that are each strongly dominated by one class. Split B creates two child nodes with nearly equal mixtures of 
+outperformers and underperformers. The split criterion rewards reductions in class impurity. 
+ 
+A. Split A is likely to produce a larger impurity reduction than Split B. 
+B. A pure child node contains observations from only one target class. 
+C. The feature with the largest numerical scale must be selected for the split. 
+D. The target labels are used when evaluating candidate splits during supervised tree training. 
+E. An impurity reduction at the root guarantees minimum possible test error. 
+ 
+Answer Key: 
+ 
+A. True – Separating the classes produces purer children and usually a larger impurity decrease. 
+B. True – A node is pure when all of its training observations have the same class label. 
+C. False – Candidate splits are compared by their criterion values, not by raw feature scale. 
+D. True – Supervised splitting measures how well feature thresholds separate known targets. 
+E. False – A locally useful training split does not guarantee globally optimal structure or test performance. 
+ 
+[ML-D6G2Q2] 
+A regression tree predicts daily returns. At one node, it compares candidate thresholds on momentum and volatility. For 
+each candidate, it evaluates how much the split reduces squared prediction error within the resulting child nodes. 
+ 
+A. A desirable split tends to group observations with similar target values into the same child. 
+B. Candidate thresholds can be evaluated using the target values of observations at that node. 
+ 
+ 174 Rev:081020261230 
+C. The chosen split must make both child nodes contain the same number of observations. 
+D. A large reduction in training error at the current node can motivate selecting that split. 
+E. The method proves that no different sequence of future splits could produce a better full tree. 
+ 
+Answer Key: 
+ 
+A. True – Similar targets within children reduce residual variation and squared error. 
+B. True – Regression tree criteria compare how candidate partitions organize the training targets. 
+C. False – Balanced child sizes are not generally required unless separately constrained. 
+D. True – Greedy tree growth selects the candidate with the best local criterion improvement. 
+E. False – A greedy local choice does not establish global optimality of the completed tree. 
+ 
+[ML-D6G2Q3] 
+At the root of a trading decision tree, a split on volatility yields the largest immediate error reduction, so the algorithm 
+chooses it. An analyst later discovers that a momentum split with a smaller immediate improvement would have enabled 
+more effective splits at lower levels. 
+ 
+A. This outcome is consistent with greedy tree construction. 
+B. Standard greedy training normally revisits every earlier split after seeing the completed tree and guarantees the globally 
+best arrangement. 
+C. The locally best split can lead to a suboptimal overall tree. 
+D. The existence of a better multi-step structure means the original volatility split had no immediate predictive value. 
+E. Validation can help assess whether the resulting tree generalizes despite the greedy construction process. 
+ 
+Answer Key: 
+ 
+A. True – Greedy construction selects the best available split at the current step. 
+B. False – Ordinary tree growth does not exhaustively optimize all possible complete trees. 
+C. True – A local optimum need not be part of the global optimum. 
+D. False – It may still have provided the largest immediate reduction, just not the best long-run structure. 
+E. True – Out-of-sample validation evaluates the practical consequences of the learned structure. 
+ 
+ 
+ 175 Rev:081020261230 
+[ML-D6G2Q4] 
+You are a Machine Learning Researcher at a quantitative hedge fund developing a decision tree model to classify stocks 
+as potential outperformers or underperformers. The Portfolio Manager notices that the tree keeps selecting splits that 
+reduce prediction errors in the current dataset and asks whether these decisions represent a globally optimized 
+investment strategy. You are asked to explain how decision trees choose splits and what limitations arise from their 
+splitting approach. 
+ 
+A. Decision trees typically choose splits using a greedy approach that selects the best available split at each step. 
+B. A split that improves the current node’s prediction quality is always guaranteed to produce the globally optimal ﬁnal 
+decision tree. 
+C. Decision tree splitting criteria aim to create child nodes that are more homogeneous or have lower prediction error 
+than the original node. 
+D. Decision trees evaluate every possible combination of future splits before selecting the ﬁrst split at the root node. 
+E. The quality of a split can be evaluated by how much it reduces impurity or prediction error in the resulting groups. 
+ 
+Answer Key: 
+ 
+A. True – Decision trees use a greedy algorithm that selects the best split at the current stage without considering all 
+possible future split combinations.  
+B. False – A locally optimal split does not guarantee a globally optimal tree because future splits and interactions among 
+decisions are not fully considered during the greedy construction process.  
+C. True – Splitting criteria are designed to create groups where observations are more similar, reducing measures such 
+as classiﬁcation impurity or regression error within each resulting node.  
+D. False – Decision trees do not search all possible combinations of splits because that would be computationally 
+expensive. Instead, they build trees recursively using greedy split selection.  
+E. True – A good split is one that improves the quality of the resulting nodes by reducing impurity for classiﬁcation or 
+reducing error for regression. 
+ 
+[ML-D6G2Q5] 
+You are a Quantitative Researcher at a hedge fund responsible for validating a decision tree that predicts whether 
+corporate bonds should be included in a portfolio. The research team reports that the tree selected a credit-quality split 
+because it produced the “cleanest” separation between proﬁtable and unproﬁtable investments. The Portfolio Manager 
+asks whether the tree has discovered the true drivers of returns or whether the split-selection process has limitations 
+that should be considered before deployment. 
+For this question, mark each statement True if it is incorrect and False if it is accurate. 
+ 
+ 
+ 176 Rev:081020261230 
+A. A decision tree split is selected based on how well it improves the chosen objective at the current node, not necessarily 
+because the feature is the most important factor in the entire dataset. 
+B. A decision tree examines every possible sequence of future splits before selecting the best split at the current node. 
+C. A feature chosen near the top of a decision tree is always the strongest economic driver of the target variable. 
+D. A decision tree may select a split that provides strong immediate improvement but prevents the discovery of a better 
+alternative tree structure. 
+E. The splitting process in decision trees is an example of global optimization because each decision accounts for all 
+possible future outcomes. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Decision trees choose splits based on immediate improvement at the current node, such as reducing impurity 
+or error. A top-level split is useful for prediction but does not necessarily represent the true underlying economic cause.  
+B. True – Decision trees do not evaluate every possible future sequence of splits. They use a greedy recursive approach 
+because exhaustive optimization over all possible trees is computationally infeasible.  
+C. True – A feature appearing near the root may be highly predictive for the model, but it is not guaranteed to be the most 
+important economic driver. Correlation, interactions, and the greedy construction process can affect feature placement.  
+D. False – Since each split is selected using local information, a decision tree can make an early choice that limits later 
+possibilities and prevents a potentially better overall structure.  
+E. True – Decision tree construction is not global optimization. It is a greedy algorithm that makes locally optimal 
+decisions at each step without considering every possible future outcome.  
+ 
+[ML-D6G2Q6] 
+A junior quantitative analyst is learning how decision trees partition data to predict daily stock market movements ("Up" 
+vs. "Down"). The analyst wants to understand how the CART (Classiﬁcation and Regression Trees) algorithm decides 
+where to place its splits when building a model from scratch. 
+The supervisor explains that the algorithm uses a top-down, "greedy" approach to evaluate features and numerical split 
+points, using metrics like Gini Impurity for classiﬁcation or Mean Squared Error (MSE) for regression. 
+Which of the following statements correctly describes how decision tree splitting criteria and optimization work? 
+For this question, mark each statement True if it is incorrect and False if it is accurate. 
+ 
+A. At every node, the algorithm checks all available features and possible split values to choose the single split that 
+provides the greatest immediate reduction in impurity or error. 
+B. The term "greedy" means that the algorithm looks ahead 3 to 4 steps into the future to ensure that a split made today 
+leads to the best overall tree structure at the end. 
+C. Decision trees evaluate splits globally, meaning that changing a split point in the left branch of a tree will automatically 
+recalculate and adjust all split points in the right branch. 
+ 
+ 177 Rev:081020261230 
+D. Gini Impurity reaches its lowest value of  
+0.0 
+0.0 when a node contains a perfectly pure mix of 50% "Up" days and 50% "Down" days. 
+E. When building a decision tree classiﬁer, a node that contains only instances of a single class (100% "Up" days) has a 
+Gini Impurity of zero. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Decision trees perform a local exhaustive search at the current node, scanning every feature and every split 
+threshold to pick the split that maximizes immediate error or impurity reduction.  
+B. True – "Greedy" in machine learning means the algorithm makes the best choice at the current step without looking 
+ahead to future steps or considering the long-term global outcome.  
+C. True – Splits in a decision tree are local to their respective branches. Once a dataset is split into a left child and a right 
+child, decisions made within the left child operate independently of the data points in the right child. (Ref: ISLR Ch. 8.1) 
+D. True – A 50/50 mix represents maximum uncertainty and maximum impurity (Gini Impurity = 0.5). The minimum Gini 
+Impurity (0.0) occurs when a node is 100% pure (contains only one class).  
+E. False – Gini Impurity measures class heterogeneity. When all samples in a node belong to the exact same class, the 
+node is completely pure and its impurity is 0.0.  
+ 
+G3: Model Complexity and Overﬁtting 
+[ML-D6G3Q1] 
+A decision tree is allowed to grow until every training observation occupies its own leaf. It achieves zero training error, but 
+its test error is substantially higher and its predictions change sharply across nearby feature values. 
+ 
+A. The tree shows evidence of overﬁtting. 
+B. Pure or singleton training leaves guarantee accurate predictions on unseen data. 
+C. The highly detailed tree may be ﬁtting noise or idiosyncrasies in the training sample. 
+D. Restricting tree growth could improve generalization even if training error increases. 
+E. Zero training error is sufficient evidence that the model has low variance. 
+ 
+Answer Key: 
+ 
+A. True – Very low training error paired with much worse test performance is a classic overﬁtting pattern. 
+B. False – Purity on training data does not guarantee that learned distinctions generalize. 
+ 
+ 178 Rev:081020261230 
+C. True – Unrestricted growth can encode sample-speciﬁc ﬂuctuations rather than stable structure. 
+D. True – A simpler tree may trade some training ﬁt for lower variance and better unseen performance. 
+E. False – Highly ﬂexible trees often have high variance despite their low training error. 
+ 
+[ML-D6G3Q2] 
+A shallow tree predicts whether a portfolio will exceed its benchmark. Both its training and validation accuracy are poor, 
+and inspection shows that it cannot represent an interaction in which momentum matters only during low-volatility 
+periods. 
+ 
+A. The tree may be underﬁtting. 
+B. Adding enough permitted depth could allow the tree to represent the conditional interaction. 
+C. Poor training performance necessarily proves that the dataset contains no predictive structure. 
+D. A shallow tree generally has lower capacity than a deep tree using the same features. 
+E. Making the tree even shallower is guaranteed to correct the problem. 
+ 
+Answer Key: 
+ 
+A. True – Poor performance even on training data can indicate insufficient model capacity. 
+B. True – Additional levels can express sequential conditions involving volatility and momentum. 
+C. False – The learner may simply be too constrained to capture available structure. 
+D. True – Fewer allowed splits limit the number and complexity of representable regions. 
+E. False – Further reducing capacity would usually worsen this form of underﬁtting. 
+ 
+[ML-D6G3Q3] 
+A team evaluates decision trees with maximum depths from 1 through 30. Training error falls throughout the range. 
+Validation error falls until depth 7 and then rises steadily, while the depth-30 tree has many leaves containing only one or 
+two observations. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The falling training error alone does not identify the depth that best generalizes. 
+B. The validation pattern suggests that trees deeper than about 7 increasingly overﬁt. 
+C. Small leaves can make predictions depend heavily on a few training observations. 
+ 
+ 179 Rev:081020261230 
+D. Depth 30 must be selected because it has the lowest training error. 
+E. The ﬁnal test set should remain separate from the depth-selection process. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Greater complexity often improves in-sample ﬁt without improving unseen performance. 
+B. False – Rising validation error after depth 7 indicates deteriorating generalization. 
+C. False – Estimates based on very few cases are sensitive to their individual target values. 
+D. True – Hyperparameters should reﬂect validation performance, not training error alone. 
+E. False – Reserving the test set preserves an unbiased ﬁnal evaluation. 
+ 
+[ML-D6G3Q4] 
+A quantitative analyst builds an automated regime-classiﬁcation tree to predict equity market volatility regimes ("High 
+Volatility" vs. "Low Volatility") using intraday order-ﬂow features. The analyst leaves all growth constraints disabled 
+(max_depth = None, min_samples_split = 2, min_samples_leaf = 1). 
+The resulting tree grows to a depth of 28 levels until every leaf node is completely pure (100% single-class instances). 
+When evaluated, the model achieves 100% accuracy (0.0% training error) on historical data, but its out-of-sample 
+prediction performance on live market data degrades sharply. 
+The risk team conducts a diagnostic review of model complexity, structural depth, and variance behavior in unrestricted 
+decision trees. 
+Which of the following statements correctly evaluates how unrestricted tree growth drives overﬁtting, structural 
+complexity, and model instability? 
+ 
+A. Allowing a decision tree to grow without depth or leaf constraints guarantees low out-of-sample generalization error 
+because deep trees capture all ﬁne-grained, high-order feature interactions present in the data. 
+B. An unrestricted decision tree will continue splitting nodes until all leaves are pure or contain fewer samples than 
+min_samples_split, which effectively memorizes noisy training instances and creates fragmented, overﬁtted decision 
+boundaries. 
+C. Deep, unrestricted decision trees exhibit high bias and low variance because the vast number of terminal nodes 
+averages out estimation errors across the feature space. 
+D. In noisy ﬁnancial datasets, deep decision trees ﬁt small, random market ﬂuctuations near the bottom leaves, causing 
+the model to interpret transient noise as true structural signals. 
+E. A fully grown tree with K leaf nodes partitions the feature space into K distinct, non-overlapping hyper-rectangular 
+regions, where each region assigns predictions based on a tiny handful of historical samples. 
+ 
+Answer Key: 
+ 
+ 180 Rev:081020261230 
+ 
+A. False – Deep, unrestricted decision trees ﬁt the training noise rather than the underlying signal, leading to severe 
+overﬁtting and poor out-of-sample generalization. 
+B. True – Without constraints, trees expand recursively until terminal leaves achieve maximum purity (100%). In noisy 
+ﬁnancial environments, this forces the model to create isolated spatial pockets around noisy outlier points, resulting in 
+highly overﬁtted decision boundaries. 
+C. False – Unrestricted decision trees have low bias (they ﬁt training data almost perfectly) but high variance (small 
+perturbations in the training data cause drastic shifts in tree structure and predictions).  
+D. True – Financial time-series data contains a low signal-to-noise ratio. Deep nodes isolate tiny subsets of historical 
+data, treating random noise ticks as predictive rules and eroding test performance. 
+E. True – Every split in a decision tree creates orthogonal cuts. An unconstrained tree with K leaves constructs K high-
+dimensional hyper-rectangles, predicting target values from tiny, localized clusters of data points.  
+ 
+[ML-D6G3Q5] 
+A quantitative portfolio manager ﬁts a Decision Tree Regressor to predict daily excess stock returns using 15 
+macroeconomic and technical features. The training sample contains 500 daily observations. 
+The tree is grown without restrictions on maximum depth, minimum leaf size, or minimum impurity reduction. It 
+continues splitting until nearly every terminal node contains only one training observation. The resulting performance 
+differs sharply across datasets: 
+ Training set: MSEtrain= 0.000and 𝑅trainଶ = 1.000 
+ Test set: MSE is substantially worse than that of a baseline model that always predicts the historical mean return, 
+𝑦തtrain 
+The risk committee examines the tree’s capacity, geometric partitions, bias-variance behavior, and sensitivity to sample-
+speciﬁc noise. 
+Which of the following statements correctly describe how unrestricted growth affects the complexity and prediction 
+behavior of this regression tree? 
+A. Allowing the tree to grow deeper generally increases its ﬂexibility and reduces its training bias, but it can also increase 
+variance by making the ﬁtted structure more sensitive to the particular observations and noise in the training sample. 
+B. Repeated axis-aligned splits divide the feature space into progressively smaller hyperrectangular regions. When 
+terminal nodes contain individual observations, the tree can effectively memorize the training responses. 
+C. The tree’s zero training error demonstrates that daily excess returns are generated by a deterministic nonlinear process 
+that can be recovered exactly from the 15 features. 
+D. Increasing the training-sample size automatically limits an unconstrained tree’s maximum depth to logଶ(𝑝), where 𝑝is 
+the number of features, thereby preventing overﬁtting without pruning or other stopping rules. 
+E. Splits made deep in the tree ordinarily distinguish relatively small subsets of the training sample and are therefore 
+more likely than early splits to capture localized, sample-speciﬁc variation rather than broad patterns that generalize 
+reliably. 
+Answer Key: 
+ 
+ 181 Rev:081020261230 
+A. True – Tree depth is one measure of model ﬂexibility. A shallow tree divides the feature space into relatively few regions 
+and imposes a coarse approximation on the response function. A deeper tree creates more regions and can adapt more 
+closely to the training observations. 
+This increased ﬂexibility generally reduces training bias and training error. However, it also makes the ﬁtted model more 
+dependent on the exact composition of the training sample. A small change in the observations can alter selected 
+features or thresholds and propagate through downstream branches. Deep, minimally constrained trees therefore tend 
+to have low training bias but high variance. 
+It would be too strong to claim that bias must become exactly zero or variance must literally “explode” whenever another 
+level is added. The practical point is that unrestricted growth commonly shifts the model toward lower bias and higher 
+variance, potentially worsening test performance. (Ref: ISLR Ch. 8.1) 
+B. True – A standard CART split has the form 
+𝑋௝ ≤𝑠 versus 𝑋௝ >𝑠. 
+ 
+Each split divides an existing region along one feature axis. Repeating this process partitions the feature space into axis-
+aligned hyperrectangular regions. 
+For a regression tree, the prediction within a terminal region 𝑅௠is typically the mean response of the training observations 
+assigned to that region: 
+𝑓መ(𝑥) =𝑦തோ೘. 
+ 
+If 𝑅௠contains only one training observation 𝑖, then 
+𝑓መ(𝑥௜) =𝑦௜. 
+ 
+Thus, when distinct training observations can be isolated into single-observation leaves, the tree can reproduce their 
+responses exactly. This explains the perfect training ﬁt without implying that the ﬁtted partitions capture stable market 
+structure. 
+C. False – Zero training error shows that the tree has enough capacity to interpolate or memorize the observed training 
+sample. It does not establish that the underlying return-generating process is deterministic, noise-free, or completely 
+represented by the available features. 
+An unconstrained tree may ﬁt both genuine relationships and observation-speciﬁc noise. The poor test performance—
+especially relative to the historical-mean baseline—is evidence that the learned partitions do not generalize well to 
+unseen observations. 
+D. False – The number of features 𝑝does not impose a logଶ(𝑝)limit on tree depth. A tree may split repeatedly on the same 
+feature using different thresholds, so its depth is not capped by the number of available features. 
+Depth is more directly related to the number and arrangement of the training observations and the selected splits. A 
+balanced binary tree with approximately one observation per leaf may have depth on the order of 
+logଶ(𝑁), 
+ 
+whereas a highly unbalanced tree may have depth approaching 
+𝑁− 1. 
+ 
+ 
+ 182 Rev:081020261230 
+Adding more observations can therefore permit a larger and more complex unconstrained tree. Preventing excessive 
+growth requires explicit controls such as maximum depth, minimum leaf size, minimum impurity reduction, cost-
+complexity pruning, or validation-based model selection. 
+E. True – Splits near the root act on large portions of the training sample and typically identify relatively broad distinctions. 
+As the tree grows, each node contains fewer observations, and later splits distinguish increasingly localized subsets of 
+the feature space. 
+Because these deep splits are estimated from small samples, they are more susceptible to noise, outliers, and accidental 
+patterns in the training data. They may improve the training ﬁt while failing to represent relationships that recur out of 
+sample. 
+This is a general tendency rather than a rule that every deep split is spurious. Nevertheless, single-observation or very 
+small leaves are particularly likely to reﬂect sample-speciﬁc variation, which helps explain the large gap between the 
+tree’s training and test performance. 
+ 
+[ML-D6G3Q6] 
+A quantitative research team is developing a machine learning pipeline to classify equity market regimes into three 
+liquidity states ("High" , "Moderate" , "Low") using intraday order-ﬂow and volatility indicators. 
+During model exploration, the team compares two structural conﬁgurations of a Decision Tree Classiﬁer trained on 2,500 
+historical intraday snapshots: 
+Model A (Unconstrained Deep Tree): Allowed to grow fully until all terminal leaves are 100% pure (max_depth = None, 
+min_samples_leaf = 1). * Model B (Constrained Shallow Tree): Restricted to a moderate depth (max_depth = 4, 
+min_samples_leaf = 50). 
+The lead researcher presents a diagnostic comparison of the two models to explain how unrestricted tree growth impacts 
+model capacity, leaf variance, and out-of-sample generalization. 
+Which of the following statements correctly evaluates the relationship between tree depth, leaf sample size, and 
+overﬁtting behavior? 
+ 
+A. Model A achieves zero training classiﬁcation error because its unconstrained depth allows it to create isolated spatial 
+partitions around every training sample, effectively memorizing sample-speciﬁc noise. 
+B. Model B exhibits lower variance than Model A because forcing terminal leaf nodes to contain at least 50 samples 
+ensures that leaf predictions are calculated by averaging across larger subsets of data, smoothing out noisy ﬂuctuations. 
+C. As a decision tree grows deeper, the expected bias of its predictions increases while the variance decreases, making 
+deep trees structurally prone to underﬁtting. 
+D. In Model A, a slight change in a single training observation near a high-depth split can alter the entire subtree beneath 
+it, demonstrating the high variance inherent in deep, unconstrained trees. 
+E. Model B is guaranteed to achieve lower training error than Model A because setting max_depth = 4 forces the CART 
+algorithm to ﬁnd more globally optimal splits near the root of the tree. 
+ 
+Answer Key: 
+ 
+ 183 Rev:081020261230 
+ 
+A. True – An unconstrained tree expands recursively until every terminal leaf is pure or contains fewer samples than 
+min_samples_split. In noisy ﬁnancial datasets, this creates ﬁne-grained, localized decision regions that ﬁt sample-
+speciﬁc noise, yielding 0% training error but poor generalization.  
+B. True – Requiring min_samples_leaf = 50 acts as a direct variance-reduction mechanism. Instead of basing a leaf's 
+prediction on 1 or 2 isolated data points, the prediction is backed by a statistically meaningful sample size (N≥50), making 
+the model far less sensitive to individual noise ticks.  
+C. False – Deep trees exhibit the exact opposite behavior: low bias (high capacity to ﬁt training relationships) and high 
+variance (extreme sensitivity to small changes in training data). 
+D. True – Deep decision trees are notoriously high-variance models. Small perturbations in the training dataset can alter 
+split thresholds or feature choices, causing downstream branches to diverge and changing ﬁnal predictions for unseen 
+test cases.  
+E. False – Model B is not guaranteed to achieve lower training error. Its depth and leaf-size constraints reduce the set of 
+partitions it can represent, while Model A is explicitly allowed to grow until its terminal leaves are pure. Therefore, in this 
+scenario, 
+Training Error஺ = 0 
+and 
+Training Error஻ ≥Training Error஺. 
+Restricting the depth also does not cause CART to ﬁnd more globally optimal root splits. CART remains a greedy 
+algorithm: at each node, it selects the locally best available split without jointly optimizing the entire ﬁnal tree. Model B 
+may nevertheless achieve lower out-of-sample error because its constraints reduce variance and limit its ability to ﬁt 
+sample-speciﬁc noise. 
+ 
+G4: Hyperparameters as Control Mechanisms 
+[ML-D6G4Q1] 
+A regression tree for forecasting returns is changed from unlimited depth to a maximum depth of 4. No other setting 
+changes. The restricted tree has fewer leaves, slightly higher training error, and lower validation error. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. Maximum depth directly limits the length of root-to-leaf decision paths. 
+B. The higher training error is compatible with reduced model capacity. 
+C. The lower validation error suggests that the depth restriction improved generalization in this experiment. 
+D. A maximum depth of 4 guarantees the best result for every ﬁnancial dataset. 
+E. Reducing maximum depth can act as a form of regularization. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+ 184 Rev:081020261230 
+ 
+A. False – The setting caps how many successive split levels the tree may use. 
+B. False – A constrained tree cannot ﬁt all patterns available to the unrestricted tree. 
+C. False – Performance on held-out data improved after the capacity constraint was imposed. 
+D. True – Appropriate complexity depends on the data, task, and validation evidence. 
+E. False – Limiting depth reduces ﬂexibility and can curb overﬁtting. 
+ 
+[ML-D6G4Q2] 
+A classiﬁcation tree currently permits leaves with one training observation. The team raises the minimum leaf size to 50 
+observations. Rare but genuine market regimes contain only 20 examples, while several isolated mislabeled records also 
+exist. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The larger minimum leaf size can prevent singleton leaves caused by isolated records. 
+B. The change may reduce variance by making leaf predictions depend on more observations. 
+C. The rare 20-observation regimes may be merged with broader patterns and become harder to detect. 
+D. Raising minimum leaf size can only reduce bias and can never cause underﬁtting. 
+E. Selecting the setting involves a tradeoff between robustness and preservation of local structure. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Leaves smaller than the new threshold are no longer permitted. 
+B. False – Aggregating more cases generally makes individual leaf estimates less sample-sensitive. 
+C. False – The constraint may suppress real patterns supported by fewer than 50 observations. 
+D. True – Stronger constraints can increase bias and cause underﬁtting. 
+E. False – The hyperparameter controls both noise sensitivity and the resolution of learned patterns. 
+ 
+[ML-D6G4Q3] 
+A researcher jointly tunes maximum depth and minimum leaf size. One candidate uses depth 20 with leaves as small as 
+2; another uses depth 6 with leaves of at least 100. The ﬁrst ﬁts training data closely, while the second produces 
+smoother, broader partitions. 
+ 
+ 
+ 185 Rev:081020261230 
+A. The following claim is false: Maximum depth and minimum leaf size both inﬂuence effective tree complexity. 
+B. The depth-20, leaf-size-2 candidate is generally capable of representing ﬁner partitions. 
+C. The depth-6, leaf-size-100 candidate is guaranteed to have lower test error. 
+D. Evaluating combinations on validation data is more appropriate than choosing solely from their training errors. 
+E. Hyperparameter tuning on the ﬁnal test set would compromise the test set's role as an unbiased ﬁnal check. 
+ 
+Answer Key: 
+ 
+A. False – Both settings restrict how detailed the learned partition can become. 
+B. True – Greater permitted depth and smaller leaves allow more localized rules. 
+C. False – Simpler structure may generalize better or may underﬁt; validation is required. 
+D. True – Validation estimates the generalization tradeoff among candidate settings. 
+E. True – Repeatedly choosing settings from test results leaks test information into model selection. 
+ 
+[ML-D6G4Q4] 
+A quantitative analyst is tuning a Decision Tree Classiﬁer designed to predict short-term equity directional momentum 
+using 12 technical and macroeconomic features. The model is trained on 10,000 hourly historical bar updates. 
+To prevent the model from memorizing noise while maintaining sufficient capacity to capture genuine non-linear market 
+regimes, the analyst systematically evaluates the structural effects of key tree-growth hyperparameters: max_depth, 
+min_samples_split, min_samples_leaf, and max_leaf_nodes. 
+Which of the following statements correctly evaluates how these hyperparameter controls govern decision tree capacity, 
+bias-variance trade-offs, and structural growth? 
+For this question, mark each statement True if it is incorrect and False if it is accurate. 
+ 
+A. Increasing min_samples_leaf forces the algorithm to halt node partitioning whenever a candidate split would produce 
+a child node with fewer than the speciﬁed threshold of training instances, acting as a variance-reduction mechanism. 
+B. Decreasing max_depth reduces the structural capacity of the tree, which lowers model variance and increases 
+systematic bias by forcing the model to rely on broader, coarser spatial partitions of the feature space. 
+C. Setting min_samples_split = 100 guarantees that every resulting terminal leaf node in the ﬁnal decision tree will 
+contain at least 100 training observations. 
+D. Constraining max_leaf_nodes limits the total number of terminal regions in the feature space, allowing the tree to grow 
+asymmetrically by prioritizing the splits that offer the highest global reduction in impurity regardless of uniform depth 
+limits. 
+E. Unlike 𝐿ଵand 𝐿ଶregularization, which add penalty terms to a model’s optimization objective, controls such as 
+max_depth and min_samples_leaf constrain which tree structures CART is permitted to construct without changing the 
+impurity criterion used to evaluate admissible splits. 
+ 
+ 186 Rev:081020261230 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – min_samples_leaf sets a hard lower bound on the number of samples required to form a terminal node. By 
+preventing the tree from creating leaves backed by only 1 or 2 isolated, potentially noisy data points, it effectively controls 
+model variance and smoothes decision boundaries.  
+B. False – max_depth limits the maximum number of sequential splits from root to leaf. A shallower tree simpliﬁes the 
+model's spatial decision boundaries, reducing sensitivity to sample noise (lower variance) at the cost of less ﬂexibility to 
+ﬁt complex interactions (higher bias).  
+C. True – min_samples_split governs whether an internal node is eligible to be split further, whereas min_samples_leaf 
+governs the minimum size of the resulting child nodes. A split on a node with 100 samples could produce child nodes 
+with 99 and 1 samples, yielding a leaf far smaller than 100 unless min_samples_leaf is also set.  
+D. False – While max_depth imposes a uniform horizontal depth cap across all branches, max_leaf_nodes grows the tree 
+in a best-ﬁrst (impurity-reduction) manner. It selectively expands whichever branch offers the highest immediate gain, 
+resulting in an asymmetrical tree optimized for maximum overall error reduction under a ﬁxed region budget.  
+E. False – Parameters such as max_depth and min_samples_leaf are structural constraints or pre-pruning rules. They 
+reduce model ﬂexibility by limiting the depth of the tree or prohibiting leaves containing too few observations. However, 
+CART still evaluates permitted splits using the same underlying impurity criterion, such as Gini impurity, cross-entropy, 
+or squared error. 
+This differs from 𝐿ଵand 𝐿ଶregularization, which modify an optimization objective by adding a coefficient penalty: 
+Objective=Loss+𝜆Ω(𝛽). 
+Thus, the statement is accurate and is marked False under the question’s reversed scoring convention. Cost-complexity 
+pruning is a related but distinct tree-regularization method that explicitly evaluates a penalized objective involving both 
+ﬁt and tree size. 
+ 
+[ML-D6G4Q5] 
+You are a Machine Learning Engineer at a quantitative hedge fund improving a decision tree used to select stocks for a 
+market-neutral portfolio. The Research Director notices that one version of the tree has grown hundreds of branches and 
+perfectly classiﬁes historical training data, but the model performs inconsistently on new market periods. The Model Risk 
+Officer asks your team how tree complexity controls can improve reliability without eliminating useful predictive patterns. 
+A. Increasing the maximum depth of a decision tree generally allows the model to capture more complex relationships in 
+the training data. 
+B. Limiting tree depth can reduce overﬁtting by preventing the model from creating overly speciﬁc rules based on small 
+subsets of observations. 
+C. Increasing the minimum number of observations required in a leaf usually makes a decision tree more ﬂexible and 
+increases variance. 
+D. A decision tree with unlimited depth will always generalize better because it can learn more detailed patterns from the 
+data. 
+ 
+ 187 Rev:081020261230 
+E. Hyperparameters such as maximum depth and minimum leaf size control the tradeoff between model complexity and 
+generalization. 
+ 
+Answer Key: 
+ 
+A. True – Deeper trees contain more splits and can represent more detailed patterns and interactions among variables. 
+However, excessive depth can allow the model to ﬁt noise in the training data.  
+B. True – Restricting tree depth prevents the model from creating highly speciﬁc rules that apply only to small groups of 
+training observations, reducing the risk of overﬁtting. ( 
+C. False – Increasing the minimum leaf size generally makes a tree less complex by requiring each terminal node to 
+contain more observations. This often reduces variance and can improve generalization.  
+D. False – An unrestricted tree can memorize training examples and achieve very low training error while performing 
+poorly on unseen data. Greater complexity does not guarantee better generalization.  
+E. True – Hyperparameters such as maximum depth, minimum leaf size, and pruning choices determine how complex 
+the tree can become and help balance ﬁtting the data against generalizing to new observations.) 
+ 
+[ML-D6G4Q6] 
+A risk management quantitative analyst is auditing an automated trade-execution model that utilizes a Decision Tree 
+Regressor to estimate market impact (in basis points) for large institutional orders. The training set consists of 50,000 
+historical order execution records across 20 microstructure features. 
+During a hyperparameter grid search, the team compares four distinct tuning conﬁgurations: 
+Conﬁg 1: max_depth = 3, min_samples_split = 2, min_samples_leaf = 1 * Conﬁg 2: max_depth = None, min_samples_split 
+= 500, min_samples_leaf = 250 * Conﬁg 3: max_depth = None, min_samples_split = 10, min_samples_leaf = 1 * Conﬁg 4: 
+max_leaf_nodes = 16 
+The team evaluates how these speciﬁc hyperparameter settings alter the tree's geometric structure, computational 
+efficiency, and bias-variance proﬁle. 
+Which of the following statements correctly evaluates the architectural and statistical behavior driven by these decision 
+tree hyperparameter conﬁgurations? 
+For this question, mark each statement True if it is incorrect and False if it is accurate. 
+ 
+A. Conﬁg 1 limits every root-to-leaf path to at most three splits and therefore permits no more than 2ଷ = 8terminal leaves. 
+It does not require the tree to be complete or symmetric; some branches may stop before reaching the maximum depth. 
+B. In Conﬁg 2, setting min_samples_leaf = 250 ensures that every leaf node prediction is an average computed over at 
+least 250 historical orders, which signiﬁcantly stabilizes the leaf-node variance compared to unconstrained trees. 
+C. Conﬁg 3 effectively prevents severe overﬁtting because setting min_samples_split = 10 forces every leaf node to 
+contain at least 10 training instances. 
+ 
+ 188 Rev:081020261230 
+D. Conﬁg 4 uses best-ﬁrst node expansion (expanding nodes that offer the maximum reduction in impurity) to build an 
+asymmetric tree capped at 16 leaves, offering a more ﬂexible allocation of model capacity than a strict max_depth 
+uniform restriction. 
+E. Increasing min_samples_leaf systematically increases training error (higher bias) while lowering out-of-sample 
+prediction variance on noisy, unseen order-ﬂow data. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – The statement is accurate. Setting max_depth = 3 limits the longest root-to-leaf path to three splits, so a binary 
+tree can contain at most 
+2ଷ = 8 
+terminal leaves. However, max_depth establishes only an upper bound: CART may stop a branch earlier when no 
+admissible split improves the objective or another stopping condition applies. The resulting tree can therefore be 
+asymmetric and contain fewer than eight leaves. 
+This depth restriction reduces the model’s structural capacity, which generally lowers variance and improves 
+interpretability while potentially increasing bias when market impact depends on complex interactions or highly localized 
+regimes. 
+B. False – min_samples_leaf = 250 acts as a direct lower bound on leaf sample size. Bounding the minimum sample size 
+prevents the tree from forming isolated leaves around single outlier trades, smoothing out noise and lowering model 
+variance.  
+C. True – min_samples_split = 10 dictates the minimum number of samples required to attempt a split on an internal 
+node. A split on an internal node with 10 samples could split into child nodes of sizes 9 and 1, leaving a leaf with only 1 
+instance. min_samples_leaf is required to guarantee minimum leaf size.  
+D. False – max_leaf_nodes grows trees greedily based on relative impurity reduction rather than depth level. This allows 
+deep splits along highly informative feature branches while keeping uninformative branches shallow, optimizing leaf 
+budget allocation. ( 
+E. False – Constraining tree capacity by requiring larger sample sizes per leaf prevents the model from ﬁtting ﬁne-grained 
+sample noise, which increases training error (bias) but stabilizes out-of-sample performance (variance).  
+ 
+G5: Stability and Sensitivity 
+[ML-D6G5Q1] 
+Two decision trees are trained with identical settings on nearly identical datasets. The second dataset differs only 
+because ﬁve observations were removed. The trees choose different root features and produce noticeably different 
+predictions for some market states. 
+ 
+A. This behavior illustrates the instability of individual decision trees. 
+B. Small data changes can alter an early split and thereby change many downstream nodes. 
+ 
+ 189 Rev:081020261230 
+C. Identical hyperparameters guarantee identical trees even when the training samples differ. 
+D. Different tree structures can still make the same prediction for some observations. 
+E. Stability concerns are irrelevant if both trees achieve low training error. 
+ 
+Answer Key: 
+ 
+A. True – Substantial structural change from a small sample change is model instability. 
+B. True – An altered upper-level split changes the data available to later splits. 
+C. False – The learned structure also depends on the particular training observations. 
+D. True – Distinct paths or partitions may nevertheless assign equal outputs in some regions. 
+E. False – Low training error does not show that predictions are reliable across samples or on unseen data. 
+ 
+[ML-D6G5Q2] 
+At one node, splits on momentum and volatility yield almost identical impurity reductions. Adding one newly observed 
+day causes the volatility split to edge ahead, replacing momentum at that node and changing several lower branches. 
+ 
+A. Near-ties among candidate splits can make tree structure sensitive to small data changes. 
+B. Replacing one split can change which observations reach descendant nodes. 
+C. The new structure proves that volatility is permanently and universally more important than momentum. 
+D. Predictions far from the affected regions may remain unchanged. 
+E. A deterministic training algorithm must return the same tree for all possible training samples. 
+ 
+Answer Key: 
+ 
+A. True – A small perturbation can reverse the order of nearly equal criterion values. 
+B. True – Descendant nodes are trained on the cases routed to them by their ancestors. 
+C. False – The choice is sample- and criterion-dependent, especially in a near-tie. 
+D. True – Some observations can continue to reach leaves with the same predictions. 
+E. False – Determinism ﬁxes the result for a given input dataset, not across different datasets. 
+ 
+ 
+ 190 Rev:081020261230 
+[ML-D6G5Q3] 
+A portfolio team retrains a single decision tree each month. Feature importance rankings and trade signals ﬂuctuate 
+considerably even though aggregate validation accuracy remains similar. The team is deciding how to assess reliability 
+before deployment. 
+ 
+A. Similar aggregate accuracy does not guarantee that individual predictions are stable. 
+B. Comparing outputs across resampled or rolling training sets can reveal sensitivity. 
+C. A stable average score proves that the same features and paths are used every month. 
+D. Operational risk can arise when small sample changes cause large changes in positions. 
+E. The team should ignore instability because prediction consistency never matters in trading. 
+ 
+Answer Key: 
+ 
+A. True – Models can have similar average performance while disagreeing on particular cases. 
+B. True – Repeated training under plausible data perturbations provides evidence about variability. 
+C. False – Equal summary scores can arise from substantially different structures and decisions. 
+D. True – Unstable signals can create turnover, changing exposures, and unreliable behavior. 
+E. False – Consistency can matter for risk, transaction costs, trust, and deployment controls. 
+ 
+[ML-D6G5Q4] 
+You are a Quantitative Research Lead at a hedge fund reviewing a decision tree used to classify trading opportunities. 
+Two analysts independently retrain the model using nearly identical historical datasets, differing only by a handful of 
+observations from recent market activity. Surprisingly, the resulting trees have noticeably different structures and 
+occasionally make different predictions. The Chief Risk Officer asks whether this behavior is expected and what it implies 
+about the reliability of decision trees. 
+ 
+A. Small changes in the training data can produce different decision tree structures because tree construction is sensitive 
+to the available observations. 
+B. If two decision trees are trained on nearly identical datasets, they are guaranteed to produce identical sequences of 
+splits. 
+C. The instability of a single decision tree is one motivation for ensemble methods such as bagging and random forests. 
+D. A decision tree that changes structure after minor modiﬁcations to the training data necessarily indicates that the 
+learning algorithm is incorrect. 
+E. High sensitivity to small changes in the training data is associated with higher model variance. 
+ 
+ 
+ 191 Rev:081020261230 
+Answer Key: 
+ 
+A. True – Decision trees are known to be unstable learners. Small changes in the training data can alter which split 
+appears optimal, resulting in a different tree structure.  
+B. False – Even minor differences in the training data can change impurity calculations and split choices, leading to 
+different trees. Identical structures are not guaranteed.  
+C. True – One of the primary motivations for bagging and random forests is to reduce the high variance and instability of 
+individual decision trees by averaging predictions across many trees.  
+D. False – Structural changes do not imply that the algorithm is ﬂawed. They are a known characteristic of greedy tree 
+construction and reﬂect the model's sensitivity to the training data.  
+E. True – Models whose predictions change substantially due to small changes in the training data are considered high-
+variance learners. Decision trees are a classic example.  
+ 
+[ML-D6G5Q5] 
+A quantitative analyst builds a Decision Tree Classiﬁer to predict daily equity-market regimes—“Bullish” or “Bearish”—
+using 10 macroeconomic and technical indicators. The model is trained on 2,000 historical trading sessions. 
+To evaluate the model’s reliability, the analyst performs a sensitivity test. Five randomly selected trading days—only 
+0.25% of the training sample—are removed, and the tree is reﬁtted using the same hyperparameters: 
+ max_depth = None  
+ min_samples_split = 2  
+After reﬁtting, the root split changes from 𝑋ଵ, the 14-Day RSI, to 𝑋ଷ, 10-Day Volatility. Because all subsequent nodes are 
+constructed conditionally on the root partition, the change produces a substantially different tree, including different 
+downstream splits, branches, and predicted market regimes for hundreds of historical dates. 
+The risk committee evaluates the causes, structural mechanics, and practical consequences of this instability. 
+Which of the following statements correctly describe structural instability and data sensitivity in Decision Trees? 
+A. Decision trees are generally high-variance estimators because their greedy, hierarchical construction makes every 
+downstream split conditional on the splits selected above it. A change to an early split can therefore alter much of the 
+remaining tree. 
+B. Applying a strictly monotonic nonlinear transformation—such as a logarithm to a positive-valued feature—ordinarily 
+reduces structural instability because the transformation changes the relative ordering of observations and creates more 
+reliable candidate partitions. 
+C. In a trading application, structural instability can produce changing feature-importance rankings and inconsistent 
+trading signals when the model is retrained, potentially increasing turnover, transaction costs, and unintended risk 
+exposures. 
+D. The variance and sample sensitivity of individual decision trees provide an important motivation for bagging and 
+Random Forests, which aggregate predictions from multiple trees to produce a more stable estimator. 
+E. Increasing the permitted tree depth generally increases structural instability because deeper trees can form 
+increasingly localized partitions that are sensitive to small changes in the training sample. 
+ 
+ 192 Rev:081020261230 
+Answer Key: 
+A. True – Decision trees are generally high-variance estimators because their greedy, hierarchical construction makes 
+every downstream split conditional on the splits selected above it. A change to an early split can therefore alter much of 
+the remaining tree. 
+B. True - In a trading application, structural instability can produce changing feature-importance rankings and 
+inconsistent trading signals when the model is retrained, potentially increasing turnover, transaction costs, and 
+unintended risk exposures. 
+C. True -  The variance and sample sensitivity of individual decision trees provide an important motivation for bagging and 
+Random Forests, which aggregate predictions from multiple trees to produce a more stable estimator. 
+D. False - Applying a strictly monotonic nonlinear transformation—such as a logarithm to a positive-valued feature—
+ordinarily reduces structural instability because the transformation changes the relative ordering of observations and 
+creates more reliable candidate partitions. 
+E. True - Increasing the permitted tree depth generally increases structural instability because deeper trees can form 
+increasingly localized partitions that are sensitive to small changes in the training sample. 
+ 
+[ML-D6G5Q6] 
+A quantitative portfolio manager is reviewing an automated trading algorithm that uses a single Decision Tree Classiﬁer 
+to assign daily market regimes. During quarterly rebalancing, the model is retrained after appending the latest 5 days of 
+market data to the existing 3-year historical dataset. 
+The manager notices that adding these 5 new observations caused the root node feature split to change completely, 
+triggering a total re-organization of all downstream splits and drastically altering predicted portfolio allocations across 
+historical backtest dates. 
+The quantitative research team investigates the root causes of structural sensitivity and data instability in decision trees. 
+Which of the following statements correctly describes the mechanics and stability properties of decision trees under 
+data perturbations? 
+ 
+A. Single decision trees are structurally stable estimators because their top-down, greedy split selection relies on global 
+optimization, ensuring that adding new data points only causes localized adjustments at the deepest leaf nodes. 
+B. Applying a strictly monotonic transformation to a continuous feature—such as taking ln(𝑋)for positive 𝑋or applying z-
+score standardization—changes the feature’s numerical scale and corresponding split-threshold values but ordinarily 
+preserves the candidate partitions of the training observations. Therefore, it does not inherently stabilize the tree against 
+changes in the training sample. 
+C. Increasing the maximum tree depth (max_depth) reduces structural variance because deeper trees provide a ﬁner 
+spatial grid that buffers the root node against perturbations in the training dataset. 
+D. The structural sensitivity of individual decision trees to minor data changes is a primary driver of model variance, 
+providing the core mathematical motivation for ensemble methods like Bagging and Random Forests that average over 
+diverse bootstrapped trees. 
+E. Decision trees exhibit low sensitivity to noisy outliers because continuous feature splits are determined by calculating 
+the overall variance across all features simultaneously rather than evaluating individual feature thresholds. 
+ 
+ 193 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. False – Decision trees rely on local, greedy splitting rather than global optimization. A slight change in data near the 
+root node can select a completely different feature or split threshold, which cascades down and radically alters the entire 
+downstream tree topology.  
+B. False – Standard CART evaluates splits according to the partition of observations produced by a threshold: 
+𝑋௝ ≤𝑠 versus 𝑋௝ >𝑠. 
+ 
+A strictly increasing transformation preserves the ordering of the observations. Thus, a split at 𝑋௝ ≤𝑠has an equivalent 
+transformed threshold that places the same observations in each child node. For example: 
+𝑋௝ ≤𝑠  ⟺  ln൫𝑋௝൯≤ ln(𝑠), 
+when 𝑋௝ > 0. Z-score standardization similarly preserves ordering when it uses a positive standard deviation. 
+The reported numerical thresholds change, but the available training-sample partitions—and ordinarily the ﬁtted tree’s 
+structure and predictions—remain unchanged. Consequently, these transformations do not make the tree less sensitive 
+to adding or removing observations. 
+Exceptions may arise from transformations that are not strictly monotonic, are undeﬁned for some values, create ties, or 
+interact with numerical precision or implementation details. 
+C. False – Deepening a tree increases model capacity and sensitivity to sample noise, which increases (rather than 
+decreases) structural instability and overall model variance. 
+D. True – Individual decision trees suffer from high variance and structural instability. Ensemble methods directly exploit 
+this behavior by aggregating predictions across many decorrelated trees grown on bootstrapped data samples, 
+dramatically stabilizing predictions and lowering variance.  
+E. False – Decision trees evaluate candidate splits feature by feature. Highly skewed noise or extreme outlier ticks near 
+split thresholds can easily displace split points, making single decision trees notoriously sensitive to noisy training data.  
+ 
+G6: Strengths of Decision Trees 
+[ML-D6G6Q1] 
+A trading rule depends on an interaction: positive momentum predicts gains only when volatility is below 2%; when 
+volatility is higher, the relationship reverses. A decision tree ﬁrst splits on volatility and then uses different momentum 
+thresholds in the two branches. 
+ 
+A. The tree can represent different momentum relationships in different volatility regions. 
+B. Sequential splits can model nonlinear interactions without adding an explicit momentum-times-volatility feature. 
+C. A decision tree is limited to ﬁtting one global linear coefficient for momentum. 
+D. The described structure can be expressed as a set of conditional rules. 
+ 
+ 194 Rev:081020261230 
+E. The ability to represent the interaction guarantees that it will generalize from a small noisy sample. 
+ 
+Answer Key: 
+ 
+A. True – Separate branches can apply different decision rules to low- and high-volatility observations. 
+B. True – Hierarchical partitioning naturally represents conditional feature effects. 
+C. False – Trees do not require one global linear relationship. 
+D. True – Each root-to-leaf path deﬁnes an if-and-then rule. 
+E. False – Representational capacity does not eliminate estimation error or overﬁtting risk. 
+ 
+[ML-D6G6Q2] 
+A dataset contains return as a decimal, volume in shares, and volatility in percent. An analyst multiplies volume by 1,000 
+and asks whether an ordinary decision tree must standardize the features before ﬁtting. 
+ 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. Tree splits compare values within one feature at a time, so differing feature units do not directly distort a cross-feature 
+distance. 
+B. Multiplying volume by a positive constant changes its numerical thresholds but need not change the ordering of 
+volume observations. 
+C. Standardization is mandatory for a decision tree to function correctly. 
+D. Rescaling a feature can matter for algorithms based on Euclidean distance even when it does not materially change 
+the corresponding tree partitions. 
+E. Freedom from required scaling means irrelevant features can never harm a tree. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Trees choose per-feature thresholds rather than calculating distances across mixed units. 
+B. False – A positive rescaling preserves order, allowing equivalent partitions with rescaled threshold values. 
+C. True – Ordinary tree learning generally does not require feature standardization. 
+D. False – Distance-based methods are sensitive to relative numeric scale in a way trees usually are not. 
+E. True – Irrelevant features can still encourage spurious splits and overﬁtting. 
+ 
+ 
+ 195 Rev:081020261230 
+[ML-D6G6Q3] 
+A compliance analyst receives a small tree that rejects a proposed trade whenever liquidity is below a threshold and 
+leverage is above another threshold. The analyst can trace a rejected trade through four nodes to its leaf. A much deeper 
+alternative has slightly better validation accuracy. 
+ 
+A. The small tree provides a human-readable path explaining this individual result. 
+B. A tree's conditional structure can support rule-based communication with stakeholders. 
+C. Every decision tree remains equally interpretable regardless of its size or depth. 
+D. Interpretability can be a relevant model-selection consideration alongside predictive accuracy. 
+E. A readable decision path proves that the learned rule is economically valid and fair. 
+ 
+Answer Key: 
+ 
+A. True – The analyst can identify the exact sequence of conditions leading to rejection. 
+B. True – Root-to-leaf paths can be presented as explicit conditional rules. 
+C. False – Large, deep trees can become difficult to understand as a whole. 
+D. True – Deployment choices may balance performance with transparency and governance needs. 
+E. False – Transparency permits inspection but does not establish validity, fairness, or causality. 
+ 
+[ML-D6G6Q4] 
+A quantitative research team is presenting a machine-learning model-selection framework to an institutional risk 
+committee. The team proposes replacing a high-dimensional logistic regression model—which required extensive 
+feature engineering, nonlinear spline transformations, logarithmic scaling, and missing-data imputation—with a 
+Decision Tree Classiﬁer for modeling credit-default risk among corporate borrowers. 
+The committee requests an evaluation of the inherent strengths and limitations of Decision Trees, with particular 
+attention to feature scaling, nonlinear modeling, data preparation, computational behavior, and the interpretability of 
+individual predictions. 
+Which of the following statements correctly evaluate the architectural, computational, and operational properties of 
+Decision Trees? 
+For this question, mark each statement True if it is incorrect and False if it is accurate. 
+A. Applying a strictly monotonic transformation to an individual continuous feature—such as a logarithmic 
+transformation over a positive domain or z-score standardization—changes the numerical split thresholds but ordinarily 
+preserves the candidate partitions of the training observations. 
+B. Through hierarchical, conditional splitting, Decision Trees can represent nonlinear relationships and feature 
+interactions without requiring the analyst to specify polynomial terms, splines, or explicit interaction variables in 
+advance. 
+ 
+ 196 Rev:081020261230 
+C. Standard Decision Tree implementations universally accept unordered categorical variables and missing feature 
+values without preprocessing because native categorical splitting and surrogate splits are inherent requirements of the 
+CART algorithm. 
+D. A Decision Tree partitions the feature space into localized, axis-aligned regions, allowing an individual prediction to be 
+explained by tracing a sequence of “if-then” conditions from the root node to a terminal leaf. 
+E. Because CART greedily chooses the best available split at each node, the resulting fully grown tree is globally optimal 
+and does not require cross-validation, pruning, or other complexity controls. 
+Answer Key (True = incorrect; False = accurate): 
+A. False – The statement is accurate. A standard CART split partitions observations according to a threshold: 
+𝑋௝ ≤𝑠 versus 𝑋௝ >𝑠. 
+ 
+A strictly increasing transformation preserves the ordering of the observed feature values. Therefore, the original and 
+transformed features ordinarily offer corresponding thresholds that produce the same partitions. 
+For example, when 𝑋௝ > 0, 
+𝑋௝ ≤𝑠  ⟺  ln൫𝑋௝൯≤ ln(𝑠). 
+ 
+Similarly, z-score standardization changes the feature’s scale but preserves its ordering. The reported threshold values 
+change, but the candidate partitions—and ordinarily the ﬁtted structure and predictions—remain the same. 
+This invariance is not absolute. Exceptions can arise when a transformation is not strictly monotonic, is undeﬁned for 
+some values, creates or changes ties, or interacts with numerical precision or implementation-speciﬁc behavior. 
+Nevertheless, Decision Trees generally do not require feature standardization in the way that distance-based methods 
+such as KNN do.  
+B. False – The statement is accurate. Decision Trees create hierarchical conditional rules. A branch may, for example, 
+split on 𝑋ଶonly after an earlier split establishes that 𝑋ଵ >𝑠ଵ. This allows the effect of one feature to depend on the value 
+of another, thereby representing feature interactions without manually constructed interaction terms. 
+Repeated splits also create piecewise-constant decision regions capable of representing nonlinear threshold effects. 
+Trees therefore do not require polynomial features or spline bases to move beyond the global linear decision boundary of 
+an ordinary logistic regression model. 
+However, standard trees use axis-aligned splits. Smooth or diagonal relationships may require many rectangular regions 
+to approximate effectively.  
+C. True – The statement is incorrect because these capabilities are implementation-dependent rather than universal 
+properties of Decision Trees or CART. 
+Some tree algorithms and software packages support categorical predictors directly, while others require categories to 
+be converted into numerical representations, such as one-hot-encoded indicator variables. Similarly, some 
+implementations use surrogate splits or other mechanisms to route observations with missing values, but many require 
+missing-data imputation or provide only limited native missing-value support. 
+Accordingly, an analyst must evaluate the capabilities of the particular tree implementation being used. Decision Trees 
+should not automatically be assumed to eliminate all categorical-data encoding or missing-data preparation. 
+D. False – The statement is accurate. Each binary split divides an existing region using a condition involving one feature, 
+such as 
+ 
+ 197 Rev:081020261230 
+𝑋௝ ≤𝑠. 
+Repeated splits partition the feature space into axis-aligned, hyperrectangular regions. An individual borrower’s 
+prediction can be explained by following the borrower’s path from the root to a leaf—for example: 
+Leverage> 0.65 and Interest Coverage≤ 2.1 ⟹  Elevated Default Risk. 
+This rule-based path can be intuitive for analysts, risk managers, and regulators. However, interpretability generally 
+declines as the tree becomes deeper and more complex; a small tree is considerably easier to understand than a large, 
+unconstrained one.  
+E. True – The statement is incorrect. CART uses greedy, top-down recursive splitting. At each node, it selects the feature 
+and threshold that produce the greatest immediate improvement in the chosen criterion. It does not jointly search all 
+possible tree structures to guarantee a globally optimal ﬁnal tree. 
+An unconstrained tree can also create small, highly localized leaves that ﬁt noise in the training data. This typically 
+produces low training error but high variance and poor out-of-sample performance. 
+Validation or cross-validation is therefore commonly used to select controls such as max_depth, min_samples_leaf, 
+max_leaf_nodes, or the cost-complexity pruning parameter 𝛼. Greedy splitting neither guarantees global optimality nor 
+eliminates the need for model selection and complexity control.  
+ 
+[ML-D6G6Q5] 
+A quantitative portfolio manager is explaining to a compliance auditor why a Decision Tree Regressor was selected over 
+a Multi-Layer Perceptron (Neural Network) to predict stock return volatility. The compliance auditor requires that all 
+models deployed in production be fully auditable, resistant to arbitrary scale transformations, and capable of handling 
+raw ﬁnancial features without complex pre-processing pipelines. 
+The manager highlights several core architectural advantages of decision trees that satisfy these regulatory and 
+operational requirements. 
+Which of the following statements correctly describes an architectural strength or operational advantage of Decision 
+Trees? 
+ 
+A. Decision trees require minimal data pre-processing because they are immune to monotonic feature scaling, meaning 
+that converting a raw dollar volume feature into logarithmic scale or applying min-max normalization has zero effect on 
+the resulting tree splits. 
+B. Decision trees eliminate the risk of overﬁtting on noisy ﬁnancial datasets because their top-down recursive partitioning 
+algorithm automatically caps tree depth when model variance exceeds bias. 
+C. Decision trees scale seamlessly to high-dimensional datasets because their top-down recursive partitioning algorithm 
+guarantees ﬁnding the globally optimal combination of splits across all features in linear time. 
+D. Decision trees generate linear decision boundaries across continuous features, making them mathematically 
+equivalent to Multiple Linear Regression when ﬁtted without depth constraints. 
+E. Decision trees perform implicit feature selection, capturing conditional non-linear interactions natively and providing 
+transparent "if-then" decision pathways from root to leaf node. 
+ 
+Answer Key: 
+ 
+ 198 Rev:081020261230 
+ 
+A. True – Decision Trees generally require little feature scaling because standard CART splits depend on the ordering of 
+observations rather than the units in which a feature is measured. A strictly monotonic transformation preserves the 
+candidate partitions of the training data. 
+For example, when dollar volume is positive, 
+𝑋௝ ≤𝑠  ⟺  ln൫𝑋௝൯≤ ln(𝑠). 
+ 
+Similarly, min-max normalization preserves the ordering of feature values. These transformations change the numerical 
+values of the reported split thresholds, but ordinarily do not change which observations fall on each side of a split or, 
+consequently, the ﬁtted tree’s structure and predictions. 
+This invariance is not absolute: exceptions can arise if a transformation is not strictly monotonic, is undeﬁned for some 
+values, creates or changes ties, or interacts with ﬁnite numerical precision or implementation-speciﬁc behavior.  
+B. False – Unconstrained decision trees are notoriously prone to severe overﬁtting. They continue splitting nodes until 
+leaves are pure or contain fewer samples than min_samples_split, memorizing noise unless explicit stopping rules or 
+post-pruning are enforced.  
+C. False – CART is a top-down greedy algorithm that selects splits locally at each step. Finding the globally optimal 
+decision tree is an NP-complete combinatorial optimization problem. Greedy heuristics run efficiently, but they do not 
+guarantee global optimality. 
+D. False – Decision trees construct non-linear, step-wise spatial partitions made of orthogonal, axis-aligned hyper-
+rectangles—not smooth continuous hyperplanes like linear regression models.  
+E. True – Decision trees select only the most informative features at each split (implicit feature selection), capture non-
+linear step-function interactions natively through conditional branching, and produce fully interpretable rule paths.  
+ 
+[ML-D6G6Q6] 
+A quantitative risk team is designing a credit-scoring model to evaluate corporate bond default risks. The team compares 
+a Decision Tree Classiﬁer against a standard Logistic Regression model. 
+The lead analyst highlights several practical advantages of decision trees that simplify data preparation and enhance 
+model transparency for regulatory reporting. 
+Which of the following statements correctly evaluates the functional and structural strengths of Decision Trees? 
+ 
+A. Decision trees are robust to outliers in feature space because split decisions depend on the rank ordering of 
+observations rather than the absolute magnitude of feature values. 
+B. Decision trees estimate a continuous slope coefficient for each predictor, allowing the marginal effect of a feature to 
+be interpreted in the same manner as a coefficient in linear or logistic regression. 
+C. Decision trees can model complex non-linear boundaries and high-order interactions without requiring the analyst to 
+manually specify interaction terms or polynomial features. 
+D. Unlike distance-based algorithms like K-Nearest Neighbors (K-NN) or Support Vector Machines (SVMs), decision trees 
+do not require feature standardization or feature scaling prior to training. 
+ 
+ 199 Rev:081020261230 
+E. Unconstrained decision trees guarantee ﬁnding the globally optimal feature space partitioning that minimizes global 
+classiﬁcation error across all possible tree depth structures. 
+ 
+Answer Key: 
+ 
+A. True – Decision-tree splits depend primarily on the ordering of observed feature values and the partitions produced by 
+candidate thresholds, rather than on the numerical distance between observations. Consequently, changing an extreme 
+feature value while preserving its relative position will often leave the available partitions unchanged. 
+This makes trees less directly inﬂuenced by feature magnitude than methods based on distances, means, or linear 
+coefficients. However, “robust” does not mean completely unaffected. An outlier may still become isolated by a split, 
+alter the selected partition, or produce an unreliable prediction in a small terminal leaf. Response-variable outliers can 
+also strongly affect regression-tree predictions because each leaf prediction is ordinarily the mean response within that 
+leaf.  
+B. False – Decision trees do not estimate continuous marginal slopes or global predictor coefficients. They divide the 
+feature space using threshold rules and assign a constant prediction within each terminal region. The resulting prediction 
+function is therefore piecewise constant rather than continuously linear. 
+C. True – Through repeated hierarchical splitting, a Decision Tree can create nonlinear, piecewise-constant decision 
+boundaries without requiring polynomial features or spline transformations. It can also represent interactions because 
+the relevance of a later split depends on the conditions established by earlier splits. 
+For example, the tree may split on 𝑋ଶonly within the branch where 𝑋ଵ >𝑠ଵ. This allows the effect of 𝑋ଶto differ across 
+regions deﬁned by 𝑋ଵ, capturing an interaction without requiring the analyst to construct an explicit 𝑋ଵ𝑋ଶterm. Because 
+standard trees use axis-aligned splits, however, smooth or diagonal relationships may require many terminal regions to 
+approximate effectively.  
+D. True – Scale transformations do not change the rank order of data points along any single feature axis. As a result, 
+standardizing or scaling features has zero impact on split threshold selection or tree performance.  
+E. False – CART uses a top-down, greedy optimization algorithm that evaluates splits locally at each step. Finding a 
+globally optimal tree structure is NP-complete, so greedy heuristics are used instead.  
+ 
+G7: Weaknesses and Failure Modes 
+[ML-D6G7Q1] 
+A tree predicts next-day returns from 40 indicators using no depth or leaf-size constraints. Several leaves contain a single 
+unusual market day, training error is nearly zero, and out-of-sample results are poor. 
+ 
+A. The unrestricted tree may have memorized noise in the training set. 
+B. Singleton leaves can produce predictions that depend on one potentially unrepresentative observation. 
+C. Near-zero training error rules out overﬁtting. 
+D. Complexity constraints or pruning could be evaluated as possible remedies. 
+ 
+ 200 Rev:081020261230 
+E. Poor out-of-sample performance is irrelevant as long as the tree is interpretable. 
+ 
+Answer Key: 
+ 
+A. True – High capacity can capture accidental sample patterns rather than durable relationships. 
+B. True – Such leaves estimate their output from minimal evidence. 
+C. False – Extremely low training error can coexist with severe overﬁtting. 
+D. True – Reducing tree complexity may improve the bias–variance tradeoff. 
+E. False – Interpretability does not compensate for failure to generalize. 
+ 
+[ML-D6G7Q2] 
+A decision tree uses only axis-aligned splits. The true class boundary in a two-feature space is approximately diagonal, 
+so the ﬁtted tree uses many small rectangular regions to approximate it. 
+ 
+A. A single axis-aligned split tests one feature against a threshold. 
+B. Approximating a diagonal boundary may require multiple tree splits. 
+C. More splits can increase complexity and create overﬁtting risk. 
+D. A decision tree can represent only linear decision boundaries. 
+E. Because the tree can approximate the pattern, the number of observations needed is irrelevant. 
+ 
+Answer Key: 
+ 
+A. True – Standard splits partition the space using a threshold on one coordinate. 
+B. True – Several rectangular partitions may be needed to trace a diagonal pattern. 
+C. True – Additional partitions provide ﬂexibility that may also ﬁt noise. 
+D. False – Collections of splits can form nonlinear, piecewise-constant decision regions. 
+E. False – Sufficient data are still needed to estimate the more detailed structure reliably. 
+ 
+[ML-D6G7Q3] 
+A tree trained during a long bull market uses a sharp threshold: momentum above 1.00% leads to a large positive forecast, 
+while momentum at or below 1.00% leads to a negative forecast. Two otherwise similar observations have momentum 
+values of 0.99% and 1.01%. 
+ 
+ 201 Rev:081020261230 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The two observations can receive very different predictions despite having nearly identical momentum values. 
+B. Piecewise-constant leaves can create abrupt changes at split boundaries. 
+C. The learned threshold necessarily reﬂects a permanent causal law of the market. 
+D. Performance can deteriorate if the relationship learned in the bull-market sample does not persist in a new regime. 
+E. Testing on later, unseen periods can help reveal this generalization failure. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – They fall on opposite sides of the threshold and may reach different leaves. 
+B. False – Tree predictions can jump discontinuously where the routing rule changes. 
+C. True – A predictive threshold learned from historical data does not establish causality or permanence. 
+D. False – Distribution or regime change can make the historical partition unreliable. 
+E. False – Time-ordered out-of-sample evaluation tests performance under later conditions. 
+ 
+[ML-D6G7Q4] 
+A quantitative portfolio manager deploys an unconstrained Decision Tree Classiﬁer to generate daily buy/sell execution 
+signals for a momentum-based equity strategy. The model uses 25 technical and market microstructure indicators 
+derived from high-frequency intraday trading data. 
+During live paper trading over a three-month period, the strategy experiences severe drawdown and signiﬁcant turnover 
+costs. The risk management team conducts a diagnostic post-mortem to analyze the model's structural weaknesses, 
+failure modes, and poor out-of-sample generalization. 
+Which of the following statements correctly evaluates the inherent weaknesses, failure modes, and generalization 
+limitations of Decision Trees? 
+ 
+A. It is incorrect to conclude that decision trees struggle to approximate smooth, linear decision boundaries efficiently 
+because creating a diagonal boundary requires a dense, complex "staircase" sequence of orthogonal, axis-aligned splits. 
+B. Unconstrained decision trees exhibit high susceptibility to sample noise because recursive node splitting isolates 
+increasingly small subsets of data, causing deeper leaves to ﬁt random sample ﬂuctuations rather than true underlying 
+market signals. 
+C. Decision trees excel at extrapolating trend-based forecasts far outside the range of feature values observed in the 
+training data because leaf nodes apply continuous linear regressions to predict unseen values. 
+D. Because CART uses a greedy, top-down search heuristic, an unconstrained decision tree can fail to discover optimal 
+multi-level feature combinations if the initial top-level split does not offer a strong immediate reduction in impurity. 
+ 
+ 202 Rev:081020261230 
+E. Decision trees are highly prone to data-driven structural instability, where a tiny perturbation in the training dataset can 
+alter the root node split and radically change the entire downstream tree layout and prediction outputs. 
+ 
+Answer Key: 
+ 
+A. False – The conclusion described in the statement is correct, so claiming that it is incorrect is false. Standard Decision 
+Trees construct boundaries through axis-aligned splits of the form 
+𝑋௝ ≤𝑠. 
+ 
+Consequently, a smooth diagonal or linear boundary generally must be approximated by a sequence of rectangular, stair-
+step regions. Achieving a close approximation may require many splits and terminal leaves, making a single tree relatively 
+inefficient for representing a relationship that a linear model could express with one boundary. (Ref: ISLR Ch. 8.1) 
+B. True – As an unconstrained tree grows, each recursive split operates on a progressively smaller subset of the training 
+observations. Predictions in deep leaves may therefore be determined by only a few observations. 
+In noisy ﬁnancial data, these small-sample splits can capture outliers, microstructure noise, or accidental patterns that 
+are speciﬁc to the training period rather than stable market relationships. This typically reduces training error while 
+increasing model variance and degrading out-of-sample performance. The risk is especially pronounced when 
+min_samples_leaf is small and no depth or pruning constraint is imposed.  
+C. False – Decision trees cannot extrapolate beyond the range of training data. Terminal leaf predictions are constant step 
+values (majority class vote or sample mean); any test input exceeding the historical range simply falls into the outermost 
+bounding box and receives a static prediction.  
+D. True – CART evaluates splits one node at a time without looking ahead. If a valuable multi-feature interaction requires 
+an initial split that yields little to no immediate impurity reduction, the greedy algorithm will bypass it, missing the superior 
+global structure.  
+E. True – Because downstream splits are strictly conditional on parent decisions, small shifts in training data near the 
+root can ﬂip the chosen split variable, causing a cascading redesign of the entire tree topology (high variance).  
+ 
+[ML-D6G7Q5] 
+A risk management team is reviewing a quantitative trading strategy that utilizes a single Decision Tree Regressor to 
+predict daily asset return volatility based on 15 macroeconomic and technical inputs. 
+During stress testing and out-of-sample live performance tracking, the model demonstrates several classic failure 
+modes, including severe performance degradation during regime shifts and extreme turnover triggered by minor data 
+updates. 
+The team conducts an architectural audit to pinpoint the speciﬁc mathematical and structural limitations of decision 
+trees that led to these failures. 
+Which of the following statements correctly describes an inherent weakness or failure mode of Decision Trees? 
+For this question, mark each statement True if it is incorrect and False if it is accurate. 
+ 
+ 
+ 203 Rev:081020261230 
+A. Decision trees struggle to efficiently model simple diagonal decision boundaries because they are restricted to axis-
+aligned splits, forcing the algorithm to construct a complex, high-depth "staircase" approximation. 
+B. Decision trees excel at extrapolating return forecasts beyond historical feature ranges because leaf nodes ﬁt 
+continuous linear regression lines to out-of-sample data points. 
+C. The CART algorithm guarantees ﬁnding the globally optimal tree structure by performing a multi-level combinatorial 
+search over all possible subtree split combinations simultaneously during initial training. 
+D. Single decision trees demonstrate strong structural robustness to small training set perturbations because early splits 
+near the root node are insulated from noise in deep leaf nodes. 
+E. Unconstrained decision trees suffer from extreme high variance on noisy ﬁnancial time series because deep recursive 
+partitioning isolates tiny sample sizes, causing the model to treat random noise ticks as predictive signals. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Standard Decision Trees use axis-aligned splits of the form 
+𝑋௝ ≤𝑠. 
+A smooth diagonal boundary, such as 
+𝑋ଵ+𝑋ଶ > 0, 
+cannot generally be represented by a single standard split. Instead, the tree must approximate it using multiple 
+rectangular regions that form a stair-step boundary. A closer approximation typically requires additional splits, leaves, 
+and depth, making a standard tree relatively inefficient at representing simple diagonal relationships compared with a 
+model that can directly learn an oblique or linear boundary. 
+B. True – Decision trees cannot extrapolate outside the bounds of their training data. Terminal leaf nodes predict constant 
+values (the sample mean or majority class of that leaf). Any test instance with feature values far beyond historical training 
+limits simply lands in an outer hyper-rectangle and receives a static, bounded prediction.  
+C. True – CART is a top-down greedy algorithm. It evaluates candidate splits locally at each step without looking ahead to 
+future splits down the tree. Finding a globally optimal decision tree is an NP-complete problem; greedy heuristics do not 
+guarantee global optimality.  
+D. True – Decision trees are notoriously sensitive to small changes in training data (high variance). A slight perturbation 
+near the root node can alter the initial feature split, cascading downstream to create a completely different tree topology 
+and set of predictions.  
+E. False – In low signal-to-noise environments like ﬁnancial markets, growing deep trees creates leaves containing very 
+few samples (N→1). This forces the model to ﬁt random sample ﬂuctuations rather than underlying structural 
+relationships, yielding 0% training error but poor generalization.  
+ 
+[ML-D6G7Q6] 
+You are a Quantitative Researcher at an asset management ﬁrm evaluating a decision tree that predicts whether stocks 
+will outperform the S&P 500 over the next quarter. A junior analyst argues that because decision trees can model 
+nonlinear relationships and interactions, they should always outperform simpler models such as linear regression. 
+ 
+ 204 Rev:081020261230 
+Before approving the model for production, the Chief Investment Officer asks you to evaluate the limitations of relying on 
+a single decision tree. 
+ 
+A. A single decision tree can produce different models when trained on slightly different datasets because of its sensitivity 
+to the training data. 
+B. Since decision trees naturally model nonlinear relationships, they are guaranteed to outperform linear models on 
+unseen data. 
+C. An unconstrained decision tree may ﬁt noise in the training data, reducing its ability to generalize to future market 
+conditions. 
+D. Increasing the complexity of a decision tree always improves both training performance and test performance. 
+E. Even when a decision tree captures complex patterns, controlling its complexity may improve out-of-sample 
+performance. 
+ 
+Answer Key: 
+ 
+A. True – Decision trees are high-variance models. Small changes in the training data can change the selected splits and 
+lead to different tree structures and predictions.  
+B. False – Although decision trees can model nonlinear relationships, no model is guaranteed to outperform others on 
+unseen data. Performance depends on the underlying data, sample size, and the bias–variance tradeoff.  
+C. True – Deep, unconstrained trees can memorize idiosyncratic patterns or noise in the training data, leading to poor 
+generalization.  
+D. False – Increasing complexity generally improves training performance but can worsen test performance due to 
+overﬁtting. More complexity does not always improve generalization.  
+E. True – Limiting tree complexity through hyperparameters or pruning often produces a model that generalizes better, 
+even if training accuracy decreases.  
+ 
+  
+ 
+ 205 Rev:081020261230 

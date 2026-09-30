@@ -1,0 +1,482 @@
+Domain 5: Market Microstructure and Trade Execution 
+Domain Summary 
+ Bid and ask prices 
+ Spreads 
+ Order books 
+ Market and limit orders 
+ Liquidity 
+ Slippage 
+ Market impact 
+ Short selling 
+ Transaction costs 
+ Execution quality 
+Topic Groups 
+G1: Bid, Ask, Spread, and Midpoint 
+ Best bid and best ask 
+ Bid-ask spread 
+ Midpoint interpretation 
+ Spread as a cost of immediacy 
+ Relationship between spread and liquidity 
+G2: Market Orders and Limit Orders 
+ Certainty of execution versus certainty of price 
+ Fill risk 
+ Price risk 
+ Appropriate use under different market conditions 
+ Effects of urgency 
+G3: Order Book and Market Depth 
+ Price levels and available quantities 
+ Best prices versus deeper liquidity 
+ 
+ 332 Rev:081020261230 
+ Walking the book 
+ Order imbalance 
+ Short-term information in order-book depth 
+G4: Liquidity, Slippage, and Market Impact 
+ Difference between quoted and realized execution price 
+ Large-order price impact 
+ Thin versus deep markets 
+ Temporary versus permanent market impact 
+ Liquidity as a strategy constraint 
+G5: Short Selling Mechanics 
+ Borrowing and selling shares 
+ Sell-to-open and buy-to-close 
+ Borrow fees and dividends 
+ Unlimited theoretical loss 
+ Short squeezes and recall risk 
+G6: Transaction Costs and Implementation Shortfall 
+ Commissions 
+ Spreads 
+ Market impact 
+ Delay cost 
+ Difference between decision price and execution price 
+ Gross versus net strategy performance 
+G7: Execution Strategy and Order Splitting 
+ Breaking large orders into smaller pieces 
+ Timing risk 
+ Information leakage 
+ Balancing speed and market impact 
+ Execution algorithms conceptually 
+ 
+ 333 Rev:081020261230 
+G1: Bid, Ask, Spread, and Midpoint 
+[QF-D5G1Q1] 
+A stock is quoted at a best bid of $49.90 and a best ask of $50.10. An investor is considering an immediate round trip, 
+ignoring commissions and price changes. 
+ 
+A. The quoted spread is $0.20 per share. 
+B. The quoted midpoint is not $50.00. 
+C. A market buy would not normally execute against the ask side of the book. 
+D. An immediate market buy followed by an immediate market sell would gain $0.20 per share. 
+E. The spread represents one component of the cost of demanding immediate liquidity. 
+ 
+Answer Key: 
+ 
+A. True – The spread is $50.10 - $49.90 = $0.20. 
+B. False – The statement reverses the correct conclusion. The midpoint is ($49.90 + $50.10) / 2 = $50.00. 
+C. False – The statement reverses the correct conclusion. An aggressive buyer trades with resting sell liquidity at the ask. 
+D. False – Buying at $50.10 and selling at $49.90 produces a $0.20 loss per share. 
+E. True – Crossing the spread is a cost paid for immediate execution. 
+ 
+[QF-D5G1Q2] 
+Stock A is quoted at $20.00 bid and $20.04 ask, while Stock B is quoted at $200.00 bid and $200.20 ask. A trader 
+compares their spreads. 
+ 
+A. Stock A's dollar spread is $0.04. 
+B. Stock B's dollar spread is larger than Stock A's. 
+C. Relative to the midpoint, Stock A's spread is approximately 0.20%. 
+D. Relative to the midpoint, Stock B's spread is not approximately 0.10%. 
+E. The larger dollar spread proves that Stock B is less liquid by every meaningful measure. 
+ 
+Answer Key: 
+ 
+A. True – $20.04 - $20.00 = $0.04. 
+ 
+ 334 Rev:081020261230 
+B. True – Stock B's $0.20 spread exceeds Stock A's $0.04 spread. 
+C. True – $0.04 / $20.02 is approximately 0.20%. 
+D. False – The statement reverses the correct conclusion. $0.20 / $200.10 is approximately 0.10%. 
+E. False – Liquidity also depends on relative spread, depth, volume, resilience, and trade size. 
+ 
+[QF-D5G1Q3] 
+During a quiet period, a stock's quote changes from $75.00 × $75.02 to $74.95 × $75.07, with similar displayed depth. 
+ 
+A. A reviewer would be wrong to accept the claim that the midpoint remains $75.01 after the quote change. 
+B. The spread widens from $0.02 to $0.12. 
+C. The wider spread generally makes immediate trading more expensive. 
+D. The unchanged midpoint proves that the stock's liquidity is unchanged. 
+E. A passive buyer posting at the bid cannot avoid crossing the spread but assumes ﬁll risk. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct and should be accepted. Both quotes have a midpoint of $75.01. 
+B. True – The new spread is $75.07 - $74.95 = $0.12. 
+C. True – A liquidity demander must cross a larger spread. 
+D. False – Spread width is itself an important dimension of liquidity. 
+E. False – The statement reverses the correct conclusion. A bid-side limit order controls price but may never execute. 
+ 
+G2: Market Orders and Limit Orders 
+[QF-D5G2Q1] 
+A trading desk must buy 200,000 shares of a moderately liquid stock before the close. The head trader wants guaranteed 
+completion, while the portfolio manager wants to avoid paying substantially above the current ask. 
+ 
+A. A market order provides more certainty of execution than a limit order. 
+B. A limit order guarantees execution at the speciﬁed price. 
+C. A large market order may walk through multiple levels of the order book. 
+D. Splitting the order can reduce immediate market impact but introduces timing risk. 
+ 
+ 335 Rev:081020261230 
+E. The quoted ask necessarily equals the average execution price for the full 200,000-share order. 
+ 
+Answer Key: 
+ 
+A. True – Market orders prioritize execution over price. 
+B. False – A limit order may not execute. 
+C. True – The order may consume liquidity at progressively worse prices. 
+D. True – Slower execution can reduce impact but creates the risk of adverse price movement. 
+E. False – Available depth may be insufficient at the best ask. 
+ 
+[QF-D5G2Q2] 
+A stock is quoted at $30.00 bid and $30.05 ask. A trader submits a limit order to buy 1,000 shares at $30.02. 
+ 
+A. The order should immediately execute against the displayed $30.05 ask. 
+B. The order cannot become resting bid-side liquidity at $30.02. 
+C. The trader is guaranteed to receive 1,000 shares if the market later trades at $30.02. 
+D. If ﬁlled, the order cannot execute above its $30.02 limit price. 
+E. Raising the buy limit to $30.05 could make the order immediately marketable against displayed ask liquidity. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. The buy limit is below the current ask. 
+B. False – The statement reverses the correct conclusion. Subject to venue rules, it can rest as a bid at its limit price. 
+C. False – Queue priority and available quantity can prevent a ﬁll even if trades occur at that price. 
+D. True – A buy limit sets the maximum acceptable execution price. 
+E. True – A buy order priced at the ask can trade with resting sellers. 
+ 
+[QF-D5G2Q3] 
+Minutes before an earnings announcement, a manager wants to sell a position but is choosing between a market order 
+and a limit order. 
+ 
+A. A market sell emphasizes prompt execution but leaves the realized price uncertain. 
+ 
+ 336 Rev:081020261230 
+B. A sell limit establishes the minimum acceptable execution price. 
+C. A sell limit placed above the current bid cannot remain unﬁlled if prices fall. 
+D. Greater urgency generally strengthens the case for accepting price uncertainty to obtain execution. 
+E. A market order eliminates both ﬁll risk and the risk of an unfavorable execution price. 
+ 
+Answer Key: 
+ 
+A. True – A market order prioritizes execution, not a guaranteed price. 
+B. True – A sell limit prevents execution below its limit. 
+C. False – The statement reverses the correct conclusion. The market can move away before anyone trades with the order. 
+D. True – Urgent traders often accept greater price risk for completion. 
+E. False – Market orders reduce non-execution risk but can receive poor prices. 
+ 
+G3: Order Book and Market Depth 
+[QF-D5G3Q1] 
+The ask side of an order book shows 500 shares at $10.01, 1,000 at $10.03, and 2,000 at $10.05. A trader submits a market 
+order to buy 2,000 shares, and no orders arrive or cancel during execution. 
+ 
+A. The order buys 500 shares at $10.01. 
+B. The order buys 1,000 shares at $10.03. 
+C. A reviewer would be wrong to accept the claim that the remaining 500 shares execute at $10.05. 
+D. The volume-weighted average execution price is not $10.03. 
+E. The entire order executes at the original best ask because that was the displayed quote when it was submitted. 
+ 
+Answer Key: 
+ 
+A. True – The best ask is consumed ﬁrst. 
+B. True – The next 1,000 shares consume the second ask level. 
+C. False – The underlying claim is correct and should be accepted. After 1,500 shares, 500 remain for the $10.05 level. 
+D. False – The statement reverses the correct conclusion. (500×10.01 + 1,000×10.03 + 500×10.05) / 2,000 = $10.03. 
+E. False – Only 500 shares were displayed at the original best ask. 
+ 
+ 
+ 337 Rev:081020261230 
+[QF-D5G3Q2] 
+Two stocks both show a one-cent spread. Stock A displays 100 shares at each best quote, while Stock B displays 20,000 
+shares at each best quote. 
+ 
+A. The identical spreads imply identical displayed depth. 
+B. A 10,000-share market order is more likely to walk the book in Stock A. 
+C. For a very small order, both stocks may initially offer the same quoted price concession. 
+D. Market depth is a relevant liquidity measure even when quoted spreads match. 
+E. Displayed depth is guaranteed to remain available until every incoming order has traded against it. 
+ 
+Answer Key: 
+ 
+A. False – Spread and displayed quantity measure different aspects of liquidity. 
+B. True – Only a small quantity is available at Stock A's best price. 
+C. True – An order within the displayed size may cross the same one-cent spread. 
+D. True – Depth helps determine how much can trade near the best quote. 
+E. False – Orders may be canceled or changed before execution. 
+ 
+[QF-D5G3Q3] 
+An order book shows much greater displayed buy quantity than sell quantity near the midpoint. An analyst treats this 
+imbalance as a short-term bullish signal. 
+ 
+A. The imbalance describes an asymmetry in displayed depth. 
+B. It cannot contain information about near-term supply and demand. 
+C. It guarantees that the next price movement will be upward. 
+D. Cancellations or hidden liquidity can weaken the signal. 
+E. Using the signal without accounting for execution costs cannot overstate its trading value. 
+ 
+Answer Key: 
+ 
+A. True – More displayed quantity appears on one side of the book. 
+B. False – The statement reverses the correct conclusion. Depth imbalance can sometimes provide short-horizon 
+information. 
+ 
+ 338 Rev:081020261230 
+C. False – Order-book signals are probabilistic and can fail or be manipulated. 
+D. True – The displayed book is incomplete and can change rapidly. 
+E. False – The statement reverses the correct conclusion. A predictive signal need not remain proﬁtable after trading 
+costs. 
+ 
+G4: Liquidity, Slippage, and Market Impact 
+[QF-D5G4Q1] 
+When a buy decision is made, a stock's best ask is $40.00. The desk buys 10,000 shares at an average price of $40.12. 
+ 
+A. Relative to the quoted ask, the execution slippage is $0.12 per share. 
+B. The total price difference relative to buying all shares at $40.00 is $1,200. 
+C. The average execution was better for the buyer than the quoted ask. 
+D. Limited depth and market impact could both contribute to the difference. 
+E. The quotation alone is sufficient to identify exactly how much of the difference was temporary market impact. 
+ 
+Answer Key: 
+ 
+A. True – $40.12 - $40.00 = $0.12 per share. 
+B. True – $0.12 × 10,000 = $1,200. 
+C. False – A buyer prefers a lower, not higher, execution price. 
+D. True – Walking the book and the order's effect on prices can both worsen execution. 
+E. False – Separating impact components requires additional data and a benchmark methodology. 
+ 
+[QF-D5G4Q2] 
+A fund trades the same dollar amount in a deep large-cap stock and a thin small-cap stock. The small-cap order is large 
+relative to normal volume. 
+ 
+A. The small-cap trade will generally face greater liquidity risk. 
+B. Equal dollar orders necessarily produce equal percentage market impact. 
+C. An order's size relative to available liquidity matters for execution quality. 
+D. A proﬁtable paper strategy cannot become infeasible if its required trades exceed market capacity. 
+ 
+ 339 Rev:081020261230 
+E. Reducing the order's participation rate cannot lower immediate impact while increasing exposure to price movement 
+during execution. 
+ 
+Answer Key: 
+ 
+A. True – Thin markets generally absorb large relative orders less easily. 
+B. False – Impact depends on depth, volume, volatility, and trade size relative to liquidity. 
+C. True – Capacity is not determined by dollars alone. 
+D. False – The statement reverses the correct conclusion. Liquidity can constrain whether theoretical signals can be 
+implemented at scale. 
+E. False – The statement reverses the correct conclusion. Slower trading exchanges impact risk for timing risk. 
+ 
+[QF-D5G4Q3] 
+After a large buy order, a stock rises from $25.00 to $25.30. Ten minutes after the order ends, it falls to $25.08 and remains 
+near that level for the rest of the day. 
+ 
+A. The initial increase could not include temporary and permanent impact. 
+B. The reversal from $25.30 to $25.08 is consistent with some temporary impact decaying. 
+C. The remaining $0.08 increase proves that the order permanently changed fundamental value by exactly $0.08. 
+D. Market-wide news during the interval could confound the impact estimate. 
+E. Temporary impact matters to execution cost even if the price later reverses. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. The immediate response can contain both transient pressure 
+and lasting information effects. 
+B. True – Price reversion after completion is consistent with temporary pressure dissipating. 
+C. False – Other trades, information, and benchmark choices prevent that exact causal conclusion. 
+D. True – Concurrent market moves can affect the observed price path. 
+E. True – The trader may have paid the temporarily elevated prices. 
+ 
+ 
+ 340 Rev:081020261230 
+G5: Short Selling Mechanics 
+[QF-D5G5Q1] 
+A trader borrows and sells short 1,000 shares at $50, then later buys them back at $42, ignoring all fees and dividends. 
+ 
+A. The opening transaction is not a sell-to-open. 
+B. The closing transaction is a buy-to-close. 
+C. The gross trading proﬁt is $8,000. 
+D. The short position proﬁts because the stock price increased. 
+E. The shares purchased to close cannot be returned to the lender. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Selling borrowed shares establishes the short position. 
+B. True – Repurchasing shares closes it. 
+C. True – ($50 - $42) × 1,000 = $8,000. 
+D. False – The short proﬁts because the price declined. 
+E. False – The statement reverses the correct conclusion. The repurchased shares satisfy the obligation to return 
+borrowed shares. 
+ 
+[QF-D5G5Q2] 
+An investor shorts 500 shares at $20. During the holding period, the company pays a $0.40 dividend, and the borrow fee 
+is $150. The investor covers at $18. 
+ 
+A. The gross price proﬁt before carrying costs is $1,000. 
+B. The short seller generally owes a payment equivalent to the $200 dividend on the borrowed shares. 
+C. After the dividend payment and borrow fee, the net proﬁt is not $650, ignoring other costs. 
+D. Borrow fees increase the net return of a short position. 
+E. A high-conviction price forecast can still be unproﬁtable after short-position carrying costs. 
+ 
+Answer Key: 
+ 
+A. True – ($20 - $18) × 500 = $1,000. 
+ 
+ 341 Rev:081020261230 
+B. True – The share lender is economically entitled to the dividend, costing the short seller $200. 
+C. False – The statement reverses the correct conclusion. $1,000 - $200 - $150 = $650. 
+D. False – Borrow fees are a cost that reduces net return. 
+E. True – Dividends, borrow charges, and other costs can consume a forecasted gain. 
+ 
+[QF-D5G5Q3] 
+A crowded short position rises sharply after unexpected good news. Lenders also begin recalling shares and borrow 
+availability falls. 
+ 
+A. A short seller's maximum gain is bounded because a stock price cannot fall below zero. 
+B. A short seller's theoretical loss is not unlimited because the stock price has no ﬁxed upper bound. 
+C. Forced buying by short sellers cannot intensify a short squeeze. 
+D. Recall risk can force a trader to close even when the trader still believes the stock is overvalued. 
+E. Posting collateral eliminates price risk and borrow risk for the short seller. 
+ 
+Answer Key: 
+ 
+A. True – The greatest price decline is from the sale price to zero. 
+B. False – The statement reverses the correct conclusion. Repurchase cost can keep rising as the share price increases. 
+C. False – The statement reverses the correct conclusion. Buy-to-close demand can add upward pressure. 
+D. True – Continued borrowing is not always under the short seller's control. 
+E. False – Collateral supports the position but does not remove its economic or operational risks. 
+ 
+G6: Transaction Costs and Implementation Shortfall 
+[QF-D5G6Q1] 
+A manager decides to buy 5,000 shares when the stock is $100.00. Because approval is delayed, execution occurs at an 
+average price of $100.40, with a $100 commission. 
+ 
+A. The decision-value benchmark is not $500,000. 
+B. The execution-price difference costs $2,000 relative to the decision price. 
+C. Including the commission, the implementation shortfall is $2,100 under this simpliﬁed benchmark. 
+ 
+ 342 Rev:081020261230 
+D. The $0.40 adverse move may be described as a delay or execution-related cost, depending on the timing 
+decomposition used. 
+E. Because the position may later be proﬁtable, the implementation shortfall at execution must be zero. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. 5,000 × $100.00 = $500,000. 
+B. True – 5,000 × ($100.40 - $100.00) = $2,000. 
+C. True – Adding the $100 commission gives $2,100. 
+D. True – The attribution depends on benchmark timestamps and the execution process. 
+E. False – Later investment performance does not erase the cost of implementing the decision. 
+ 
+[QF-D5G6Q2] 
+A strategy earns a 12% gross annual return. Its annual commissions are 0.5% of capital, spread costs are 1.0%, and 
+estimated market impact is 1.5%, with no other costs. 
+ 
+A. The stated trading costs total 3.0% of capital. 
+B. The simpliﬁed net return is not 9.0%. 
+C. Reporting only the 12% gross return overstates the investor's realized performance under these assumptions. 
+D. Eliminating commissions would also eliminate spread and market-impact costs. 
+E. A high-turnover strategy cannot be more sensitive to per-trade costs than a low-turnover strategy. 
+ 
+Answer Key: 
+ 
+A. True – 0.5% + 1.0% + 1.5% = 3.0%. 
+B. False – The statement reverses the correct conclusion. 12.0% - 3.0% = 9.0% under the simpliﬁed additive treatment. 
+C. True – Investors retain returns after implementation costs, not before them. 
+D. False – Spreads and impact can remain even with zero explicit commission. 
+E. False – The statement reverses the correct conclusion. More frequent trading creates more opportunities to incur 
+costs. 
+ 
+ 
+ 343 Rev:081020261230 
+[QF-D5G6Q3] 
+A portfolio manager orders the sale of 10,000 shares at a $50.00 decision price. The desk sells 6,000 shares at $49.80 
+and 4,000 at $49.60, paying $200 in commissions. 
+ 
+A. The average execution price is $49.72. 
+B. The price shortfall relative to the decision price is $0.28 per share. 
+C. The price component of implementation shortfall is $2,800. 
+D. Including commissions, total simpliﬁed implementation shortfall is not $3,000. 
+E. Because this is a sale, receiving less than the decision price improves execution quality. 
+ 
+Answer Key: 
+ 
+A. True – (6,000×49.80 + 4,000×49.60) / 10,000 = $49.72. 
+B. True – For a seller, $50.00 - $49.72 = $0.28 per share is adverse. 
+C. True – $0.28 × 10,000 = $2,800. 
+D. False – The statement reverses the correct conclusion. $2,800 + $200 = $3,000. 
+E. False – A seller beneﬁts from a higher execution price. 
+ 
+G7: Execution Strategy and Order Splitting 
+[QF-D5G7Q1] 
+A fund must buy 1 million shares in a stock whose normal daily volume is 2 million shares. It considers executing 
+immediately or splitting the order across the day. 
+ 
+A. The order equals 50% of normal daily volume and is not therefore large relative to typical activity. 
+B. Immediate execution cannot reduce timing risk but increase market impact. 
+C. Slower execution may reduce participation at any moment but leaves more time for the price to move adversely. 
+D. Splitting the order guarantees a lower total execution cost. 
+E. Strategy capacity should be evaluated because the desired trade is large relative to available market volume. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. 1 million / 2 million = 50%. 
+ 
+ 344 Rev:081020261230 
+B. False – The statement reverses the correct conclusion. Speed reduces exposure time but demands liquidity 
+aggressively. 
+C. True – Lower urgency can reduce footprint while increasing timing exposure. 
+D. False – Adverse price moves or information leakage can make slower execution more expensive. 
+E. True – The ability to trade the required size is an implementation constraint. 
+ 
+[QF-D5G7Q2] 
+A trading algorithm releases equal-sized child orders every ﬁve minutes regardless of actual market volume. A second 
+algorithm varies participation with observed volume. 
+ 
+A. Both approaches split a parent order into smaller child orders. 
+B. The ﬁxed schedule necessarily completes at the market's volume-weighted average price. 
+C. A volume-sensitive schedule may trade more when market activity is greater. 
+D. Predictable child orders cannot create information-leakage risk if other traders infer the parent order. 
+E. No execution algorithm can simultaneously eliminate market impact, timing risk, and non-completion risk. 
+ 
+Answer Key: 
+ 
+A. True – Each approach stages execution rather than submitting the full order at once. 
+B. False – A schedule does not guarantee any particular benchmark price. 
+C. True – Participation-based execution scales trading with market activity. 
+D. False – The statement reverses the correct conclusion. Detectable patterns can reveal sustained buying or selling 
+interest. 
+E. True – Execution involves trade-offs among competing risks. 
+ 
+[QF-D5G7Q3] 
+A desk initially plans to buy gradually over six hours. After unexpected news, its signal is expected to decay within one 
+hour, so the manager increases execution speed. 
+ 
+A. Faster execution can be rational when the opportunity is short-lived. 
+B. Increasing speed generally reduces exposure to signal-decay and adverse-movement risk. 
+C. A reviewer would be wrong to accept the claim that increasing speed can require crossing the spread or consuming 
+deeper liquidity more aggressively. 
+ 
+ 345 Rev:081020261230 
+D. The change in urgency has no relevance to the appropriate execution strategy. 
+E. A reviewer would be wrong to accept the claim that the best schedule depends on expected alpha decay as well as 
+transaction costs. 
+ 
+Answer Key: 
+ 
+A. True – Delayed completion may miss a transient opportunity. 
+B. True – More of the order is completed before the signal or price can change. 
+C. False – The underlying claim is correct and should be accepted. Urgency can increase both spread costs and market 
+impact. 
+D. False – Urgency is central to balancing completion, timing, and price risks. 
+E. False – The underlying claim is correct and should be accepted. Optimal execution balances the value of acting quickly 
+against implementation costs. 
+ 
+  
+ 
+ 346 Rev:081020261230 

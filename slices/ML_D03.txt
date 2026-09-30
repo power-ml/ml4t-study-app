@@ -1,0 +1,1221 @@
+Domain 3: Feature Engineering & Leakage 
+Domain Summary 
+ Feature construction from raw inputs 
+ Feature interactions 
+ Scaling and normalization 
+ Irrelevant and redundant features 
+ Feature selection intuition 
+ Target leakage 
+ Look-ahead bias in time-series data 
+ “Too good to be true” features 
+Topic Groups 
+G1: Feature Construction and Transformation 
+ Creating derived features from raw inputs 
+ Feature interactions 
+ When feature engineering improves models 
+G2: Scaling and Normalization Effects 
+ When scaling matters (e.g., KNN, distance-based models) 
+ When scaling does not matter (e.g., trees) 
+ Effects on model behavior 
+G3: Feature Relevance and Redundancy 
+ Identifying irrelevant features 
+ Correlated/redundant features 
+ Impact on model performance 
+G4: Feature Selection Intuition 
+ Beneﬁts of reducing feature space 
+ Avoiding overﬁtting through feature control 
+ Tradeoffs in removing features 
+ 
+ 68 Rev:081020261230 
+G5: Target Leakage 
+ Using future or target-derived information 
+ Why leakage leads to unrealistic performance 
+ Detecting leakage in practice 
+G6: Look-Ahead Bias in Time-Series 
+ Using future information in features 
+ Subtle forms of temporal leakage 
+ Trading-speciﬁc implications 
+G7: “Too Good to Be True” Features 
+ Identifying suspiciously predictive features 
+ Correlation vs. causation issues 
+ Diagnosing unrealistic model results 
+G1: Feature Construction and Transformation 
+[ML-D3G1Q1] 
+An equity team predicts next-month returns from company ﬁnancial statements. The PM proposes using raw revenue 
+alone, while an analyst argues that revenue growth and proﬁt margin may better compare ﬁrms of different sizes. The 
+team must improve the signal without incorporating information unavailable on the prediction date. 
+ 
+A. Revenue growth can capture a change over time that a single revenue level does not express directly. 
+B. Dividing proﬁt by revenue may create a scale-adjusted feature that is more comparable across ﬁrms. 
+C. Every derived feature necessarily adds new information that was absent from the raw inputs. 
+D. The dates on which ﬁnancial statements became publicly available matter when constructing these features. 
+E. Feature engineering is useful only for linear models and cannot help distance-based learners. 
+ 
+Answer Key: 
+ 
+A. True – Growth represents a temporal relationship rather than only the current level. 
+B. True – A margin normalizes proﬁt by ﬁrm activity and can support cross-ﬁrm comparisons. 
+C. False – A transformation may merely restate existing information and can be redundant. 
+D. True – Using ﬁgures before their publication would make the historical feature unavailable in practice. 
+ 
+ 69 Rev:081020261230 
+E. False – Appropriate transformations can also improve distance measures and neighborhood structure. 
+ 
+[ML-D3G1Q2] 
+A futures desk models daily returns using price and volume data. The head trader believes the effect of unusual volume 
+may depend on whether price is rising or falling, but the current linear model includes only the two raw variables 
+separately. The research team considers adding an interaction between return sign and relative volume. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. An interaction feature can represent a relationship that depends on the joint values of two inputs. 
+B. In a purely additive linear model, separate price and volume terms automatically represent every possible interaction 
+between them. 
+C. A price-direction-by-volume feature could allow high volume to have different implications in rising and falling 
+markets. 
+D. Adding the interaction guarantees better out-of-sample performance. 
+E. The interaction should be computed using only information known when the trade decision is made. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Interactions encode joint effects beyond independent additive contributions. 
+B. True – Separate linear terms do not generally express a multiplicative or conditional effect. 
+C. False – The engineered feature can distinguish the two market contexts. 
+D. True – The added ﬂexibility may help, do nothing, or overﬁt. 
+E. False – A deployable feature must respect the decision-time information set. 
+ 
+[ML-D3G1Q3] 
+A credit fund uses days-to-maturity, coupon, and yield to predict bond price changes. A junior researcher wants to add 
+dozens of polynomial terms because “more transformations let the model discover everything, ” while the risk officer is 
+concerned about instability and limited historical defaults. The team must balance representation against generalization. 
+ 
+A. A nonlinear transformation can make some curved relationships easier for a linear learner to represent. 
+B. Adding many polynomial features can increase model complexity and overﬁtting risk. 
+C. If a transformation is calculated only from existing features, it cannot affect a model’s predictions. 
+D. The usefulness of engineered terms should be assessed on data not used to ﬁt or select them. 
+ 
+ 70 Rev:081020261230 
+E. A complicated feature is preferable to a simple feature whenever it lowers training error. 
+ 
+Answer Key: 
+ 
+A. True – Transformed inputs can let a linear combination express nonlinear patterns. 
+B. True – More terms provide more opportunities to ﬁt noise, especially with limited data. 
+C. False – Reexpressing inputs can materially change what a learner can ﬁt. 
+D. True – Held-out evaluation is needed to estimate whether the terms generalize. 
+E. False – Lower training error alone does not establish out-of-sample value. 
+ 
+[ML-D3G1Q4] 
+A multi-factor equity model utilizes a rolling 12-month Ordinary Least Squares (OLS) Linear Regression to estimate the 
+beta (β) of individual technology stocks relative to the Nasdaq 100 index. The model uses these rolling beta estimates as 
+a primary feature to predict cross-sectional next-week returns. During a sudden, high-volatility market pivot, the model's 
+predictive performance degrades rapidly, and an audit reveals that the estimated coefficients were highly unstable. 
+For this question, mark each statement True if it is incorrect and False if it is accurate. 
+ 
+A. The instability of the beta coefficients is a classic symptom of Non-Stationarity in ﬁnancial time series, meaning the 
+underlying statistical relationship between the individual stocks and the index is changing over time. 
+B. Using a ﬁxed, rolling 12-month window completely eliminates the risk of non-stationarity because it forces the OLS 
+regression to constantly discard obsolete historical data, ensuring a stable parameter space. 
+C. This pipeline suffers from a structural ﬂaw because standard OLS regression assumes that the underlying data-
+generating process is Stationary (constant mean and variance), an assumption that routinely breaks down during market 
+regime shifts. 
+D. The rapid degradation in model performance is due to a Structural Break, where the historical covariance matrix 
+calculated over the stable 12-month period fails to capture the sudden, step-function change in market dynamics. 
+E. To adapt this linear framework to a non-stationary environment without changing the feature deﬁnitions, the weights 
+of the regression should be modiﬁed using an exponential decay factor that prioritizes recent observations over distant 
+ones. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Financial regimes are dynamic. A beta calculated during a low-volatility bull market will completely 
+misrepresent an asset's systemic risk when a market shock occurs.  
+B. True – Rolling windows mitigate, but do not eliminate, non-stationarity. If a structural break occurs within the current 
+window, the OLS parameters will be a polluted average of two completely different regimes.  
+ 
+ 71 Rev:081020261230 
+C. False – OLS regression assumes that the residuals are homoscedastic and independent. When regimes shift, the 
+parameters shift, violating the core assumption that the underlying distribution is invariant.  
+D. False – A structural break fundamentally changes the parameters of the system. The historical 12-month data acts as 
+an anchor, preventing the model from recognizing the new structural reality until the old data drops out of the window.  
+E. False – Switching to an exponentially weighted moving regression or a state-space model (like a Kalman Filter) allows 
+the parameter estimation to adapt dynamically to drifting distributions.  
+ 
+[ML-D3G1Q5] 
+An algorithmic momentum portfolio uses a machine learning classiﬁer to predict whether a stock index will experience a 
+positive or negative return over the next 20 trading days. The raw feature input is the 50-day rolling variance of daily 
+returns. The system evaluates this feature using an Augmented Dickey-Fuller (ADF) Test, which rejects the null hypothesis 
+of a unit root (p<0.01). Based on this result, the pipeline passes the raw rolling variance series directly into a deep neural 
+network without further transformation. During a prolonged market regime shift, the model's accuracy collapses, and an 
+internal audit reveals that the rolling variance feature exhibited severe structural drift. 
+Which of the following statements correctly diagnoses why the ADF test failed to prevent this distribution shift, and 
+identiﬁes the correct mathematical remedy? 
+ 
+A. The ADF test is structurally incapable of detecting non-stationarity driven by stochastic trends, meaning it can only 
+validate stationarity for series with ﬁxed, deterministic linear trends. 
+B. The rolling variance series failed to maintain stationarity because the ADF test requires a minimum window length of 
+252 trading days to properly evaluate the presence of a unit root in second-moment statistical features. 
+C. The rejection of the null hypothesis by the ADF test mathematically guarantees that all statistical moments—including 
+the mean, variance, and unconditional autocovariance—are perfectly invariant over the entire backtest horizon. 
+D. The collapse occurred because the ADF test assumes the underlying data follows a Gaussian distribution; when 
+applied to bounded, non-negative features like rolling variance, the test produces a high rate of false negatives. 
+E. The ADF test only checks for a speciﬁc type of non-stationarity (a unit root/stochastic trend in the mean); it can easily 
+register a series as "stationary" even if the feature suffers from structural breaks or structural drift in its variance over 
+time. 
+ 
+Answer Key: 
+ 
+A. False – The ADF test is speciﬁcally designed to detect stochastic trends (unit roots). It handles deterministic trends by 
+including a time-trend component (βt) in its test regression.  
+B. False – There is no arbitrary 252-day structural minimum required by the ADF test framework; its validity depends on 
+sample size, lag structure, and the underlying data-generating process, not a speciﬁc calendar constraint.  
+C. False – A rejected ADF test is not a blanket guarantee of absolute stationarity. It simply means the series does not 
+exhibit a random walk; it can still suffer from structural breaks, heteroscedasticity, or seasonal non-stationarity.  
+ 
+ 72 Rev:081020261230 
+D. False – While the standard Dickey-Fuller distribution assumes independent and identically distributed errors, the test 
+does not mechanically fail or invert its error rates solely because a feature is bounded or non-negative.  
+E. True – This highlights a critical limitation of the test in feature engineering. A series can be mean-reverting (no unit root) 
+but still have its underlying distribution warp due to regime shifts or variance changes, which the ADF test does not 
+account for.  
+ 
+[ML-D3G1Q6] 
+An algorithmic momentum portfolio uses a machine learning classiﬁer to predict whether a stock index will experience a 
+positive or negative return over the next 20 trading days. The raw feature input is the 50-day rolling variance of daily 
+returns. The system evaluates this feature using an Augmented Dickey-Fuller (ADF) Test, which rejects the null hypothesis 
+of a unit root (p<0.01). Based on this result, the pipeline passes the raw rolling variance series directly into a deep neural 
+network without further transformation. During a prolonged market regime shift, the model's accuracy collapses, and an 
+internal audit reveals that the rolling variance feature exhibited severe structural drift. 
+Which of the following statements correctly diagnoses why the ADF test failed to prevent this distribution shift, and 
+identiﬁes the correct mathematical remedy? 
+ 
+A. The ADF test is structurally incapable of detecting non-stationarity driven by stochastic trends, meaning it can only 
+validate stationarity for series with ﬁxed, deterministic linear trends. 
+B. The rolling variance series failed to maintain stationarity because the ADF test requires a minimum window length of 
+252 trading days to properly evaluate the presence of a unit root in second-moment statistical features. 
+C. The rejection of the null hypothesis by the ADF test mathematically guarantees that all statistical moments—including 
+the mean, variance, and unconditional autocovariance—are perfectly invariant over the entire backtest horizon. 
+D. The collapse occurred because the ADF test assumes the underlying data follows a Gaussian distribution; when 
+applied to bounded, non-negative features like rolling variance, the test produces a high rate of false negatives. 
+E. The ADF test only checks for a speciﬁc type of non-stationarity (a unit root/stochastic trend in the mean); it can easily 
+register a series as "stationary" even if the feature suffers from structural breaks or structural drift in its variance over 
+time. 
+ 
+Answer Key: 
+ 
+A. False – The ADF test is speciﬁcally designed to detect stochastic trends (unit roots). It handles deterministic trends by 
+including a time-trend component (βt) in its test regression.  
+B. False – There is no arbitrary 252-day structural minimum required by the ADF test framework; its validity depends on 
+sample size, lag structure, and the underlying data-generating process, not a speciﬁc calendar constraint.  
+C. False – A rejected ADF test is not a blanket guarantee of absolute stationarity. It simply means the series does not 
+exhibit a random walk; it can still suffer from structural breaks, heteroscedasticity, or seasonal non-stationarity.  
+D. False – While the standard Dickey-Fuller distribution assumes independent and identically distributed errors, the test 
+does not mechanically fail or invert its error rates solely because a feature is bounded or non-negative.  
+ 
+ 73 Rev:081020261230 
+E. True – This highlights a critical limitation of the test in feature engineering. A series can be mean-reverting (no unit root) 
+but still have its underlying distribution warp due to regime shifts or variance changes, which the ADF test does not 
+account for.  
+ 
+G2: Scaling and Normalization Effects 
+[ML-D3G2Q1] 
+A wealth manager uses KNN to identify historical days similar to the current market. One input is daily return measured 
+near 0.01, while another is trading volume measured in millions of shares. The PM asks why the neighbors appear to be 
+determined almost entirely by volume. 
+ 
+A. Without scaling, a large-magnitude feature can dominate a Euclidean distance calculation. 
+B. Standardizing the features can cause both return and volume to contribute on more comparable numerical scales. 
+C. Feature scaling guarantees that both features contain equal predictive information. 
+D. The scaling parameters should be estimated from the training data rather than the held-out test data. 
+E. KNN predictions are always unchanged by rescaling one input feature. 
+ 
+Answer Key: 
+ 
+A. True – Numerical magnitude directly affects distance unless the inputs are adjusted. 
+B. True – Standardization reduces dominance caused solely by differing units or ranges. 
+C. False – Scaling changes numerical inﬂuence, not the underlying information content. 
+D. True – Fitting preprocessing on test data weakens train/test separation. 
+E. False – Rescaling can change which observations are nearest. 
+ 
+[ML-D3G2Q2] 
+A research group compares a decision tree with KNN using the same set of standardized ﬁnancial ratios. The research 
+director asks whether scaling should improve both learners in the same way. The group is also trying to keep the 
+production pipeline as simple as possible. 
+ 
+A. A conventional decision tree chooses threshold splits based on ordering, so positive linear rescaling usually leaves its 
+partition structure unchanged. 
+B. KNN can be sensitive to scaling because its neighborhoods depend on distances. 
+C. Standardization is mandatory for every machine-learning algorithm. 
+ 
+ 74 Rev:081020261230 
+D. Removing an unnecessary scaling step may simplify the tree’s production pipeline without materially changing its 
+predictions. 
+E. Because trees usually do not require scaling, they are immune to all feature-quality problems. 
+ 
+Answer Key: 
+ 
+A. True – A monotonic linear rescaling preserves value order and corresponding split partitions. 
+B. True – Changing relative feature scales can change neighbor selection. 
+C. False – The need for scaling depends on the learner and representation. 
+D. True – Unneeded preprocessing adds operational complexity without a corresponding modeling beneﬁt. 
+E. False – Trees remain vulnerable to noise, leakage, irrelevant inputs, and other data problems. 
+ 
+[ML-D3G2Q3] 
+A global macro desk trains a distance-based model across rolling market windows. Volatility rises sharply in the test 
+period, and an analyst proposes normalizing every observation using the mean and standard deviation of its entire 
+window, including later test dates. The PM wants current observations to be comparable without introducing hindsight. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The following claim is false: Using later test observations to determine earlier scaling values introduces future 
+distribution information into preprocessing. 
+B. Applying training-period scaling parameters to later observations preserves the original train/test boundary. 
+C. A large standardized value in the test period can legitimately indicate that the market moved beyond the training 
+distribution. 
+D. Recomputing a scaler using the full test period is safe because scaling does not use target returns. 
+E. A causal rolling scaler may use observations available before the decision time, provided its window is deﬁned 
+consistently. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. True – Earlier transformed values would depend on data not then available. 
+B. False – The test data are transformed using a preprocessing rule learned without seeing them. 
+C. False – The extreme value can reﬂect a genuine distribution shift rather than a preprocessing error. 
+D. True – Leakage can occur through future feature statistics even without direct use of the target. 
+E. False – A backward-looking window can be reproduced at deployment time. 
+ 
+ 75 Rev:081020261230 
+ 
+[ML-D3G2Q4] 
+A multi-strategy hedge fund utilizes a machine learning model to predict weekly changes in corporate credit spreads. The 
+input features include various macroeconomic indices and fundamental corporate ratios. Before feeding these features 
+into a gradient-boosted decision tree (GBDT) classiﬁer, a data engineering pipeline automatically standardizes the feature 
+matrix using a standard Z-score transformation based on a rolling 36-month window. During a sudden market-wide 
+liquidity freeze, the model unexpectedly experiences a massive drop in precision. An investigation shows that while the 
+absolute values of the macroeconomic indicators spiked to unprecedented levels, their transformed Z-score feature 
+values remained capped within historically normal boundaries. 
+Which of the following statements correctly diagnoses the statistical ﬂaw in this standardization pipeline and identiﬁes 
+the appropriate structural remedy? 
+ 
+A. The Z-score standardization process mathematically failed because a rolling 36-month window is fundamentally too 
+short for the Central Limit Theorem to hold, which prevents the feature distributions from properly converging to a normal 
+Gaussian bell curve. 
+B. The standardization pipeline suffered from Outlier Truncation Bias, which is an inherent limitation of linear 
+transformations where any feature value that falls more than three standard deviations away from the rolling mean is 
+automatically replaced with a maximum value of +3.0. 
+C. The pipeline failed because standardizing time-series features using a rolling mean and standard deviation alters the 
+rank-order of the observations within each window, which destroys the GBDT classiﬁer's ability to calculate optimal split 
+thresholds. 
+D. The transformation artiﬁcially suppressed the extreme market shock because calculating a rolling Z-score under 
+conditions of rapidly expanding volatility causes the denominator (the rolling standard deviation) to balloon, which 
+systematically compresses the magnitude of the anomalous feature spikes. 
+E. Replacing the rolling standard deviation with a scale estimate ﬁtted only on calm historical data would guarantee 
+reliable anomaly detection in every future market regime. 
+ 
+Answer Key: 
+ 
+A. False – The Central Limit Theorem applies to the distribution of sample means, not the standardization of individual 
+feature data points. Furthermore, 36 months of weekly data (~156 observations) is statistically sufficient for standard 
+parameter estimation. 
+B. False – Standard Z-score transformation does not automatically truncate or cap extreme values at +3.0 or −3.0. Such 
+limits would occur only if the pipeline included an additional clipping or winsorization step. 
+C. False – Linear transformations like Z-scoring are monotonic, meaning they preserve the exact rank-order of the data 
+points within that window. Tree-based models are invariant to monotonic transformations of individual features.  
+D. True – This is a classic pitfall when standardizing non-stationary ﬁnancial data. When an extreme regime shift occurs, 
+the rolling standard deviation (σ) increases rapidly. This expanding denominator deﬂates the resulting Z-score, masking 
+the true severity of the anomaly and preventing the model from recognizing that the market has entered an 
+unprecedented tail-risk state. 
+ 
+ 76 Rev:081020261230 
+E. False – A ﬁxed historical scaler avoids contemporaneous denominator expansion, but no scaling choice can guarantee 
+reliable behavior under every future distribution shift. 
+ 
+[ML-D3G2Q5] 
+A systematic macro fund runs a multi-asset allocation model that processes global macroeconomic indices. The data 
+engineering team notes that many of these indices (such as Industrial Production or Retail Sales) exhibit exponential 
+structural growth trends over long horizons. To prepare these features for a deep learning model, the team implements a 
+preprocessing step that centers and scales each feature vector by subtracting its historical mean and dividing by its 
+standard deviation, computed over the entire training set. 
+Which of the following statements correctly diagnoses how this scaling method fails during production, and contrasts it 
+with how the unscaled data would behave? 
+ 
+A. It is incorrect to conclude that the standardization fails because subtracting the mean from an exponentially growing 
+series introduces a look-ahead bias, as the historical mean is structurally higher than any data point observed in the ﬁrst 
+half of the dataset. 
+B. The standardization fails because an exponential trend means the mean and standard deviation are constantly drifting 
+upward; as time moves forward into production, the standardized features will continuously grow larger and drift into 
+regions the model never saw during training. 
+C. On unscaled data, a deep learning model would automatically ignore the exponential trend because neural networks 
+are naturally invariant to monotonic shifts in feature levels over time. 
+D. The unscaled data would remain stable during a regime shift because raw macroeconomic indices are bounded by 
+global economic capacity, preventing them from drifting into uncalibrated territories. 
+E. The scaled pipeline breaks down because standardizing a non-stationary series changes the relative ranking of the 
+historical data points, a distortion that would not occur on the unscaled data and which paralyzes the model's pattern 
+recognition. 
+ 
+Answer Key: 
+ 
+A. True – The embedded claim is inaccurate, so rejecting it is correct. While computing a global mean across the entire 
+dataset during backtesting can cause look-ahead bias if leaked into the training slice, the fundamental statistical failure 
+of standardization on an untransformed trend is a distribution shift issue, not an accidental data leak. (Ref: Handbook of 
+AI Ch. 5.1) 
+B. True – Because the underlying series is non-stationary and grows exponentially, the mean and standard deviation 
+calculated from the training set become increasingly unrepresentative of future observations. As the series continues 
+growing in production, its standardized values move progressively beyond the range encountered during training, creating 
+an increasingly severe distribution shift. 
+C. False – Deep learning models (unlike tree-based models) are highly sensitive to raw, unscaled inputs with large 
+variations in scale. On unscaled data with an exponential trend, the gradients would explode or saturate early in training, 
+rendering the network completely unstable from day one.  
+ 
+ 77 Rev:081020261230 
+D. False – Raw macroeconomic indicators are not mean-reverting; they grow with inﬂation and economic expansion. They 
+do not remain stable, which is precisely why engineers attempt to scale them in the ﬁrst place.  
+E. False – Standard Z-score standardization is a linear transformation. It shifts and scales the data but preserves the exact 
+rank-order of the points. The breakdown is caused by out-of-distribution values in production, not a distortion of past 
+relative rankings.  
+ 
+[ML-D3G2Q6] 
+A cross-sectional alpha model uses the Book-to-Market (B/M) Ratio as a key value feature to rank a universe of 500 
+equities. The raw B/M values are heavily right-skewed because a small number of deeply distressed companies exhibit 
+exceptionally high ratios. To prevent these extreme values from dominating the model's loss function, the production 
+pipeline passes the raw cross-sectional ratios through a Quantile Transformation (mapping the empirical distribution to 
+a uniform distribution between 0.0 and 1.0) before feeding them into a neural network. 
+Which of the following statements correctly diagnoses the mathematical side-effects of this transformation during a 
+structural market regime shift, and contrasts it with how the unscaled data would behave? 
+For this question, mark each statement True if it is incorrect and False if it is accurate. 
+ 
+A. The transformation fails because mapping data to a uniform quantile distribution changes the fundamental rank-order 
+of the equities within that speciﬁc cross-section, a distortion that would not occur on the raw, unscaled B/M features. 
+B. During a market-wide systemic crash where all asset prices plummet and raw B/M ratios double across the board, the 
+quantile-transformed features will still output a ﬁxed range from 0.0 to 1.0, completely masking the absolute macro 
+destruction from the neural network. 
+C. On unscaled data, the neural network would remain completely unaffected by the absolute magnitude of the right-
+skewed tail because backpropagation automatically cancels out the variance of extreme outliers during gradient descent 
+updates. 
+D. The quantile pipeline breaks down during a crisis because passing raw values that exceed the training set's historical 
+maximum into an empirical cumulative distribution function (ECDF) causes the transformation equation to yield complex 
+numbers. 
+E. Unlike Min-Max scaling, which would output values far greater than 1.0 when processing unprecedented raw spikes 
+during a crash, the Quantile Transformation compresses all extreme tail-risk anomalies strictly into the 1.0 boundary 
+bucket, making a severe outlier look identical to a mild one. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. True – Quantile mapping is a monotonic transformation based on percentiles. It preserves the exact relative rank-order 
+of the assets within the cross-section.  
+B. False – This is a major structural blind spot of purely cross-sectional, rank-based normalization. If the entire market 
+enters a severe tail-risk state, the absolute values spike, but the relative percentiles remain identical. The scaled pipeline 
+strips out the macro signal, whereas unscaled data would immediately show the network that the entire distribution has 
+shifted.  
+ 
+ 78 Rev:081020261230 
+C. True – On unscaled, heavily right-skewed data, extreme outliers generate massive errors that dominate the mean 
+squared error (MSE) loss function. This causes the gradients to explode during backpropagation, destabilizing the 
+network's weights.  
+D. True – An empirical cumulative distribution function maps real inputs to a real probability scale [0,1]. It cannot 
+mathematically produce imaginary or complex numbers, regardless of how extreme the input outlier is.  
+E. False – This highlights the core contrast. While Min-Max scaling extends past 1.0 into uncalibrated territory when 
+encountering new maximums, a Quantile Transformation caps the value at the 1.0 ceiling (the 100th percentile). It 
+removes the mathematical out-of-bounds issue but replaces it with an information blackout, blinding the model to the 
+true severity of the extreme tail event.  
+ 
+G3: Feature Relevance and Redundancy 
+[ML-D3G3Q1] 
+A hedge fund adds hundreds of randomly generated columns to a modest dataset because the PM believes a capable 
+learner will simply ignore anything useless. The validation results vary widely across splits, and the risk team questions 
+whether the expanded feature set is helping. The model must remain stable on unseen markets. 
+ 
+A. Irrelevant features can create opportunities for a ﬂexible learner to ﬁt accidental patterns. 
+B. With ﬁnite data, adding random inputs can increase variance in model selection and evaluation. 
+C. An irrelevant feature is guaranteed to receive zero inﬂuence from every learning algorithm. 
+D. Comparing held-out performance with and without the random features can help assess their effect. 
+E. A feature’s presence is justiﬁed whenever it is correlated with the target in the training sample. 
+ 
+Answer Key: 
+ 
+A. True – Flexible models may mistake random sample associations for useful signal. 
+B. True – More candidate relationships can make ﬁtted models less stable. 
+C. False – Many algorithms can assign inﬂuence to noise because of sampling variation. 
+D. True – Out-of-sample comparison tests whether the additions improve generalization. 
+E. False – Training correlation may be accidental, unstable, or caused by leakage. 
+ 
+[ML-D3G3Q2] 
+A bank predicts default risk using both debt-to-equity and a second ﬁeld that is an almost exact duplicate supplied by 
+another vendor. A compliance stakeholder wants every available variable retained, while the modeling lead worries that 
+redundant inputs complicate interpretation. The team is comparing linear and tree-based learners. 
+ 
+ 79 Rev:081020261230 
+ 
+A. Highly correlated features may contain overlapping rather than independent information. 
+B. In a linear model, strong collinearity can make individual coefficient estimates unstable. 
+C. Two redundant features necessarily double the model’s predictive information. 
+D. A tree may choose one of several similar features, causing feature-importance assignments to vary across samples. 
+E. Removing one redundant variable must always reduce out-of-sample accuracy. 
+ 
+Answer Key: 
+ 
+A. True – Similar variables may largely repeat the same underlying signal. 
+B. True – Small data changes can shift attribution among correlated predictors. 
+C. False – Duplication does not create an independent signal. 
+D. True – Similar split candidates can substitute for one another and destabilize attribution. 
+E. False – Removal may leave performance unchanged or even improve stability. 
+ 
+[ML-D3G3Q3] 
+A commodity fund ﬁnds that warehouse inventory and weeks-of-supply are strongly correlated, but the latter also 
+incorporates expected demand. The portfolio manager proposes dropping one automatically based on the correlation 
+coefficient. The analyst argues that redundancy should be judged in the context of the prediction task. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The following claim is false: Strong pairwise correlation does not prove that two features are interchangeable for 
+prediction. 
+B. A feature can add conditional information even when it is strongly correlated with another feature. 
+C. Correlation between predictors establishes that one of them is causally irrelevant. 
+D. Comparing validated models can help determine whether removing one feature sacriﬁces useful information. 
+E. Operational cost and data reliability can be considered when choosing between largely redundant features. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. True – The variables may differ in nonlinear behavior, noise, or conditional relationships. 
+B. False – The residual differences may still help predict the target. 
+C. True – Predictor correlation alone does not establish causality or irrelevance. 
+ 
+ 80 Rev:081020261230 
+D. False – Out-of-sample evidence can reveal whether the feature adds generalizable value. 
+E. False – Similar predictive value can make cost, latency, and reliability decisive. 
+ 
+[ML-D3G3Q4] 
+A quantitative portfolio team adds 50 new technical indicators—mostly subtle variations of rolling momentum and 
+moving average crossovers—to an existing ensemble model trading liquid futures. While the training and backtest 
+performance metrics improve marginally, the model's live execution proﬁle displays a signiﬁcant drop in risk-adjusted 
+returns and an inﬂation of transaction costs due to high portfolio turnover. An audit reveals that many of these new inputs 
+are highly collinear. 
+ 
+Which of the following statements correctly diagnoses the mathematical and operational impact of introducing these 
+redundant features into the model? 
+ 
+A. Tree-based models like Random Forests fail completely when presented with collinear features because 
+multicollinearity forces the mathematical inversion of the feature covariance matrix to fail, preventing the calculation of 
+optimal split thresholds. 
+B. The inclusion of highly correlated momentum indicators dilutes the feature importance metrics (such as Mean 
+Decrease Impurity), splitting the credit across redundant inputs and obscuring the truly dominant structural signals from 
+the risk-management team. 
+C. Collinear features artiﬁcially narrow the variance of the model's predictions during market shocks, causing the 
+algorithm to underestimate portfolio risk and over-allocate capital to highly correlated asset groups. 
+D. In a linear regression framework, highly correlated features can make the individual coefficient estimates unstable and 
+sensitive to small changes in the training data, even when the model’s overall predictions remain relatively stable. 
+E. To systematically eliminate these redundant features without discarding the underlying directional signal, the team 
+should pass the collinear matrix through a Principal Component Analysis (PCA) pipeline and retain only the top 
+orthogonal components. 
+ 
+Answer Key: 
+ 
+A. False – Tree-based models do not invert a covariance matrix to calculate splits; they evaluate individual features 
+sequentially. They do not "fail completely" mathematically, though their interpretability degrades.  
+B. True – When two features carry identical information, a tree ensemble will randomly use one or the other across 
+different nodes. This splits their apparent importance, making two critical, highly correlated features look like two 
+mediocre ones.  
+C. False – Collinearity typically increases prediction variance out-of-sample due to unstable parameter estimation, rather 
+than artiﬁcially narrowing the variance of the predictions themselves.  
+ 
+ 81 Rev:081020261230 
+D. True – Multicollinearity is a severe violation in linear frameworks. It destabilizes the ordinary least squares (OLS) math 
+because the columns of the feature matrix are nearly linearly dependent, leading to massive swings in beta weights given 
+tiny changes in the data.  
+E. True – PCA projects the correlated features into a new coordinate system where the resulting components are 
+orthogonal (uncorrelated) by construction, isolating the core variance while stripping out collinear redundancy.  
+ 
+[ML-D3G3Q5] 
+A multi-strategy quant desk is optimizing an asset-allocation model that uses a collection of 15 macroeconomic 
+sentiment indices. A statistical analysis reveals that 4 of these indices share a correlation coefficient of r>0.92 with each 
+other. Rather than dropping any variables, the team decides to train two different model structures to compare how they 
+handle this redundancy: a Random Forest regressor and an unregularized OLS Linear Regression. 
+Which of the following statements correctly evaluates how these two models behave when processing this redundant 
+feature set? 
+For this question, mark each statement True if it is incorrect and False if it is accurate. 
+ 
+A. The unregularized OLS model will remain stable because highly correlated features do not increase the variance or 
+instability of the individual coefficient estimates. 
+B. In the Random Forest model, the highly correlated features will dilute each other's calculated feature importance 
+metrics (e.g., Mean Decrease Impurity), as the tree ensemble randomly substitutes one redundant feature for another 
+across different split nodes. 
+C. The OLS model's out-of-sample predictions will become highly unstable because severe multicollinearity causes the 
+feature covariance matrix to approach singularity, dramatically inﬂating the standard errors of the regression coefficients. 
+D. The Random Forest model's out-of-sample predictive accuracy will collapse to zero because tree-based architectures 
+cannot mathematically calculate a split threshold when two feature vectors are nearly collinear. 
+E. Unlike the OLS model, which suffers from variance inﬂation when redundant features are present, the Random Forest 
+model naturally handles the redundancy by automatically isolating and ignoring all but one of the highly correlated 
+features during the bootstrap sampling phase. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. True – Sample size does not cure multicollinearity. When features are highly correlated, the OLS parameter estimates 
+become extremely sensitive to minor variations in the data, leading to high variance regardless of sample size.  
+B. False – Because the 4 sentiment indices carry nearly identical structural information, a tree ensemble will split the 
+node selections among them somewhat evenly. This artiﬁcially lowers the individual importance score of each index, 
+making a highly predictive group of variables look trivial on an importance plot.  
+C. False – Severe multicollinearity inﬂates the variance and standard errors of the individual coefficient estimates, which 
+can make the OLS model’s out-of-sample predictions unstable—particularly when the relationships among the 
+correlated features change between the training and test data. 
+ 
+ 82 Rev:081020261230 
+D. True – Random Forests split on features sequentially and greedily; they do not invert a covariance matrix. Collinearity 
+degrades the interpretability of the tree's feature importances, but it does not cause the splitting mathematics to fail or 
+break down.  
+E. True – Random Forests do not automatically isolate or ignore all but one of a set of correlated features. Bootstrap 
+sampling selects observations, not features, while a random subset of features is considered at each split. Consequently, 
+different redundant features may be used throughout the ensemble, diluting their individual importance scores. 
+ 
+[ML-D3G3Q6] 
+A data scientist is constructing a machine learning pipeline to trade a cross-section of global equities. The initial feature 
+pool contains 150 technical and fundamental factors. To optimize the feature space, the pipeline employs a Sequential 
+Forward Selection (SFS) wrapper algorithm to iteratively add features that maximize the model's out-of-sample Sharpe 
+ratio. The ﬁnal selected subset contains 12 features and achieves an exceptional Sharpe ratio in the historical backtest, 
+but when deployed in live trading, the strategy experiences severe drawdown and underperforms the baseline model that 
+used all 150 features. 
+Which of the following statements correctly diagnoses the statistical ﬂaw in this feature selection process? 
+For this question, mark each statement True if it is incorrect and False if it is accurate. 
+ 
+A. SFS is a deterministic greedy algorithm that evaluates features sequentially, meaning it is fundamentally incapable of 
+capturing interaction effects where two features are only predictive when selected together. 
+B. The collapse in performance is a result of Selection Bias (Overﬁtting the Backtest), where the iterative wrapper search 
+treats the backtest performance as an optimization objective, essentially "mining" the historical noise for a subset that 
+ﬁts that speciﬁc period perfectly. 
+C. SFS artiﬁcially alters the joint probability distribution of the feature matrix, violating the stationarity assumptions 
+required by downstream machine learning architectures. 
+D. Wrapper methods like SFS are structurally ﬂawed because they optimize features independently of the downstream 
+model's internal hyperparameter settings, creating an uncalibrated feature-model mismatch. 
+E. The failure occurred because a greedy wrapper algorithm will always over-allocate weight to low-variance, irrelevant 
+features, completely missing the high-variance regimes that dominate live market returns. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Because SFS evaluates and adds features one at a time, it may miss interaction effects when two features are 
+useful together but neither provides sufficient predictive value individually. Once a feature is rejected at an early stage, 
+standard SFS does not reconsider it in combination with features added later. 
+B. False – This is a massive trap in quantitative ﬁnance. By running a wrapper algorithm over thousands of feature 
+combinations against a ﬁxed backtest, you are performing a combinatorial search. The algorithm will easily ﬁnd a subset 
+that ﬁts the historical data beautifully by pure chance, leading to severe out-of-sample disappointment.  
+ 
+ 83 Rev:081020261230 
+C. True – Selecting a subset of columns from a matrix does not change the underlying joint probability distribution of 
+those speciﬁc variables; it merely discards the other columns. The failure is due to over-optimizing on noise, not a 
+structural alteration of the data distribution.  
+D. True – Wrapper methods actually do the opposite: they evaluate feature subsets using the exact downstream model 
+being trained. They are directly tuned to the model, though they remain prone to overﬁtting the validation data.  
+E. True – SFS does not favor low-variance features by default; it greedily selects whatever feature maximizes the objective 
+function (in this case, the Sharpe ratio). The failure is driven by the capitalization on historical noise, not an inherent bias 
+toward low variance.  
+ 
+G4: Feature Selection Intuition 
+[ML-D3G4Q1] 
+A small-cap strategy has only three years of weekly observations but several hundred candidate accounting and 
+sentiment features. The PM wants to keep all variables to avoid missing a signal, while the research lead fears that the 
+model will search through too many accidental relationships. The ﬁnal model must perform reliably outside the 
+development period. 
+ 
+A. Reducing the feature space can lower the number of spurious patterns available to the learner. 
+B. Feature selection can be especially valuable when the number of candidate features is large relative to the 
+observations. 
+C. Selecting features based on the full dataset, including the test period, preserves an unbiased ﬁnal test. 
+D. Removing features can reduce overﬁtting but may also discard genuine signal. 
+E. The feature subset with the lowest training error is necessarily the best choice. 
+ 
+Answer Key: 
+ 
+A. True – Fewer inputs can constrain the learner’s opportunity to ﬁt noise. 
+B. True – Limited observations make reliable estimation across many predictors difficult. 
+C. False – Test-period information would inﬂuence model development. 
+D. True – Selection trades reduced complexity against possible information loss. 
+E. False – Training ﬁt does not measure generalization and often favors greater complexity. 
+ 
+ 
+ 84 Rev:081020261230 
+[ML-D3G4Q2] 
+A trading ﬁrm ranks 1,000 features by their correlation with next-day returns, retains the top 20, and reports performance 
+on the same historical observations used for ranking. The head of research says the ﬁnal learner used only 20 inputs, so 
+overﬁtting is no longer a concern. The validation officer challenges the process. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The following claim is false: Searching across 1,000 candidates can overﬁt the feature-selection step even if the ﬁnal 
+model uses only 20. 
+B. Evaluating the selected subset on the same observations used to rank features can produce optimistic results. 
+C. Feature selection is outside the modeling process and therefore does not need validation. 
+D. Selection should be repeated within each training fold when cross-validation is used to estimate performance. 
+E. A ﬁnal untouched test period can provide a more independent assessment after the selection procedure is ﬁxed. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. True – The search can select predictors that correlated with the target by chance. 
+B. False – The evaluation rewards the same sample-speciﬁc relationships used for selection. 
+C. True – Selection is a learned preprocessing decision and must be contained within validation. 
+D. False – Each validation fold must remain uninvolved in choosing its model’s features. 
+E. False – An untouched test period evaluates the complete frozen development process. 
+ 
+[ML-D3G4Q3] 
+A pension manager wants a transparent risk model that can be maintained by a small team. A 12-feature model performs 
+nearly as well as a 150-feature model in rolling validation, but several of the 150 inputs require expensive alternative-data 
+feeds. The team must choose between a small accuracy difference and operational simplicity. 
+ 
+A. Similar validated performance can favor the smaller model when cost and maintainability matter. 
+B. Fewer features can reduce exposure to feed failures and future changes in data availability. 
+C. The larger feature set is automatically superior because it contains the smaller set. 
+D. Removing features may improve interpretability by reducing the number of inputs stakeholders must understand. 
+E. Feature selection decisions should ignore deployment constraints if predictive accuracy differs at all. 
+ 
+Answer Key: 
+ 
+ 85 Rev:081020261230 
+ 
+A. True – Model choice can reﬂect operational objectives as well as predictive performance. 
+B. True – Each external input introduces another dependency and possible failure mode. 
+C. False – More inputs can add noise, instability, cost, and overﬁtting risk. 
+D. True – A compact representation is generally easier to inspect and explain. 
+E. False – A small performance gain may not justify signiﬁcant cost or fragility. 
+ 
+[ML-D3G4Q4] 
+A data scientist is managing an alpha-generation pipeline that contains 80 technical, fundamental, and alternative data 
+features. The downstream model is a regularized linear framework optimized to predict next-week asset returns. To 
+combat out-of-sample decay, the scientist decides to restrict the model's feature space. They implement a strict feature-
+control protocol that uses a tree-based feature-importance threshold to prune the feature matrix down to the top 15 
+variables before ﬁtting the linear framework. 
+Which of the following statements correctly evaluates the statistical beneﬁts and tradeoffs of reducing the feature space 
+in this manner? 
+ 
+A. Reducing the feature space from 80 to 15 variables decreases the model's estimation variance because estimating 
+fewer parameters prevents the optimization algorithm from ﬁtting the idiosyncratic noise present in the training data. 
+B. Shrinking the feature space improves the model's out-of-sample performance across all possible market regimes 
+because removing variables mathematically guarantees a reduction in the model's structural bias. 
+C. The primary risk of this pruning strategy is the potential introduction of omitted variable bias, where dropping 65 
+features might inadvertently discard subtle, weak-signal variables that are vital for capturing multi-factor market 
+dynamics. 
+D. Using a non-linear tree-based model to select features for a downstream linear framework is structurally ﬂawed 
+because tree-based feature selection permanently alters the rank-order of the remaining features, invalidating OLS 
+parameter estimation. 
+E. Restricting the feature space limits the model's capacity to overﬁt, but it introduces a strict tradeoff where the training 
+error (in-sample loss) will typically increase as the model's ﬂexibility is constrained. 
+ 
+Answer Key: 
+ 
+A. True – Limiting the number of inputs is a core mechanism for controlling overﬁtting. With fewer parameters to estimate, 
+the linear framework focuses on dominant, statistically robust relationships rather than chasing high-dimensional noise.  
+B. False – Reducing the feature space does not reduce bias; it typically increases it. By restricting the model's inputs, you 
+constrain its ﬂexibility, meaning it is less capable of modeling complex real-world trends perfectly.  
+C. True – This is the classic tradeoff of feature selection. While pruning clears out noise, it risks discarding "weak 
+predictors" that may collectively contain meaningful predictive power when combined, leading to an underﬁt model.  
+ 
+ 86 Rev:081020261230 
+D. False – Tree-based feature selection does not alter the rank-order or values of the underlying data points. While mixing 
+model architectures requires care regarding feature interactions, it does not mathematically invalidate the downstream 
+parameter estimation.  
+E. True – This is the fundamental bias-variance tradeoff in action. Restricting the feature space reduces model capacity, 
+which almost always results in higher in-sample error in exchange for more stable, lower-variance out-of-sample 
+predictions.  
+ 
+[ML-D3G4Q5] 
+A multi-asset hedge fund deploys a high-dimensional neural network to predict next-day currency movements using a 
+raw pool of 300 macroeconomic, sentiment, and order-ﬂow features. To control overﬁtting and enhance the model's 
+signal-to-noise ratio, a quantitative analyst proposes a pre-processing step: compress the 300 features into 10 
+orthogonal factors using Principal Component Analysis (PCA) and train the neural network exclusively on these 10 
+components. 
+Which of the following statements correctly diagnoses the mathematical tradeoffs and structural risks of this feature-
+reduction protocol? 
+ 
+A. Compressing the feature space via PCA eliminates the risk of out-of-sample performance decay because projecting 
+data onto orthogonal axes mathematically prevents the neural network from memorizing noise. 
+B. The primary tradeoff of this approach is that PCA is an unsupervised technique; the 10 components are selected 
+because they maximize variance within the feature space, meaning PCA might completely discard low-variance features 
+that are highly predictive of the target currency movements. 
+C. Using PCA components as inputs causes the neural network's gradient descent updates to fail because orthogonal 
+inputs eliminate the cross-covariance required by backpropagation to calculate weight adjustments. 
+D. By reducing the input dimensions from 300 to 10, the analyst lowers the model's estimation variance, creating a more 
+stable, parsimonious model that is less likely to overﬁt the historical data. 
+E. A major operational tradeoff of this transformation is the loss of interpretability, as each of the 10 input factors is now 
+a linear combination of all 300 raw features, making it difficult to attribute portfolio risk to speciﬁc real-world economic 
+drivers. 
+ 
+Answer Key: 
+ 
+A. False – While PCA controls collinearity and reduces dimensionality, it does not "eliminate" the risk of overﬁtting. A deep 
+neural network can still easily overﬁt the 10 remaining principal components if its capacity (layers/nodes) is 
+unconstrained relative to the sample size.  
+B. True – This is the classic pitfall of unsupervised dimensionality reduction in a supervised learning pipeline. PCA looks 
+only at the features (X) and knows nothing about the target (y). A low-variance regime or subtle alternative data signal 
+might be discarded as "noise" by PCA, even though it holds the highest predictive power for currency movements.  
+C. False – Orthogonal features actually optimize the training dynamics of neural networks. Eliminating multicollinearity 
+in the input space reduces the ill-conditioning of the loss surface, helping gradient descent converge more efficiently.  
+ 
+ 87 Rev:081020261230 
+D. True – Compressing the feature space severely restricts the ﬂexibility of the input layer. By forcing the network to look 
+at a compact 10-dimensional representation instead of a sprawling 300-dimensional space, the analyst limits the 
+model's ability to hunt for spurious, high-dimensional correlations in the training data.  
+E. True – This is a critical risk-management tradeoff. If the model suddenly shifts its allocations, the investment 
+committee cannot easily determine why because the features are abstract mathematical projections (e.g., "Component 
+3 spiked") rather than distinct, identiﬁable metrics like "Inﬂation increased. "  
+ 
+[ML-D3G4Q6] 
+A quantitative research team is debating how to manage a high-dimensional feature dataset consisting of 250 micro-
+structural order ﬂow variables. The objective is to build an intraday equity model. One faction wants to use a subset 
+selection wrapper (such as Best Subset Selection) to ﬁnd a sparse, 20-feature model. The other faction advocates for 
+keeping all 250 features but applying heavy Ridge Regression (L2 Regularization) to penalize the coefficients. 
+Which of the following statements correctly evaluates the tradeoffs, beneﬁts, and structural differences between these 
+two feature-control methodologies? 
+ 
+A. Best Subset Selection reduces the feature space to a sparse matrix, which minimizes estimation variance, but it 
+introduces a major risk of selection variance because the combinatorial search can overﬁt the training data by selecting 
+features that ﬁt the noise by pure chance. 
+B. Ridge Regression manages overﬁtting by shrinking coefficients toward zero, which reduces model ﬂexibility and 
+estimation variance without discarding any variables from the feature space. 
+C. Selecting a sparse 20-feature model via Best Subset Selection mathematically guarantees a lower training error (in-
+sample loss) than a Ridge Regression model that utilizes all 250 features. 
+D. A major tradeoff of keeping all 250 features under Ridge Regression is computational drag during live production 
+execution, as the model must continuously ingest, process, and calculate transformations for 230 more variables than 
+the sparse model. 
+E. If the underlying asset returns are truly driven by a small handful of dominant structural variables while the remaining 
+230 variables are pure noise, Ridge Regression will perform better out-of-sample than Best Subset Selection because L2 
+regularization will force the noise coefficients to exactly zero. 
+ 
+Answer Key: 
+ 
+A. True – This is a critical hazard of subset selection methods. When you search across a massive combination of features 
+to maximize a performance metric (like R-squared or Sharpe ratio), you turn the feature selection process itself into an 
+optimization problem, which heavily overﬁts the historical data.  
+B. True – Ridge Regression controls overﬁtting by shrinking all coefficient estimates toward zero. This reduces model 
+ﬂexibility and estimation variance while retaining all 250 features in the model. 
+C. False – Best Subset Selection constrains the model to just 20 parameters, limiting its ﬂexibility. A model with 250 
+features—even under Ridge regularization—will almost always achieve a lower or equal training error because it retains 
+a vastly larger and more ﬂexible functional space to ﬁt the training data.  
+ 
+ 88 Rev:081020261230 
+D. True – This is an operational tradeoff. While regularized dense models can be highly predictive, they require maintaining 
+a heavy data engineering pipeline in production to feed all 250 features in real-time, whereas a sparse model drastically 
+simpliﬁes the production data footprint. 
+E. False – Ridge regression shrinks coefficients close to zero, but mathematically it never sets them to exactly zero. If the 
+true data-generating process is sparse (dominated by only a few signals), Lasso (L1) or Best Subset Selection will 
+generally outperform Ridge because Ridge cannot completely drop the noise variables.  
+ 
+G5: Target Leakage 
+[ML-D3G5Q1] 
+An asset manager predicts whether a borrower will default within 90 days. One feature is the account status code 
+recorded after the collections department closes the case, and the model achieves nearly perfect accuracy. The credit 
+officer wants to deploy immediately, but the model-risk team questions when that code becomes available. 
+ 
+A. A post-resolution status code may encode the target outcome and create target leakage. 
+B. High accuracy proves that the feature will be available when a new prediction is required. 
+C. The team should reconstruct each feature using only information available at the prediction timestamp. 
+D. Removing the leaked ﬁeld will likely reduce measured performance but make the evaluation more realistic. 
+E. Target leakage is harmless if the leaked feature is strongly correlated with default. 
+ 
+Answer Key: 
+ 
+A. True – The ﬁeld may reveal the outcome rather than predict it prospectively. 
+B. False – Accuracy says nothing about decision-time availability. 
+C. True – Point-in-time reconstruction tests the model under deployable information constraints. 
+D. True – Unrealistic predictive power disappears, yielding a more credible estimate. 
+E. False – Strong association caused by outcome information is precisely why leakage is misleading. 
+ 
+[ML-D3G5Q2] 
+A brokerage predicts customer account closures using a monthly table. The table includes “days since ﬁnal transaction, ” 
+calculated after the month ends using the customer’s eventual last transaction date. A product manager argues that the 
+feature is not the closure label itself and therefore cannot be leakage. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+ 
+ 89 Rev:081020261230 
+A. A feature can leak target information without being an exact copy of the target label. 
+B. Using an eventual last-transaction date can reveal future customer behavior unavailable at the monthly prediction 
+date. 
+C. Renaming the ﬁeld would eliminate the leakage. 
+D. Auditing feature lineage and timestamps can expose how the ﬁeld was calculated. 
+E. A valid replacement could calculate days since the most recent transaction known as of each prediction date. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Derived variables can indirectly encode the outcome. 
+B. False – The calculation depends on knowledge acquired after the decision time. 
+C. True – Leakage depends on the underlying data and timing, not the column name. 
+D. False – Lineage reveals source events and whether they postdate the prediction. 
+E. False – This backward-looking version can be reproduced for a live customer. 
+ 
+[ML-D3G5Q3] 
+A quant team standardizes every feature, selects predictors, tunes a model, and then reports results. Although the raw 
+inputs are available before each trade, the feature selector used correlations with target returns from both the training 
+and test periods. The PM insists there is no leakage because no future-return column enters the ﬁnal model. 
+ 
+A. The following claim is false: Target information used to choose features can leak into the model-development process. 
+B. Excluding the target column from the ﬁnal input matrix is sufficient to guarantee a clean evaluation. 
+C. The test-period targets inﬂuenced which predictors survived, so the reported test result is no longer independent. 
+D. Feature selection should be ﬁtted on training data and then applied unchanged to the corresponding held-out data. 
+E. Leakage can occur through preprocessing and selection decisions as well as through raw feature columns. 
+ 
+Answer Key: 
+ 
+A. False – Target-guided selection is part of ﬁtting the model pipeline. 
+B. False – The target can inﬂuence development indirectly without becoming an input column. 
+C. True – The test outcomes helped deﬁne the evaluated model. 
+D. True – This preserves the held-out role of the evaluation data. 
+E. True – Any learned step can transmit forbidden information into the result. 
+ 
+ 
+ 90 Rev:081020261230 
+[ML-D3G5Q4] 
+A cross-sectional alpha model uses corporate fundamental data to predict whether a company's stock will outperform 
+its industry peers over the next quarter. One of the features engineered by the team is Relative Proﬁtability, which scales 
+a company's net income against the total net income of all companies within its speciﬁc GICS industry sector. The 
+training dataset includes 800 ﬁrms. Due to an architectural oversight in the feature engineering script, the sector-wide 
+total net income used as the denominator for each ﬁrm is calculated globally across the entire cross-section before 
+splitting the data into cross-validation folds. 
+Which of the following statements correctly diagnoses why this conﬁguration suffers from Target Leakage, and contrasts 
+it with how a properly isolated pipeline would behave? 
+ 
+A. It is incorrect to conclude that target leakage occurs because calculating the sector-wide denominator across the 
+entire cross-section before splitting leaks information about the target labels of the validation ﬁrms into the feature 
+values of the training ﬁrms. 
+B. This setup creates an artiﬁcial performance boost because the global denominator contains structural information 
+about the scale, health, and distribution of the entire peer universe, a data point that will be uncalibrated and missing if 
+a new ﬁrm enters the production environment alone. 
+C. This pipeline does not suffer from target leakage because the data leak is strictly cross-sectional rather than temporal, 
+meaning no future-dated price information was used to construct the feature matrix. 
+D. A reliable way to detect this speciﬁc leak in practice is to compare the model's performance on a completely held-out, 
+structurally isolated out-of-universe test set against its cross-validation scores; a sharp drop in out-of-universe accuracy 
+exposes the leak. 
+E. To properly remediate this leak, the data engineering pipeline must be refactored so that any cross-sectional summary 
+statistics (such as sector means or totals) are computed strictly and exclusively within the boundaries of each individual 
+training fold. 
+ 
+Answer Key: 
+ 
+A. False – The embedded claim is accurate, so saying that it is incorrect is false. This is an example of cross-sectional 
+target leakage (often called data leakage via pooling). By calculating the sector denominator globally, the training data 
+absorbs information about the scale and performance of the validation data points, bridging the ﬁrewall between folds.  
+B. True – The model overﬁts to the precise cross-sectional distribution of the historical slice. In live production, if you 
+score a single company or a modiﬁed universe, the global denominator changes or is unavailable, causing the feature 
+scaling to break down because the model relies on the leaked universe metadata to make its predictions.  
+C. False – Target leakage is not exclusively temporal. Any time a feature matrix absorbs information from the validation or 
+testing partitions—whether across time or across peers—it constitutes leakage and compromises the validity of the 
+backtest.  
+D. True – Because the leak occurs within the cross-validation loops via the shared global denominator, a completely 
+independent out-of-universe dataset (e.g., a separate geographical market or a completely quarantined cohort) will lack 
+this shared information, causing the model's inﬂated performance to immediately collapse and revealing the ﬂaw.  
+ 
+ 91 Rev:081020261230 
+E. True – Strict isolation requires that the parameters for any transformation must be learned solely from the training fold. 
+The sector totals must be computed only using the training ﬁrms, and that static mapping is then applied to the validation 
+fold to ensure zero cross-contamination.  
+ 
+[ML-D3G5Q5] 
+A data scientist is building a predictive maintenance model for a high-frequency market-making architecture. The goal is 
+to predict whether the trading system's network latency will spike above a critical threshold (y=1) during the next 5-minute 
+interval. The data pipeline extracts a large set of system metrics. To maximize predictive accuracy, the scientist uses an 
+embedded Lasso (L1-regularized) Regression model as a feature selection script. The script is ﬁt on the entire historical 
+dataset to determine which features have non-zero coefficients. These selected features are then extracted, and a deep 
+neural network is trained on an 80/20 train/test split of the data. The neural network achieves an exceptional out-of-
+sample precision score. 
+Which of the following statements correctly diagnoses why this pipeline exhibits Target Leakage, and describes its 
+statistical consequences? 
+ 
+A. Target leakage occurs because Lasso is a linear framework; running it on non-linear network latency data causes the 
+selected feature coefficients to absorb future residual variance from the test partition. 
+B. The pipeline is ﬂawed because performing feature selection on the entire dataset before splitting allows information 
+about the target labels and joint distributions in the test set to dictate which features are passed to the neural network. 
+C. This setup creates an optimistic bias in the test metrics because the neural network is evaluated on a test set whose 
+speciﬁc characteristics have already been used to prune and shape the feature space during the selection phase. 
+D. The pipeline does not suffer from target leakage because Lasso is an embedded regularization technique that 
+penalizes coefficients dynamically, which mathematically prevents information from crossing the train/test barrier. 
+E. To properly remediate this leak, the feature selection process must be completely isolated: the Lasso script must be 
+ﬁt exclusively on the training partition to identify the active features, and the test partition must remain completely 
+unseen until the ﬁnal neural network is evaluated. 
+ 
+Answer Key: 
+ 
+A. False – Lasso's linearity does not cause it to absorb future residual variance. The leak is structural (pooling data before 
+the split) rather than a consequence of the algorithm's functional form.  
+B. True – This is an example of target leakage through feature selection pooling. By using the entire dataset (including 
+what will become the test set) to decide which features "matter, " the model selection process leaks the target-signal 
+relationships of the test set into the training environment.  
+C. True – The resulting test metrics are a statistical illusion. Because the 20% test partition helped select the features, 
+the neural network encounters a feature space that has been pre-optimized to ﬁt those exact test records, inﬂating out-
+of-sample performance.  
+D. False – Regularization does not prevent leakage if the algorithm is executed on the pooled data. Lasso will happily use 
+information from the entire dataset to shrink coefficients, bridging the ﬁrewall between splits.  
+ 
+ 92 Rev:081020261230 
+E. True – Strict isolation requires that all model choices—including feature engineering and feature selection—must be 
+derived solely from the training data. The test partition must act as a completely independent, blind validation check.  
+ 
+[ML-D3G5Q6] 
+A data scientist at a systematic multi-strategy fund is auditing a machine learning pipeline designed to trade cross-
+sectional equity momentum. The model predicts whether a stock's 5-day forward return will rank in the top quintile of the 
+universe (y=1) or not (y=0). The pipeline processes a universe of 600 stocks and uses a K-Fold cross-validation strategy. 
+The auditor reviews the data engineering scripts for ﬁve different alpha signals developed for this pipeline. Four of these 
+signals contain classic, structural implementations of target leakage, while only one is mathematically and structurally 
+clean. 
+Which of the following signal implementations is free of target leakage? 
+For this question, mark each statement True if it is incorrect and False if it is accurate. 
+ 
+A. It is incorrect to conclude that Signal Alpha: A technical momentum indicator that standardizes a stock's raw price 
+momentum by dividing it by the cross-sectional standard deviation of momentum calculated across all 600 stocks daily, 
+performed before rows are split into cross-validation folds. 
+B. Signal Beta: A liquidity feature that replaces missing daily trading volume values (NaNs) with the historical median 
+volume of that speciﬁc stock, calculated using the entire 10-year dataset slice before assigning rows to training and 
+validation sets. 
+C. Signal Gamma: A fundamental value factor that deﬂates a company's raw research and development (R&D) 
+expenditure by dividing it by the ﬁrm's total quarterly revenue, where both metrics are sourced strictly from Point-in-Time 
+ﬁnancial statements using the deﬁnitive publication date. 
+D. Signal Delta: A macroeconomic sentiment feature that calculates a 10-day rolling average of an investor conﬁdence 
+index, where the rolling window for day t is indexed using an engine that aggregates data from day t−2 through day t+7. 
+E. Signal Epsilon: An alternative text-mining factor that selects predictive sentiment keywords from earnings call 
+transcripts by running a chi-square relevance test against the target variable (y) across the entire historical database prior 
+to modeling. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – The embedded claim is inaccurate, so rejecting it is correct. This represents cross-sectional target leakage. 
+Calculating the cross-sectional standard deviation across the entire universe before splitting the data allows information 
+about the feature distributions of the validation stocks to leak into the training partition.  
+B. True – This represents temporal and partition leakage via preprocessing. Calculating a global median across the entire 
+10-year horizon incorporates data from the validation folds into the imputation parameter, creating an optimistic bias in 
+backtest metrics.  
+C. False – This implementation is structurally clean. Using Point-in-Time data ensures that the fundamental metrics are 
+lagged to their actual public release dates, and scaling a ﬁrm's features by its own contemporaneous revenue introduces 
+no future information or cross-partition contamination.  
+ 
+ 93 Rev:081020261230 
+D. True – This represents classic look-ahead target leakage. By allowing the rolling window to peek forward to day t+7, the 
+feature matrix absorbs the exact future data that the model is attempting to forecast within its 5-day execution window.  
+E. True – This represents leakage via feature selection pooling. Using the target variable (y) across the entire database to 
+ﬁlter and select predictive keywords pre-optimizes the feature space to ﬁt the validation set, creating a statistical illusion 
+of high out-of-sample accuracy.  
+ 
+G6: Look-Ahead Bias in Time-Series 
+[ML-D3G6Q1] 
+A strategy trades at each day’s market open using an indicator calculated from that day’s official closing price. The 
+backtest shows a high Sharpe ratio, and the PM wants to allocate capital next week. The execution team points out that 
+the closing price does not exist when the opening trade is placed. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The indicator contains future information relative to the trade decision. 
+B. Shifting the closing-price feature so that an opening trade uses the previous day’s close can restore causal timing. 
+C. The bias disappears if the same formula is applied consistently throughout the backtest. 
+D. A strong backtest can result from information that would be impossible to obtain live. 
+E. Feature timestamps should be aligned with the actual decision and execution timestamps. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – The day’s close occurs after the opening decision. 
+B. False – The prior close is known before the next market open. 
+C. True – Consistent use of unavailable information remains biased. 
+D. False – Hindsight can create artiﬁcial predictive power. 
+E. False – Calendar labels alone do not establish that a feature was available in time. 
+ 
+[ML-D3G6Q2] 
+A global equity model uses annual fundamentals joined to daily prices by ﬁscal year. Revised ﬁnancial statements are 
+copied backward to every date in that ﬁscal year, and the research director says this is acceptable because all values 
+refer to the same company-year. The risk analyst asks whether the historical dataset represents what traders actually 
+knew. 
+ 
+ 
+ 94 Rev:081020261230 
+A. The following claim is false: Backﬁlling a later ﬁling or revision into earlier dates can create look-ahead bias. 
+B. A point-in-time database should retain the publication or effective date of each reported value. 
+C. Because the statements describe past operations, their values are available to traders throughout the ﬁscal year. 
+D. Restatements should not silently replace the originally available ﬁgures in a historical simulation. 
+E. Joining by ﬁscal year alone may ignore reporting delays between the measured period and public release. 
+ 
+Answer Key: 
+ 
+A. False – Earlier simulated decisions receive information published only later. 
+B. True – Availability dates are needed to reconstruct the live information set. 
+C. False – Economic coverage and public availability are different dates. 
+D. True – Otherwise the simulation grants past traders knowledge of later corrections. 
+E. True – A statement typically becomes usable only after it is released. 
+ 
+[ML-D3G6Q3] 
+A machine-learning pipeline labels each day with the return over the next ﬁve trading days and constructs a centered ten-
+day moving average using ﬁve past and ﬁve future observations. The team uses a chronological train/test split and 
+believes this alone prevents all temporal leakage. The head trader asks for a deployment-faithful review. 
+ 
+A. The following claim is false: A chronological split does not prevent leakage inside a feature computed with future 
+observations. 
+B. The centered moving average uses prices unavailable at the day being scored. 
+C. Replacing it with a trailing moving average can make the feature causal. 
+D. Future returns may be used as training labels even though they cannot be used as contemporaneous prediction 
+features. 
+E. Any use of later dates anywhere in supervised learning is necessarily invalid. 
+ 
+Answer Key: 
+ 
+A. False – Correct splitting cannot repair a feature whose own construction looks forward. 
+B. True – Half of its window occurs after the feature timestamp. 
+C. True – A trailing window uses only current and prior observations. 
+D. True – Future outcomes deﬁne what historical examples teach the model to predict. 
+ 
+ 95 Rev:081020261230 
+E. False – Later outcomes can validly serve as labels once realized; the restriction concerns what is available at prediction 
+time and how evaluation is separated. 
+ 
+[ML-D3G6Q4] 
+A researcher is developing a "Mean Reversion" strategy. To identify overextended price moves, they calculate a Z-Score 
+for the current price relative to a "Centered Moving Average. " The feature for day t is calculated as the price at t minus the 
+average price from days t−5 to t+5, divided by the standard deviation of that same 11-day window. 
+ 
+A. This feature is highly effective for mean reversion because it identiﬁes how far the current price has deviated from the 
+local "true mean" of the surrounding two-week period. 
+B. This methodology introduces a fatal Look-Ahead Bias because the feature for day t incorporates the actual closing 
+prices of the next 5 days (t+1 to t+5), which are unknown at the time the trade must be placed. 
+C. This is an example of Smoothing Contamination, where the use of future data points creates a "perfect" technical 
+indicator that will appear to have 90%+ predictive accuracy in a backtest but is impossible to execute live. 
+D. Using a "Centered" window is a standard signal processing technique to remove phase lag, and as long as the model 
+is only tested on historical data, the temporal violation does not affect the validity of the Sharpe Ratio. 
+E. To correct this bias while maintaining the intent of the feature, the researcher must switch to a Trailing Moving Average, 
+using only data from t−10 to t to calculate the mean and standard deviation. 
+ 
+Answer Key: 
+ 
+A. False – While mathematically a "mean, " a centered mean is not a "trading mean" because it relies on the future to 
+deﬁne the present.  
+B. True – This is the most literal form of look-ahead bias. If your indicator knows where the price will be in 5 days, it isn't 
+"predicting" the reversion; it is simply reporting it after the fact.  
+C. True – In a backtest, this indicator will look like a "Holy Grail" because it will always signal a "sell" exactly at the peak, 
+since the peak is deﬁned by the prices that follow it.  
+D. False – Phase lag is a real problem, but "solving" it by using future data renders the entire backtest a work of ﬁction. A 
+backtest must represent a sequence of decisions made in "blind" time.  
+E. True – The "Causal" constraint of ﬁnance requires that all inputs at time t are derived strictly from the set {…,t−2,t−1,t}. 
+ 
+[ML-D3G6Q5] 
+A researcher is developing a "Gap-Trading" strategy that buys stocks that open signiﬁcantly lower than their previous day's 
+close. In the backtest, the model calculates the "Gap Percentage" using the Official Opening Price from the exchange's 
+9:30 AM auction. The backtest then assumes the trade is executed at that same opening price to capture the immediate 
+reversal. 
+ 
+ 96 Rev:081020261230 
+ 
+A. This is a highly accurate simulation because the opening auction price is a single, executable print that represents the 
+ﬁrst available liquidity of the day. 
+B. This setup contains an Execution Look-Ahead Bias because the "Gap Percentage" cannot be mathematically 
+conﬁrmed until the opening price is published, at which point the 9:30 AM auction has already concluded. 
+C. This is an example of Simultaneity Bias, where the information required to trigger the signal (the Open) is the same 
+information used for the execution price, making the trade impossible to catch in a live environment. 
+D. Using the opening price for both the signal and the entry is a valid "Zero-Slippage" assumption that is common in 
+academic research to establish a baseline for strategy alpha. 
+E. To correct this bias, the researcher should use the Opening Price to calculate the gap but execute the entry at the 
+Volume Weighted Average Price (VWAP) of the ﬁrst ﬁve minutes of trading (9:30 AM – 9:35 AM). 
+ 
+Answer Key: 
+ 
+A. False – While the price is "real, " the sequence is not. You cannot use the result of an auction to participate in that same 
+auction.  
+B. True – This is a subtle but common temporal error. By the time you know the "Gap" is large enough to trade, the price 
+at which you calculated that gap is no longer available for new orders.  
+C. True – This creates a "Perfect Execution" scenario in the backtest that ignores the reality of message latency and order 
+processing time.  
+D. False – In ML4T, we must distinguish between "Academic Baselines" and "Causal Reality. " A baseline that ignores 
+temporal sequence is a baseline for a crystal ball, not a trading bot.  
+E. True – Delaying the execution to the post-open market ensures that the signal was fully formed and "knowable" before 
+the model committed capital.  
+ 
+[ML-D3G6Q6] 
+An algorithmic execution engine is being calibrated to optimize a "VWAP Participation Strategy. " The objective function 
+optimizes an execution schedule across the trading day to minimize market impact. The model utilizes a volume-
+prediction feature calculated as a "Normalized 30-Minute Intraday Volatility Factor. " For any given 30-minute bar (e.g., 
+10:00 AM to 10:30 AM), the script calculates the variance of 1-minute mid-prices spanning from 9:45 AM to 10:15 AM to 
+determine the participation rate for that entire 10:00–10:30 AM block. 
+ 
+A. This feature design is temporally sound because the 30-minute calculation window starts and ends exactly 15 minutes 
+before the conclusion of the execution block, providing a fresh leading indicator. 
+B. This setup introduces a structural Look-Ahead Bias because the participation rate determined for the ﬁrst half of the 
+block (10:00 AM to 10:15 AM) relies on 1-minute mid-prices that have not yet occurred in the market. 
+C. This is an example of an Overlapping Horizon Infraction, where the feature's calculation window crosses into the 
+execution engine's active decision window, rendering the backtested performance physically unachievable. 
+ 
+ 97 Rev:081020261230 
+D. Because mid-prices are non-directional and do not contain explicit order ﬂow information, using future mid-prices 
+inside the current execution window does not grant the strategy a directional advantage. 
+E. To correct this temporal violation, the feature's calculation window must be strictly truncated or shifted to end at or 
+before t=10:00 AM (e.g., using the interval from 9:30 AM to 10:00 AM) to preserve a causal pipeline. 
+ 
+Answer Key: 
+ 
+A. False – A feature cannot be considered a "leading indicator" if its calculation window overlaps with the time period 
+during which the model is actively executing trades.  
+B. True – This is an execution-level look-ahead bias. If the algorithm modiﬁes its behavior at 10:01 AM based on an 
+indicator that requires the 10:15 AM price print, it is cheating by observing its own future environment. 
+C. True – This speciﬁc overlap masks the real-world latency of high-frequency feature engineering, creating an unearned 
+variance reduction in the backtested execution proﬁle.  
+D. False – Intraday variance shifts directly dictate optimal execution sizing. Knowing that a volatility spike occurs between 
+10:00 AM and 10:15 AM allows the backtest to artiﬁcially avoid or exploit impact, inﬂating the execution alpha.  
+E. True – Strict temporal separation requires that the information state at the boundary line (t) is completely ﬁnalized 
+before any execution logic for the interval (t→t+n) is initiated. 
+ 
+G7: “Too Good to Be True” Features 
+[ML-D3G7Q1] 
+A new alternative-data ﬁeld raises a stock-direction model’s test accuracy from 53% to 99%. The vendor calls the ﬁeld a 
+proprietary “sentiment score” and will not explain its construction, while the PM wants to trade immediately. The model-
+risk officer requests evidence that the score is genuinely available before each prediction. 
+ 
+A. An abrupt, implausibly large performance increase is a reason to investigate leakage and data lineage. 
+B. A proprietary feature should be presumed valid because its calculation is conﬁdential. 
+C. Testing whether the feature timestamp precedes the trading decision can help assess deployability. 
+D. Comparing performance after lagging or removing the feature can reveal whether its predictive power depends on 
+timing. 
+E. Near-perfect historical accuracy guarantees near-perfect live accuracy. 
+ 
+Answer Key: 
+ 
+A. True – Exceptional results warrant veriﬁcation before they are trusted. 
+B. False – Conﬁdentiality does not establish causal availability or clean construction. 
+ 
+ 98 Rev:081020261230 
+C. True – A feature must exist before the action it is meant to inform. 
+D. True – Sensitivity to timing changes can expose contemporaneous or future information. 
+E. False – Leakage, overﬁtting, and regime change can destroy live performance. 
+ 
+[ML-D3G7Q2] 
+A researcher ﬁnds that the alphabetical position of a stock ticker strongly predicts returns during one backtest. The 
+strategy sponsor argues that correlation is sufficient because trading models need not explain causes, while the research 
+lead suspects a dataset artifact. The team has several independent periods and universes available for testing. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. A strong historical correlation does not by itself show that the feature has a stable economic relationship with returns. 
+B. The ticker result may arise from selection effects, data ordering, or chance. 
+C. Replication across untouched periods and alternative universes can test the relationship’s stability. 
+D. Lack of an obvious causal mechanism proves with certainty that the feature is useless. 
+E. If the correlation disappears outside the discovery sample, the original result is weak evidence for deployment. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Correlation can be unstable or induced by the research process. 
+B. False – Non-economic artifacts can create apparently predictive associations. 
+C. False – Independent replication reduces reliance on a single accidental sample. 
+D. True – A mechanism is helpful but its absence alone is not deﬁnitive proof. 
+E. False – Failure to generalize suggests the discovery captured sample-speciﬁc noise. 
+ 
+[ML-D3G7Q3] 
+A fraud-detection model for a trading platform relies heavily on a database ﬁeld called review_outcome_code. 
+Documentation is incomplete, but the ﬁeld has unusually high importance and is populated for nearly every historical 
+fraud case. Operations says the ﬁeld may be written during a manual investigation that occurs after the alert would need 
+to ﬁre. 
+ 
+A. The combination of high importance, unclear lineage, and suspicious timing justiﬁes a focused audit. 
+B. Feature importance establishes that the ﬁeld causes fraud. 
+C. Examining when the ﬁeld is created relative to the prediction timestamp can reveal outcome-derived leakage. 
+ 
+ 99 Rev:081020261230 
+D. Running the model without the ﬁeld can help quantify how dependent reported performance is on it. 
+E. Because the ﬁeld exists in the historical database, it must have been available to the live model before each fraud 
+event. 
+ 
+Answer Key: 
+ 
+A. True – These warning signs make the feature a plausible source of unrealistic performance. 
+B. False – Importance measures predictive use within the model, not causality. 
+C. True – Post-alert creation would make the ﬁeld unavailable for prospective detection. 
+D. True – Ablation exposes whether the headline result collapses without the suspicious input. 
+E. False – Historical presence does not establish point-in-time availability. 
+ 
+  
+ 
+ 100 Rev:081020261230 

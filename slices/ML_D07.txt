@@ -1,0 +1,599 @@
+Domain 7: Ensemble Methods 
+Domain Summary 
+ Motivation for ensembles and aggregation 
+ Bagging and bootstrap sampling 
+ Random forests 
+ Diversity among learners 
+ Boosting intuition (conceptual only; no RL framing) 
+ Bias vs. variance effects in ensembles 
+ When ensembles fail 
+Topic Groups 
+G1: Motivation for Ensembles 
+ Error reduction through aggregation 
+ Combining weak learners 
+ When ensembles improve performance 
+G2: Bagging and Bootstrap Sampling 
+ Sampling with replacement 
+ Variance reduction intuition 
+ Independence assumptions 
+G3: Random Forests 
+ Feature randomness 
+ Tree diversity 
+ Improvements over single trees 
+G4: Diversity Among Learners 
+ Why diversity matters 
+ Correlation between models 
+ Impact on ensemble performance 
+ 
+ 206 Rev:081020261230 
+G5: Boosting Intuition 
+ Sequential learning on residuals or hard examples 
+ Differences from bagging 
+G6: Bias vs. Variance in Ensembles 
+ When ensembles reduce variance 
+ When they reduce bias 
+ Limits of ensemble improvements 
+G7: Failure Modes of Ensembles 
+ Highly correlated base learners 
+ Leakage-driven performance gains 
+ Overﬁtting in boosting methods 
+G1: Motivation for Ensembles 
+[ML-D7G1Q1] 
+A portfolio manager has ﬁve independently trained regression trees that estimate next-day returns. Each tree is 
+moderately accurate but its predictions vary substantially when the training sample changes; the manager asks whether 
+averaging their forecasts could make position sizing more stable without changing the trading universe. 
+ 
+A. Averaging can reduce prediction variance when the trees do not make perfectly correlated errors. 
+B. The ensemble is guaranteed to outperform its best member on every future observation. 
+C. If each tree has the same systematic directional bias, averaging alone may preserve much of that bias. 
+D. Aggregation can be useful even when no individual tree is consistently the best model. 
+E. Averaging ﬁve predictions is equivalent to selecting the prediction from the deepest tree. 
+ 
+Answer Key: 
+ 
+A. True – Imperfectly correlated errors can partially cancel in an average. 
+B. False – An ensemble may improve expected performance, but it has no observation-by-observation guarantee. 
+C. True – Shared systematic error does not disappear merely because predictions are averaged. 
+D. True – Combining unstable learners can produce a more reliable aggregate than repeatedly choosing one learner. 
+E. False – Averaging uses all ﬁve outputs rather than selecting one tree by depth. 
+ 
+ 207 Rev:081020261230 
+ 
+[ML-D7G1Q2] 
+A trading desk combines three classiﬁers to decide whether to enter a trade. The models vote “buy, ” “buy, ” and “do not 
+buy, ” and the head trader wants a simple rule that is less dependent on any single model while preserving low decision 
+latency. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. A majority-vote ensemble would issue a “buy” decision in this case. 
+B. Majority voting ensures the ensemble is correct whenever at least one member is correct. 
+C. Combining models can reduce dependence on an idiosyncratic error made by one learner. 
+D. If all three classiﬁers always produce identical predictions, voting offers little error-cancellation beneﬁt. 
+E. An ensemble necessarily requires more input features than any of its members. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Two of the three votes support “buy. ” 
+B. True – A correct minority model can be overruled by two incorrect models. 
+C. False – The other members can outvote an isolated mistake. 
+D. False – Perfectly aligned predictions provide no diversity for voting to exploit. 
+E. True – Multiple learners may use the same feature set. 
+ 
+[ML-D7G1Q3] 
+A risk committee compares a single highly tuned tree with an ensemble of many modest trees for forecasting drawdown 
+risk. The chief risk officer asks whether “many weak models must always become one strong model, ” but also values 
+stability across retraining dates. 
+ 
+A. An ensemble can improve stability when its members capture useful signal and make partly different errors. 
+B. Adding models that perform worse than random and make the same errors must improve the ensemble. 
+C. The quality of the aggregation rule affects the ﬁnal ensemble prediction. 
+D. A single model can outperform an ensemble if the added learners contribute noise or systematic error. 
+E. The phrase “wisdom of the crowd” removes the need for out-of-sample evaluation. 
+ 
+ 
+ 208 Rev:081020261230 
+Answer Key: 
+ 
+A. True – Useful but imperfectly correlated learners can yield a more stable aggregate. 
+B. False – Consistently poor, correlated members can damage rather than improve the result. 
+C. True – Mean, median, weighted voting, and other rules can yield different predictions. 
+D. True – More models do not guarantee better generalization. 
+E. False – Ensemble performance must still be tested on unseen data. 
+ 
+[ML-D7G1Q4] 
+You are the Head of Quantitative Research at a multi-strategy hedge fund evaluating whether to replace a well-performing 
+decision tree with an ensemble model. The Portfolio Manager argues that if one decision tree is already reasonably 
+accurate, training multiple trees seems like unnecessary computational overhead. Meanwhile, the Chief Risk Officer 
+believes combining multiple models may improve the reliability of predictions during volatile market conditions. You are 
+asked to explain the motivation for using ensemble methods. 
+ 
+A. The primary motivation for ensemble methods is that combining multiple models can often produce more accurate 
+and stable predictions than relying on a single model. 
+B. An ensemble can improve predictive performance even when some individual models make errors, provided those 
+errors are not perfectly correlated. 
+C. If one decision tree consistently outperforms every other tree on the training data, an ensemble built from multiple 
+trees is guaranteed to perform worse on unseen data. 
+D. Ensemble methods are motivated by the idea that different models may capture different aspects of the underlying 
+data. 
+E. The main purpose of an ensemble is to reduce the amount of training data required for machine learning models. 
+ 
+Answer Key: 
+ 
+A. True – Ensemble methods combine predictions from multiple models to improve predictive performance and increase 
+robustness compared with relying on a single learner. 
+B. True – Ensembles are most effective when individual learners make different errors. Aggregating their predictions can 
+reduce overall prediction error and improve stability.  
+C. False – A single tree performing best on the training data does not imply it will generalize best. Ensembles often 
+outperform individual trees on unseen data by reducing variance.  
+D. True – Different models or differently trained versions of the same model can capture complementary patterns. 
+Combining these perspectives is a key motivation behind ensemble learning.  
+ 
+ 209 Rev:081020261230 
+E. False – Ensemble methods are intended to improve predictive performance and robustness, not to reduce the amount 
+of training data required. In practice, ensembles often require additional computation while using the same training 
+dataset.  
+ 
+[ML-D7G1Q5] 
+You are a Senior Quantitative Researcher presenting two competing models to your ﬁrm's Investment Committee. One 
+team recommends deploying a single decision tree because it is easy to explain to clients, while another team proposes 
+an ensemble of many decision trees. The committee asks whether combining multiple models simply increases 
+computational complexity or whether it provides a meaningful statistical advantage. 
+ 
+A. If individual models make different prediction errors, combining their predictions can improve overall performance. 
+B. The primary motivation for ensembles is to make individual base learners more interpretable. 
+C. An ensemble of identical models that always make exactly the same prediction errors is unlikely to provide much 
+improvement over a single model. 
+D. Combining multiple models can improve the stability of predictions across different samples of data. 
+E. Ensembles are guaranteed to outperform every individual model regardless of how the base learners are constructed. 
+ 
+Answer Key: 
+ 
+A. True – Ensembles are most effective when individual learners make different errors. Aggregating these predictions can 
+reduce overall prediction error and improve generalization.  
+B. False – The primary motivation for ensemble methods is improved predictive performance and robustness, not 
+increased interpretability. In fact, ensembles are often less interpretable than individual models.  
+C. True – If every model makes identical errors, averaging their predictions provides little or no beneﬁt. Diversity among 
+learners is a key ingredient for successful ensembles.  
+D. True – By averaging across multiple models, ensembles often produce more stable predictions that are less sensitive 
+to the peculiarities of a single training sample.  
+E. False – There is no guarantee that an ensemble will outperform every individual model. Performance depends on 
+factors such as the quality and diversity of the base learners and the suitability of the ensemble method for the problem.  
+ 
+[ML-D7G1Q6] 
+A quantitative research team is transitioning from using a single Decision Tree Classiﬁer to a Bagged Decision Tree 
+Ensemble (using 300 unconstrained trees) to predict directional price movements for liquid futures contracts. 
+During an internal peer review, a junior analyst asks why combining hundreds of decision trees trained on bootstrap 
+samples improves trading signal stability compared to relying on a single decision tree. 
+ 
+ 210 Rev:081020261230 
+The team lead explains the core conceptual mechanics of bootstrap sampling, tree correlation, and out-of-bag 
+validation. 
+Which of the following statements correctly evaluates the intuitive mechanics and practical behavior of Bagging? 
+For this question, mark each statement True if it is incorrect and False if it is accurate. 
+ 
+A. Bagging improves predictive stability primarily by taking deep, complex trees—which are prone to overﬁtting 
+individually—and averaging their predictions together to smooth out random noise. 
+B. Each individual tree in a bagged ensemble is built using a bootstrap sample, which is created by randomly drawing 
+observations from the training dataset with replacement. 
+C. Because each bootstrap sample leaves out roughly one-third of the original training data, these "out-of-bag" 
+observations can be used to test the ensemble's accuracy without needing a separate validation set. 
+D. Bagging works best when base decision trees are pruned down to very shallow depths (max_depth = 1 or 2) because 
+shallow trees have low variance, making them easier to average. 
+E. Even though each tree in a bagged ensemble is trained on a different bootstrap sample, the trees still tend to look 
+similar if a few dominant features are consistently chosen near the top of every tree. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Single deep decision trees have low bias but high variance (they are very sensitive to noise in training data). 
+Averaging predictions across hundreds of deep trees cancels out sample-speciﬁc noise, signiﬁcantly lowering overall 
+variance. 
+B. False – Bootstrapping is the process of generating new datasets of size N by sampling randomly with replacement from 
+the original N observations.  
+C. False – On average, each bootstrap sample contains about 63% of the original data, leaving the remaining ∼37% "out-
+of-bag" (OOB). Evaluating each observation using only the trees that didn't see it during training provides a free, built-in 
+cross-validation check.  
+D. True – Bagging relies on using deep, unconstrained trees with high ﬂexibility (low bias). If you average shallow trees 
+(high bias), averaging reduces variance slightly but leaves the high systematic error unchanged.  
+E. False – Because all bootstrap samples are drawn from the exact same pool of historical data, a strongly predictive 
+feature will likely be selected as the root split in almost every tree. This keeps the trees correlated with one another, which 
+limits how much bagging alone can reduce variance.  
+ 
+G2: Bagging and Bootstrap Sampling 
+[ML-D7G2Q1] 
+An asset manager builds 100 decision trees from a training set of 10,000 trading days. For each tree, the research lead 
+draws 10,000 rows with replacement and then averages the trees’ return forecasts; a junior analyst asks why some days 
+appear more than once while others are absent. 
+ 
+ 211 Rev:081020261230 
+ 
+A. Sampling with replacement allows the same training row to appear multiple times in one bootstrap sample. 
+B. A bootstrap sample of 10,000 draws must contain all 10,000 distinct original rows. 
+C. Different bootstrap samples can produce different ﬁtted trees even when the tree algorithm is otherwise deterministic. 
+D. Averaging these trees is intended primarily to reduce the variance of an unstable base learner. 
+E. Bagging requires the targets to be randomly permuted before each tree is trained. 
+ 
+Answer Key: 
+ 
+A. True – Each draw returns the selected row to the sampling pool. 
+B. False – Repeated selections mean some original rows will generally be omitted. 
+C. True – Changes in the sampled observations can change chosen splits and tree structure. 
+D. True – Bagging commonly stabilizes high-variance learners such as decision trees. 
+E. False – Features and their correct targets must remain paired. 
+ 
+[ML-D7G2Q2] 
+A quant team bags several deep regression trees, but all trees still respond similarly during volatile markets. The portfolio 
+manager says the trees were trained on different bootstrap samples, so their errors must be independent and should 
+cancel completely. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The following claim is false: Different bootstrap samples do not guarantee independent prediction errors. 
+B. Shared market features and overlapping observations can keep the trees’ predictions correlated. 
+C. If base-learner errors are strongly positively correlated, averaging provides less variance reduction than if they are 
+weakly correlated. 
+D. Increasing the number of highly correlated trees guarantees that ensemble variance reaches zero. 
+E. Measuring correlation among out-of-sample residuals can help assess whether the ensemble has useful error 
+diversity. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. True – Resampling promotes variation but does not establish statistical independence. 
+B. False – The learners still draw from the same underlying dataset and may discover similar relationships. 
+ 
+ 212 Rev:081020261230 
+C. False – Correlated errors reinforce one another instead of canceling effectively. 
+D. True – A shared correlated component can remain even in a very large ensemble. 
+E. False – Residual correlation is direct evidence about diversity in model errors. 
+ 
+[ML-D7G2Q3] 
+A compliance-sensitive trading system uses bagged classiﬁers to ﬂag suspicious orders. The team proposes training 
+each model on a disjoint one-tenth of the data to “make the models independent, ” while the compliance officer worries 
+that rare manipulation examples may disappear from several training subsets. 
+ 
+A. Standard bagging ordinarily uses bootstrap samples drawn from the full training set rather than mutually exclusive 
+partitions. 
+B. Disjoint subsets can give each learner less training information than full-sized bootstrap samples. 
+C. Bootstrap sampling guarantees every rare positive example appears in every learner’s sample. 
+D. Stratiﬁed or otherwise controlled sampling may be considered when rare-class representation is operationally 
+important. 
+E. Bagging changes the observed target label of a duplicated row each time that row is selected. 
+ 
+Answer Key: 
+ 
+A. True – Each bagged learner normally receives a with-replacement sample from the full dataset. 
+B. True – A one-tenth partition exposes a learner to fewer observations. 
+C. False – Any particular observation may be absent from a bootstrap sample. 
+D. True – Sampling design can address class-representation constraints, provided it is handled consistently and 
+evaluated properly. 
+E. False – A duplicated row retains its original features and target. 
+ 
+G3: Random Forests 
+[ML-D7G3Q1] 
+A research team ﬁnds that its bagged trees repeatedly choose recent momentum as the root split because momentum 
+is the strongest feature. The director suggests a random forest that considers only a random subset of features at each 
+split so the ensemble is not dominated by nearly identical trees. 
+ 
+ 
+ 213 Rev:081020261230 
+A. Random feature selection can cause some trees to use alternatives when momentum is unavailable at a candidate 
+split. 
+B. Feature randomness is intended to increase diversity among trees. 
+C. Every tree in a random forest must use a completely disjoint set of features. 
+D. Reducing correlation among useful trees can improve the variance-reduction beneﬁt of aggregation. 
+E. A random forest ordinarily combines its trees without using their predictions. 
+ 
+Answer Key: 
+ 
+A. True – Restricting candidates may allow other predictive features to determine a split. 
+B. True – It decorrelates trees beyond what bootstrap sampling alone may achieve. 
+C. False – Random subsets are typically drawn anew at splits, and features may recur across trees. 
+D. True – Less-correlated errors cancel more effectively. 
+E. False – Tree predictions are aggregated by averaging or voting. 
+ 
+[ML-D7G3Q2] 
+A hedge fund compares one deep tree with a 300-tree random forest for predicting weekly return direction. The forest 
+improves validation accuracy and retraining stability, but the portfolio manager asks whether the improvement proves 
+that every tree in the forest is individually better than the original tree. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The following claim is false: The forest can outperform the single tree even if many member trees are individually 
+weaker. 
+B. Bootstrap and feature randomness can make the member trees differ from one another. 
+C. The forest’s aggregate can be more stable than any particular deep tree. 
+D. Better validation accuracy proves the forest will outperform on every future market regime. 
+E. The comparison should use the same time-aware evaluation design for both models. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. True – Collective error cancellation can outweigh weaker individual performance. 
+B. False – Both mechanisms alter the data or candidate splits seen by the trees. 
+C. False – Aggregation reduces sensitivity to a single tree’s unstable structure. 
+ 
+ 214 Rev:081020261230 
+D. True – Validation evidence is not a guarantee across all future regimes. 
+E. False – A consistent evaluation design is needed for a meaningful comparison. 
+ 
+[ML-D7G3Q3] 
+A low-latency desk is tuning a random forest. Considering fewer features at each split slightly lowers individual-tree 
+accuracy but reduces correlation among trees; considering all features makes the method resemble ordinary bagged 
+trees and lowers training time only marginally. 
+ 
+A. The following claim is false: Lower individual-tree accuracy can be acceptable if the resulting diversity improves the 
+aggregate. 
+B. Considering all available features at every split removes the random-feature component of the forest. 
+C. The number of candidate features per split is a tradeoff between tree strength and diversity. 
+D. Selecting fewer candidate features guarantees lower ensemble test error. 
+E. Inference cost and latency can increase as the number of trees grows. 
+ 
+Answer Key: 
+ 
+A. False – Ensemble quality depends on both member strength and error correlation. 
+B. True – The method then relies on bootstrap variation but not feature subsampling at splits. 
+C. True – Too many candidates can correlate trees; too few can weaken them excessively. 
+D. False – The best setting depends on the data and must be validated. 
+E. True – More trees generally require more split traversals and aggregation work at prediction time. 
+ 
+G4: Diversity Among Learners 
+[ML-D7G4Q1] 
+A model committee evaluates two ﬁve-model ensembles. Ensemble A contains ﬁve versions of the same tree that make 
+almost identical mistakes; Ensemble B contains useful models whose errors occur on different observations. The 
+committee chair asks which ensemble is more likely to beneﬁt from averaging. 
+ 
+A. Ensemble B has more opportunity for errors to cancel. 
+B. Ensemble A effectively gains ﬁve independent sources of information merely because it contains ﬁve ﬁles. 
+C. Diversity is useful only when the diverse learners retain some predictive skill. 
+D. Deliberately adding random but uninformative predictions must improve Ensemble B. 
+ 
+ 215 Rev:081020261230 
+E. Comparing out-of-sample prediction or residual correlations can help distinguish the ensembles. 
+ 
+Answer Key: 
+ 
+A. True – Different error patterns provide error-cancellation opportunities. 
+B. False – Duplicate or nearly identical models add little independent information. 
+C. True – Diversity without useful signal can simply inject noise. 
+D. False – Uninformative diversity can degrade the combined forecast. 
+E. True – Correlations reveal whether learners behave differently where it matters. 
+ 
+[ML-D7G4Q2] 
+A global asset manager combines a linear model, KNN, and a decision tree to forecast returns. The CIO likes their 
+architectural differences, but the validation report shows that all three make large errors on the same crisis dates 
+because none was trained on comparable regimes. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. Different algorithm names do not guarantee diverse prediction errors. 
+B. Shared blind spots can limit the ensemble’s protection during crisis periods. 
+C. Averaging must eliminate an error that all three models make in the same direction. 
+D. Diversity should be assessed using model behavior, not architecture labels alone. 
+E. Adding a model that performs differently on crisis observations could improve ensemble robustness if it also 
+generalizes. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Distinct methods may still learn similar signals or fail on the same cases. 
+B. False – A common regime gap creates correlated errors. 
+C. True – A shared directional error survives aggregation. 
+D. False – Out-of-sample predictions and errors provide more relevant evidence of diversity. 
+E. False – Complementary, validated behavior can address an existing common weakness. 
+ 
+ 
+ 216 Rev:081020261230 
+[ML-D7G4Q3] 
+A portfolio team wants to assign ensemble weights. One model has the best standalone Sharpe ratio but is highly 
+correlated with two existing members; another has a lower standalone Sharpe ratio but makes useful forecasts on dates 
+when the existing members fail. The portfolio manager must balance individual quality against complementarity. 
+ 
+A. Standalone performance alone is insufficient to determine a model’s ensemble contribution. 
+B. The lower-Sharpe model could add more incremental value because of its complementary errors. 
+C. Giving the highest-performing model all the weight always maximizes out-of-sample ensemble performance. 
+D. Ensemble weights should be chosen using only in-sample ﬁt because correlations are stable. 
+E. Validation can compare whether weighting schemes improve the aggregate rather than merely its components. 
+ 
+Answer Key: 
+ 
+A. True – Marginal value depends on interaction with existing members as well as individual skill. 
+B. True – A complementary model may improve the combined forecast despite weaker standalone results. 
+C. False – Concentrating weight can discard diversiﬁcation and may overﬁt model selection. 
+D. False – In-sample relationships may be optimistic or unstable. 
+E. True – The ﬁnal combined model is the object that should be evaluated out of sample. 
+ 
+G5: Boosting Intuition 
+[ML-D7G5Q1] 
+A quant team builds a sequence of shallow regression trees to forecast returns. After the ﬁrst tree, the next tree is trained 
+to address the remaining prediction errors, and the research lead explains that the ﬁnal forecast adds the trees’ 
+contributions using a learning rate. 
+ 
+A. Later trees are trained with information about errors left by earlier trees. 
+B. This sequential dependence differs from standard bagging, where base learners can be trained independently. 
+C. The ﬁrst tree must perfectly ﬁt the targets before the second tree is useful. 
+D. A smaller learning rate can make each new tree’s correction more conservative. 
+E. The ﬁnal boosted prediction necessarily equals an unweighted majority vote. 
+ 
+Answer Key: 
+ 
+ 
+ 217 Rev:081020261230 
+A. True – Boosting focuses successive learners on what the current ensemble has not captured. 
+B. True – Bagged learners do not ordinarily depend on prior learners’ errors. 
+C. False – Remaining error is precisely what later learners are intended to reduce. 
+D. True – Shrinkage scales each added contribution. 
+E. False – Regression boosting commonly forms an additive, weighted prediction. 
+ 
+[ML-D7G5Q2] 
+A fraud-detection desk uses a boosted classiﬁer. After an early model misses several rare manipulative orders, 
+subsequent learners place greater emphasis on difficult or misclassiﬁed cases; the compliance director asks whether 
+this means those cases are simply duplicated at prediction time. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. Boosting can shift training attention toward examples the current ensemble handles poorly. 
+B. Emphasizing hard examples is a training mechanism, not a requirement to duplicate live observations at inference. 
+C. Later learners are designed to be exact independent copies of the ﬁrst learner. 
+D. A mislabeled training example may receive increasing attention and become harmful. 
+E. Boosting and bagging use the same sequential error-correction logic. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Some boosting methods reweight hard cases, while others ﬁt residual-like errors. 
+B. False – Live predictions use the learned ensemble; the training emphasis need not alter incoming data. 
+C. True – Later learners respond to the current ensemble’s weaknesses. 
+D. False – Noise or bad labels can look persistently difficult and attract excessive focus. 
+E. True – Standard bagging trains learners independently on resampled data. 
+ 
+[ML-D7G5Q3] 
+A portfolio manager compares a bagged-tree model and a boosted-tree model under a ﬁxed compute budget. The bagged 
+trees train in parallel and mainly stabilize unstable estimates; the boosted trees train sequentially and progressively reﬁne 
+the current prediction. 
+ 
+A. Bagging is naturally easier to parallelize across base learners than sequential boosting. 
+ 
+ 218 Rev:081020261230 
+B. Boosting can reduce systematic error by building corrections to the current ensemble. 
+C. Bagging requires each new tree to ﬁt the residuals of all earlier trees. 
+D. Boosting may use shallow trees as weak learners whose combined output is expressive. 
+E. The two methods are guaranteed to produce identical forecasts if they use the same number of trees. 
+ 
+Answer Key: 
+ 
+A. True – Bagged learners can be ﬁt separately, whereas each boosting stage depends on the current model. 
+B. True – Sequential corrections can ﬁt patterns a single weak learner misses. 
+C. False – Residual-focused sequential ﬁtting characterizes boosting, not ordinary bagging. 
+D. True – Many limited learners can form a strong nonlinear additive model. 
+E. False – Their sampling, ﬁtting, and aggregation procedures differ. 
+ 
+G6: Bias vs. Variance in Ensembles 
+[ML-D7G6Q1] 
+A research director repeatedly retrains a deep decision tree on slightly different samples and observes large changes in 
+forecasts. A bagged ensemble of such trees produces much more consistent predictions, although both models retain a 
+tendency to underestimate returns after major policy announcements. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The single deep tree exhibits high variance across training samples. 
+B. Bagging can reduce the sample sensitivity of the aggregate. 
+C. The persistent underestimation suggests a bias that averaging similar trees may not remove. 
+D. Reduced variance guarantees that the ensemble is unbiased. 
+E. Stability across retraining samples and accuracy relative to true targets describe different properties. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Large prediction changes from small sample changes indicate variance. 
+B. False – Averaging smooths learner-speciﬁc ﬂuctuations. 
+C. False – A common systematic error can remain after averaging. 
+D. True – Variance and bias are distinct; improving one does not ensure the other is zero. 
+ 
+ 219 Rev:081020261230 
+E. False – A consistently wrong model can be stable, while an accurate-on-average model can be variable. 
+ 
+[ML-D7G6Q2] 
+A desk averages 200 very shallow trees, each constrained so heavily that it predicts almost the same value for every 
+market state. The head of research expects the large ensemble to recover the nonlinear structure that no member 
+learned. 
+ 
+A. Averaging can reduce variance but cannot create missing signal when all learners make nearly the same underﬁt 
+prediction. 
+B. Strongly underﬁt base learners can give the ensemble high bias. 
+C. Merely increasing the number of identical shallow trees must eliminate the bias. 
+D. Boosting weak learners may reduce bias by adding sequential corrections, subject to tuning and data quality. 
+E. Out-of-sample evaluation is unnecessary once an ensemble contains 200 members. 
+ 
+Answer Key: 
+ 
+A. True – Aggregation cannot recover structure absent from every prediction. 
+B. True – Excessive constraints can prevent the learners from capturing the relationship. 
+C. False – Repeating the same biased prediction preserves that bias. 
+D. True – Additive corrections can expand the model’s effective capacity. 
+E. False – Ensemble size does not replace generalization testing. 
+ 
+[ML-D7G6Q3] 
+A model-governance team compares three interventions: bagging unstable deep trees, boosting shallow trees that 
+underﬁt, and averaging many copies of one deterministic linear model trained on identical data. The reviewer asks which 
+changes address variance, which may address bias, and where beneﬁts are limited. 
+ 
+A. Bagging the unstable trees is plausibly aimed at variance reduction. 
+B. Boosting shallow learners can reduce bias by building a more expressive combined model. 
+C. Averaging identical predictions from the deterministic linear model changes the prediction. 
+D. If every ensemble member shares the same omitted-variable error, aggregation may leave it intact. 
+E. Bias and variance effects should be inferred solely from training error. 
+ 
+ 
+ 220 Rev:081020261230 
+Answer Key: 
+ 
+A. True – Resampling and aggregation can stabilize high-variance trees. 
+B. True – Sequential additions can capture structure beyond one weak learner. 
+C. False – The average of identical values is that same value. 
+D. True – Common systematic errors do not cancel. 
+E. False – Generalization behavior requires validation or other out-of-sample evidence. 
+ 
+G7: Failure Modes of Ensembles 
+[ML-D7G7Q1] 
+A hedge fund reports spectacular validation results from an ensemble that uses a “revised earnings” feature. An audit 
+ﬁnds that the feature was populated with values released after each predicted trading date, and the CIO argues that 
+averaging many models should protect the result from this problem. 
+ 
+A. The ensemble’s reported performance may be driven by look-ahead leakage. 
+B. Averaging many leaked models makes the information valid at the historical prediction time. 
+C. If all members exploit the leaked feature, their agreement can create false conﬁdence rather than independent 
+conﬁrmation. 
+D. The feature should be reconstructed using only values available as of each prediction timestamp. 
+E. Strong ensemble performance eliminates the need to audit data provenance. 
+ 
+Answer Key: 
+ 
+A. True – Future-released values give the models information unavailable in real trading. 
+B. False – Aggregation cannot repair invalid temporal availability. 
+C. True – Shared leakage produces correlated, systematically optimistic predictions. 
+D. True – Point-in-time data are necessary for a realistic evaluation. 
+E. False – Unexpectedly strong results make leakage review especially important. 
+ 
+[ML-D7G7Q2] 
+A boosted trading model keeps adding trees until training error is almost zero. Validation performance peaks after 80 
+trees and then deteriorates, especially around noisy news events; the portfolio manager wants to deploy the 600-tree 
+endpoint because it ﬁts history best. 
+ 
+ 221 Rev:081020261230 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The divergence between falling training error and worsening validation performance is evidence of overﬁtting. 
+B. Later boosting stages may focus excessively on noise or outliers. 
+C. Selecting the number of boosting stages using time-aware validation could improve generalization. 
+D. Zero training error guarantees the smallest future trading loss. 
+E. Regularization choices such as learning rate, tree depth, or early stopping can affect the failure mode. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – The added ﬁt is not transferring to unseen data. 
+B. False – Persistently hard noisy cases can attract later corrections. 
+C. False – Validation can identify a useful stopping region without relying on ﬁnal training ﬁt. 
+D. True – Perfect historical ﬁt can reﬂect memorization. 
+E. False – These controls limit the size or aggressiveness of sequential corrections. 
+ 
+[ML-D7G7Q3] 
+A risk ensemble contains 50 trees trained with nearly identical samples and the same dominant features. During a 
+sudden liquidity regime change, all 50 underestimate transaction costs, while the risk officer had assumed the large 
+model count guaranteed diversiﬁcation. 
+ 
+A. The following claim is false: A large number of members does not guarantee meaningful model diversity. 
+B. Highly correlated errors can cause the full ensemble to fail together. 
+C. Averaging 50 underestimates must produce an unbiased cost estimate. 
+D. Regime shift can expose a weakness shared by every learner because their training experience was similar. 
+E. Stress testing by regime can reveal vulnerabilities that average validation metrics may hide. 
+ 
+Answer Key: 
+ 
+A. False – Effective diversity concerns behavior and errors, not just member count. 
+B. True – Common errors survive aggregation. 
+C. False – An average of systematically low estimates can remain systematically low. 
+D. True – Shared data and features can lead to the same extrapolation failure. 
+ 
+ 222 Rev:081020261230 
+E. True – Segment-level evaluation can uncover concentrated failures in adverse conditions. 
+ 
+  
+ 
+ 223 Rev:081020261230 

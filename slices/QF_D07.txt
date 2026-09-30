@@ -1,0 +1,490 @@
+Domain 7: CAPM, Alpha, Beta, and Hedging 
+Domain Summary 
+ Market model and CAPM intuition 
+ Alpha and beta 
+ Correlation versus beta 
+ Systematic and idiosyncratic returns 
+ Portfolio beta 
+ Long/short hedging 
+ Dollar neutrality 
+ Beta neutrality 
+ Leverage and market exposure 
+Topic Groups 
+G1: Market Model and Return Decomposition 
+ Asset return as market-related plus asset-speciﬁc return 
+ Regression interpretation 
+ Market benchmark 
+ Residual return 
+ Systematic versus unexplained components 
+G2: Beta and Market Sensitivity 
+ Beta as slope 
+ Beta above, below, or equal to one 
+ Positive and negative beta 
+ Expected response to market movement 
+ Beta as exposure, not skill 
+G3: Alpha and Active Performance 
+ Alpha as return unexplained by benchmark exposure 
+ Positive and negative alpha 
+ Statistical versus economic signiﬁcance 
+ 
+ 362 Rev:081020261230 
+ Persistent versus temporary alpha 
+ Distinguishing alpha from high-beta returns 
+G4: Correlation vs. Beta 
+ Directional co-movement versus sensitivity magnitude 
+ High correlation with low beta 
+ Low correlation with high volatility 
+ Why correlation and beta are not interchangeable 
+G5: Portfolio Beta and Exposure Aggregation 
+ Weighted beta 
+ Long and short contributions 
+ Market-neutral portfolios 
+ Effects of leverage 
+ Managing aggregate market exposure 
+G6: Dollar Neutrality vs. Beta Neutrality 
+ Equal long and short dollar amounts 
+ Unequal risk exposure despite dollar balance 
+ Beta-adjusted hedges 
+ Why dollar neutrality does not ensure market neutrality 
+G7: Hedging and Residual Risk 
+ Index hedges 
+ Pair trades 
+ Basis risk 
+ Imperfect hedges 
+ Alpha retention versus return drag 
+ Costs and limitations of hedging 
+ 
+ 363 Rev:081020261230 
+G1: Market Model and Return Decomposition 
+[QF-D7G1Q1] 
+An analyst models a stock's monthly return as stock return = 0.2% + 1.3 × market return + residual return. During one 
+month, the market returns 2.0%, and the stock's residual return is -0.5%. 
+ 
+A. The market-related component of the stock's return is not 2.6%. 
+B. The model-implied total stock return for the month is not 2.3%. 
+C. The negative residual means the stock must have had a negative total return. 
+D. The 0.2% intercept is the portion predicted when the market return is zero and the residual is zero. 
+E. The residual represents the part of this month's return not explained by the intercept and modeled market exposure. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. The market-related component is 1.3 × 2.0% = 2.6%. 
+B. False – The statement reverses the correct conclusion. The components sum to 0.2% + 2.6% - 0.5% = 2.3%. 
+C. False – A negative residual can coexist with a positive total return when the other components are positive. 
+D. True – In this linear speciﬁcation, the intercept is the predicted return when both the market return and residual are 
+zero. 
+E. True – The residual is the unexplained asset-speciﬁc portion remaining after applying the ﬁtted model. 
+ 
+[QF-D7G1Q2] 
+A manager regresses a fund's monthly excess returns on the excess returns of a broad equity index. The estimated 
+intercept is 0.15% per month, beta is 0.8, and the residuals vary substantially from month to month. 
+ 
+A. The estimated beta is the slope relating the fund's excess return to the benchmark's excess return. 
+B. A 1% increase in the benchmark's excess return is associated with an estimated 0.8% increase in the fund's excess 
+return, before considering the residual. 
+C. The intercept proves that the manager will earn exactly 0.15% of alpha every future month. 
+D. Large residual variation indicates that the benchmark does not explain all of the fund's return variation. 
+E. Replacing the broad index with a materially different benchmark could not change the estimated alpha and beta. 
+ 
+Answer Key: 
+ 
+ 
+ 364 Rev:081020261230 
+A. True – Beta is the ﬁtted regression slope on the benchmark's excess return. 
+B. True – A beta of 0.8 implies an estimated 0.8-for-1 response in excess returns. 
+C. False – An in-sample intercept is an estimate, not a guaranteed future monthly return. 
+D. True – Residuals capture variation left unexplained by the modeled benchmark exposure. 
+E. False – The statement reverses the correct conclusion. Alpha and beta are measured relative to the selected model 
+and benchmark. 
+ 
+[QF-D7G1Q3] 
+A stock has an estimated beta of 1.2 and a zero intercept in a simple market model. On a day when the market falls 4%, 
+the stock falls only 2%. 
+ 
+A. The model predicts a market-related stock return of -4.8% for the day. 
+B. The stock's realized residual return is not +2.8% for the day. 
+C. Because the residual is positive, the stock's total return must also be positive. 
+D. One positive residual observation is sufficient to establish persistent positive alpha. 
+E. The stock outperformed the return predicted by its market exposure even though it lost money in absolute terms. 
+ 
+Answer Key: 
+ 
+A. True – With a zero intercept, the prediction is 1.2 × -4% = -4.8%. 
+B. False – The statement reverses the correct conclusion. The residual is actual minus predicted return: -2.0% - (-4.8%) 
+= +2.8%. 
+C. False – The stock's realized total return was -2%, despite its positive residual. 
+D. False – Persistent alpha requires evidence across many observations and must account for estimation uncertainty. 
+E. True – Losing 2% is better than the modeled loss of 4.8%, so benchmark-adjusted performance was positive. 
+ 
+G2: Beta and Market Sensitivity 
+[QF-D7G2Q1] 
+A cyclical stock has an estimated beta of 1.5. An investor interprets this estimate using a simple market model with no 
+alpha and no residual return. 
+ 
+A. If the market rises 4%, the modeled stock return is approximately 6%. 
+ 
+ 365 Rev:081020261230 
+B. If the market falls 4%, the modeled stock return is approximately -6%. 
+C. A beta of 1.5 guarantees the stock will move by exactly 1.5 times the market every day. 
+D. The beta indicates greater modeled market sensitivity than a stock with a beta of 0.7. 
+E. The beta estimate by itself demonstrates superior stock-selection skill. 
+ 
+Answer Key: 
+ 
+A. True – The modeled response is 1.5 × 4% = 6%. 
+B. True – The same linear exposure implies 1.5 × -4% = -6%. 
+C. False – Beta is an estimated average relationship; realized returns also contain residual variation. 
+D. True – A larger positive beta represents greater sensitivity to movements in the modeled market benchmark. 
+E. False – Beta measures exposure, not skill or abnormal performance. 
+ 
+[QF-D7G2Q2] 
+An asset has an estimated beta of -0.4 relative to the equity market. A portfolio manager considers adding it to a long-
+only equity portfolio. 
+ 
+A. The asset's modeled market-related return is -2% when the market returns +5%. 
+B. The asset tends to move opposite the market component on average under the ﬁtted model. 
+C. A negative beta guarantees a positive realized return whenever the market declines. 
+D. A negative-beta asset cannot provide hedging value in an otherwise positive-beta portfolio. 
+E. Negative beta means that the asset has negative volatility. 
+ 
+Answer Key: 
+ 
+A. True – The modeled market component is -0.4 × 5% = -2%. 
+B. True – A negative slope represents an inverse modeled relationship with the benchmark. 
+C. False – Alpha, residual returns, and estimation error can prevent the realized return from being positive. 
+D. False – The statement reverses the correct conclusion. Negative market exposure can offset part of a portfolio's 
+positive market exposure. 
+E. False – Volatility is nonnegative; beta can be negative because covariance with the market is negative. 
+ 
+ 
+ 366 Rev:081020261230 
+[QF-D7G2Q3] 
+Using historical returns, an analyst estimates that a stock's covariance with the market is 0.018 and the market-return 
+variance is 0.012 over the same horizon. 
+ 
+A. The estimated beta is 1.5. 
+B. Beta is calculated as the asset-market covariance divided by the market variance. 
+C. If the covariance were zero while market variance remained positive, the estimated beta would not be zero. 
+D. A zero beta would prove that the stock has no idiosyncratic risk. 
+E. Changing the return horizon or sample period can change the estimated beta. 
+ 
+Answer Key: 
+ 
+A. True – Beta is 0.018 / 0.012 = 1.5. 
+B. True – This covariance-to-market-variance ratio is the regression slope for the single-factor market model. 
+C. False – The statement reverses the correct conclusion. Zero covariance produces a zero numerator and therefore a 
+zero beta. 
+D. False – Zero market sensitivity does not eliminate asset-speciﬁc return variation. 
+E. True – Beta is an empirical estimate and may vary across frequencies, samples, and market regimes. 
+ 
+G3: Alpha and Active Performance 
+[QF-D7G3Q1] 
+Over one year, a fund returns 14%, the market returns 10%, and the risk-free rate is 2%. The fund's estimated beta is 1.2. 
+For this question, use the CAPM expected return risk-free rate + beta × (market return - risk-free rate). 
+ 
+A. The market's excess return is not 8%. 
+B. The fund's CAPM-implied return is 11.6%. 
+C. The fund's realized alpha relative to this CAPM calculation is 2.4%. 
+D. Comparing the fund's 14% return only with the market's 10% return fully adjusts for the fund's market risk. 
+E. Positive measured alpha for one year guarantees that the fund has persistent manager skill. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. The market excess return is 10% - 2% = 8%. 
+ 
+ 367 Rev:081020261230 
+B. True – The CAPM-implied return is 2% + 1.2 × 8% = 11.6%. 
+C. True – The realized return exceeds the CAPM-implied return by 14% - 11.6% = 2.4%. 
+D. False – The fund has beta above one, so a raw comparison does not fully adjust for its greater market exposure. 
+E. False – A single positive observation may reﬂect luck, residual risk, or estimation error rather than persistent skill. 
+ 
+[QF-D7G3Q2] 
+A strategy's estimated annual alpha is 1.0%, with a standard error of 0.8%. Implementing the strategy is expected to cost 
+1.3% per year. A researcher argues that the positive alpha estimate is enough to justify deployment. 
+ 
+A. The estimated alpha is positive before implementation costs. 
+B. The alpha estimate is only 1.25 standard errors above zero. 
+C. The estimate is necessarily statistically signiﬁcant at conventional two-sided levels because it is positive. 
+D. Subtracting the estimated costs produces an expected net alpha of -0.3%. 
+E. Statistical signiﬁcance and economic signiﬁcance are not distinct considerations. 
+ 
+Answer Key: 
+ 
+A. True – The reported gross alpha estimate is +1.0%. 
+B. True – The estimate-to-standard-error ratio is 1.0 / 0.8 = 1.25. 
+C. False – A positive point estimate alone does not establish conventional statistical signiﬁcance. 
+D. True – Expected net alpha is 1.0% - 1.3% = -0.3%. 
+E. False – The statement reverses the correct conclusion. An effect can be statistically detectable yet too small after 
+costs, or economically large but estimated imprecisely. 
+ 
+[QF-D7G3Q3] 
+During a strong bull market, the risk-free rate is 2% and the market returns 12%. A fund with beta 1.5 also returns 17%. 
+Use the CAPM relationship for this simpliﬁed evaluation. 
+ 
+A. The market risk premium realized over the period is 10%. 
+B. The fund's CAPM-implied return is not 17%. 
+C. The fund's estimated alpha for the period is not approximately zero. 
+D. The fund's 5 percentage-point outperformance of the market necessarily represents manager alpha. 
+E. High raw returns can arise from high market exposure without positive alpha. 
+ 
+ 368 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. True – The realized market excess return is 12% - 2% = 10%. 
+B. False – The statement reverses the correct conclusion. The CAPM-implied return is 2% + 1.5 × 10% = 17%. 
+C. False – The statement reverses the correct conclusion. Realized and CAPM-implied returns are equal in this simpliﬁed 
+calculation. 
+D. False – The higher return is explained by the fund's beta of 1.5 under the stated assumptions. 
+E. True – Greater systematic exposure can amplify bull-market returns without producing abnormal performance. 
+ 
+G4: Correlation vs. Beta 
+[QF-D7G4Q1] 
+A low-volatility stock has a 0.90 correlation with the market. The stock's volatility is 8%, while market volatility is 16%, 
+measured over the same horizon. Use beta = correlation × stock volatility / market volatility. 
+ 
+A. The stock's estimated beta is 0.45. 
+B. The stock can have high correlation with the market while having beta below one. 
+C. Correlation describes standardized co-movement, while beta also reﬂects relative volatility. 
+D. If the market rises 2%, the beta-based market component of the stock's return is approximately 1.8%. 
+E. High positive correlation necessarily implies beta above one. 
+ 
+Answer Key: 
+ 
+A. True – Beta is 0.90 × 8% / 16% = 0.45. 
+B. True – Strong directional co-movement can occur with smaller-magnitude movements in the stock. 
+C. True – Beta combines correlation with the ratio of asset volatility to market volatility. 
+D. False – The beta-based component is 0.45 × 2% = 0.9%. 
+E. False – Beta may remain below one when the asset is less volatile than the market. 
+ 
+[QF-D7G4Q2] 
+A speculative asset has 30% volatility, the market has 15% volatility, and their return correlation is 0.20 over the same 
+sample. 
+ 
+ 369 Rev:081020261230 
+ 
+A. The asset's estimated beta is 0.40. 
+B. The asset's high volatility requires it to have a beta above one. 
+C. Much of the asset's volatility may be unrelated to contemporaneous market movement. 
+D. Correlation and beta are interchangeable because both are unitless. 
+E. An investor concerned with total risk should not consider more than beta alone. 
+ 
+Answer Key: 
+ 
+A. True – Beta is 0.20 × 30% / 15% = 0.40. 
+B. False – Low correlation can produce a beta below one despite high total volatility. 
+C. True – Low correlation indicates that market co-movement explains only a limited portion of the asset's movement. 
+D. False – Correlation measures standardized co-movement; beta measures the magnitude of market sensitivity. 
+E. False – The statement reverses the correct conclusion. Idiosyncratic volatility can be substantial even when beta is 
+modest. 
+ 
+[QF-D7G4Q3] 
+An asset has 12% volatility, the market has 8% volatility, and their correlation is -0.50. A manager is comparing correlation 
+and beta as hedge diagnostics. 
+ 
+A. The asset's estimated beta is not -0.75. 
+B. The negative correlation indicates that the asset tends to move opposite the market over the sample. 
+C. The beta's magnitude depends partly on the asset's volatility relative to market volatility. 
+D. A two-to-one leveraged position in the asset would have the same beta contribution as an unleveraged position of the 
+same equity amount. 
+E. Neither the sample correlation nor the sample beta guarantees the same relationship in a future crisis. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Beta is -0.50 × 12% / 8% = -0.75. 
+B. True – Negative correlation represents inverse directional co-movement on average. 
+C. True – Beta scales correlation by the asset-to-market volatility ratio. 
+D. False – Ignoring ﬁnancing details, doubling exposure approximately doubles the position's beta contribution relative 
+to the investor's equity. 
+ 
+ 370 Rev:081020261230 
+E. True – Both measures are estimated from historical data and can change across regimes. 
+ 
+G5: Portfolio Beta and Exposure Aggregation 
+[QF-D7G5Q1] 
+A fully invested long-only portfolio places 60% in Stock A with beta 1.4 and 40% in Stock B with beta 0.5. 
+ 
+A. Stock A contributes 0.84 to portfolio beta. 
+B. Stock B contributes 0.20 to portfolio beta. 
+C. The portfolio beta is not 1.04. 
+D. The portfolio's beta must not lie between 0.5 and 1.4 under the stated positive weights. 
+E. A portfolio beta of 1.04 means the portfolio will earn exactly 4% more than the market each year. 
+ 
+Answer Key: 
+ 
+A. True – Stock A's contribution is 0.60 × 1.4 = 0.84. 
+B. True – Stock B's contribution is 0.40 × 0.5 = 0.20. 
+C. False – The statement reverses the correct conclusion. Portfolio beta is the sum of contributions: 0.84 + 0.20 = 1.04. 
+D. False – The statement reverses the correct conclusion. A positive-weighted average lies within the range of the 
+component betas. 
+E. False – Beta is market sensitivity, not a guaranteed return premium over the market. 
+ 
+[QF-D7G5Q2] 
+A leveraged portfolio has weights of +120% in a stock basket with beta 1.1, -40% in another basket with beta 0.8, and 
++20% in cash with beta zero. Assume the weights are measured relative to portfolio equity. 
+ 
+A. The long basket contributes 1.32 to portfolio beta. 
+B. The short basket contributes -0.32 to portfolio beta. 
+C. The portfolio beta is 1.00. 
+D. The portfolio's gross risky-asset exposure is not 160% of equity. 
+E. Because the signed weights sum to 100%, the portfolio is unleveraged. 
+ 
+Answer Key: 
+ 
+ 371 Rev:081020261230 
+ 
+A. True – The contribution is 1.20 × 1.1 = 1.32. 
+B. True – The short contribution is -0.40 × 0.8 = -0.32. 
+C. True – Cash contributes zero, so total beta is 1.32 - 0.32 = 1.00. 
+D. False – The statement reverses the correct conclusion. Gross risky exposure is 120% + 40% = 160% of equity. 
+E. False – Gross exposure reveals leverage even though signed weights, including cash, sum to 100%. 
+ 
+[QF-D7G5Q3] 
+A fund with $50 million of equity is long $80 million of stocks with an aggregate beta of 1.25, short $30 million of low-beta 
+stocks with beta 0.5, and short $20 million of a market ETF with beta 1.0. 
+ 
+A. The long position contributes +$100 million of beta-weighted exposure. 
+B. The two short positions together contribute -$35 million of beta-weighted exposure. 
+C. Net beta-weighted exposure is not +$65 million. 
+D. Relative to $50 million of fund equity, the portfolio beta is not 1.3. 
+E. The portfolio is beta neutral because its short positions total $50 million. 
+ 
+Answer Key: 
+ 
+A. True – The long beta-weighted exposure is $80 million × 1.25 = $100 million. 
+B. True – The shorts contribute -($30 million × 0.5) - ($20 million × 1.0) = -$35 million. 
+C. False – The statement reverses the correct conclusion. Net beta-weighted exposure is $100 million - $35 million = $65 
+million. 
+D. False – The statement reverses the correct conclusion. Portfolio beta relative to equity is $65 million / $50 million = 
+1.3. 
+E. False – Beta neutrality requires beta-weighted exposures to cancel, and this portfolio retains positive exposure. 
+ 
+G6: Dollar Neutrality vs. Beta Neutrality 
+[QF-D7G6Q1] 
+A hedge fund is long $50 million of Stock A and short $50 million of a market ETF . Stock A has a beta of 1.4, while the ETF 
+has a beta of 1.0. The portfolio manager calls the trade “market neutral” because the long and short dollar amounts are 
+equal. 
+ 
+ 
+ 372 Rev:081020261230 
+A. The portfolio is dollar neutral. 
+B. The portfolio is beta neutral. 
+C. The long side contributes more market exposure than the short side removes. 
+D. Equal long and short dollar amounts do not necessarily imply equal market risk. 
+E. The short ETF position would not need to be larger in absolute dollars to offset Stock A’s higher beta. 
+ 
+Answer Key: 
+ 
+A. True – The gross long and short dollar amounts are equal. 
+B. False – The beta-weighted exposures do not cancel. 
+C. True – The long contributes 50 × 1.4 = 70 beta-dollars, while the short removes 50. 
+D. True – Risk depends on sensitivities, not just dollar amounts. 
+E. False – The statement reverses the correct conclusion. A larger ETF short would be needed for beta neutrality. 
+ 
+[QF-D7G6Q2] 
+A fund is long $30 million of a stock with beta 1.5 and wants to hedge using a different stock with beta 0.75. Ignore alpha, 
+residual returns, and trading costs. 
+ 
+A. The long position has +$45 million of beta-weighted exposure. 
+B. A $30 million short in the hedge stock would make the trade beta neutral. 
+C. A $60 million short in the hedge stock would not make the trade beta neutral. 
+D. With the $60 million short, the trade would be beta neutral but not dollar neutral. 
+E. Beta neutrality necessarily requires equal long and short dollar amounts. 
+ 
+Answer Key: 
+ 
+A. True – The long exposure is $30 million × 1.5 = $45 million of beta-weighted exposure. 
+B. False – A $30 million short with beta 0.75 removes only $22.5 million of beta-weighted exposure. 
+C. False – The statement reverses the correct conclusion. A $60 million short removes $60 million × 0.75 = $45 million, 
+exactly offsetting the long. 
+D. True – The beta exposures cancel, but the position is net short $30 million in dollar terms. 
+E. False – Different security betas can require unequal dollar amounts for equal and opposite market exposure. 
+ 
+ 
+ 373 Rev:081020261230 
+[QF-D7G6Q3] 
+A portfolio is long $40 million of a defensive stock basket with beta 0.6 and short $40 million of a cyclical stock basket 
+with beta 1.2. 
+ 
+A. The portfolio is not dollar neutral. 
+B. The long basket contributes +$24 million of beta-weighted exposure. 
+C. The short basket contributes -$48 million of beta-weighted exposure. 
+D. The portfolio has net negative beta-weighted exposure of $24 million. 
+E. Increasing the long defensive basket to $80 million, while leaving the short unchanged, would make the portfolio both 
+dollar neutral and beta neutral. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Long and short dollar amounts are both $40 million. 
+B. True – The long contribution is $40 million × 0.6 = $24 million. 
+C. True – The short contribution is -$40 million × 1.2 = -$48 million. 
+D. True – Net beta-weighted exposure is $24 million - $48 million = -$24 million. 
+E. False – An $80 million long would offset beta exposure, but it would exceed the $40 million short and therefore break 
+dollar neutrality. 
+ 
+G7: Hedging and Residual Risk 
+[QF-D7G7Q1] 
+A fund owns $10 million of a stock with beta 1.3 and shorts a broad market ETF with beta 1.0 to hedge the stock's market 
+exposure. 
+ 
+A. A $13 million ETF short produces equal and opposite beta-weighted exposure under the estimates. 
+B. The hedge eliminates all possible losses on the stock position. 
+C. Company-speciﬁc news can still affect the hedged trade. 
+D. If the stock earns a positive asset-speciﬁc return while the hedge is effective, the trade cannot retain that return before 
+costs. 
+E. Estimation error in the stock's beta cannot leave unintended market exposure. 
+ 
+Answer Key: 
+ 
+ 374 Rev:081020261230 
+ 
+A. True – The stock contributes $10 million × 1.3 = $13 million, which a $13 million beta-one ETF short offsets. 
+B. False – The hedge targets modeled market exposure, not idiosyncratic, model, liquidity, or other risks. 
+C. True – An index hedge does not directly offset issuer-speciﬁc developments. 
+D. False – The statement reverses the correct conclusion. A well-matched market hedge is intended to remove systematic 
+return while preserving asset-speciﬁc performance. 
+E. False – The statement reverses the correct conclusion. If the true future beta differs from the estimate, the hedge ratio 
+will be imperfect. 
+ 
+[QF-D7G7Q2] 
+A pair trade is long $5 million of Stock A with beta 1.4 and short Stock B with beta 0.7. The two companies operate in the 
+same industry, but their historical relationship can change. 
+ 
+A. The long side contributes +$7 million of beta-weighted exposure. 
+B. A $5 million short in Stock B would not make the trade dollar neutral. 
+C. A $5 million short in Stock B would also make the trade beta neutral. 
+D. A $10 million short in Stock B would offset the long side's estimated market beta. 
+E. Even a beta-neutral pair trade can lose if the companies' relative fundamentals or historical relationship changes. 
+ 
+Answer Key: 
+ 
+A. True – The long beta-weighted exposure is $5 million × 1.4 = $7 million. 
+B. False – The statement reverses the correct conclusion. Equal $5 million long and short positions are dollar neutral. 
+C. False – The $5 million short removes only $3.5 million of beta-weighted exposure. 
+D. True – A $10 million short at beta 0.7 removes $7 million of beta-weighted exposure. 
+E. True – Beta neutrality does not eliminate relative-value, company-speciﬁc, or relationship-breakdown risk. 
+ 
+[QF-D7G7Q3] 
+A $20 million equity portfolio has beta 0.8. A manager shorts $16 million of a beta-one index future equivalent to reduce 
+market exposure. During the period, the market rises 6%, and the portfolio earns an additional 2% asset-speciﬁc return. 
+Ignore ﬁnancing and trading costs for the initial calculations. 
+ 
+A. The unhedged portfolio's modeled market-related gain is not $960,000. 
+ 
+ 375 Rev:081020261230 
+B. The index hedge's modeled loss is not $960,000. 
+C. The offsetting market components leave approximately $400,000 of asset-speciﬁc gain before costs. 
+D. The hedge guarantees the portfolio's realized beta will remain exactly zero in every future period. 
+E. Trading costs, ﬁnancing, imperfect index matching, and changing beta can reduce the effectiveness of the hedge. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. The market-related gain is $20 million × 0.8 × 6% = $960,000. 
+B. False – The statement reverses the correct conclusion. The short index exposure loses $16 million × 6% = $960,000. 
+C. True – The 2% asset-speciﬁc return on $20 million is $400,000 after the modeled market components cancel. 
+D. False – Beta and hedge relationships can change, and realized returns contain basis and residual risk. 
+E. True – Real hedges are imperfect and impose implementation and carrying costs. 
+ 
+  
+ 
+ 376 Rev:081020261230 

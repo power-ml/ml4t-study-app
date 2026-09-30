@@ -1,0 +1,499 @@
+Domain 9: Financial Data and Research Bias 
+Domain Summary 
+ Time-series ordering 
+ Look-ahead bias 
+ Survivorship bias 
+ Selection bias 
+ Data snooping 
+ Point-in-time data 
+ Corporate actions 
+ Missing and stale observations 
+ Regime change 
+ Nonstationarity 
+ Research validity 
+Topic Groups 
+G1: Temporal Ordering and Look-Ahead Bias 
+ Using information before it was available 
+ Random splitting of time-series data 
+ Future prices or returns leaking into features 
+ Chronological train/test splits 
+G2: Survivorship and Selection Bias 
+ Excluding failed or delisted securities 
+ Selecting markets or periods after observing results 
+ Biased universes 
+ Overstatement of historical performance 
+G3: Data Snooping and Multiple Testing 
+ Trying many strategies 
+ Selecting the best historical result 
+ False discoveries 
+ 
+ 392 Rev:081020261230 
+ Repeated reuse of a test set 
+ Need for independent validation 
+G4: Point-in-Time Data and Revisions 
+ Financial statements as originally released 
+ Restated or revised data 
+ Publication lag 
+ Availability dates 
+ Backtests using information unavailable at the time 
+G5: Corporate Actions and Price Adjustments 
+ Splits 
+ Dividends 
+ Delistings 
+ Adjusted versus unadjusted prices 
+ False return signals caused by data handling 
+G6: Missing, Stale, and Irregular Data 
+ Forward ﬁlling 
+ Non-trading days 
+ Illiquid assets 
+ Stale prices 
+ Bias introduced by imputation 
+G7: Nonstationarity and Regime Change 
+ Changing return distributions 
+ Structural breaks 
+ Strategy decay 
+ Market conditions differing between training and deployment 
+ Historical relationships failing in the future 
+ 
+ 393 Rev:081020261230 
+G1: Temporal Ordering and Look-Ahead Bias 
+[QF-D9G1Q1] 
+A researcher randomly assigns daily observations from 2010–2025 to training and test sets. The model uses lagged 
+returns to predict the next day's return. 
+ 
+A. A random split cannot place observations from 2025 in training while observations from 2012 appear in testing. 
+B. The split faithfully simulates training in 2012 using only information available by 2012. 
+C. Dependence between nearby time-series observations can make random-split test results overly optimistic. 
+D. Training on an earlier period and testing on a later period better preserves the direction of time. 
+E. Using only lagged features guarantees that the overall research design is free of look-ahead bias. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Random assignment does not preserve chronological order. 
+B. False – Future observations can inﬂuence a model evaluated on earlier dates. 
+C. True – Autocorrelation and overlapping regimes can make randomly separated observations unusually similar. 
+D. True – A chronological split more closely represents future deployment. 
+E. False – Leakage can enter through splitting, preprocessing, labels, universe construction, or other pipeline steps. 
+ 
+[QF-D9G1Q2] 
+For each trading day, an analyst creates a feature equal to that day's closing price minus the average closing price over a 
+centered 21-day window: the preceding 10 days, the current day, and the following 10 days. The signal is used to place a 
+trade at that day's close. 
+ 
+A. The feature contains prices that were unavailable at the trade time. 
+B. The centered moving average introduces look-ahead bias. 
+C. Replacing the centered window with a trailing window cannot remove this particular use of future prices. 
+D. Because all prices eventually became historical, the original backtest is valid. 
+E. Even a trailing calculation must be shifted if the day's close was not known when the trade was executed. 
+ 
+Answer Key: 
+ 
+A. True – Ten future closing prices enter the feature used for the current decision. 
+ 
+ 394 Rev:081020261230 
+B. True – The calculation allows future information to affect a past trade. 
+C. False – The statement reverses the correct conclusion. A trailing window can be computed from information available 
+by the decision time. 
+D. False – Later availability does not make the information available at the historical trade time. 
+E. True – Feature timing must match the exact time at which the simulated order could have been placed. 
+ 
+[QF-D9G1Q3] 
+A model predicts ﬁve-day forward returns. Each label uses returns from day t+1 through day t+5. The researcher ends the 
+training sample on June 30 and begins the test sample on July 1, without removing overlapping labels near the boundary. 
+ 
+A. A training label dated June 30 can contain returns realized during the July test period. 
+B. The calendar boundary alone guarantees complete separation of the economic information in training and testing. 
+C. Purging boundary observations whose label windows overlap the test period can reduce leakage. 
+D. Longer forward-return horizons cannot require a wider separation around the train/test boundary. 
+E. Shuffling the rows after labels are constructed would solve the overlap problem. 
+ 
+Answer Key: 
+ 
+A. True – Its ﬁve-day forward window extends into July. 
+B. False – Label windows can cross the nominal boundary. 
+C. True – Purging prevents test-period outcomes from entering training labels. 
+D. False – The statement reverses the correct conclusion. Longer horizons create longer regions of potential overlap. 
+E. False – Shuffling changes row order but does not remove shared future-return information. 
+ 
+G2: Survivorship and Selection Bias 
+[QF-D9G2Q1] 
+A researcher backtests a strategy on the current members of a major stock index from 2005 through 2025. Firms that 
+were removed from the index or went bankrupt are not included. The resulting strategy appears unusually strong. 
+ 
+A. The test may suffer from survivorship bias. 
+B. Excluding failed ﬁrms can overstate historical performance. 
+C. Using today’s index membership recreates the investment universe that was available in 2005. 
+ 
+ 395 Rev:081020261230 
+D. A point-in-time constituent database would improve the research design. 
+E. Survivorship bias cannot affect both return estimates and apparent risk. 
+ 
+Answer Key: 
+ 
+A. True – The sample contains only ﬁrms that survived to the present universe. 
+B. True – Poor outcomes are systematically omitted. 
+C. False – Today’s membership was not known or available in 2005. 
+D. True – Point-in-time membership better reconstructs the historical opportunity set. 
+E. False – The statement reverses the correct conclusion. Omitting failures can understate losses and volatility. 
+ 
+[QF-D9G2Q2] 
+An analyst downloads returns for hedge funds that are operating today and studies their performance back to each fund's 
+inception. Funds that closed before the download date do not appear in the database. 
+ 
+A. The sample conditions on funds surviving until today. 
+B. Poorly performing funds cannot be more likely to disappear from the observed sample. 
+C. The surviving funds' average historical return may exceed the average an investor actually experienced across all 
+available funds. 
+D. Adding more years of return history for the same surviving funds necessarily removes the bias. 
+E. A database containing dead funds and their ﬁnal returns would not support a less biased analysis. 
+ 
+Answer Key: 
+ 
+A. True – Current operation is a survival requirement for inclusion. 
+B. False – The statement reverses the correct conclusion. Closure can be related to poor results, making the missingness 
+systematic. 
+C. True – Omitted failures can raise the measured average and suppress observed downside. 
+D. False – More observations from the same selected survivors do not restore missing funds. 
+E. False – The statement reverses the correct conclusion. Dead-fund histories help reconstruct the opportunity set 
+investors actually faced. 
+ 
+ 
+ 396 Rev:081020261230 
+[QF-D9G2Q3] 
+After inspecting results in 20 countries over 30 years, a researcher reports a value strategy only for the three countries 
+and one decade in which it performed best. The paper does not disclose how those markets and dates were chosen. 
+ 
+A. Choosing the sample after observing results creates selection bias. 
+B. The reported performance may overstate how well the strategy would work in a market and period selected in advance. 
+C. A strong result within the chosen subsample proves the strategy is universal. 
+D. Reporting the complete search process would not help readers assess the evidence. 
+E. Testing a pre-speciﬁed rule on untouched countries or later dates could provide useful validation. 
+ 
+Answer Key: 
+ 
+A. True – The outcome inﬂuenced which evidence was presented. 
+B. True – Selecting winners from many candidates favors unusually strong realized results. 
+C. False – A favorable selected subsample does not establish general validity. 
+D. False – The statement reverses the correct conclusion. Disclosure reveals the number of opportunities from which the 
+apparent winner emerged. 
+E. True – Untouched data can test whether the ﬁnding generalizes beyond the selected sample. 
+ 
+G3: Data Snooping and Multiple Testing 
+[QF-D9G3Q1] 
+A research team tests 1,000 signals that have no true predictive power. At a 5% signiﬁcance threshold, it retains every 
+signal with a statistically signiﬁcant result. 
+ 
+A. Even when every null hypothesis is true, approximately 50 signiﬁcant results may arise by chance on average. 
+B. Selecting the best result from 1,000 trials is equivalent to testing one strategy speciﬁed in advance. 
+C. Multiple-testing adjustments cannot reduce the rate of false discoveries. 
+D. The retained signals should be evaluated on data that did not participate in their selection. 
+E. A p-value below 0.05 for one selected signal proves that the signal has durable economic value. 
+ 
+Answer Key: 
+ 
+A. True – Five percent of 1,000 null tests is 50 expected false positives under the simpliﬁed assumptions. 
+ 
+ 397 Rev:081020261230 
+B. False – The search across many candidates greatly increases the opportunity to ﬁnd a chance winner. 
+C. False – The statement reverses the correct conclusion. Adjustments account for the number or structure of 
+hypotheses examined. 
+D. True – Independent validation tests performance after the selection process. 
+E. False – Signiﬁcance can be spurious and does not establish persistence, magnitude, or proﬁtability after costs. 
+ 
+[QF-D9G3Q2] 
+A developer checks a strategy against the same nominal holdout set, changes parameters after every disappointing 
+result, and reruns the test until the Sharpe ratio looks attractive. 
+ 
+A. The holdout set is not gradually becoming part of the model-development process. 
+B. Repeated feedback from the holdout can cause overﬁtting to that dataset. 
+C. Calling the data a test set preserves its independence regardless of how often it guides revisions. 
+D. A ﬁnal evaluation on an untouched dataset would provide a more credible estimate of generalization. 
+E. Keeping a log of all attempted variants would make the extent of the search more transparent. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Test outcomes are directly guiding design choices. 
+B. True – The developer can learn dataset-speciﬁc noise through repeated experimentation. 
+C. False – Functional use, not the label assigned to the data, determines independence. 
+D. True – Untouched observations have not supplied feedback used to tune the strategy. 
+E. True – The research record helps reveal multiple testing and researcher degrees of freedom. 
+ 
+[QF-D9G3Q3] 
+A strategy was selected because it had the highest Sharpe ratio among 200 variants tested on U.S. equities. The team 
+next evaluates the ﬁxed speciﬁcation, without retuning it, on later U.S. data and on several international markets. 
+ 
+A. The original maximum Sharpe ratio is not subject to a winner's-curse effect. 
+B. Freezing the speciﬁcation before further testing reduces additional selection on the validation data. 
+C. Failure in every new dataset would strengthen the claim that the original effect is robust. 
+D. Success across later periods and different markets would not be more persuasive than the selected in-sample result 
+alone. 
+ 
+ 398 Rev:081020261230 
+E. International validation is informative only if differences in market structure and implementation are considered. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. The best of many noisy estimates is likely to overstate its 
+underlying performance. 
+B. True – A ﬁxed rule prevents validation outcomes from immediately being converted into more tuning choices. 
+C. False – Broad failure would suggest that the selected historical result did not generalize. 
+D. False – The statement reverses the correct conclusion. Replication beyond the selection sample provides additional 
+evidence of persistence. 
+E. True – Costs, instruments, rules, and data quality can differ across markets and affect comparability. 
+ 
+G4: Point-in-Time Data and Revisions 
+[QF-D9G4Q1] 
+A backtest run in 2026 uses a vendor's current historical earnings-per-share series. The series incorporates corporate 
+restatements that were issued years after the original ﬁnancial reports. The strategy assumes every revised value was 
+known on the original quarter-end date. 
+ 
+A. The backtest can contain information that investors did not possess on the simulated decision date. 
+B. Restated data can differ from the values originally reported. 
+C. Assigning a value to the quarter it describes is always equivalent to assigning it to the date investors could ﬁrst observe 
+it. 
+D. A point-in-time database should preserve original releases, revisions, and their availability dates. 
+E. Using the cleanest currently available series necessarily produces the most realistic historical simulation. 
+ 
+Answer Key: 
+ 
+A. True – Later restatements are being treated as if they were historically known. 
+B. True – Restatements can change previously published accounting values. 
+C. False – The economic reference period and public availability date are distinct. 
+D. True – Those ﬁelds allow the researcher to reconstruct what was knowable at each date. 
+E. False – A corrected series may be accurate retrospectively but unrealistic for contemporaneous decisions. 
+ 
+ 
+ 399 Rev:081020261230 
+[QF-D9G4Q2] 
+A strategy ranks companies using annual ﬁnancial statements. Fiscal year ends on December 31, reports are released 
+on March 15, and the backtest ﬁrst trades on January 2 using the completed ﬁscal-year ﬁgures. 
+ 
+A. The January 2 trade uses ﬁgures before their stated release date. 
+B. The two-and-a-half-month publication lag is not economically relevant to the backtest. 
+C. A reviewer would be wrong to accept the claim that delaying ﬁrst use of the ﬁgures until they were publicly available 
+would improve temporal validity. 
+D. Because the ﬁgures describe the year ending December 31, investors must have known them on December 31. 
+E. A conservative additional processing delay may be appropriate if the strategy could not trade instantaneously at 
+release. 
+ 
+Answer Key: 
+ 
+A. True – The ﬁgures were not released until March 15. 
+B. False – The statement reverses the correct conclusion. The strategy cannot use a disclosure during the period in which 
+it remained unavailable. 
+C. False – The underlying claim is correct and should be accepted. This aligns the simulated decision with information 
+availability. 
+D. False – The measurement period does not determine the publication date. 
+E. True – Realistic ingestion, analysis, and execution timing can matter even after release. 
+ 
+[QF-D9G4Q3] 
+A macroeconomic strategy uses the latest available historical GDP-growth series to trade on every original 
+announcement date. Several past growth estimates were materially revised after those trades would have occurred. 
+ 
+A. The latest-vintage series may embed revisions unavailable on the original announcement dates. 
+B. A real-time vintage database cannot show the values actually published at each historical date. 
+C. Macro data revisions can change both a model's inputs and the apparent historical strength of its signal. 
+D. Revision bias is impossible because GDP data are public. 
+E. Comparing results based on initial releases and later revised values can reveal sensitivity to data vintage. 
+ 
+Answer Key: 
+ 
+ 
+ 400 Rev:081020261230 
+A. True – Today's history can differ from the sequence observed in real time. 
+B. False – The statement reverses the correct conclusion. Vintage data preserve successive releases and revision dates. 
+C. True – Revised values may improve apparent measurement and relationships retrospectively. 
+D. False – Public data can still be revised after the historical decision point. 
+E. True – The comparison shows whether the backtest depends on hindsight-cleaned observations. 
+ 
+G5: Corporate Actions and Price Adjustments 
+[QF-D9G5Q1] 
+A stock closes at $100 and undergoes a 2-for-1 split overnight. It opens near $50, with each pre-split share replaced by 
+two post-split shares. A program using unadjusted prices records a -50% return. 
+ 
+A. The apparent price decline does not represent a 50% economic loss to the shareholder. 
+B. Ignoring the change in share count creates a false return signal. 
+C. A properly split-adjusted series should not remove this mechanical discontinuity. 
+D. The shareholder's position value is not approximately unchanged by the split alone. 
+E. The split necessarily doubles the company's total market capitalization. 
+ 
+Answer Key: 
+ 
+A. True – Two shares near $50 replace one share near $100. 
+B. True – The program mistakes a unit-of-account change for a loss. 
+C. False – The statement reverses the correct conclusion. Adjustment places pre- and post-split prices on a comparable 
+basis. 
+D. False – The statement reverses the correct conclusion. The number of shares doubles while the per-share price 
+approximately halves. 
+E. False – Shares outstanding and price adjust inversely, leaving market value approximately unchanged absent other 
+news. 
+ 
+[QF-D9G5Q2] 
+A stock closes at $50, pays a $2 cash dividend, and closes the next day at $48 with no other price-moving event. One 
+backtest uses price returns only; another includes the cash dividend. 
+ 
+A. The price-only return is not -4%. 
+ 
+ 401 Rev:081020261230 
+B. The shareholder's total return is approximately 0% before taxes and costs. 
+C. Treating the ex-dividend price drop as a pure investment loss understates total return. 
+D. A dividend-adjusted total-return series is useful when evaluating an investor who receives and retains or reinvests 
+distributions. 
+E. Dividend adjustments and split adjustments address exactly the same cash ﬂow. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. The price change is ($48 - $50)/$50 = -4%. 
+B. True – The $2 dividend offsets the $2 price decline: ($48 + $2 - $50)/$50 = 0%. 
+C. True – It ignores cash received by the shareholder. 
+D. True – Such a series accounts for distributions as part of investment performance. 
+E. False – A dividend is a distribution; a split changes share units without distributing cash. 
+ 
+[QF-D9G5Q3] 
+A distressed stock last trades at $4 and is then delisted. A dataset ends the return history at the last exchange price and 
+assigns no subsequent delisting return. The investor actually receives only $0.50 per share in liquidation. 
+ 
+A. Ending the series at $4 omits a substantial investor loss. 
+B. The economic return from $4 to the $0.50 recovery is not -87.5%. 
+C. Omitting adverse delisting outcomes can create survivorship-related upward bias. 
+D. Because the security stopped exchange trading, its terminal value is irrelevant to portfolio performance. 
+E. Researchers should not investigate delisting codes, cash recoveries, and terminal returns rather than automatically 
+treating the last quote as full value. 
+ 
+Answer Key: 
+ 
+A. True – The investor ultimately recovers far less than the last recorded exchange price. 
+B. False – The statement reverses the correct conclusion. ($0.50 - $4.00)/$4.00 = -87.5%. 
+C. True – Disappearing securities often have poor terminal outcomes that affect measured returns. 
+D. False – The value ultimately realized remains part of the investor's result. 
+E. False – The statement reverses the correct conclusion. Correct treatment depends on the event and the value received 
+after delisting. 
+ 
+ 
+ 402 Rev:081020261230 
+G6: Missing, Stale, and Irregular Data 
+[QF-D9G6Q1] 
+An illiquid bond last traded at $100 on Monday. It does not trade Tuesday through Thursday, so a dataset forward-ﬁlls 
+$100 for all three days while comparable bonds decline. The bond trades Friday at $94. 
+ 
+A. The ﬁlled series reports zero daily returns for Tuesday through Thursday. 
+B. The $100 observations prove the bond's tradable market value remained constant on those days. 
+C. Forward ﬁlling cannot defer the observed price change until Friday. 
+D. The ﬁlled series can understate measured daily volatility and autocorrelation patterns. 
+E. A stale quote can be different from a price at which the full position could actually have traded. 
+ 
+Answer Key: 
+ 
+A. True – Repeating the same value mechanically creates zero recorded changes. 
+B. False – Absence of a trade does not prove absence of a change in economic value. 
+C. False – The statement reverses the correct conclusion. The accumulated adjustment appears when a new transaction 
+price arrives. 
+D. True – Artiﬁcial zero returns followed by a jump distort the return process. 
+E. True – Executable value depends on current liquidity, spreads, depth, and market conditions. 
+ 
+[QF-D9G6Q2] 
+A researcher compares daily returns of a U.S. ETF and a foreign index. On a U.S. holiday, the ETF does not trade but the 
+foreign market does. The researcher ﬁlls the ETF price with its prior close and treats both same-calendar-date returns as 
+synchronized. 
+ 
+A. The ﬁlled ETF return for the holiday is not mechanically zero. 
+B. Different trading calendars cannot create nonsynchronous observations. 
+C. The apparent same-day relationship may be distorted because the two returns cover different information intervals. 
+D. Forward ﬁlling guarantees an unbiased correlation estimate. 
+E. Aligning common trading intervals or explicitly modeling lead-lag timing could improve the analysis. 
+ 
+Answer Key: 
+ 
+ 
+ 403 Rev:081020261230 
+A. False – The statement reverses the correct conclusion. The unchanged ﬁlled price creates a zero recorded return. 
+B. False – The statement reverses the correct conclusion. One market is open while the other is closed. 
+C. True – News is incorporated at different times across the two recorded returns. 
+D. False – Artiﬁcial zeros and timing mismatch can bias correlation. 
+E. True – The research design should account for calendar and market-hour differences. 
+ 
+[QF-D9G6Q3] 
+Some ﬁrms omit a newly requested disclosure when their results are poor. A researcher replaces every missing value 
+with the cross-sectional mean and then treats missingness as random. 
+ 
+A. The missingness may contain information about ﬁrm performance. 
+B. Mean imputation can weaken or conceal the relationship between the disclosure and poor outcomes. 
+C. Imputation creates genuine observations of what the ﬁrms would have reported. 
+D. Adding a missingness indicator may help test whether missing records have distinct outcomes. 
+E. Sensitivity analyses using alternative missing-data assumptions cannot improve research credibility. 
+ 
+Answer Key: 
+ 
+A. True – Firms with poor results are described as being more likely to omit the value. 
+B. True – Replacing systematically poor observations with an average can attenuate the signal. 
+C. False – Imputed values are modeling choices, not observed disclosures. 
+D. True – The indicator can capture information carried by the absence itself. 
+E. False – The statement reverses the correct conclusion. Robustness checks show how strongly conclusions depend on 
+the imputation rule. 
+ 
+G7: Nonstationarity and Regime Change 
+[QF-D9G7Q1] 
+A model estimates that a stock's beta was 0.8 during a long low-volatility period. After a major acquisition, the company 
+doubles its leverage and changes industries. The risk system continues using the old estimate indeﬁnitely. 
+ 
+A. The historical beta need not remain valid after the company's economic exposure changes. 
+B. The acquisition and leverage change can represent a structural break. 
+ 
+ 404 Rev:081020261230 
+C. A longer pre-acquisition sample guarantees a more accurate post-acquisition beta. 
+D. Rolling estimates and stability tests cannot help detect changing exposure. 
+E. Parameter uncertainty should not be considered when using historical relationships for future hedging. 
+ 
+Answer Key: 
+ 
+A. True – Beta depends on business and ﬁnancial exposures that can change. 
+B. True – The return-generating process may differ before and after the event. 
+C. False – More observations from the old regime can make an estimate precise for a relationship that no longer applies. 
+D. False – The statement reverses the correct conclusion. Time-varying estimates and break tests can reveal instability. 
+E. False – The statement reverses the correct conclusion. Hedge performance is sensitive to error and drift in the 
+estimated beta. 
+ 
+[QF-D9G7Q2] 
+A short-volatility strategy performs steadily from 2012–2019, suffers a severe loss in 2020, recovers during later calm 
+markets, and is proposed for deployment because its full-sample average return remains positive. 
+ 
+A. A positive full-sample average can conceal materially different regime-speciﬁc risks. 
+B. The 2020 loss may contain important evidence about the strategy's exposure to stressed conditions. 
+C. Removing 2020 solely because it is unfavorable necessarily improves the validity of the estimate. 
+D. Stress testing and reporting performance by regime would provide information beyond the overall mean. 
+E. Recovery in calm markets proves that future crisis losses cannot recur. 
+ 
+Answer Key: 
+ 
+A. True – Aggregation can mask tail losses and shifts in the return distribution. 
+B. True – Short-volatility strategies can accumulate gains while remaining exposed to rare large shocks. 
+C. False – Excluding an adverse but economically relevant regime can create selection bias. 
+D. True – Conditional analysis reveals whether the strategy depends on a particular environment. 
+E. False – Later recovery does not eliminate the underlying exposure or guarantee future conditions. 
+ 
+ 
+ 405 Rev:081020261230 
+[QF-D9G7Q3] 
+A mean-reversion relationship was stable when transaction costs were high and few ﬁrms traded it. After market 
+structure changes and widespread adoption of similar algorithms, deviations become smaller and reverse faster than 
+the strategy can execute. 
+ 
+A. Changes in market structure and competitor behavior cannot cause strategy decay. 
+B. A relationship that existed historically must remain stationary after it becomes widely exploited. 
+C. Smaller, faster deviations can eliminate net proﬁtability even if some mean reversion remains. 
+D. Monitoring live feature distributions, execution quality, and performance can help identify drift. 
+E. Retraining a model automatically guarantees adaptation to every new regime. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. The trading environment and actions of other participants 
+affect available opportunities. 
+B. False – Exploitation and institutional changes can alter or remove historical patterns. 
+C. True – The remaining gross opportunity may be too small or too brief to capture after costs. 
+D. True – These diagnostics can reveal differences between training conditions and deployment. 
+E. False – Retraining cannot guarantee that useful predictive structure exists or that the new sample represents future 
+regimes. 
+ 
+  
+ 
+ 406 Rev:081020261230 

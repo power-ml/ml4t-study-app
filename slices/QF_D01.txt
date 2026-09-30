@@ -1,0 +1,504 @@
+Domain 1: Investment Returns and Compounding 
+Domain Summary 
+ Simple and cumulative returns 
+ Daily, periodic, and annualized returns 
+ Arithmetic versus geometric averages 
+ Compound annual growth rate 
+ Portfolio returns 
+ Gross versus net returns 
+ Absolute versus benchmark-relative performance 
+ Effects of fees, costs, and return sequencing 
+Topic Groups 
+G1: Periodic and Cumulative Returns 
+ Calculating one-period returns 
+ Linking returns across multiple periods 
+ Difference between price change and percentage return 
+ Interpreting gains and losses over time 
+G2: Compounding and Geometric Growth 
+ Compound growth across periods 
+ Compound annual growth rate 
+ Why average periodic returns may not equal realized growth 
+ Rule of 72 intuition 
+ Effects of compounding over long horizons 
+G3: Arithmetic vs. Geometric Average Returns 
+ Appropriate use of arithmetic averages 
+ Appropriate use of geometric averages 
+ Volatility drag 
+ Why alternating gains and losses can produce misleading averages 
+ 
+ 272 Rev:081020261230 
+G4: Annualization and Time-Scale Conversion 
+ Annualizing daily or monthly returns 
+ Trading-day assumptions 
+ Annualized volatility versus annualized return 
+ Consistency of units and time horizons 
+G5: Portfolio Return Aggregation 
+ Weighted portfolio returns 
+ Long and short position weights 
+ Effects of cash and leverage 
+ Difference between asset returns and contribution to portfolio return 
+G6: Gross, Net, and Benchmark-Relative Performance 
+ Gross return versus net return 
+ Management fees, incentive fees, and transaction costs 
+ Absolute return versus relative return 
+ Benchmark selection and excess return 
+G7: Path Dependence and Return Sequencing 
+ Same average return but different terminal wealth 
+ Sequence-of-returns effects 
+ Drawdown and recovery mathematics 
+ Why a loss requires a larger percentage gain to recover 
+G1: Periodic and Cumulative Returns 
+[QF-D1G1Q1] 
+A portfolio manager buys a stock at $50. At the end of the ﬁrst month, it closes at $55; at the end of the second month, it 
+closes at $52.25. Ignoring dividends and trading costs, the manager asks a junior analyst to explain the two monthly 
+returns and the return over the full holding period. 
+ 
+A. The ﬁrst-month return is 10%. 
+B. The second-month return is -5%, measured relative to the $55 value at the beginning of that month. 
+C. The two-month cumulative return is 5% because the monthly returns sum to 5%. 
+ 
+ 273 Rev:081020261230 
+D. One dollar invested at the beginning would not be worth $1.045 at the end. 
+E. The $2.25 increase in price represents the same percentage return regardless of the stock's initial purchase price. 
+ 
+Answer Key: 
+ 
+A. True – The ﬁrst-month return is ($55 - $50) / $50 = 10%. 
+B. True – The second-month return is ($52.25 - $55) / $55 = -5%. 
+C. False – Linked returns compound: (1.10)(0.95) - 1 = 4.5%, not 5%. 
+D. False – The statement reverses the correct conclusion. A cumulative return of 4.5% turns $1.00 into $1.045. 
+E. False – Percentage return depends on the price used as the starting value. 
+ 
+[QF-D1G1Q2] 
+An investment committee reviews a fund that returned 8% in the ﬁrst quarter and -6% in the second quarter. The chair 
+wants a single ﬁrst-half performance number and asks whether simply reporting 2% would be accurate. Assume there 
+were no external cash ﬂows or fees. 
+ 
+A. The ﬁrst-half cumulative return is found by multiplying 1.08 by 0.94 and subtracting 1. 
+B. The fund's ﬁrst-half cumulative return is 1.52%. 
+C. Adding the quarterly returns gives the exact cumulative return whenever the periods are consecutive. 
+D. If the fund began with $10 million, it ended the half-year with $10.152 million. 
+E. The second-quarter dollar loss is not computed using the portfolio value after the ﬁrst-quarter gain. 
+ 
+Answer Key: 
+ 
+A. True – Consecutive periodic returns are linked multiplicatively. 
+B. True – (1.08)(0.94) - 1 = 1.52%. 
+C. False – Adding returns ignores compounding and is generally only an approximation. 
+D. True – $10 million × 1.0152 = $10.152 million. 
+E. False – The statement reverses the correct conclusion. The -6% return applies to the $10.8 million value entering the 
+second quarter. 
+ 
+ 
+ 274 Rev:081020261230 
+[QF-D1G1Q3] 
+A family office compares a stock that rose from $80 to $88 with another that rose from $20 to $24. A client calls the ﬁrst 
+stock the better performer because its price increased by more dollars. You are asked to evaluate that claim, ignoring 
+dividends and costs. 
+ 
+A. A reviewer would be wrong to accept the claim that the ﬁrst stock earned a 10% return. 
+B. The second stock earned a 20% return. 
+C. The ﬁrst stock had the larger dollar price change per share. 
+D. The ﬁrst stock outperformed the second on a percentage-return basis. 
+E. If equal dollar amounts had been invested in the two stocks, the second investment would not have produced the 
+larger dollar proﬁt. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct and should be accepted. ($88 - $80) / $80 = 10%. 
+B. True – ($24 - $20) / $20 = 20%. 
+C. True – The ﬁrst rose $8 per share, while the second rose $4 per share. 
+D. False – The second stock's 20% return exceeds the ﬁrst stock's 10% return. 
+E. False – The statement reverses the correct conclusion. With equal starting capital, the higher percentage return 
+produces the larger dollar proﬁt. 
+ 
+G2: Compounding and Geometric Growth 
+[QF-D1G2Q1] 
+A pension consultant reports that a private investment grew from $100 million to $121 million over two years. The pension 
+board wants to compare the investment with alternatives quoted using annual growth rates and asks for the investment's 
+CAGR. Assume there were no interim cash ﬂows. 
+ 
+A. The investment's total two-year return is 21%. 
+B. Its CAGR is not 10% per year. 
+C. A 10.5% annual simple average is the realized annual compound growth rate. 
+D. Compounding a 10% annual return for two years produces a 21% cumulative return. 
+E. CAGR describes the constant annual rate that would connect the beginning and ending values. 
+ 
+ 
+ 275 Rev:081020261230 
+Answer Key: 
+ 
+A. True – $121 million / $100 million - 1 = 21%. 
+B. False – The statement reverses the correct conclusion. ($121 / $100)^(1/2) - 1 = 10%. 
+C. False – Dividing the 21% total return by two ignores compounding and does not produce CAGR. 
+D. True – (1.10)^2 - 1 = 21%. 
+E. True – CAGR is the constant compounded rate consistent with the two endpoint values. 
+ 
+[QF-D1G2Q2] 
+A retirement-plan sponsor is comparing two long-term savings options. One is expected to earn 8% annually before a 1% 
+annual fee, while the other is expected to earn 7.25% annually with no fee. The sponsor asks why a seemingly small 
+annual fee matters over a 30-year horizon; assume each quoted net or gross rate compounds annually and ignore taxes. 
+ 
+A. The ﬁrst option's assumed net annual growth rate is not 7% under the simpliﬁed fee assumption. 
+B. At a 7% net rate, $1 grows to approximately $7.61 over 30 years. 
+C. At a 7.25% rate, $1 grows to more than it does at a 7% rate over the same horizon. 
+D. The 0.25 percentage-point difference can be evaluated by multiplying 0.25% by 30 to obtain the exact terminal-wealth 
+difference. 
+E. Repeated compounding cannot make a small annual return difference economically meaningful over a long horizon. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Under the stated simpliﬁcation, 8% gross less a 1% annual fee 
+gives 7% net. 
+B. True – (1.07)^30 is approximately 7.61. 
+C. True – With the same starting wealth and horizon, the higher positive compound rate produces greater terminal wealth. 
+D. False – The terminal-wealth difference depends on compounding, not simple multiplication of the rate gap by time. 
+E. False – The statement reverses the correct conclusion. Each year's difference affects the base on which later returns 
+compound. 
+ 
+[QF-D1G2Q3] 
+A wealth manager uses the Rule of 72 to give a client a quick sense of long-horizon growth. The client is considering an 
+account expected to earn 6% annually and wants to know how long it might take to double, while acknowledging that the 
+return is not guaranteed. 
+ 
+ 276 Rev:081020261230 
+ 
+A. The Rule of 72 estimates a doubling time of about 12 years at 6% annual growth. 
+B. The estimate is obtained by dividing 72 by the annual percentage return. 
+C. The Rule of 72 guarantees the account will double in the estimated period. 
+D. The exact doubling time at a constant 6% annual compound rate is not slightly less than 12 years. 
+E. If the net return fell to 4%, the Rule of 72 would imply a longer doubling time. 
+ 
+Answer Key: 
+ 
+A. True – 72 / 6 gives an approximate doubling time of 12 years. 
+B. True – That calculation is the standard Rule of 72 approximation. 
+C. False – It is an approximation based on an assumed rate, not a performance guarantee. 
+D. False – The statement reverses the correct conclusion. ln(2) / ln(1.06) is approximately 11.9 years. 
+E. True – 72 / 4 is about 18 years, which is longer than 12 years. 
+ 
+G3: Arithmetic vs. Geometric Average Returns 
+[QF-D1G3Q1] 
+A hedge-fund analyst reports annual returns of +30% and -20% and tells the investment committee that the fund's 
+average return was 5% per year. The committee asks whether that ﬁgure describes the fund's realized compound growth. 
+Assume no cash ﬂows or fees. 
+ 
+A. The arithmetic average return is 5%. 
+B. The two-year cumulative return is not 4%. 
+C. The geometric average return is not approximately 1.98% per year. 
+D. Investing $100 at the beginning would produce $110.25 after two years. 
+E. The arithmetic average overstates the annualized compound growth achieved over these two years. 
+ 
+Answer Key: 
+ 
+A. True – (30% - 20%) / 2 = 5%. 
+B. False – The statement reverses the correct conclusion. (1.30)(0.80) - 1 = 4%. 
+C. False – The statement reverses the correct conclusion. The geometric average is sqrt(1.04) - 1, approximately 1.98%. 
+D. False – The terminal value is $100 × 1.30 × 0.80 = $104. 
+ 
+ 277 Rev:081020261230 
+E. True – The 5% arithmetic mean exceeds the approximately 1.98% geometric mean. 
+ 
+[QF-D1G3Q2] 
+A quant researcher is using historical annual returns for two different tasks: estimating a representative one-year 
+expected return and describing the constant annual rate actually earned across the full sample. The research lead asks 
+the analyst to choose the averaging method appropriate to each task. 
+ 
+A. The arithmetic mean is generally more relevant for estimating the average outcome of a single future period from a 
+historical sample. 
+B. The geometric mean is appropriate for describing the constant compound rate linking beginning wealth to ending 
+wealth over multiple periods. 
+C. The geometric mean can be calculated by adding periodic returns and dividing by the number of periods. 
+D. When periodic returns vary and compound wealth remains positive, the geometric mean cannot exceed the arithmetic 
+mean. 
+E. The arithmetic and geometric means are always identical when the sample contains both positive and negative 
+returns. 
+ 
+Answer Key: 
+ 
+A. True – The arithmetic mean summarizes the average one-period observation. 
+B. True – The geometric mean reﬂects realized multi-period compounding. 
+C. False – The geometric mean is based on multiplying growth factors and taking the appropriate root. 
+D. True – Return variability creates a gap in which the geometric mean is less than or equal to the arithmetic mean. 
+E. False – They are equal only when the periodic returns are identical, not merely because signs differ. 
+ 
+[QF-D1G3Q3] 
+An allocator compares two hypothetical strategies over two years. Strategy A earns +10% in each year; Strategy B earns 
++40% in the ﬁrst year and -20% in the second. Both have an arithmetic average return of 10%, and the allocator wants to 
+know whether they create the same terminal wealth from a $100 investment. 
+ 
+A. A reviewer would be wrong to accept the claim that strategy A ends with $121. 
+B. A reviewer would be wrong to accept the claim that strategy B ends with $112. 
+C. Both strategies have the same geometric average because their arithmetic averages are equal. 
+D. Strategy B's greater return variability creates volatility drag relative to its arithmetic average. 
+ 
+ 278 Rev:081020261230 
+E. Strategy A has a 10% geometric average return. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct and should be accepted. $100 × 1.10 × 1.10 = $121. 
+B. False – The underlying claim is correct and should be accepted. $100 × 1.40 × 0.80 = $112. 
+C. False – Strategy A's geometric average is 10%, while Strategy B's is sqrt(1.12) - 1, approximately 5.83%. 
+D. True – The dispersion in Strategy B's returns lowers its compound growth relative to its 10% arithmetic mean. 
+E. True – Identical 10% returns in both years produce a 10% geometric mean. 
+ 
+G4: Annualization and Time-Scale Conversion 
+[QF-D1G4Q1] 
+An asset manager reports a strategy that earned 1% in each of the past 12 months. A client asks for its annual return, 
+while the risk team separately reports monthly volatility of 3%. Assume monthly returns compound and, for volatility 
+scaling, monthly returns are independent with stable variance. 
+ 
+A. The compounded annual return is approximately 12.68%. 
+B. Multiplying 1% by 12 gives the exact compounded annual return. 
+C. The annualized volatility is approximately 10.39%. 
+D. Monthly volatility is annualized by multiplying by 12. 
+E. Return and volatility use different common annualization rules in this scenario. 
+ 
+Answer Key: 
+ 
+A. True – (1.01)^12 - 1 is approximately 12.68%. 
+B. False – 12% is a simple approximation that omits monthly compounding. 
+C. True – 3% × sqrt(12) is approximately 10.39%. 
+D. False – Under the stated assumptions, volatility scales with the square root of time. 
+E. True – Returns compound across periods, while volatility is scaled by sqrt(12) under the given assumptions. 
+ 
+ 
+ 279 Rev:081020261230 
+[QF-D1G4Q2] 
+A trading desk observes a mean daily strategy return of 0.04% and daily volatility of 1.2%. The desk uses 252 trading days 
+per year and asks for annualized ﬁgures to compare with another strategy. Assume daily returns are independent and 
+identically distributed for this simpliﬁed comparison. 
+ 
+A. Multiplying the mean daily return by 252 gives an arithmetic annualized-return approximation of 10.08%. 
+B. Compounding 0.04% for 252 days gives an effective annual return of approximately 10.60%. 
+C. The annualized volatility is not approximately 19.05%. 
+D. Annualized volatility should be calculated as 1.2% × 252. 
+E. A reviewer would be wrong to accept the claim that the assumed number of trading days affects both reported 
+annualized ﬁgures. 
+ 
+Answer Key: 
+ 
+A. True – 0.04% × 252 = 10.08%. 
+B. True – (1.0004)^252 - 1 is approximately 10.60%. 
+C. False – The statement reverses the correct conclusion. 1.2% × sqrt(252) is approximately 19.05%. 
+D. False – Volatility scales with sqrt(252), not 252, under the stated assumptions. 
+E. False – The underlying claim is correct and should be accepted. Both calculations explicitly use the selected number 
+of periods per year. 
+ 
+[QF-D1G4Q3] 
+A risk committee receives a report comparing Strategy X's 1.5% monthly return with Strategy Y's 14% annual return. The 
+report declares X superior because 1.5 is greater than 14 after converting both percentages to decimals incorrectly. The 
+committee asks you to put the returns on a consistent basis; assume X earns 1.5% every month. 
+ 
+A. The two quoted returns should not be converted to the same time horizon before comparison. 
+B. Strategy X's effective annual return is approximately 19.56%. 
+C. Multiplying 1.5% by 12 gives an exact effective annual return of 18%. 
+D. Under the stated constant-return assumption, Strategy X has the higher annual return. 
+E. Comparing a monthly ﬁgure directly with an annual ﬁgure can lead to an invalid conclusion even when both are 
+expressed as percentages. 
+ 
+Answer Key: 
+ 
+ 280 Rev:081020261230 
+ 
+A. False – The statement reverses the correct conclusion. Valid comparison requires consistent units and horizons. 
+B. True – (1.015)^12 - 1 is approximately 19.56%. 
+C. False – 18% omits monthly compounding and is only a simple annualized approximation. 
+D. True – Approximately 19.56% exceeds Strategy Y's 14% annual return. 
+E. True – Percentage notation alone does not make the measurement periods comparable. 
+ 
+G5: Portfolio Return Aggregation 
+[QF-D1G5Q1] 
+A balanced fund begins the month with 60% invested in equities and 40% in bonds. During the month, equities return 
+10% and bonds return -5%. The portfolio manager wants the fund's return before fees and assumes there was no 
+rebalancing or external cash ﬂow during the month. 
+ 
+A. Equities contribute 6 percentage points to the portfolio return. 
+B. Bonds contribute -2 percentage points to the portfolio return. 
+C. The portfolio return is 5%, the simple average of the two asset returns. 
+D. The portfolio return is not 4%. 
+E. The equity return and its contribution to portfolio return are the same because equities had a positive return. 
+ 
+Answer Key: 
+ 
+A. True – 60% × 10% = a 6-percentage-point contribution. 
+B. True – 40% × -5% = a -2-percentage-point contribution. 
+C. False – Asset returns must be weighted by portfolio allocations; the equal-weight average is not applicable. 
+D. False – The statement reverses the correct conclusion. 6% - 2% = 4%. 
+E. False – The asset earned 10%, but its portfolio contribution was 6 percentage points due to its 60% weight. 
+ 
+[QF-D1G5Q2] 
+A long-short equity fund begins the month 130% long Stock A and 30% short Stock B, leaving net exposure of 100% and 
+gross exposure of 160%. During the month, Stock A rises 6% and Stock B rises 2%. Ignore ﬁnancing costs, fees, and 
+rebalancing. 
+ 
+ 
+ 281 Rev:081020261230 
+A. Stock A contributes 7.8 percentage points to portfolio return. 
+B. The short position contributes -0.6 percentage points because Stock B increased in value. 
+C. The portfolio return is not 7.2%. 
+D. The fund's 100% net exposure means leverage has no effect on its return. 
+E. If Stock B had instead fallen 2%, the short position would have contributed positively. 
+ 
+Answer Key: 
+ 
+A. True – 1.30 × 6% = 7.8 percentage points. 
+B. True – The -0.30 weight multiplied by a +2% asset return contributes -0.6 percentage points. 
+C. False – The statement reverses the correct conclusion. 7.8% - 0.6% = 7.2%. 
+D. False – Gross exposure is 160%, and the leveraged long and short positions both affect return and risk. 
+E. True – A negative position weight multiplied by a negative asset return produces a positive contribution. 
+ 
+[QF-D1G5Q3] 
+A tactical portfolio invests 120% of capital in a market ETF and ﬁnances the extra 20% by borrowing at 1% for the period. 
+The ETF returns 10% during that period. The chief investment officer asks for the portfolio return before any other fees 
+and wants the effect of leverage made explicit. 
+ 
+A. The ETF position contributes 12 percentage points to portfolio return. 
+B. The borrowing cost reduces portfolio return by 0.2 percentage points. 
+C. The resulting portfolio return is not 11.8%. 
+D. Because the portfolio's net invested weight is 100%, its return must equal the ETF's 10% return. 
+E. If the ETF instead lost 10%, leverage would not magnify the loss before ﬁnancing costs. 
+ 
+Answer Key: 
+ 
+A. True – A 120% weight multiplied by a 10% return contributes 12 percentage points. 
+B. True – Borrowing 20% of capital at 1% costs 0.2% of portfolio capital. 
+C. False – The statement reverses the correct conclusion. 12% - 0.2% = 11.8%. 
+D. False – Borrowing creates leveraged exposure, so both the 120% asset position and ﬁnancing cost matter. 
+E. False – The statement reverses the correct conclusion. A 120% ETF position would contribute -12%, compared with -
+10% without leverage, before borrowing cost. 
+ 
+ 
+ 282 Rev:081020261230 
+G6: Gross, Net, and Benchmark-Relative Performance 
+[QF-D1G6Q1] 
+A systematic fund earns a 12% gross return for the year. Transaction costs equal 2% of beginning capital and the 
+management fee equals 1% of beginning capital; for this question, subtract both directly from gross return. The fund's 
+appropriate benchmark earns 8%, and the client asks whether the strategy added value after implementation costs and 
+fees. 
+ 
+A. The fund's net return is 9%. 
+B. Its gross excess return over the benchmark is not 4 percentage points. 
+C. Its net excess return over the benchmark is 1 percentage point. 
+D. Because its gross return exceeded the benchmark, its net return must also exceed the benchmark regardless of costs. 
+E. Reporting only the 12% gross return would overstate the return retained by the investor under these assumptions. 
+ 
+Answer Key: 
+ 
+A. True – 12% - 2% - 1% = 9% under the stated simpliﬁcation. 
+B. False – The statement reverses the correct conclusion. 12% - 8% = 4 percentage points. 
+C. True – 9% - 8% = 1 percentage point. 
+D. False – Sufficiently large costs and fees can eliminate or reverse gross outperformance. 
+E. True – The investor retains 9%, not the 12% pre-cost result. 
+ 
+[QF-D1G6Q2] 
+A hedge fund earns 15% before fees on $100 million of beginning capital. Its agreement charges a 2% management fee 
+on beginning capital and a 20% incentive fee on proﬁts remaining after the management fee; ignore high-water marks 
+and other expenses. An investor asks the analyst to calculate the simpliﬁed net result. 
+ 
+A. The management fee is not $2 million. 
+B. Proﬁt remaining after the management fee is $13 million. 
+C. The incentive fee is $3 million because it is always 20% of gross proﬁt. 
+D. The investor's net proﬁt is not $10.4 million. 
+E. The investor's net return is 10.4% under the stated assumptions. 
+ 
+Answer Key: 
+ 
+ 283 Rev:081020261230 
+ 
+A. False – The statement reverses the correct conclusion. 2% of $100 million is $2 million. 
+B. True – The $15 million gross proﬁt is reduced to $13 million after the management fee. 
+C. False – Under the stated agreement, the incentive fee is 20% of $13 million, or $2.6 million. 
+D. False – The statement reverses the correct conclusion. $15 million - $2 million - $2.6 million = $10.4 million. 
+E. True – $10.4 million divided by $100 million of beginning capital is 10.4%. 
+ 
+[QF-D1G6Q3] 
+A technology-focused long-only fund loses 6% during a market selloff, while its agreed technology-sector benchmark 
+loses 10%. A client says the manager failed because the fund had a negative absolute return; the manager says the fund 
+succeeded because it beat the benchmark. The oversight committee asks you to distinguish the two claims. 
+ 
+A. The fund's absolute return is -6%. 
+B. The fund's benchmark-relative return is not +4 percentage points. 
+C. The fund can have a negative absolute return and a positive relative return at the same time. 
+D. Outperforming the benchmark means every investor objective was necessarily achieved. 
+E. Replacing the technology benchmark with cash could materially change the assessment of relative performance. 
+ 
+Answer Key: 
+ 
+A. True – Absolute performance is the fund's own -6% return. 
+B. False – The statement reverses the correct conclusion. -6% - (-10%) = +4 percentage points. 
+C. True – Losing less than the benchmark creates positive relative performance despite an absolute loss. 
+D. False – An investor may also have capital-preservation, risk, liability, or absolute-return objectives. 
+E. True – Excess return depends on the selected benchmark, so benchmark suitability matters. 
+ 
+G7: Path Dependence and Return Sequencing 
+[QF-D1G7Q1] 
+A portfolio manager reports that a strategy gained 50% in the ﬁrst year and lost 50% in the second year. She tells the 
+investment committee that the average annual return was 0%, so the portfolio ﬁnished where it started. You are asked to 
+assess that conclusion. 
+ 
+ 
+ 284 Rev:081020261230 
+A. The arithmetic average of the two annual returns is not 0%. 
+B. The portfolio ﬁnishes with the same value it started with. 
+C. A 50% loss requires a 100% gain to recover fully. 
+D. The geometric average return over the two years is not negative. 
+E. The combination of gains and losses can produce terminal wealth below the starting value even when the arithmetic 
+average return is 0%. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. The arithmetic mean of +50% and -50% is 0%. 
+B. False – A portfolio starting at $100 rises to $150 and then falls to $75. 
+C. True – A 100% gain is required to grow $75 back to $150. 
+D. False – The statement reverses the correct conclusion. Terminal wealth is below starting wealth, so the compounded 
+average is negative. 
+E. True – Returns compound multiplicatively, and equal percentage gains and losses do not offset. 
+ 
+[QF-D1G7Q2] 
+Two retirees each begin with $1 million and withdraw $100,000 at the end of each year. Portfolio A earns +20% in Year 1 
+and -20% in Year 2; Portfolio B earns -20% in Year 1 and +20% in Year 2. Their adviser claims the order cannot matter 
+because both portfolios experience the same two returns. Ignore taxes and fees. 
+ 
+A. Before withdrawals, the same two returns would not produce the same terminal wealth regardless of their order. 
+B. After the Year 1 return and withdrawal, Portfolio A has $1.1 million. 
+C. After both returns and both withdrawals, Portfolio A has $800,000. 
+D. After both returns and both withdrawals, Portfolio B has $740,000. 
+E. The withdrawal requirement creates sequence-of-returns risk even though the two portfolios have the same arithmetic 
+and geometric average returns. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Without cash ﬂows, multiplication is commutative: (1.20)(0.80) 
+produces the same result in either order. 
+B. True – $1 million × 1.20 - $100,000 = $1.1 million. 
+C. False – $1.1 million × 0.80 - $100,000 = $780,000, not $800,000. 
+ 
+ 285 Rev:081020261230 
+D. True – $1 million × 0.80 - $100,000 = $700,000, then $700,000 × 1.20 - $100,000 = $740,000. 
+E. True – Withdrawals change the capital exposed to later returns, making their order economically important. 
+ 
+[QF-D1G7Q3] 
+A risk committee reviews a strategy that falls from a previous peak value of $100 million to $70 million and later recovers 
+to $91 million. The portfolio manager says the subsequent 30% gain completely erased the earlier 30% drawdown. The 
+committee asks you to verify the recovery mathematics. 
+ 
+A. The decline from $100 million to $70 million is not a 30% drawdown. 
+B. A 30% gain on $70 million raises the portfolio to $91 million. 
+C. A reviewer would be wrong to accept the claim that returning from $70 million to the prior $100 million peak requires 
+approximately a 42.86% gain. 
+D. A loss of x% is always recovered by a gain of x%. 
+E. At $91 million, the portfolio remains 9% below its prior peak. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. ($70 million - $100 million) / $100 million = -30%. 
+B. True – $70 million × 1.30 = $91 million. 
+C. False – The underlying claim is correct and should be accepted. $100 million / $70 million - 1 is approximately 42.86%. 
+D. False – After a loss, the recovery gain is applied to a smaller base and must therefore be larger. 
+E. True – ($91 million - $100 million) / $100 million = -9%. 
+ 
+  
+ 
+ 286 Rev:081020261230 

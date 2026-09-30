@@ -1,0 +1,516 @@
+Domain 4: Portfolio Optimization 
+Domain Summary 
+ Expected return and risk inputs 
+ Portfolio weights 
+ Minimum-variance portfolios 
+ Maximum-Sharpe portfolios 
+ Efficient frontier 
+ Constraints 
+ Optimization sensitivity 
+ In-sample versus out-of-sample performance 
+Topic Groups 
+G1: Portfolio Weights and Constraints 
+ Fully invested portfolios 
+ Long-only constraints 
+ Short-selling constraints 
+ Maximum and minimum position sizes 
+ Sum-of-weights requirements 
+G2: Minimum-Variance Portfolios 
+ Minimizing portfolio volatility 
+ Role of covariance 
+ Difference between minimum risk and maximum return 
+ Global minimum-variance portfolio 
+G3: Maximum-Sharpe Portfolios 
+ Optimizing excess return per unit of risk 
+ Risk-free rate effects 
+ Tangency portfolio intuition 
+ Difference between maximizing return and maximizing Sharpe ratio 
+ 
+ 317 Rev:081020261230 
+G4: Efficient Frontier 
+ Efficient versus dominated portfolios 
+ Risk-return combinations 
+ Movement along the frontier 
+ Relationship between target return and minimum risk 
+G5: Optimization Inputs and Estimation Error 
+ Expected return estimates 
+ Covariance estimates 
+ Sensitivity to small input changes 
+ Extreme or unstable allocations 
+ Garbage-in, garbage-out behavior 
+G6: Constraints and Practical Portfolio Design 
+ How constraints change optimal allocations 
+ Turnover constraints 
+ Sector or asset-class limits 
+ Leverage limits 
+ Practical versus mathematically unconstrained portfolios 
+G7: In-Sample Optimization and Out-of-Sample Performance 
+ Overﬁtting portfolio weights 
+ Historical optimization bias 
+ Stability across sample periods 
+ Why the ex post optimal portfolio may not remain optimal 
+G1: Portfolio Weights and Constraints 
+[QF-D4G1Q1] 
+A university endowment allocates 40% to equities, 35% to bonds, 15% to real estate, and 10% to cash. Its policy requires 
+the portfolio to be fully invested and prohibits both borrowing and short selling. 
+ 
+A. The stated weights sum to 100%, so the portfolio is fully invested. 
+B. Under a long-only rule, every asset weight must be greater than or equal to zero. 
+ 
+ 318 Rev:081020261230 
+C. A weight of -10% in bonds would comply with the policy as long as the other weights were adjusted to keep the sum at 
+100%. 
+D. If the weights summed to 90%, the remaining 10% could be interpreted as unallocated cash only if cash were not 
+already represented as an explicit asset weight. 
+E. The sum-of-weights requirement alone prevents the optimizer from choosing negative weights. 
+ 
+Answer Key: 
+ 
+A. True – The four weights add to 1.00, satisfying the fully invested requirement. 
+B. True – Long-only constraints rule out negative positions. 
+C. False – A negative bond weight is a short position and violates the stated policy. 
+D. True – Whether a residual represents cash depends on how the model deﬁnes its investable assets and budget 
+constraint. 
+E. False – Weights can sum to one while some are negative and others exceed one unless separate constraints prohibit 
+that behavior. 
+ 
+[QF-D4G1Q2] 
+A hedge fund proposes weights of 120% in Stock A, 30% in Stock B, and -50% in Stock C. The mandate permits short 
+selling and requires net exposure of 100%, but the risk committee is reviewing the allocation's leverage. 
+ 
+A. The weights sum to 100%, so the portfolio satisﬁes the stated net-exposure requirement. 
+B. The -50% weight represents a short position in Stock C. 
+C. Because the weights sum to 100%, the portfolio has no leverage. 
+D. The portfolio's gross exposure is not 200%, calculated as the sum of the absolute weights. 
+E. Imposing a long-only constraint would not make this exact allocation infeasible. 
+ 
+Answer Key: 
+ 
+A. True – The net weights are 1.20 + 0.30 - 0.50 = 1.00. 
+B. True – A negative asset weight represents a short exposure. 
+C. False – Net exposure can equal 100% even when offsetting long and short positions create leverage. 
+D. False – The statement reverses the correct conclusion. Gross exposure is |1.20| + |0.30| + |-0.50| = 2.00, or 200%. 
+E. False – The statement reverses the correct conclusion. The negative weight violates a long-only requirement. 
+ 
+ 
+ 319 Rev:081020261230 
+[QF-D4G1Q3] 
+A retirement plan optimizes among ﬁve funds subject to a 5% minimum and a 35% maximum weight in each fund. It must 
+remain fully invested, and the investment committee is checking whether several proposed allocations are feasible. 
+ 
+A. Assigning 35% to each of three funds would not violate the fully invested constraint before allocating anything to the 
+other two funds. 
+B. Assigning exactly 5% to a fund satisﬁes that fund's minimum-weight constraint. 
+C. A proposed 40% weight in one fund is feasible because the other four weights could be reduced enough to preserve a 
+100% total. 
+D. The ﬁve 5% minimums require at least 25% of the portfolio to be allocated before the optimizer distributes the 
+remaining 75%. 
+E. Position bounds can change which portfolio the optimizer selects even when expected returns and the covariance 
+matrix are unchanged. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Three 35% positions already total 105%, leaving no feasible 
+positive allocation to the other required holdings. 
+B. True – A bound is satisﬁed at its endpoint unless the constraint is explicitly strict. 
+C. False – A 40% position exceeds the stated 35% maximum regardless of the other weights. 
+D. True – Five required allocations of 5% account for 25% of total capital. 
+E. True – Constraints change the feasible set and can therefore change the optimum. 
+ 
+G2: Minimum-Variance Portfolios 
+[QF-D4G2Q1] 
+A risk-averse foundation asks for the global minimum-variance portfolio among its approved assets. One trustee 
+assumes this must be the portfolio holding only the asset with the lowest individual volatility. 
+ 
+A. The global minimum-variance portfolio is the feasible portfolio with the lowest portfolio variance. 
+B. It cannot combine multiple assets if their imperfect co-movement reduces risk below that of the least-volatile asset 
+alone. 
+C. Identifying it requires covariance information, not merely a ranking of individual asset volatilities. 
+D. It is deﬁned as the feasible portfolio with the highest expected return. 
+E. Its expected return cannot be lower than that of another feasible portfolio. 
+ 
+ 320 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. True – The global minimum-variance portfolio minimizes variance over the entire feasible set. 
+B. False – The statement reverses the correct conclusion. Diversiﬁcation can make a combination less volatile than any 
+component considered independently. 
+C. True – Portfolio variance depends on both stand-alone variances and cross-asset covariances. 
+D. False – Minimum variance and maximum expected return are different objectives. 
+E. False – The statement reverses the correct conclusion. Minimizing risk does not require maximizing expected return. 
+ 
+[QF-D4G2Q2] 
+An optimizer considers two assets with equal 20% annual volatility and a correlation of -0.50. The manager compares 
+investing entirely in either asset with a 50/50 allocation. 
+ 
+A. The variance of either single-asset portfolio is 0.0400. 
+B. The covariance between the two assets is -0.0200. 
+C. The 50/50 portfolio variance is not 0.0100. 
+D. The 50/50 portfolio volatility is 10%. 
+E. If the correlation rose to +1 while all other inputs stayed ﬁxed, the 50/50 portfolio would retain the same 10% volatility. 
+ 
+Answer Key: 
+ 
+A. True – Variance is 0.20² = 0.0400. 
+B. True – Covariance is -0.50 × 0.20 × 0.20 = -0.0200. 
+C. False – The statement reverses the correct conclusion. Portfolio variance is 0.25(0.0400) + 0.25(0.0400) + 
+2(0.50)(0.50)(-0.0200) = 0.0100. 
+D. True – The square root of 0.0100 is 0.10, or 10%. 
+E. False – At perfect positive correlation, equal-volatility assets provide no volatility reduction and the portfolio volatility 
+would be 20%. 
+ 
+[QF-D4G2Q3] 
+A portfolio manager minimizes variance subject to a required expected return of 8%. After removing that return 
+requirement, the optimizer chooses a portfolio with a 6% expected return and lower volatility. 
+ 
+ 321 Rev:081020261230 
+ 
+A. The original portfolio is a minimum-variance portfolio conditional on the 8% target, assuming the optimization was 
+solved correctly. 
+B. The new portfolio may be the global minimum-variance portfolio because no target return above 6% is imposed. 
+C. Removing a constraint cannot enlarge the feasible set. 
+D. The optimizer's decision proves that 6% is the maximum achievable expected return. 
+E. A portfolio with a higher expected return cannot also have higher variance than the global minimum-variance portfolio. 
+ 
+Answer Key: 
+ 
+A. True – It minimizes variance among portfolios satisfying the speciﬁed return requirement. 
+B. True – Without a target-return restriction, the variance objective can select the lowest-risk feasible portfolio overall. 
+C. False – The statement reverses the correct conclusion. Every formerly feasible solution remains available, and 
+additional lower-return portfolios may become eligible. 
+D. False – The objective is risk minimization, so its selected return does not establish the maximum feasible return. 
+E. False – The statement reverses the correct conclusion. Moving away from the global minimum-variance point can trade 
+greater risk for greater expected return. 
+ 
+G3: Maximum-Sharpe Portfolios 
+[QF-D4G3Q1] 
+With a 2% risk-free rate, an optimizer compares Portfolio A, with a 10% expected return and 16% volatility, against 
+Portfolio B, with an 8% expected return and 8% volatility. 
+ 
+A. Portfolio A's expected excess return is 8%. 
+B. Portfolio A's Sharpe ratio is not 0.50. 
+C. Portfolio B's Sharpe ratio is 0.75. 
+D. Portfolio A has the higher expected return and therefore must be the maximum-Sharpe choice. 
+E. Based only on these two candidates and the stated inputs, Portfolio B has the higher expected excess return per unit 
+of volatility. 
+ 
+Answer Key: 
+ 
+A. True – Expected excess return is 10% - 2% = 8%. 
+ 
+ 322 Rev:081020261230 
+B. False – The statement reverses the correct conclusion. Portfolio A's Sharpe ratio is 0.08 / 0.16 = 0.50. 
+C. True – Portfolio B's Sharpe ratio is (0.08 - 0.02) / 0.08 = 0.75. 
+D. False – Maximizing Sharpe considers both excess return and volatility, not expected return alone. 
+E. True – Portfolio B's Sharpe ratio exceeds Portfolio A's under the stated assumptions. 
+ 
+[QF-D4G3Q2] 
+A mean-variance analyst identiﬁes a tangency portfolio of risky assets and explains its role to an investment committee 
+that can also lend or borrow at the modeled risk-free rate. 
+ 
+A. The tangency portfolio is the risky portfolio with the maximum Sharpe ratio under the model's inputs and feasible set. 
+B. Graphically, the capital allocation line through the risk-free asset is tangent to the risky-asset efficient frontier at that 
+portfolio. 
+C. Every investor must hold only the tangency portfolio and no risk-free asset, regardless of risk tolerance. 
+D. Investors cannot combine the tangency portfolio with the risk-free asset to select different overall risk levels under the 
+standard assumptions. 
+E. The tangency portfolio is necessarily the same as the global minimum-variance risky portfolio. 
+ 
+Answer Key: 
+ 
+A. True – It maximizes modeled excess return per unit of volatility among feasible risky portfolios. 
+B. True – The line with the greatest slope from the risk-free intercept touches the frontier at the tangency portfolio. 
+C. False – Risk tolerance affects the mix between the tangency portfolio and risk-free borrowing or lending. 
+D. False – The statement reverses the correct conclusion. Changing that mix moves the investor along the capital 
+allocation line. 
+E. False – The minimum-variance and maximum-Sharpe objectives generally select different portfolios. 
+ 
+[QF-D4G3Q3] 
+Two risky portfolios are under consideration. Portfolio X has a 9% expected return and 10% volatility; Portfolio Y has a 
+13% expected return and 20% volatility. The committee evaluates how the assumed risk-free rate affects their Sharpe 
+ratios. 
+ 
+A. At a 1% risk-free rate, Portfolio X's Sharpe ratio is not 0.80. 
+B. At a 1% risk-free rate, Portfolio Y's Sharpe ratio is 0.60. 
+C. At a 5% risk-free rate, the two portfolios have equal Sharpe ratios of 0.40. 
+ 
+ 323 Rev:081020261230 
+D. Changing the risk-free rate can change the Sharpe-ratio comparison when candidate portfolios have different 
+volatilities. 
+E. Raising the risk-free rate increases both portfolios' expected excess returns. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Portfolio X's Sharpe ratio is (0.09 - 0.01) / 0.10 = 0.80. 
+B. True – Portfolio Y's Sharpe ratio is (0.13 - 0.01) / 0.20 = 0.60. 
+C. True – At 5%, X has (0.09 - 0.05) / 0.10 = 0.40 and Y has (0.13 - 0.05) / 0.20 = 0.40. 
+D. True – The same risk-free-rate subtraction has a different ratio effect when volatilities differ. 
+E. False – A higher risk-free rate lowers expected excess returns when risky expected returns stay ﬁxed. 
+ 
+G4: Efficient Frontier 
+[QF-D4G4Q1] 
+An investment committee compares three feasible portfolios. Portfolio A offers 7% expected return with 9% volatility, 
+Portfolio B offers 7% with 12% volatility, and Portfolio C offers 9% with 12% volatility. 
+ 
+A. Portfolio B is not dominated by Portfolio A because A offers the same expected return with less risk. 
+B. Portfolio B is not also dominated by Portfolio C because C offers a higher expected return with the same risk. 
+C. Portfolio B belongs on the efficient frontier because it lies between A and C numerically. 
+D. An efficient portfolio cannot be improved by increasing expected return without increasing risk or by decreasing risk 
+without decreasing expected return. 
+E. Based only on these three choices, both A and C can be efficient. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. A provides an equal return at lower volatility. 
+B. False – The statement reverses the correct conclusion. C provides a higher return at equal volatility. 
+C. False – Numerical location alone does not overcome B's domination by other feasible choices. 
+D. True – This expresses the risk-return tradeoff that deﬁnes mean-variance efficiency. 
+E. True – Neither A nor C dominates the other because C's higher return comes with higher risk. 
+ 
+ 
+ 324 Rev:081020261230 
+[QF-D4G4Q2] 
+An optimizer traces the minimum achievable volatility for target expected returns of 5%, 7%, 9%, and 11%. The global 
+minimum-variance portfolio has an expected return of 6%. 
+ 
+A. For each target return, the optimizer seeks the lowest-risk feasible portfolio meeting the speciﬁed target. 
+B. The upper branch beginning at the global minimum-variance portfolio forms the mean-variance efficient frontier. 
+C. A minimum-variance portfolio targeting 5% return must be efficient even though the global minimum-variance 
+portfolio offers 6% at no greater risk. 
+D. Moving upward along the efficient frontier generally involves accepting more risk for a higher expected return. 
+E. Every feasible portfolio lies on the efficient frontier. 
+ 
+Answer Key: 
+ 
+A. True – The frontier can be constructed by minimizing variance at successive expected-return targets. 
+B. True – Portfolios above the global minimum-variance point provide the efficient risk-return tradeoffs. 
+C. False – A portfolio below the global minimum-variance portfolio's return is dominated when the global minimum-
+variance portfolio has at least as little risk and a higher return. 
+D. True – Higher frontier returns ordinarily require higher volatility. 
+E. False – Many feasible portfolios are interior or dominated and therefore inefficient. 
+ 
+[QF-D4G4Q3] 
+A new low-correlation asset becomes investable. The portfolio team reruns its optimization using the same expected-
+return targets and otherwise unchanged inputs. 
+ 
+A. Expanding the investable set cannot make the mathematical minimum variance at a given target return worse, provided 
+old portfolios remain feasible. 
+B. The efficient frontier cannot shift outward by offering lower risk for a given expected return. 
+C. If the optimizer gives the new asset zero weight at every target, the original frontier cannot remain unchanged. 
+D. Adding an asset guarantees that every efficient portfolio will hold it with a positive weight. 
+E. A shift in the frontier reﬂects changes in feasible risk-return combinations, not a guarantee about realized future 
+performance. 
+ 
+Answer Key: 
+ 
+ 
+ 325 Rev:081020261230 
+A. True – The optimizer can still choose any previously feasible portfolio, so the minimum objective value cannot increase. 
+B. False – The statement reverses the correct conclusion. Useful diversiﬁcation can improve attainable risk-return 
+combinations. 
+C. False – The statement reverses the correct conclusion. An unused asset does not alter the selected portfolios or their 
+frontier. 
+D. False – The asset may be unattractive or redundant at some or all frontier points. 
+E. True – The frontier is conditional on model inputs, which may differ from realized outcomes. 
+ 
+G5: Optimization Inputs and Estimation Error 
+[QF-D4G5Q1] 
+A quant team runs a mean-variance optimizer using historical expected returns and covariances. The output assigns 78% 
+of the portfolio to one small-cap stock and small short positions to several others. The chief investment officer asks 
+whether the optimizer has uncovered a uniquely attractive opportunity. 
+ 
+A. Small changes in expected-return estimates can produce large changes in optimized weights. 
+B. An extreme allocation can reﬂect estimation error rather than genuine economic attractiveness. 
+C. The optimizer’s output is guaranteed to remain optimal out of sample. 
+D. Adding realistic position limits cannot produce a more stable portfolio. 
+E. Historical optimization can overﬁt the sample used to estimate inputs. 
+ 
+Answer Key: 
+ 
+A. True – Mean-variance optimization can be highly sensitive to estimated inputs. 
+B. True – Extreme weights may be artifacts of noisy forecasts. 
+C. False – In-sample optimality does not guarantee future optimality. 
+D. False – The statement reverses the correct conclusion. Constraints can reduce instability and improve 
+implementability. 
+E. True – The optimizer may exploit sample-speciﬁc noise. 
+ 
+[QF-D4G5Q2] 
+Two analysts estimate expected returns for the same four assets using different historical windows. Their covariance 
+estimates are similar, but their optimizers produce sharply different maximum-Sharpe allocations. 
+ 
+ 
+ 326 Rev:081020261230 
+A. Expected returns are inputs rather than facts known with certainty. 
+B. Small differences in expected-return estimates can be ampliﬁed into large differences in optimized weights. 
+C. Similar covariance matrices guarantee similar maximum-Sharpe portfolios. 
+D. Comparing allocations across estimation windows cannot reveal sensitivity to the chosen sample. 
+E. Using more decimal places in the optimizer's output eliminates the uncertainty in its estimated inputs. 
+ 
+Answer Key: 
+ 
+A. True – Future expected returns must be estimated and are subject to forecast error. 
+B. True – Optimization may respond aggressively to small estimated advantages among assets. 
+C. False – Different expected-return vectors can materially change a mean-variance solution even when covariances are 
+similar. 
+D. False – The statement reverses the correct conclusion. Large weight changes across windows are evidence that the 
+result is unstable. 
+E. False – Numerical precision in reported weights does not improve the economic accuracy of the inputs. 
+ 
+[QF-D4G5Q3] 
+A portfolio optimizer receives an estimated covariance matrix that understates the relationship between two technology 
+stocks because the sample covers an unusually calm period. It assigns large weights to both stocks and reports 
+substantial diversiﬁcation. 
+ 
+A. Understated covariance can cause the optimizer to overstate the diversiﬁcation beneﬁt of holding both stocks. 
+B. If their realized covariance is higher than estimated, realized portfolio volatility may exceed the forecast. 
+C. An optimization algorithm can correct inaccurate inputs merely by solving the mathematical problem exactly. 
+D. Shrinkage, longer or alternative samples, and stress scenarios are possible ways to evaluate robustness. 
+E. The phrase “garbage in, garbage out” applies because a correct optimizer cannot still produce a poor allocation from 
+poor estimates. 
+ 
+Answer Key: 
+ 
+A. True – The model treats the holdings as more independent than the inputs justify. 
+B. True – A larger realized cross-covariance term raises portfolio variance, all else equal. 
+C. False – Exact computation solves the speciﬁed model but cannot make incorrect assumptions accurate. 
+D. True – These approaches test or reduce reliance on one noisy covariance estimate. 
+ 
+ 327 Rev:081020261230 
+E. False – The statement reverses the correct conclusion. Mathematical correctness does not protect the result from 
+input error. 
+ 
+G6: Constraints and Practical Portfolio Design 
+[QF-D4G6Q1] 
+An unconstrained optimizer recommends investing 160% in equities, shorting 60% in bonds, and rebalancing most of the 
+portfolio each month. A pension plan cannot short, permits no leverage, and wants to limit trading costs. 
+ 
+A. The unconstrained allocation is not infeasible under the pension plan's long-only policy. 
+B. A gross-exposure or leverage constraint can prevent the 160% long position ﬁnanced by the bond short. 
+C. A turnover constraint cannot limit how far new weights move from current weights. 
+D. Adding these constraints must improve the portfolio's modeled maximum Sharpe ratio. 
+E. A constrained portfolio may sacriﬁce some in-sample objective value in exchange for implementability. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. The negative bond position violates the prohibition on short 
+selling. 
+B. True – Such a constraint limits the total amount of long and short exposure the optimizer can employ. 
+C. False – The statement reverses the correct conclusion. Turnover measures trading needed to transition between 
+existing and proposed allocations. 
+D. False – Restricting the feasible set cannot improve the maximum value of the same mathematical objective, though it 
+may improve real-world robustness. 
+E. True – Practical controls can trade an idealized model optimum for a portfolio the institution can hold and trade. 
+ 
+[QF-D4G6Q2] 
+A diversiﬁed fund limits any sector to 30%. Its unconstrained maximum-Sharpe solution places 55% in technology 
+because estimated technology returns are slightly higher than those of other sectors. 
+ 
+A. The sector limit makes the unconstrained solution infeasible. 
+B. Under the constraint, at least 25 percentage points must not be reassigned from technology to other sectors. 
+C. The constrained optimum must have a higher modeled Sharpe ratio than the unconstrained optimum. 
+D. The limit can reduce exposure to estimation error concentrated in one sector forecast. 
+ 
+ 328 Rev:081020261230 
+E. If the technology weight lands exactly at 30%, the sector constraint may be binding. 
+ 
+Answer Key: 
+ 
+A. True – A 55% sector allocation exceeds the 30% cap. 
+B. False – The statement reverses the correct conclusion. Reducing technology from 55% to no more than 30% requires 
+reallocating at least 25 percentage points. 
+C. False – The unconstrained feasible set includes all constrained portfolios and can attain at least as high a modeled 
+objective value. 
+D. True – A cap limits the damage if the optimizer exaggerated technology's attractiveness. 
+E. True – A constraint is binding when the optimum lies at its imposed boundary and relaxing it could affect the solution. 
+ 
+[QF-D4G6Q3] 
+A fund currently holds 50% in Asset A and 50% in Asset B. Its optimizer proposes 20% in A and 80% in B, but the mandate 
+limits one-way turnover, deﬁned here as one-half the sum of absolute weight changes, to 10% per rebalance. 
+ 
+A. The proposed changes are -30 percentage points for A and +30 percentage points for B. 
+B. The proposed one-way turnover is 30%. 
+C. The proposed trade satisﬁes the 10% turnover limit. 
+D. A feasible move in the proposed direction could not be 40% in A and 60% in B. 
+E. The turnover limit cannot cause the implemented portfolio to adjust toward the unconstrained target over several 
+rebalances rather than immediately. 
+ 
+Answer Key: 
+ 
+A. True – A falls from 50% to 20%, while B rises from 50% to 80%. 
+B. True – One-half of (|−30%| + |+30%|) equals 30%. 
+C. False – The required 30% turnover exceeds the 10% limit. 
+D. False – The statement reverses the correct conclusion. Moving ten percentage points from A to B produces one-way 
+turnover of 10%. 
+E. False – The statement reverses the correct conclusion. A binding trading limit can spread movement toward the target 
+across time. 
+ 
+ 
+ 329 Rev:081020261230 
+G7: In-Sample Optimization and Out-of-Sample Performance 
+[QF-D4G7Q1] 
+A researcher uses ten years of monthly returns to estimate inputs, choose portfolio weights, and report performance over 
+those same ten years. The optimized portfolio substantially outperforms a simple equal-weight benchmark in that 
+sample. 
+ 
+A. The reported comparison is not in sample because the same observations inﬂuenced both the weights and the 
+evaluation. 
+B. Selecting the best weights for the historical sample can capitalize on noise that will not repeat. 
+C. The in-sample outperformance guarantees superior future performance if the optimizer solved the problem correctly. 
+D. Evaluating the ﬁxed weights on later, previously unused data would provide an out-of-sample test. 
+E. Repeatedly revising the strategy after inspecting the test period can contaminate its status as an independent test. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. The data served both model selection and performance 
+measurement. 
+B. True – Optimization can ﬁt sample-speciﬁc return and covariance patterns. 
+C. False – Solving the historical problem exactly does not make the estimated relationships stable in the future. 
+D. True – Unused subsequent observations can test how the selected portfolio generalizes. 
+E. True – Using test results to redesign the strategy turns that information into part of the development process. 
+ 
+[QF-D4G7Q2] 
+A team computes the ex post optimal portfolio for every calendar year using that year's complete returns. It then presents 
+the sequence of annual results as a strategy an investor could have followed in real time. 
+ 
+A. Each year's ex post weights use information that was not unavailable at the start of that year. 
+B. The reported performance is subject to look-ahead bias if the weights are treated as contemporaneously investable. 
+C. A real-time implementation would not need to estimate weights using only information available before each 
+investment decision. 
+D. Because every annual optimization is mathematically valid, the sequence is automatically a valid backtest. 
+E. The portfolio that was optimal after one year ended may not be optimal during the next year. 
+ 
+ 
+ 330 Rev:081020261230 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Full-year returns reveal outcomes that an investor could not 
+know at the year's beginning. 
+B. True – Applying hindsight-selected weights as though they were known earlier creates look-ahead bias. 
+C. False – The statement reverses the correct conclusion. A realistic simulation must respect the information set at each 
+decision time. 
+D. False – Correct mathematics does not cure improper timing of the information used. 
+E. True – Expected returns, volatilities, and correlations can change across periods. 
+ 
+[QF-D4G7Q3] 
+An asset manager estimates optimal weights using rolling ﬁve-year windows. The recommended allocation changes from 
+70% Asset A in one window to 15% in the next, while an equal-weight portfolio remains comparatively stable. 
+ 
+A. Large weight changes across adjacent samples suggest optimization sensitivity. 
+B. Weight instability cannot generate turnover and trading costs in an implemented strategy. 
+C. Stability alone proves that the equal-weight portfolio will earn a higher future return. 
+D. Comparing rolling-window and genuinely out-of-sample results can help assess robustness. 
+E. Regularization, shrinkage, or allocation bounds may reduce extreme changes in optimized weights. 
+ 
+Answer Key: 
+ 
+A. True – A large allocation reversal from modest sample changes indicates an unstable estimated optimum. 
+B. False – The statement reverses the correct conclusion. Following shifting targets requires trades that can erode 
+realized performance. 
+C. False – Stable weights do not guarantee superior returns, though they may reduce estimation and trading risk. 
+D. True – These comparisons show whether historical optima persist beyond their estimation samples. 
+E. True – Robustness techniques and constraints can reduce the optimizer's response to noisy inputs. 
+ 
+  
+ 
+ 331 Rev:081020261230 

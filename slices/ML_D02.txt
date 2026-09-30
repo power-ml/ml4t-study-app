@@ -1,0 +1,915 @@
+Domain 2: Data & Sampling Discipline 
+Domain Summary 
+ Missing data and imputation choices 
+ Noisy data and outliers 
+ Data cleaning basics 
+ Sampling bias and representativeness 
+ Temporal ordering and time-series awareness 
+ Train/test split discipline 
+ Data snooping and reuse of held-out data 
+Topic Groups 
+G1: Missing Data Handling 
+ Dropping vs. imputing values 
+ Bias introduced by different strategies 
+ When missingness itself is informative 
+G2: Noise and Outliers 
+ Impact of noisy observations on models 
+ Outlier inﬂuence on different learners 
+ When to keep vs. remove outliers 
+G3: Sampling Bias and Representativeness 
+ Non-representative samples 
+ Selection bias 
+ Consequences for generalization 
+G4: Temporal Structure and Ordering 
+ Importance of time ordering in data 
+ Why random shuffling can be harmful 
+ Forward-looking bias in time-series data 
+ 
+ 42 Rev:081020261230 
+G5: Train/Test Separation Discipline 
+ Keeping test data unseen 
+ Common violations of proper splitting 
+ Consequences of contamination 
+G6: Data Snooping and Reuse 
+ Repeated use of test data 
+ Implicit leakage through iteration 
+ Over-optimistic performance estimates 
+G1: Missing Data Handling 
+[ML-D2G1Q1] 
+A quantitative equity team receives a fundamental dataset in which young ﬁrms often lack long operating histories and 
+some distressed ﬁrms stop reporting selected ﬁelds. The PM proposes deleting every row containing a missing value 
+because “the remaining data will be clean. ” The research lead asks how that choice could affect a model intended to 
+score the full investable universe. 
+ 
+A. Deleting all incomplete rows can bias the sample if missingness is related to ﬁrm characteristics. 
+B. Complete-case deletion is harmless whenever the resulting dataset remains large. 
+C. A ﬂag indicating that a value was missing may contain predictive information. 
+D. Any imputed number should be treated as though it were an observed measurement with no uncertainty. 
+E. The team should compare the characteristics of retained and removed ﬁrms before adopting the deletion rule. 
+ 
+Answer Key: 
+ 
+A. True – Systematic missingness can cause deletion to change the population represented by the sample. 
+B. False – A large retained sample can still be systematically unrepresentative. 
+C. True – The reporting failure itself may be associated with age, distress, or another relevant condition. 
+D. False – Imputation is an estimate and can alter uncertainty and relationships in the data. 
+E. True – This comparison can reveal whether the rule disproportionately excludes certain types of ﬁrms. 
+ 
+ 
+ 43 Rev:081020261230 
+[ML-D2G1Q2] 
+A risk team is modeling bond spreads using several ﬁnancial ratios. Missing leverage values are replaced with the median 
+calculated from the entire ten-year dataset before the observations are divided into training and test periods. An analyst 
+argues that median imputation is always safe because it does not use the target variable. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The following claim is false: Median imputation can be more resistant to extreme observed values than mean 
+imputation. 
+B. Computing the median from the entire dataset allows information from the test period to inﬂuence preprocessing. 
+C. The absence of direct target values in the calculation guarantees that the evaluation remains uncontaminated. 
+D. The imputation value should normally be estimated using the training data and then applied to the test data. 
+E. Replacing all missing values with one median can reduce the apparent variability of that feature. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. True – The median is less affected by extreme values than the mean. 
+B. False – The preprocessing parameter reﬂects observations that are supposed to remain held out. 
+C. True – Test-feature information can still inﬂuence model development and make the evaluation less independent. 
+D. False – Fitting preprocessing only on training data preserves the intended separation. 
+E. False – Repeated use of a central value creates an artiﬁcial concentration in the feature distribution. 
+ 
+[ML-D2G1Q3] 
+A trading desk combines prices from multiple vendors. A missing quote can mean either a temporary feed outage or that 
+an illiquid security did not trade, and the head trader wants every gap forward-ﬁlled so the model always receives a 
+complete matrix. The team must decide whether one rule is appropriate for both causes. 
+ 
+A. Forward-ﬁlling assumes that the last observed value is a reasonable substitute until a new observation arrives. 
+B. A feed outage and a no-trade interval necessarily carry the same economic information. 
+C. Long forward-ﬁlled stretches can make stale prices appear current. 
+D. Recording the duration or reason for missingness may help distinguish stale data from genuine observations. 
+E. Once missing values are ﬁlled, the team no longer needs to examine how the missingness arose. 
+ 
+Answer Key: 
+ 
+ 44 Rev:081020261230 
+ 
+A. True – Forward-ﬁlling explicitly carries the previous observation into later missing positions. 
+B. False – One is a data-system failure, while the other may reﬂect market liquidity. 
+C. True – Repeated old values can conceal the fact that no current price was observed. 
+D. True – Missingness metadata can preserve information that a ﬁlled value alone would discard. 
+E. False – The missingness mechanism affects whether an imputation rule is defensible and how the result should be 
+interpreted. 
+ 
+[ML-D2G1Q4] 
+You are a Quantitative Researcher analyzing a dataset of historical corporate bond prices to build a predictive model for 
+credit spread movements. You discover that for several small-cap issuers, the "Daily Trading Volume" ﬁeld is frequently 
+missing. Upon further investigation, you realize these gaps occur primarily during periods of extreme market volatility 
+when liquidity for these speciﬁc bonds evaporates entirely. 
+ 
+A. In this context, the missing data is "Missing at Random" (MAR), as the missingness is related to the observed volatility 
+in the broader market rather than the unobserved trading behavior of the small-cap bonds themselves. 
+B. Replacing the missing volume data with the mean volume of the entire dataset (mean imputation) would likely lead to 
+an underestimation of the model's risk, as it ignores the informative nature of the missingness. 
+C. Dropping all rows with missing volume data (complete case analysis) is the most robust strategy here, as it ensures 
+the model is trained only on high-quality, veriﬁed data points without introducing imputation noise. 
+D. The fact that data is missing speciﬁcally during liquidity crunches suggests that the "missingness" itself is a highly 
+informative feature that could serve as a proxy for market stress. 
+E. If the missingness is "Missing Not at Random" (MNAR), any imputation strategy that does not explicitly model the cause 
+of the missing data will likely introduce signiﬁcant systematic bias into the strategy’s backtest. 
+ 
+Answer Key: 
+ 
+A. False – If the data is missing because the volume was too low to record or the market didn't trade (which is the variable 
+itself), it is Missing Not at Random (MNAR).  
+B. True – Mean imputation artiﬁcially reduces variance and fails to capture the "signal" that the missing data represents 
+a state of zero liquidity.  
+C. False – Dropping rows (Listwise deletion) during volatile periods would lead to "survivorship bias" in the training set, as 
+the model would never learn how the market behaves during the most critical stress events. (Ref: Handbook of AI Ch. 2.4) 
+D. True – In trading, a "null" result in a liquidity ﬁeld is often a signal that the asset is untradeable, which is vital information 
+for a risk model.  
+E. True – When the reason for missingness is tied to the values themselves, standard statistical ﬁxes often distort the true 
+relationship between features and targets.  
+ 
+ 45 Rev:081020261230 
+ 
+[ML-D2G1Q5] 
+You are a Quantitative Strategist developing a model to trade "Distressed Debt. " Your primary feature is the "Interest 
+Coverage Ratio" (Earnings / Interest Expense). In your dataset of 5,000 ﬁrms, you ﬁnd that 15% of the values are missing. 
+Further analysis reveals that 10% of these missing values belong to ﬁrms that have recently defaulted and ceased ﬁling 
+ﬁnancial statements, while the other 5% are missing due to a technical error in the data provider's API. 
+For this question, mark each statement True if it is incorrect and False if it is accurate. 
+ 
+A. The 5% of data missing due to the API error is "Missing Completely at Random" (MCAR), and dropping these speciﬁc 
+rows would likely not introduce systematic bias into the model. 
+B. The 10% of data missing from defaulted ﬁrms is "Missing Not at Random" (MNAR), as the reason for the missingness 
+is directly related to the poor ﬁnancial health of the companies. 
+C. Dropping all missing values (Listwise Deletion) is the safest approach because it avoids the "hallucination" of ﬁnancial 
+ratios for companies that no longer exist. 
+D. If you choose to impute the missing ratios for the defaulted ﬁrms using the "Sector Average, " the model will likely 
+develop an optimistic bias, as it replaces "failing" metrics with "average" ones. 
+E. A more rigorous "Data Discipline" approach would be to impute the API-error gaps while treating the defaulted-ﬁrm 
+gaps as a distinct category or assigned "ﬂoor" value to reﬂect their distressed state. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Since an API glitch is unrelated to the ﬁrms' actual performance, it is MCAR; deleting these rows reduces 
+sample size but doesn't skew the results.  
+B. False – The missingness is a "Selection Effect" caused by the bankruptcy process itself.  
+C. True – Deleting the defaulted ﬁrms creates "Survivorship Bias. " The model would only learn what successful distressed 
+debt looks like, leading to a massive overestimation of the strategy's expected returns.  
+D. False – Imputing the average for a company that has zero earnings and high debt hides the "signal" of failure, making 
+the model blind to the primary risk it's supposed to manage.  
+E. False – Professional quant workﬂows often use different strategies for different "types" of missingness within the same 
+column.  
+ 
+[ML-D2G1Q6] 
+You are a Quantitative Researcher backtesting a strategy that utilizes "Intraday Sentiment Scores" derived from news 
+headlines. You notice that the sentiment data is missing for several hours each day during the Asian trading session. You 
+are considering two different strategies to handle this missingness: 1. Zero Imputation: Filling the gaps with a score of 0 
+(neutral). 2. Mean Imputation: Filling the gaps with the average sentiment score of the entire 5-year training dataset. 
+ 
+ 46 Rev:081020261230 
+For this question, mark each statement True if it is incorrect and False if it is accurate. 
+ 
+A. Zero imputation in this context is likely to introduce a "conservative bias, " as it forces the model to assume a neutral 
+market state during periods where sentiment might actually be trending. 
+B. Mean imputation is a superior strategy because it ensures the model remains "centered" on the long-term average 
+sentiment, preventing erratic trades during the Asian session. 
+C. Mean imputation introduces "Look-Ahead Bias" because the global average is calculated using data from the future 
+relative to the missing observations in the early years of the backtest. 
+D. If the news provider only fails to report sentiment during periods of extreme market crashes (MNAR), both imputation 
+strategies will systematically understate the strategy's historical risk (Drawdown). 
+E. Dropping the hours with missing data (Listwise Deletion) would be the most biased approach, as it would likely remove 
+the very periods of "overnight" price discovery that are critical for morning gap strategies. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Arbitrarily setting values to zero (neutral) dampens the signal and makes the model less reactive to potential 
+overnight shifts. ( 
+B. True – Mean imputation blunts the signal and ignores the speciﬁc temporal context of the data, often leading to poor 
+live performance.  
+C. False – Using a "global mean" from a full dataset is a classic data discipline violation, as that mean incorporates 
+information that was not yet known.  
+D. False – By ﬁlling "crash" periods with neutral or average scores, the model never "learns" the association between 
+missing data and extreme losses.  
+E. False – Deleting temporal gaps in ﬁnancial time-series destroys the continuity of price action, leading to a fragmented 
+and unrealistic backtest.  
+ 
+G2: Noise and Outliers 
+[ML-D2G2Q1] 
+A market-data pipeline records a stock price of $9,800 between observations near $98. The operations manager wants 
+the row removed immediately, while the PM notes that genuine price jumps can also appear extreme. The research team 
+must investigate before changing the training set. 
+ 
+A. Comparing the observation with source records and corporate-action data can help determine whether it is an error. 
+B. Every statistically extreme observation should be deleted before model training. 
+C. If the value is a decimal-placement error, retaining it can distort learned relationships. 
+D. If the value reﬂects a genuine market event, removing it may eliminate behavior the live model must handle. 
+ 
+ 47 Rev:081020261230 
+E. An observation’s distance from the sample mean alone establishes whether it is invalid. 
+ 
+Answer Key: 
+ 
+A. True – External context can distinguish a bad record from a legitimate event. 
+B. False – Extremeness does not by itself imply that an observation is erroneous. 
+C. True – A large erroneous value can exert disproportionate inﬂuence on some learners and statistics. 
+D. True – Rare but valid events can be important to the deployment environment. 
+E. False – Validity requires contextual and data-quality evidence, not only a statistical threshold. 
+ 
+[ML-D2G2Q2] 
+A portfolio analytics group compares a linear regression model with a tree-based model for estimating transaction costs. 
+A few trades have exceptionally large costs, and a junior analyst claims those observations must affect both learners in 
+exactly the same way because both receive the same rows. The group wants to understand model sensitivity before 
+deciding how to treat the trades. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. Large residuals can have strong inﬂuence on a least-squares regression ﬁt because their errors are squared. 
+B. A tree is completely immune to noisy or extreme observations. 
+C. Different model families can react differently to the same outliers. 
+D. Increasing a tree’s minimum leaf size may reduce its ability to isolate a single unusual observation. 
+E. Removing the high-cost trades is automatically correct if doing so improves training error. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Squared-error ﬁtting gives large residuals disproportionate weight. 
+B. True – Outliers can affect split selection, leaf predictions, and tree stability. 
+C. False – Their structures and ﬁtting criteria produce different sensitivities. 
+D. False – Larger leaves prevent very small groups from being modeled independently. 
+E. True – The team must determine whether the trades are errors or valid cases and evaluate performance beyond the 
+training sample. 
+ 
+ 
+ 48 Rev:081020261230 
+[ML-D2G2Q3] 
+A volatility model performs well on ordinary days but badly during a handful of market shocks. The PM calls those shock 
+days “noise” and proposes winsorizing every extreme return, while the risk officer says those are precisely the days that 
+matter most. The intended use is portfolio risk control during both normal and stressed markets. 
+ 
+A. Whether the shock observations should be retained depends partly on the model’s intended use. 
+B. Labeling rare observations as noise is justiﬁed solely because they occur infrequently. 
+C. Winsorization changes extreme values and can understate the severity of genuine tail events. 
+D. The team can evaluate performance separately in ordinary and stressed regimes to expose the tradeoff. 
+E. A cleaning procedure that improves average error necessarily improves the model’s usefulness for risk control. 
+ 
+Answer Key: 
+ 
+A. True – Data treatment should reﬂect the conditions the model is expected to handle. 
+B. False – Rare observations may be valid and economically important. 
+C. True – Capping replaces observed tail magnitudes with less extreme values. 
+D. True – Segment-level evaluation shows whether average performance conceals stress failures. 
+E. False – Average improvement may come at the cost of worse behavior during the most consequential periods. 
+ 
+[ML-D2G2Q4] 
+You are training a linear regression model to predict the "Price-to-Earnings (P/E) Ratio" of technology stocks. Your dataset 
+contains a few "Penny Stocks" where the earnings are nearly zero, resulting in extreme P/E ratios (e.g., over 5,000), while 
+the sector average is 30. You observe that the resulting regression line is pulled sharply toward these extreme values, 
+signiﬁcantly increasing the error for the rest of the stocks in your universe. 
+ 
+A. The extreme P/E ratios are examples of "Outliers" that have high leverage, meaning they disproportionately inﬂuence 
+the slope of the linear regression line. 
+B. In this case, the best strategy is to keep the outliers and use an L2 loss function (Mean Squared Error), as this will force 
+the model to prioritize ﬁtting these high-impact observations. 
+C. A more "Robust" learner, such as a Support Vector Regressor or a model using Huber Loss, would be less sensitive to 
+these extreme P/E ratios than a standard Ordinary Least Squares (OLS) model. 
+D. If the extreme P/E ratios are the result of accurate ﬁnancial reporting (not data errors), they must be kept in the dataset 
+to ensure the model captures the full reality of the technology sector. 
+E. The decision to remove these outliers should be based on whether they represent the "True Process" you are trying to 
+model or if they are "Noise" that obscures the generalizable relationship for typical stocks. 
+ 
+ 49 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. True – In OLS regression, points far from the mean of the predictor variables exert high leverage and can dominate the 
+parameter estimation. 
+B. False – L2 loss squares the errors, actually increasing the penalty for outliers and making the model even more 
+sensitive to them.  
+C. True – Robust statistical methods are speciﬁcally designed to limit the inﬂuence of outliers on the ﬁnal model 
+parameters.  
+D. False – Even if data is "accurate, " keeping outliers that don't represent the broader population can lead to poor 
+generalization and high variance.  
+E. True – Data discipline requires a subjective judgment on whether an outlier is a "valid extreme" or an "irrelevant 
+anomaly" for the speciﬁc trading objective.  
+ 
+[ML-D2G2Q5] 
+You are a Quantitative Research Lead reviewing a proposed data-cleaning pipeline for a high-frequency trend-following 
+strategy. The analyst suggests that because extreme price spikes in liquid markets like the S&P 500 E-mini futures are rare 
+and often represent "untradeable" liquidity gaps, they should be treated as systematic errors and handled aggressively 
+to keep the model's coefficients stable. 
+ 
+A. In a linear model using Ordinary Least Squares (OLS), the squaring of residuals is an effective mechanism for naturally 
+"de-weighting" outliers, ensuring they have less inﬂuence on the ﬁnal parameters than the majority of the data. 
+B. If a price spike is a valid market event (e.g., a reaction to a surprise interest rate hike), removing it via Trimming is 
+considered best practice because it helps the model generalize to the "typical" market regimes it will face 99% of the 
+time. 
+C. A Support Vector Regressor (SVR) using an ϵ-insensitive loss function is highly sensitive to outliers because it attempts 
+to ﬁt a hyperplane that encompasses every single data point, regardless of its distance from the mean. 
+D. A Decision Tree learner is highly sensitive to the exact magnitude of outliers because it uses the variance of the entire 
+feature column to determine the optimal location for every split. 
+E. Outliers that represent genuine but extreme market realizations should generally be retained or managed through 
+robust loss functions (like Huber Loss) rather than being deleted, as they contain critical information about the "Fat Tails" 
+of the risk distribution. 
+ 
+Answer Key: 
+ 
+A. False – OLS is actually the most sensitive to outliers; squaring the residuals gives extreme values disproportionate 
+leverage over the model.  
+ 
+ 50 Rev:081020261230 
+B. False – Removing real market events via trimming creates "Survivorship Bias" and leads to a model that is unprepared 
+for real-world risk, effectively "snooping" for a cleaner history.  
+C. False – SVR with ϵ-insensitive loss is actually robust; it ignores errors smaller than 𝜖 and uses a linear (not squared) 
+penalty for larger errors, similar to a Huber loss or MAE.  
+D. False – Trees are robust to outliers; once a value is beyond a split threshold, its speciﬁc magnitude (whether it's 100 or 
+1,000,000) does not change the tree's structure. 
+E. True – Data discipline in ﬁnance requires distinguishing between "Bad Noise" (errors) and "Valid Extremes. " Valid 
+extremes should be capped or modeled robustly, not erased.  
+ 
+[ML-D2G2Q6] 
+You are a Quantitative Consultant auditing a "Risk Parity" fund that uses a high-capacity Neural Network to estimate 
+covariance matrices. The fund’s primary researcher argues that because the model is trained on decades of data, there 
+is no need to manually address outliers or "ﬂash crashes, " as the model will eventually learn to treat them as statistical 
+anomalies. 
+ 
+A. High-capacity learners like Deep Neural Networks are naturally immune to outliers because the large volume of 
+training data provides enough "normal" observations to cancel out the effect of extreme noise. 
+B. If the dataset contains a "Broken Ticker" (e.g., a stock that erroneously reﬂects a price of $0.01 for one day), the neural 
+network may attempt to "explain" this outlier by adjusting its weights, leading to a distorted feature space for all other 
+stocks. 
+C. Using Batch Normalization within the neural network architecture is a guaranteed way to eliminate the inﬂuence of 
+outliers, as it scales all inputs to a mean of zero and unit variance regardless of their initial magnitude. 
+D. In a professional trading environment, an outlier that is proven to be a "Data Integrity Error" should be removed or 
+corrected, whereas an "Extreme Market Realization" should be managed using robust optimization or clipping. 
+E. If you use a Mean Squared Error (MSE) loss to train the network, a single 20-sigma outlier will have less impact on the 
+ﬁnal model than 1,000 small, 0.1-sigma noisy observations. 
+ 
+Answer Key: 
+ 
+A. False – High-capacity models are actually more prone to ﬁtting outliers; they have the ﬂexibility to "memorize" the 
+anomaly as a complex rule rather than ignoring it.  
+B. True – This is the "leverage" effect; the model distorts its internal representation to minimize the massive loss 
+associated with a clear data error.  
+C. False – Batch Normalization is sensitive to outliers; a single extreme value in a batch can skew the mean and variance 
+for the entire batch, potentially "polluting" the training of normal samples.  
+D. True – This is the core of data discipline: distinguish between "Bad Data" (delete) and "Hard Truths" (keep/manage).  
+ 
+ 51 Rev:081020261230 
+E. False – Because MSE squares each error, a single 20-sigma outlier contributes a loss of 400, while 1,000 separate 0.1-
+sigma errors contribute a combined loss of only 10. Therefore, the single extreme outlier has far greater impact on the 
+model. 
+ 
+G3: Sampling Bias and Representativeness 
+[ML-D2G3Q1] 
+A researcher builds a stock-selection model using only companies that remain in the S&P 500 at the end of the study 
+period. The PM wants to use the backtest as evidence that the strategy would have worked throughout the prior decade. 
+A risk analyst questions what happened to ﬁrms that left the index. 
+ 
+A. Restricting the history to current constituents can create survivorship bias. 
+B. Excluding ﬁrms that failed, merged, or were removed may make historical performance look better than it was. 
+C. A large number of current constituents eliminates the selection problem. 
+D. A point-in-time constituent history would better represent the securities available at each past date. 
+E. Survivorship bias affects only descriptive statistics and cannot affect a trained model. 
+ 
+Answer Key: 
+ 
+A. True – The sample is conditioned on surviving in the index until the end of the study. 
+B. True – Removed ﬁrms can include poor outcomes that a survivor-only sample omits. 
+C. False – Sample size does not correct a systematic inclusion rule. 
+D. True – It reconstructs the investable membership known at each time. 
+E. False – Biased training examples can change learned relationships and evaluated performance. 
+ 
+[ML-D2G3Q2] 
+A brokerage trains a client-churn model using responses from a voluntary satisfaction survey. Highly engaged clients and 
+very dissatisﬁed clients respond most often, while the model will be applied to every client. The product director assumes 
+that thousands of responses make the sample representative. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The following claim is false: Voluntary response patterns can create selection bias. 
+B. A large sample can still misrepresent the full client population. 
+ 
+ 52 Rev:081020261230 
+C. High predictive accuracy within the respondent sample proves equivalent accuracy for nonrespondents. 
+D. Comparing respondent and nonrespondent characteristics can help diagnose representativeness. 
+E. Reweighting may help only if the team has useful information about how the sampled and target populations differ. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. True – Participation is related to client characteristics rather than being random. 
+B. False – More observations reduce random uncertainty but do not remove systematic sampling bias. 
+C. True – Performance may change in groups underrepresented or absent from development data. 
+D. False – Such comparisons can reveal systematic differences in coverage. 
+E. False – Effective weighting requires variables that describe relevant selection differences. 
+ 
+[ML-D2G3Q3] 
+A credit fund trains a default model entirely on large U.S. public companies from a period of low interest rates, then plans 
+to score small private companies during a tightening cycle. The investment committee asks whether a random held-out 
+subset with strong results is enough to approve deployment. The modeling team agrees that the split was technically 
+clean. 
+ 
+A. A clean random split can estimate performance on observations drawn from a similar source population. 
+B. It guarantees representative evaluation for small private companies in a different rate environment. 
+C. Differences in company size, disclosure, and macroeconomic conditions can limit generalization. 
+D. Evaluation data resembling the intended deployment population would provide more relevant evidence. 
+E. Sampling bias is impossible if no test rows were used during training. 
+ 
+Answer Key: 
+ 
+A. True – Holding out source-population rows tests transfer within that sampled setting. 
+B. False – The deployment population and environment may differ materially. 
+C. True – These differences can change both feature distributions and outcome relationships. 
+D. True – Representative evaluation better supports the proposed real-world use. 
+E. False – Train/test separation and population representativeness are distinct concerns. 
+ 
+ 
+ 53 Rev:081020261230 
+[ML-D2G3Q4] 
+You are a Quantitative Strategist backtesting a "High-Yield Dividend" strategy. Your dataset is comprised of all US-listed 
+stocks that paid a dividend in the 2010–2020 period. You discover that many of the highest-performing stocks in your 
+training set were small-cap companies that were eventually acquired by larger ﬁrms at a signiﬁcant premium. 
+For this question, mark each statement True if it is incorrect and False if it is accurate. 
+ 
+A. Training only on companies that paid a dividend ensures the sample is representative of the broader market, as 
+dividend policy is a reliable proxy for overall corporate health and stability. 
+B. This approach suffers from Selection Bias because the sample is restricted by a characteristic (paying a dividend) that 
+is likely correlated with the factors you are trying to predict, such as low volatility or value. 
+C. The inclusion of stocks that were eventually acquired introduces a form of Survivorship Bias if your database only 
+includes the price history of companies that are still trading under their own ticker today. 
+D. Because the 2010–2020 period was characterized by declining interest rates, the model will likely generalize to a high-
+rate environment because dividend-paying stocks are inherently resistant to changes in the discount rate. 
+E. A dataset consisting of 10 years of every dividend-paying stock in the US is sufficiently large to guarantee that any 
+ﬁndings regarding "alpha" are a result of true market signals rather than sampling artifacts. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. True – Selecting for dividends is a speciﬁc ﬁlter that excludes growth stocks and non-dividend payers, making the 
+sample unrepresentative of the total equity market.  
+B. False – Selection bias occurs when the criteria for inclusion in the study (dividend payment) skews the distribution of 
+the features and outcomes.  
+C. False – If the "acquired" winners are missing from the data because they no longer have an active ticker, the backtest 
+ignores a primary source of the strategy's potential historical return.  
+D. True – Dividend stocks often act as "bond proxies"; a model trained during falling rates will likely fail to understand the 
+risk of these stocks underperforming when rates rise. ( 
+E. True – Volume and duration do not eliminate systematic bias. If the sample is restricted to a speciﬁc "slice" of the 
+market, the model remains a prisoner of that slice's unique regime.  
+ 
+[ML-D2G3Q5] 
+You are developing a machine learning model to predict the probability of corporate bankruptcy. Your training set is 
+constructed by gathering the ﬁnancial statements of 10,000 ﬁrms listed on the NYSE and NASDAQ as of December 2025, 
+and you label them based on whether they ﬁled for Chapter 11 at any point between 2015 and 2025. 
+For this question, mark each statement True if it is incorrect and False if it is accurate. 
+ 
+ 
+ 54 Rev:081020261230 
+A. This sampling method is an effective way to capture a representative history of the market because it includes a decade 
+of data across two of the world's largest stock exchanges. 
+B. The dataset is susceptible to Survivorship Bias because the selection criteria (being listed as of 2025) naturally 
+excludes the very ﬁrms that the model is trying to identify—those that went bankrupt and were delisted prior to 2025. 
+C. Because the ﬁrms in the sample are all from the NYSE and NASDAQ, the model's ﬁndings can be generalized to 
+characterize the bankruptcy risks of small, private startups without further adjustments. 
+D. This is a form of Selection Bias where the sampling mechanism is correlated with the target variable, resulting in a 
+dataset that is systematically missing the most critical "negative" outcomes. 
+E. Increasing the number of features in this speciﬁc dataset (e.g., adding more technical indicators) will ﬁx the underlying 
+sampling error and allow the model to generalize accurately to the total population of ﬁrms. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. True – A sample of "currently existing" ﬁrms is not a representative history; it is a "winner's history" that omits the 
+failures required for a balanced classiﬁcation task.  
+B. False – This is a classic example of survivorship bias. By looking backward from the present, you only see those that 
+survived the interval, skewing the model’s understanding of risk.  
+C. True – This is a failure of representativeness. Publicly traded "Blue Chip" or mid-cap ﬁrms have fundamentally different 
+risk proﬁles and data-generating processes than private startups.  
+D. False – The selection ﬁlter (survival to 2025) is directly tied to the outcome (not being bankrupt), ensuring the training 
+set lacks the necessary diversity of the target class.  
+E. True – You cannot ﬁx a biased sample by adding more features. If the "failed" ﬁrms are missing from the rows, adding 
+more columns only helps the model overﬁt the "survivor" bias.  
+ 
+[ML-D2G3Q6] 
+You are building a model to predict the probability of success for clinical trials in the pharmaceutical industry. Your 
+training dataset consists of every trial that was successfully completed and published in a major medical journal between 
+2010 and 2025. You plan to use this model to help a venture capital ﬁrm decide which early-stage drug candidates to 
+fund. 
+ 
+A. The dataset is likely a representative sample of all clinical trials because major medical journals are the primary 
+repository for high-quality scientiﬁc evidence and trial outcomes. 
+B. This approach suffers from Selection Bias (speciﬁcally "Publication Bias") because trials that failed to meet their 
+primary endpoints or showed negative results are signiﬁcantly less likely to be published, creating an overly optimistic 
+training set. 
+C. Using a sample of 15 years of published trials provides a sufficient volume of data to ensure that the model can 
+generalize to the total population of all drug development efforts. 
+ 
+ 55 Rev:081020261230 
+D. The model will likely underestimate the "True Failure Rate" of drug development because the "negative" outcomes—
+the thousands of trials that were discontinued or never published—are entirely missing from the training distribution. 
+E. A model trained on this biased sample will likely provide the venture capital ﬁrm with a false sense of security, as it has 
+never learned to identify the subtle signals that precede a trial's failure or abandonment. 
+ 
+Answer Key: 
+ 
+A. False – Relying on published journals introduces a heavy ﬁlter; the "universe" of all trials is much larger and more 
+diverse than the "universe" of published successes.  
+B. True – Selection bias occurs when the data you can see is systematically different from the data you cannot see due to 
+a ﬁltering mechanism (like editorial approval).  
+C. False – Volume and time duration cannot ﬁx a sample that is fundamentally skewed toward one type of outcome. ( 
+D. True – By training on a "sanitized" version of history, the model loses the ability to calculate the base rate of failure for 
+the asset class.  
+E. True – Generalization requires the training data to be a "miniature version" of the real world; if the training data is 90% 
+success but the real world is 90% failure, the model will fail in production.  
+ 
+G4: Temporal Structure and Ordering 
+[ML-D2G4Q1] 
+A team predicts next-day returns using ten years of daily observations. To obtain similar class proportions in both subsets, 
+an analyst randomly shuffles all days before splitting them into training and test data. The PM asks whether the resulting 
+score reﬂects how the model would actually have been developed and deployed through time. 
+ 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. A chronological split better preserves the sequence in which past data become available for future prediction. 
+B. Random shuffling can place later market regimes in training while earlier observations appear in the test set. 
+C. Random shuffling is always valid whenever individual rows have distinct dates. 
+D. Financial observations near one another in time may be dependent rather than exchangeable. 
+E. Preserving order can make evaluation harder while still making it more realistic. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – It trains on earlier information and evaluates on later observations. 
+ 
+ 56 Rev:081020261230 
+B. False – Shuffling ignores the direction in which information arrives. 
+C. True – Dated rows can still have temporal dependence and a forecasting deployment order. 
+D. False – Market conditions and overlapping signals can create serial dependence. 
+E. False – A realistic future period may differ from the training period and produce a lower but more meaningful estimate. 
+ 
+[ML-D2G4Q2] 
+A monthly trading model is evaluated with cross-validation. An engineer proposes ordinary random folds, while the 
+research director proposes a walk-forward design that repeatedly trains on earlier months and evaluates on later months. 
+Several features and labels are based on overlapping return windows. 
+ 
+A. The following claim is false: Walk-forward evaluation respects the intended past-to-future prediction direction. 
+B. Random folds can mix observations from both sides of a test month into its training set. 
+C. Overlapping windows can make nearby observations share information and appear more independent than they are. 
+D. Every walk-forward fold must use the same number of training observations to be valid. 
+E. Temporal validation design should reﬂect when inputs and labels would actually have been available. 
+ 
+Answer Key: 
+ 
+A. False – Each evaluation period is predicted using only preceding training periods. 
+B. True – Ordinary random assignment does not preserve chronological availability. 
+C. True – Shared underlying days can increase dependence between nominally separate examples. 
+D. False – Expanding-window designs legitimately use a growing training history. 
+E. True – Availability timing determines whether the simulated prediction could have been made in practice. 
+ 
+[ML-D2G4Q3] 
+A fund trains a model each Friday to trade the following week. Its dataset assigns each Friday observation a label equal 
+to the return through the next Friday, but the training set includes the most recent Friday even though that label would not 
+yet be known at the retraining time. The backtest developer says the row is historical now, so its use is acceptable. 
+ 
+A. The relevant question is whether the label was available at the simulated Friday decision time. 
+B. Including the unresolved forward return gives the simulated model information it could not have had then. 
+C. A value’s presence in today’s completed database proves it was available at every earlier model-training date. 
+D. The training cutoff may need to exclude observations whose label windows have not ﬁnished. 
+ 
+ 57 Rev:081020261230 
+E. Respecting row dates alone is sufficient even when labels mature after those dates. 
+ 
+Answer Key: 
+ 
+A. True – A valid backtest must reproduce historical information availability. 
+B. True – The future return becomes known only after the simulated training event. 
+C. False – Modern databases often contain values that were unknown at earlier points in time. 
+D. True – Only labels realized by the cutoff can legitimately support that training run. 
+E. False – Label availability can lag the observation timestamp and must also be considered. 
+ 
+[ML-D2G4Q4] 
+A researcher is developing a "Mean Reversion" strategy. To improve the signal-to-noise ratio, they decide to normalize 
+their features (like RSI and Bollinger Bands) by subtracting the mean and dividing by the standard deviation calculated 
+over the entire 20-year historical dataset before splitting the data into training and testing sets. 
+For this question, mark each statement True if it is incorrect and False if it is accurate. 
+ 
+A. It is incorrect to conclude that this preprocessing step is mathematically sound because using the global mean and 
+standard deviation provides the model with a "Stable Reference Point" that remains consistent across all market regimes. 
+B. Normalizing on the full dataset is an effective way to prevent Temporal Autocorrelation, as it ensures that each daily 
+observation is scaled relative to the long-term equilibrium of the market. 
+C. Because the normalization parameters (μ,σ) are based on the entire population, this technique is considered the most 
+robust way to ensure that the model generalizes to "unseen" future data. 
+D. This process does not introduce Look-Ahead Bias because the normalization only affects the "Scale" of the features 
+and does not reveal the actual "Direction" of future price movements to the model. 
+E. The model’s high performance in the backtest is likely an artifact of Data Leakage, as the training samples now contain 
+information about the mean and variance of the "future" test set that would not have been available to a trader in real-
+time. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – The embedded claim is inaccurate, so rejecting it is correct. While it provides a "stable" point, it is an illegal 
+point. A trader in 2010 cannot know the mean volatility of 2024 to normalize their data.  
+B. True – Scaling does not address autocorrelation; it merely changes the units of the features while simultaneously 
+leaking future information into the past.  
+C. True – It actually ruins generalization; the model learns to expect a speciﬁc "global" scale that it will never be able to 
+calculate in live trading, where the "future" mean is unknown.  
+ 
+ 58 Rev:081020261230 
+D. True – This is a classic form of look-ahead bias; if the global mean is high, the model "knows" that future prices/volatility 
+will be high, even if it hasn't "seen" those dates yet.  
+E. False – To avoid this, normalization parameters must be calculated only on the training set (or via a rolling window) and 
+then applied to the test set.  
+ 
+[ML-D2G4Q5] 
+You are implementing a "Walk-Forward" validation scheme for a trend-following algorithm. In this setup, you use a sliding 
+window: you train on the ﬁrst 3 years of data, test on the 4th year, then shift the entire window forward by 1 year and 
+repeat. 
+ 
+A. This "Walk-Forward" methodology is the most robust way to evaluate a trading strategy because it preserves the 
+Temporal Order of the data, ensuring the model is never tested on information that occurred chronologically before the 
+training set. 
+B. Shuffling the individual days within each 3-year training window is a recommended step to ensure the model focuses 
+on broad patterns rather than speciﬁc dates, and this does not introduce leakage since the test year remains untouched. 
+C. This approach helps the researcher detect Regime Drift, as the model’s performance is evaluated across different 
+chronological "slices" of the market (e.g., a low-volatility period followed by a high-volatility period). 
+D. The "Walk-Forward" method is essentially a form of Data Leakage because the model "sees" the same historical 
+patterns multiple times as the training window slides forward through the 20-year dataset. 
+E. A potential drawback of this method is that it requires signiﬁcantly more data than a standard split, as the early folds 
+have very small training sets compared to the later folds in an "Expanding Window" variation. 
+ 
+Answer Key: 
+ 
+A. True – Walk-forward testing is the "Gold Standard" in ﬁnance because it maintains the arrow of time and simulates how 
+a model would actually be deployed in a live environment.  
+B. False – Even within the training set, shuffling is harmful. Many ﬁnancial features (like Momentum or Moving Averages) 
+rely on the sequence of data; shuffling destroys the autocorrelation signals the model is meant to capture.  
+C. True – Because the model is retrained and retested as it moves through time, you can see exactly when and why a 
+strategy begins to fail as market conditions evolve.  
+D. False – This is not leakage. As long as the test set for any given fold always follows the training set chronologically, the 
+"future" remains unknown to the model at each step. 
+E. True – This is a practical constraint; your initial "Walk-Forward" results may be less reliable because the model was 
+trained on a much smaller sample than the ﬁnal results.  
+ 
+ 
+ 59 Rev:081020261230 
+[ML-D2G4Q6] 
+You are building a regime-switching model to pivot between an S&P 500 equity strategy and a cash position. One of your 
+primary features is the "Macroeconomic Unemployment Rate. " Your backtesting script pulls the official Bureau of Labor 
+Statistics (BLS) monthly unemployment ﬁgures, aligning the value for a given month (e.g., January's 4.0% unemployment) 
+directly with the market price action on the ﬁnal trading day of that same month (January 31). 
+For this question, mark each statement True if it is incorrect and False if it is accurate. 
+ 
+A. This temporal alignment is standard practice because matching the macroeconomic state of a speciﬁc calendar 
+month with that month's closing stock prices ensures the model learns the exact contemporaneous relationship between 
+the economy and the market. 
+B. This pipeline introduces a severe Forward-Looking Bias because the unemployment rate for a given month is typically 
+not ﬁnalized, compiled, and publicly released by the government until the ﬁrst or second Friday of the following month. 
+C. Because macroeconomic data is highly persistent and slow-moving, a 1- or 2-week reporting lag is statistically 
+irrelevant and will not alter the model's predictive accuracy or signal generation in a live environment. 
+D. This is a classic example of a Timestamp Mismatch error, where the "event date" (when the economic activity occurred) 
+is mistakenly treated as the "availability date" (when a trader could actually execute an order based on that data). 
+E. Running a random shuffle on the ﬁnal dataset will neutralize this reporting lag by distributing the 45-day informational 
+advantage evenly across both the training and validation sets. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. True – Aligning data based on the calendar month rather than the public release date allows the model to trade on 
+information that was invisible to market participants at that time.  
+B. False – This is a fatal look-ahead bias. If your model "knows" January's unemployment ﬁgures on January 31, it is 
+cheating; those numbers are not known until the BLS release in early February.  
+C. True – In systematic trading, even a short informational lag is catastrophic. A model trained on unlagged data will 
+exploit the "future" knowledge to avoid market downturns perfectly in the backtest, then fail completely in production.  
+D. False – To ensure valid time-series validation, ﬁnancial models must utilize "Point-in-Time" data matrices that index 
+observations by the exact publication timestamp rather than the period covered.  
+E. True – Shuffling does not ﬁx a fundamental violation of causality; it simply spreads the corrupted, look-ahead signal 
+across the entire dataset, guaranteeing an overﬁt model.  
+ 
+ 
+ 60 Rev:081020261230 
+G5: Train/Test Separation Discipline 
+[ML-D2G5Q1] 
+A research team splits observations into training and test sets, but then standardizes every feature using the mean and 
+standard deviation calculated from the combined data. The analyst notes that the test labels were never used and claims 
+the test score is therefore fully independent. The PM asks whether the preprocessing design matters. 
+ 
+A. Combined-data standardization lets the test-feature distribution inﬂuence the training pipeline. 
+B. Avoiding test labels is the only requirement for an uncontaminated test set. 
+C. Scaling parameters should normally be estimated from training data and then applied unchanged to test data. 
+D. Preprocessing is part of the model-development pipeline for purposes of train/test separation. 
+E. The contamination becomes acceptable if the same formula is applied to every row. 
+ 
+Answer Key: 
+ 
+A. True – The ﬁtted means and standard deviations summarize held-out observations. 
+B. False – Test features can also affect learned preprocessing and development choices. 
+C. True – This simulates how new observations would be transformed after deployment. 
+D. True – Data-dependent preprocessing choices must be learned without the ﬁnal test set. 
+E. False – Uniform application does not undo the use of test information when estimating the parameters. 
+ 
+[ML-D2G5Q2] 
+A desk compares 40 model and hyperparameter combinations directly on its designated test set, selects the highest-
+scoring one, and reports that same score as the ﬁnal performance estimate. The head of research calls the process 
+efficient because each candidate was trained without the test rows. The validation set was not used. 
+ 
+A. Selecting among models based on test performance makes the test set part of model development. 
+B. The reported maximum score can be optimistic because it includes chance variation across many comparisons. 
+C. A validation set could be used for model selection while reserving the test set for ﬁnal evaluation. 
+D. The test set remains fully unseen merely because its rows were not used to ﬁt candidate parameters. 
+E. Retraining the chosen conﬁguration on the training data erases the information gained from test-based selection. 
+ 
+Answer Key: 
+ 
+ 
+ 61 Rev:081020261230 
+A. True – Test results inﬂuenced which conﬁguration was chosen. 
+B. True – The winner may partly reﬂect noise speciﬁc to that test sample. 
+C. True – This separates selection from the ﬁnal generalization estimate. 
+D. False – Viewing and acting on test scores is a form of exposure. 
+E. False – The conﬁguration choice still encodes what the team learned from the test set. 
+ 
+[ML-D2G5Q3] 
+A vendor supplies a preselected feature list after evaluating hundreds of candidates on the full historical dataset. Your 
+team then makes a fresh train/test split and ﬁts only the supplied features, claiming the test is clean because your own 
+code never inspected those rows before splitting. The investment committee wants to know whether the upstream 
+selection matters. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. Feature selection performed on the full dataset can transmit information from future test rows into the pipeline. 
+B. A later split automatically removes contamination introduced by earlier data-dependent decisions. 
+C. To preserve separation, feature selection should be repeated using only the training portion. 
+D. Documentation of how the vendor created the feature list is relevant to evaluating the claimed independence. 
+E. Contamination can occur through development choices even when test rows are never passed directly to the ﬁnal 
+ﬁtting function. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – The selected list reﬂects relationships observed in the entire history. 
+B. True – The prior selection decision remains informed by the future test observations. 
+C. False – Data-dependent selection belongs inside the training process. 
+D. False – Provenance determines whether held-out information shaped the features. 
+E. False – Indirect inﬂuence through preprocessing or selection can compromise an evaluation. 
+ 
+[ML-D2G5Q4] 
+An analyst is building a cross-sectional equity model to predict the next-day returns of 500 tech stocks. Before splitting 
+the 10-year dataset into a 70% training set and a 30% testing set, they handle missing values in their accounting features 
+(such as debt-to-equity ratios) by applying a global median imputation across the entire dataset to maximize sample 
+integrity. 
+ 
+ 62 Rev:081020261230 
+ 
+A. This preprocessing pipeline is structurally sound because using a global median preserves the overarching cross-
+sectional distribution of the sector, ensuring that both the train and test splits have identical feature spaces. 
+B. This approach introduces Data Contamination (Leakage) because the median values used to ﬁll gaps in the training 
+set are partially calculated using information from the future test set, violating the rule of absolute separation. 
+C. Since median imputation only replaces missing values and does not alter the existing, non-missing data points, it 
+cannot leak directional price signals or cause an artiﬁcial inﬂation of backtest performance. 
+D. This is a common violation of proper splitting where information from the out-of-sample period is inadvertently mixed 
+into the in-sample training phase, leading to overly optimistic generalization metrics. 
+E. To maintain strict train/test discipline, the analyst must compute the median parameters using only the training data, 
+and then apply those pre-calculated metrics to impute any missing values found in the test set. 
+ 
+Answer Key: 
+ 
+A. False – Preserving the global distribution at the cost of leaking test-set data into the training phase destroys the validity 
+of the out-of-sample evaluation.  
+B. True – This is a classic preprocessing leak. If test-set values inﬂuence the training set's features (even through a 
+summary statistic like a median), the test data is no longer truly "unseen. "  
+C. False – Even non-directional summary statistics leak information about the variance and scale of the future data 
+space, which allows the model to adapt to the test distribution prematurely.  
+D. True – This contamination masks how the model would actually handle missing data in real-time streaming 
+environments where future medians are mathematically unavailable.  
+E. True – All feature engineering, scaling, and imputation parameters must be ﬁt strictly on the training partition to ensure 
+zero downstream contamination.  
+ 
+[ML-D2G5Q5] 
+A researcher is building a model to predict the credit default risk of small businesses using a 10-year dataset. To address 
+a high rate of missing values in the "Annual Revenue" column, they decide to use K-Nearest Neighbors (KNN) Imputation. 
+They pass the entire feature matrix (the full 10 years of data) into the imputer to ensure the "neighbors" found for each 
+missing value are as accurate as possible, then they perform a chronological 80/20 train-test split. 
+ 
+A. This methodology is an advanced form of data cleaning that improves model robustness by ensuring the training set's 
+feature distributions are as complete and accurate as possible before the split. 
+B. This approach violates Train/Test Separation Discipline because the imputed values in the training set are calculated 
+using the feature values of "neighbors" that reside in the future test set. 
+C. Since KNN imputation only uses feature values (X) to ﬁll gaps and does not look at the target labels (y), this process is 
+considered "leakage-free" and safe for ﬁnancial time-series applications. 
+ 
+ 63 Rev:081020261230 
+D. This is an example of Manifold Contamination, where the underlying structure of the test set is "leaked" into the training 
+set through the proximity calculations of the imputation algorithm. 
+E. To maintain proper discipline, the researcher must ﬁt the KNN imputer only on the training data, and then use that ﬁtted 
+model to impute missing values in both the training and test sets. 
+ 
+Answer Key: 
+ 
+A. False – While accuracy is improved, it is "illegal" accuracy. You have contaminated the training phase with data points 
+that, in a real-world scenario, would be in the "unknown future. "  
+B. True – This is a classic "Transductive Leak. " If a row from 2018 is missing data and its nearest neighbor is found in 2024, 
+the 2018 row now contains information derived from the future.  
+C. False – Leakage is not limited to labels. If the features in your training set are inﬂuenced by the features in your test set, 
+the model will develop a "hidden familiarity" with the test distribution.  
+D. True – By using the entire dataset to deﬁne the "neighborhoods, " the researcher has allowed the geometry of the future 
+to warp the representation of the past.  
+E. True – Strict discipline requires that the "rules" for imputation are learned solely from the past. If the training set cannot 
+stand alone to solve its own missing data, the split is compromised.  
+ 
+[ML-D2G5Q6] 
+A quantitative developer is building a high-frequency market-making model. To optimize the model's performance, they 
+perform Feature Selection (e.g., Recursive Feature Elimination) using the entire available 5-year dataset. After identifying 
+the top 10 most predictive features, they then apply a Walk-Forward Validation scheme to train and test the model using 
+only those 10 features. 
+ 
+A. This workﬂow is a statistically sound way to reduce the "Curse of Dimensionality, " ensuring the model only focuses on 
+the most robust signals before entering the validation phase. 
+B. This approach constitutes a Global Information Leak, as the decision of which features to include was informed by 
+looking at the price action and volatility of the entire out-of-sample period. 
+C. Because the actual "Training" of the model weights happens within a walk-forward split, the initial feature selection 
+process is considered an "Independent Preprocessing Step" and does not contaminate the test results. 
+D. This is an example of Selection Bias (also known as "Data Snooping"), where the features chosen are likely those that 
+happened to perform well over the speciﬁc 5-year window by chance, leading to a massive overestimation of live 
+performance. 
+E. To maintain proper train/test separation, feature selection must be performed dynamically within each training fold of 
+the walk-forward split, using only the data available up to that point in time. 
+ 
+Answer Key: 
+ 
+ 64 Rev:081020261230 
+ 
+A. False – Reducing dimensionality is good, but doing it by peeking at the test set creates a "survivor" set of features that 
+are tailored to a future they shouldn't know yet.  
+B. True – This is a common and subtle violation. If you use the test set to decide how to build your model (including which 
+variables to use), the test set is no longer an independent measure of performance.  
+C. False – Feature selection is part of the model-building process. If the selection "sees" the future, the resulting 
+"independent" training is already biased toward those future-relevant features.  
+D. True – This "snooping" results in features that look like "Universal Truths" in the backtest but are actually just artifacts 
+of that speciﬁc historical period.  
+E. True – In a real-world scenario, a trader must decide which indicators to use without knowing which ones will be most 
+proﬁtable next year. Your validation must mimic this ignorance.  
+ 
+G6: Data Snooping and Reuse 
+[ML-D2G6Q1] 
+A quant team evaluates a strategy on the same 2018–2025 test period every week. After each disappointing result, it 
+changes features, holding periods, or learners until the backtest looks strong. The team never explicitly copies test labels 
+into the training matrix, so the PM believes the ﬁnal test result remains unbiased. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. Repeatedly modifying the strategy in response to the same test results makes that period part of development. 
+B. The ﬁnal performance estimate may capture chance patterns peculiar to the reused period. 
+C. Leakage is impossible unless test labels appear as training features. 
+D. A genuinely untouched evaluation period would provide stronger evidence about the ﬁnal design. 
+E. Keeping a written record of experiments can reveal the extent of repeated search, although it does not by itself restore 
+test independence. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Feedback from the test period guides the evolving design. 
+B. False – Enough iterations can adapt the strategy to sample-speciﬁc noise. 
+C. True – Information can leak through human selection and iteration without direct feature copying. 
+D. False – It tests the selected design on observations that did not shape it. 
+E. False – Experiment tracking improves transparency but cannot make previously used data unseen again. 
+ 
+ 
+ 65 Rev:081020261230 
+[ML-D2G6Q2] 
+A fund screens 5,000 technical indicators on one historical period and publishes the ten with the best Sharpe ratios. It 
+then presents those same ten in-sample results as evidence that the signals are economically meaningful. The CIO asks 
+whether multiple comparisons change how the winners should be interpreted. 
+ 
+A. Searching many weak or useless indicators can still produce apparently strong winners by chance. 
+B. Selecting the maximum observed Sharpe ratio tends to favor positive estimation noise. 
+C. The ten winners are validated because they outperformed the other 4,990 indicators on the search data. 
+D. Testing the chosen indicators on untouched data can help distinguish persistent signal from selection luck. 
+E. The number of alternatives examined is irrelevant once only the winners are reported. 
+ 
+Answer Key: 
+ 
+A. True – Extreme results can arise from random variation when enough candidates are tried. 
+B. True – Selection favors estimates that beneﬁted from unusually favorable sample noise. 
+C. False – Ranking within the search sample is not independent conﬁrmation. 
+D. True – Fresh evidence avoids reusing the sample that produced the winners. 
+E. False – The breadth of the search affects how surprising the winning values really are. 
+ 
+[ML-D2G6Q3] 
+Three research teams independently use the same corporate “golden” holdout period for ﬁnal evaluation. They share 
+their scores at monthly meetings, abandon weak ideas, and develop replacements based on what succeeded for the 
+other teams. Governance records still label the period “untouched” because no one retrains directly on its rows. 
+ 
+A. The following claim is false: Organization-wide feedback can cause the holdout to inﬂuence later model designs. 
+B. A holdout remains independent indeﬁnitely as long as its raw rows are access-controlled. 
+C. Aggregate scores can reveal enough information to guide adaptation to the holdout. 
+D. Limiting evaluation frequency and reserving a newer ﬁnal set can reduce the risk of institutional overﬁtting. 
+E. Models selected through this process may have performance estimates that are too optimistic for genuinely new data. 
+ 
+Answer Key: 
+ 
+A. False – Shared results shape which approaches the organization pursues. 
+B. False – Repeated outcome feedback can compromise independence without exposing raw rows. 
+ 
+ 66 Rev:081020261230 
+C. True – Teams learn which choices worked on that speciﬁc period and respond accordingly. 
+D. True – Reduced exposure and fresh ﬁnal data preserve a more credible evaluation boundary. 
+E. True – The selection process can favor approaches tailored to the repeatedly observed holdout. 
+ 
+  
+ 
+ 67 Rev:081020261230 

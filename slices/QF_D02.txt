@@ -1,0 +1,517 @@
+Domain 2: Risk and Risk-Adjusted Performance 
+Domain Summary 
+ Volatility and variance 
+ Standard deviation of returns 
+ Downside risk 
+ Drawdown 
+ Sharpe ratio 
+ Sortino ratio 
+ Information ratio 
+ Risk-free rate 
+ Comparing strategies with different return and risk proﬁles 
+Topic Groups 
+G1: Volatility, Variance, and Standard Deviation 
+ Dispersion of returns 
+ Interpretation of standard deviation as risk 
+ Comparing assets with different volatility 
+ Effects of extreme observations 
+G2: Downside Risk and Drawdown 
+ Peak-to-trough loss 
+ Maximum drawdown 
+ Recovery from drawdown 
+ Distinction between volatility and realized loss 
+ Why drawdown matters to investors and fund managers 
+G3: Sharpe Ratio 
+ Excess return per unit of total volatility 
+ Role of the risk-free rate 
+ Comparing portfolios using Sharpe ratio 
+ Effects of annualization 
+ 
+ 287 Rev:081020261230 
+ Limitations when returns are non-normal 
+G4: Sortino Ratio and Downside-Focused Metrics 
+ Downside deviation 
+ Difference between Sharpe and Sortino ratios 
+ Treatment of positive volatility 
+ Situations where downside-focused metrics are preferable 
+G5: Information Ratio and Active Risk 
+ Active return versus benchmark 
+ Tracking error 
+ Return attributable to active management 
+ Difference between Sharpe ratio and information ratio 
+G6: Risk-Return Tradeoffs 
+ Higher return versus higher risk 
+ Comparing strategies on a risk-adjusted basis 
+ Why raw return alone is insufficient 
+ Investor risk preferences and strategy selection 
+G7: Limitations of Risk Metrics 
+ Standard deviation treating upside and downside equally 
+ Sensitivity to the sample period 
+ Non-normal returns and fat tails 
+ Instability of historical estimates 
+ Metric gaming and misleading comparisons 
+G1: Volatility, Variance, and Standard Deviation 
+[QF-D2G1Q1] 
+A risk committee compares two market-neutral strategies that each earned an average monthly return of 1%. Strategy A 
+returned 1% in every observed month, while Strategy B alternated between 5% and -3%; the chief risk officer asks whether 
+their identical average returns imply identical risk. 
+ 
+ 
+ 288 Rev:081020261230 
+A. Strategy A has zero historical return variance over the stated sample. 
+B. Strategy B has greater historical return dispersion than Strategy A. 
+C. The two strategies must have the same standard deviation because their arithmetic average returns are equal. 
+D. Variance is expressed in squared-return units, while standard deviation is expressed in the same units as return. 
+E. Based only on these observations, Strategy B provided a smoother realized return path than Strategy A. 
+ 
+Answer Key: 
+ 
+A. True – Every observed return for Strategy A equals its mean, so each deviation from the mean is zero. 
+B. True – Strategy B's returns repeatedly deviate from the 1% mean, whereas Strategy A's do not. 
+C. False – Equal means do not imply equal dispersion or standard deviation. 
+D. True – Standard deviation is the square root of variance and returns to the original return units. 
+E. False – Strategy A's constant returns form the smoother observed path. 
+ 
+[QF-D2G1Q2] 
+An asset allocator is choosing between Fund X, with a 12% expected annual return and 10% annual volatility, and Fund 
+Y , with a 14% expected annual return and 24% annual volatility. The allocator's client wants growth but is concerned 
+about year-to-year uncertainty and asks how to interpret the volatility estimates. 
+ 
+A. Fund Y has the higher expected raw return. 
+B. Fund Y's return outcomes are estimated to be more dispersed around its expected return. 
+C. A 24% volatility estimate means Fund Y will lose exactly 24% in one out of every two years. 
+D. Fund X's lower volatility guarantees it will never experience a large loss. 
+E. Choosing Fund Y solely because of its 14% expected return would not ignore a material difference in estimated risk. 
+ 
+Answer Key: 
+ 
+A. True – Fund Y's expected return is 14%, compared with 12% for Fund X. 
+B. True – Its 24% standard deviation indicates greater estimated dispersion than Fund X's 10%. 
+C. False – Volatility is a dispersion measure, not a ﬁxed loss amount or frequency guarantee. 
+D. False – Lower volatility does not eliminate tail events, estimation error, or the possibility of loss. 
+E. False – The statement reverses the correct conclusion. The higher expected return is accompanied by substantially 
+higher estimated volatility. 
+ 
+ 
+ 289 Rev:081020261230 
+[QF-D2G1Q3] 
+A quant team reviews a strategy whose ﬁrst 23 monthly returns were clustered tightly around 0.5%, but whose twenty-
+fourth return was -18%. The portfolio manager wants to omit the ﬁnal month as "unrepresentative" before presenting the 
+strategy's risk statistics to an investment committee. 
+ 
+A. Including the -18% month will not generally increase the estimated variance relative to a sample containing only the 
+tightly clustered months. 
+B. Squaring deviations in the variance calculation makes a large deviation inﬂuential. 
+C. Removing the observation solely because it worsens the reported risk could create a misleading comparison. 
+D. The extreme observation can affect standard deviation but cannot affect the sample's mean return. 
+E. A risk review should investigate whether the observation is erroneous or reﬂects a genuine strategy exposure before 
+deciding how to treat it. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. A return far from the rest of the sample creates a large deviation 
+and generally raises measured dispersion. 
+B. True – Squaring gives disproportionate weight to observations far from the mean. 
+C. True – Selective exclusion can understate the risk investors actually faced. 
+D. False – Every included observation affects the arithmetic mean as well as dispersion statistics. 
+E. True – Data errors and genuine tail outcomes require different treatment, so the cause matters. 
+ 
+G2: Downside Risk and Drawdown 
+[QF-D2G2Q1] 
+A fund rises from a net asset value of $100 to $125, declines to $90, and later recovers to $110. The fund manager 
+highlights the $10 gain from inception, but a prospective investor asks the risk team to describe the loss experienced 
+from the fund's high-water mark. 
+ 
+A. The decline from $125 to $90 is not a 28% drawdown. 
+B. The maximum drawdown over the stated path is not measured from the $125 peak to the $90 trough. 
+C. Because the ending value of $110 exceeds the initial $100, the fund experienced no drawdown. 
+D. Recovering from $90 to the prior $125 peak requires a gain of approximately 38.9%. 
+E. At the ending value of $110, the fund remains 12% below its prior peak. 
+ 
+ 
+ 290 Rev:081020261230 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. ($90 - $125) / $125 = -28%. 
+B. False – The statement reverses the correct conclusion. That is the largest stated peak-to-subsequent-trough decline. 
+C. False – Drawdown is measured relative to a prior peak, not only from inception to the ending value. 
+D. True – $125 / $90 - 1 is approximately 38.9%. 
+E. True – ($110 - $125) / $125 = -12%. 
+ 
+[QF-D2G2Q2] 
+A pension plan compares Strategy A, which experiences frequent small ﬂuctuations but never falls more than 6% from a 
+prior peak, with Strategy B, which appears stable for years and then loses 30% before recovering. The investment 
+committee has a 15% drawdown tolerance and asks whether ordinary volatility alone captures its concern. 
+ 
+A. Strategy B violates the committee's stated drawdown tolerance during the observed loss. 
+B. A strategy can show low volatility for much of a sample yet still experience a severe drawdown. 
+C. Maximum drawdown and return standard deviation measure exactly the same feature of a return path. 
+D. Strategy A's frequent ﬂuctuations necessarily make its maximum drawdown larger than Strategy B's. 
+E. Drawdown is relevant to the pension because a sufficiently deep loss may trigger governance, liquidity, or behavioral 
+constraints even if the strategy later recovers. 
+ 
+Answer Key: 
+ 
+A. True – A 30% drawdown exceeds the stated 15% tolerance. 
+B. True – A rare large loss may follow a long period of apparent stability. 
+C. False – Standard deviation measures dispersion, while drawdown measures a path-dependent peak-to-trough loss. 
+D. False – The scenario states maximum drawdowns of 6% and 30%, respectively. 
+E. True – The path and depth of loss can matter operationally and behaviorally, not only the terminal return. 
+ 
+[QF-D2G2Q3] 
+A family office owns two strategies with the same annualized volatility and the same ending wealth. Strategy X suffered a 
+25% midyear drawdown and then recovered, while Strategy Y remained within 8% of its running peak; the family office 
+may need to withdraw capital during the year. 
+ 
+ 
+ 291 Rev:081020261230 
+A. The equal ending wealth proves the investor faced identical path-dependent risk in both strategies. 
+B. Strategy X had the larger maximum drawdown. 
+C. A reviewer would be wrong to accept the claim that the possibility of an interim withdrawal makes the timing and depth 
+of losses economically relevant. 
+D. After a 25% loss from a peak, a 25% gain from the trough is sufficient to regain that peak. 
+E. Reporting both volatility and drawdown can reveal risk differences hidden by either ending wealth or volatility alone. 
+ 
+Answer Key: 
+ 
+A. False – Identical endpoints can conceal materially different interim losses and liquidity consequences. 
+B. True – Its 25% maximum drawdown exceeds Strategy Y's stated 8% bound. 
+C. False – The underlying claim is correct and should be accepted. A withdrawal during a deep drawdown may force 
+realization of losses and leave less capital for recovery. 
+D. False – A 25% loss requires a gain of 1 / 0.75 - 1, or approximately 33.3%, to recover. 
+E. True – The measures describe different aspects of risk and are complementary here. 
+ 
+G3: Sharpe Ratio 
+[QF-D2G3Q1] 
+A client is comparing two funds. Fund A returned 12% with 20% volatility, while Fund B returned 9% with 8% volatility. The 
+risk-free rate was 2%. The client initially prefers Fund A because its raw return was higher. 
+ 
+A. Fund A has the higher excess return. 
+B. Fund B has the higher Sharpe ratio. 
+C. Fund A must be the better investment because it earned the higher return. 
+D. The risk-free rate should not be subtracted from return before computing the Sharpe ratio. 
+E. A higher Sharpe ratio indicates more excess return per unit of volatility. 
+ 
+Answer Key: 
+ 
+A. True – Fund A's excess return is 10%, compared with 7% for Fund B. 
+B. True – Fund A's Sharpe ratio is 0.50, while Fund B's is 0.875. 
+C. False – Raw return alone does not account for risk. 
+D. False – The statement reverses the correct conclusion. The Sharpe ratio uses excess return over the risk-free rate. 
+ 
+ 292 Rev:081020261230 
+E. True – That is the core interpretation of the Sharpe ratio. 
+ 
+[QF-D2G3Q2] 
+A trading desk estimates a strategy's average daily excess return at 0.04% and its daily return standard deviation at 0.80%. 
+The head of trading asks for an annualized Sharpe ratio using 252 trading days and assumes the daily observations are 
+independent and identically distributed for this calculation. 
+ 
+A. The strategy's daily Sharpe ratio is 0.05. 
+B. Under the stated assumptions, the annualized Sharpe ratio is not approximately 0.79. 
+C. Annualizing the Sharpe ratio requires multiplying the daily ratio by 252. 
+D. The square-root-of-time adjustment relies on assumptions that may fail when returns are autocorrelated or volatility 
+changes over time. 
+E. If the desk annualizes the mean excess return, it must not also place volatility on a consistent annual scale before 
+forming the ratio. 
+ 
+Answer Key: 
+ 
+A. True – 0.04% / 0.80% = 0.05. 
+B. False – The statement reverses the correct conclusion. 0.05 × sqrt(252) is approximately 0.79. 
+C. False – Under the stated assumptions, the ratio scales by sqrt(252), not 252. 
+D. True – Dependence and time-varying volatility undermine the simple square-root-of-time rule. 
+E. False – The statement reverses the correct conclusion. The numerator and denominator must use compatible time 
+units. 
+ 
+[QF-D2G3Q3] 
+An investment committee compares a liquid equity strategy with a short-volatility strategy. The short-volatility strategy 
+reports a high historical Sharpe ratio because it earned small, steady gains before one rare, severe loss; the chief risk 
+officer warns that the return distribution is highly skewed and fat-tailed. 
+ 
+A. A high historical Sharpe ratio by itself proves that the short-volatility strategy has little tail risk. 
+B. Standard deviation may incompletely describe the risk of a non-normal return distribution. 
+C. Rare losses can be underrepresented when the estimation window contains few or no tail events. 
+D. Two strategies with the same Sharpe ratio must have the same drawdown proﬁle and loss distribution. 
+ 
+ 293 Rev:081020261230 
+E. The committee should supplement Sharpe with measures or scenario analyses that address downside and tail 
+behavior. 
+ 
+Answer Key: 
+ 
+A. False – Sharpe summarizes historical excess return relative to volatility and does not prove tail safety. 
+B. True – Skewness, fat tails, and discontinuous losses are not fully captured by standard deviation. 
+C. True – A benign sample can make a tail-sensitive strategy appear unusually stable. 
+D. False – The same ratio can arise from very different return paths and distributions. 
+E. True – Drawdown, downside metrics, stress tests, and tail analysis can expose risks Sharpe misses. 
+ 
+G4: Sortino Ratio and Downside-Focused Metrics 
+[QF-D2G4Q1] 
+A wealth manager compares two funds with the same average return above a 3% minimum acceptable return. Fund A's 
+variability comes mainly from unexpectedly strong gains, while Fund B frequently falls below the 3% target; the client 
+says she is concerned about shortfalls, not positive surprises. 
+ 
+A. The Sortino ratio is not aligned more directly than the Sharpe ratio with the client's stated concern about downside 
+shortfalls. 
+B. The Sharpe ratio treats upside and downside deviations as contributors to total volatility. 
+C. Positive returns far above the target necessarily increase downside deviation. 
+D. Fund A could have a better Sortino ratio than Fund B even if their total standard deviations are similar. 
+E. A Sortino ratio can be interpreted without specifying or understanding the return threshold used in its calculation. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Sortino relates return above a target to downside deviation 
+below that target. 
+B. True – Total standard deviation does not distinguish favorable from unfavorable deviations. 
+C. False – Downside deviation focuses on observations below the selected target, not large positive outcomes. 
+D. True – Similar total volatility can mask materially different downside behavior. 
+E. False – The chosen target affects both shortfall identiﬁcation and the resulting ratio. 
+ 
+ 
+ 294 Rev:081020261230 
+[QF-D2G4Q2] 
+A retirement fund evaluates Strategy X, which has an 8% annual return and 4% downside deviation, and Strategy Y , which 
+has a 10% annual return and 8% downside deviation. Using a 2% annual minimum acceptable return, the investment 
+officer asks which strategy has provided more return above the target per unit of downside risk. 
+ 
+A. Strategy X's Sortino ratio is 1.5. 
+B. Strategy Y's Sortino ratio is 1.0. 
+C. Strategy Y has the higher Sortino ratio because it has the higher raw return. 
+D. On this metric and under the stated inputs, Strategy X has better downside-adjusted performance. 
+E. Changing the minimum acceptable return could not change both ratios and potentially affect the comparison. 
+ 
+Answer Key: 
+ 
+A. True – (8% - 2%) / 4% = 1.5. 
+B. True – (10% - 2%) / 8% = 1.0. 
+C. False – Its greater downside deviation more than offsets its higher raw return in the ratio. 
+D. True – Strategy X's Sortino ratio of 1.5 exceeds Strategy Y's 1.0. 
+E. False – The statement reverses the correct conclusion. The target changes the excess-return numerator and which 
+outcomes count as shortfalls. 
+ 
+[QF-D2G4Q3] 
+A hedge fund presents a very high Sortino ratio based on only 18 months of returns, during which no month fell below its 
+chosen 0% target. The due-diligence team knows the strategy sells disaster insurance and can incur rare losses, so it 
+questions whether the ratio is reliable. 
+ 
+A. The absence of observed negative months proves that the strategy has no downside risk. 
+B. With little or no observed downside deviation, the estimated Sortino ratio may be extremely high or not meaningfully 
+deﬁned. 
+C. A short sample cannot fail to capture the rare events that generate the strategy's principal risk. 
+D. Sortino always resolves the non-normal-return limitations associated with the Sharpe ratio. 
+E. Stress testing and a longer, relevant history would help assess the downside exposure not represented in the sample. 
+ 
+Answer Key: 
+ 
+ 
+ 295 Rev:081020261230 
+A. False – An unobserved tail event can still be economically plausible and central to the strategy. 
+B. True – A near-zero denominator makes the ratio unstable, and a zero denominator prevents an ordinary ﬁnite 
+calculation. 
+C. False – The statement reverses the correct conclusion. Rare-loss strategies may look exceptionally safe during benign 
+windows. 
+D. False – Downside focus helps with one limitation but does not eliminate sampling, tail, or estimation problems. 
+E. True – Additional evidence is needed to evaluate losses absent from the observed record. 
+ 
+G5: Information Ratio and Active Risk 
+[QF-D2G5Q1] 
+An active equity manager returned 11% while its benchmark returned 8%, and the standard deviation of monthly 
+benchmark-relative returns, annualized, was 6%. The pension board asks whether the manager used active risk 
+efficiently rather than merely beneﬁting from a rising market. 
+ 
+A. The manager's active return was 3%. 
+B. The stated tracking error is not 6%. 
+C. The manager's information ratio is 0.50 under the stated annual ﬁgures. 
+D. The benchmark's 8% return should be treated as the risk-free rate when computing the manager's Sharpe ratio. 
+E. A positive information ratio here indicates that realized return exceeded the benchmark per unit of tracking error. 
+ 
+Answer Key: 
+ 
+A. True – 11% - 8% = 3% active return. 
+B. False – The statement reverses the correct conclusion. Tracking error is the volatility of benchmark-relative returns, 
+given here as 6% annualized. 
+C. True – 3% / 6% = 0.50. 
+D. False – A benchmark and a risk-free asset serve different roles; benchmark return is used for active-return analysis. 
+E. True – The numerator is positive active return and the denominator is active risk. 
+ 
+[QF-D2G5Q2] 
+A foundation compares Manager A, who beat the benchmark by 2% with 2.5% tracking error, and Manager B, who beat it 
+by 4% with 8% tracking error. The foundation wants consistent benchmark-relative performance and initially favors 
+Manager B because of the larger excess return. 
+ 
+ 296 Rev:081020261230 
+ 
+A. Manager A's information ratio is 0.80. 
+B. Manager B's information ratio is not 0.50. 
+C. Manager B used active risk more efficiently because its active return was twice as large. 
+D. Manager A ranks higher by information ratio under the stated ﬁgures. 
+E. The information-ratio comparison alone determines which manager is appropriate regardless of the foundation's 
+constraints or conﬁdence in the estimates. 
+ 
+Answer Key: 
+ 
+A. True – 2% / 2.5% = 0.80. 
+B. False – The statement reverses the correct conclusion. 4% / 8% = 0.50. 
+C. False – Manager B earned more active return but used proportionally much more active risk. 
+D. True – 0.80 exceeds 0.50. 
+E. False – Mandate constraints, estimation reliability, fees, capacity, and risk tolerance may also affect selection. 
+ 
+[QF-D2G5Q3] 
+A global portfolio earned 10% with 12% total volatility, while its policy benchmark earned 9%; the portfolio's tracking error 
+was 2%. The chief investment officer asks analysts to distinguish an information-ratio evaluation from a Sharpe-ratio 
+evaluation and notes that the risk-free rate was 3%. 
+ 
+A. The portfolio's information ratio is 0.50. 
+B. The portfolio's Sharpe ratio is approximately 0.58. 
+C. Information ratio uses total portfolio volatility as its denominator. 
+D. Sharpe ratio evaluates return above the risk-free rate, whereas information ratio evaluates return above a benchmark. 
+E. A portfolio cannot have a modest Sharpe ratio but a strong information ratio if it tracks a risky benchmark closely and 
+adds consistent value. 
+ 
+Answer Key: 
+ 
+A. True – Active return is 1%, and 1% / 2% = 0.50. 
+B. True – (10% - 3%) / 12% is approximately 0.58. 
+C. False – Information ratio uses tracking error, the volatility of active returns. 
+D. True – The ratios use different reference returns and different risk denominators. 
+ 
+ 297 Rev:081020261230 
+E. False – The statement reverses the correct conclusion. Benchmark-relative consistency and total risk-adjusted 
+performance are distinct properties. 
+ 
+G6: Risk-Return Tradeoffs 
+[QF-D2G6Q1] 
+A university endowment compares Strategy A, expected to return 9% with 7% volatility, and Strategy B, expected to return 
+13% with 18% volatility. The endowment needs at least 8% expected return but strongly values spending stability; the 
+investment committee asks whether Strategy B's higher return automatically makes it preferable. 
+ 
+A. Both strategies exceed the stated 8% expected-return requirement. 
+B. Strategy B offers 4 percentage points more expected return and 11 percentage points more estimated volatility. 
+C. Strategy B is necessarily preferable because rational investors always choose the highest expected return. 
+D. A reviewer would be wrong to accept the claim that the endowment's concern about spending stability makes the 
+difference in volatility relevant to its selection. 
+E. A risk-adjusted comparison cannot inform the decision but does not eliminate the need to consider the investor's 
+objectives and constraints. 
+ 
+Answer Key: 
+ 
+A. True – Their expected returns are 9% and 13%, both above 8%. 
+B. True – The differences are 13% - 9% = 4% in return and 18% - 7% = 11% in volatility. 
+C. False – Investors also consider risk, constraints, funding needs, and preferences. 
+D. False – The underlying claim is correct and should be accepted. A more volatile asset path may disrupt planned 
+spending or governance tolerance. 
+E. False – The statement reverses the correct conclusion. Metrics summarize tradeoffs but do not specify a universal 
+choice for every investor. 
+ 
+[QF-D2G6Q2] 
+A leveraged trading strategy earned 18% with 30% volatility, while an unlevered strategy earned 10% with 10% volatility; 
+the risk-free rate was 2%. A portfolio manager argues that the leveraged strategy is superior because it earned nearly 
+twice the raw return. 
+ 
+A. The leveraged strategy's Sharpe ratio is not approximately 0.53. 
+B. The unlevered strategy's Sharpe ratio is 0.80. 
+ 
+ 298 Rev:081020261230 
+C. The leveraged strategy has both the higher raw return and the higher Sharpe ratio. 
+D. On a Sharpe-ratio basis, the unlevered strategy used total risk more efficiently over the stated period. 
+E. The comparison does not by itself address leverage constraints, tail losses, or implementation costs. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. (18% - 2%) / 30% is approximately 0.53. 
+B. True – (10% - 2%) / 10% = 0.80. 
+C. False – It has the higher return but the lower Sharpe ratio. 
+D. True – Its Sharpe ratio of 0.80 exceeds approximately 0.53. 
+E. True – Those considerations are not fully described by the provided return and volatility ﬁgures. 
+ 
+[QF-D2G6Q3] 
+A retiree and a well-capitalized proprietary trading ﬁrm are considering the same volatile strategy. The retiree depends on 
+near-term withdrawals and cannot tolerate a 20% drawdown, while the trading ﬁrm has long-dated capital and an explicit 
+35% drawdown limit; an adviser asks whether one universal ranking should govern both decisions. 
+ 
+A. The same strategy cannot be acceptable to one investor and unsuitable for another because their constraints differ. 
+B. The retiree's withdrawal needs make downside timing and drawdown particularly relevant. 
+C. If the strategy has a positive expected return, the retiree's drawdown limit becomes irrelevant. 
+D. A single risk-adjusted metric completely captures liquidity needs, horizon, and behavioral tolerance for both investors. 
+E. Strategy selection should connect measured risk and expected return to the decision maker's capacity and willingness 
+to bear loss. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Suitability depends on objectives, horizon, liquidity, and loss-
+bearing capacity. 
+B. True – Losses near withdrawals can impair capital available for both spending and recovery. 
+C. False – Positive expected return does not prevent an unacceptable interim loss. 
+D. False – These constraints require information beyond one summary statistic. 
+E. True – Risk-return evaluation is investor-speciﬁc rather than a context-free ranking exercise. 
+ 
+ 
+ 299 Rev:081020261230 
+G7: Limitations of Risk Metrics 
+[QF-D2G7Q1] 
+A venture fund and a loss-prone trading strategy report the same annual return standard deviation. The venture fund's 
+deviations were mostly unexpectedly large gains, while the trading strategy's deviations were mostly losses; a limited 
+partner asks whether standard deviation alone makes their risk equally attractive. 
+ 
+A. Standard deviation treats equally sized deviations above and below the mean symmetrically. 
+B. Equal standard deviations imply that the two return distributions have identical skewness and tail behavior. 
+C. A downside-focused measure could distinguish features that total standard deviation obscures in this scenario. 
+D. Large positive surprises can raise measured volatility even though investors may welcome them. 
+E. Because standard deviation is imperfect, it contains no useful information about return dispersion. 
+ 
+Answer Key: 
+ 
+A. True – Squared deviations enter the calculation regardless of their direction. 
+B. False – Distributions can share a standard deviation while differing greatly in shape and tails. 
+C. True – Downside deviation or loss-based analysis can focus on unfavorable outcomes. 
+D. True – Upside observations far above the mean increase total measured dispersion. 
+E. False – It remains informative about dispersion even though it does not capture every dimension of risk. 
+ 
+[QF-D2G7Q2] 
+A manager markets a strategy using a Sharpe ratio calculated only over the most recent three calm years, although the 
+strategy performed poorly during an earlier crisis. A due-diligence analyst worries that the chosen window and the 
+manager's presentation choices make the comparison unreliable. 
+ 
+A. A risk-adjusted metric can change materially when the sample period changes. 
+B. Excluding a relevant stress period cannot make historical risk appear lower and performance appear more favorable. 
+C. The most recent three-year window is necessarily the only valid sample because newer data always dominate older 
+evidence. 
+D. Applying the same disclosed methodology and economically comparable period across strategies improves 
+comparability. 
+E. A precisely calculated ratio cannot be misleading if the underlying inputs were selectively chosen. 
+ 
+ 
+ 300 Rev:081020261230 
+Answer Key: 
+ 
+A. True – Estimated means, volatility, and ratios depend on the observations included. 
+B. False – The statement reverses the correct conclusion. Removing adverse but relevant outcomes can understate the 
+strategy's historical vulnerability. 
+C. False – Relevance depends on the strategy and regime; recency alone does not make one window uniquely valid. 
+D. True – Consistent methods reduce one important source of presentation bias. 
+E. False – Arithmetic precision does not cure biased sample selection or inappropriate assumptions. 
+ 
+[QF-D2G7Q3] 
+A machine-learning strategy has an excellent backtested Sharpe ratio and low maximum drawdown after extensive 
+hyperparameter tuning. Before allocating capital, the risk committee notes that the estimates are based on one historical 
+sample, returns are fat-tailed, and many model variants were tried. 
+ 
+A. Extensive selection among model variants can inﬂate the reported performance of the chosen backtest. 
+B. Historical estimates are guaranteed to remain stable when the strategy begins live trading. 
+C. Fat-tailed returns make extreme outcomes more plausible than a normal-distribution interpretation may suggest. 
+D. Low backtested maximum drawdown establishes a hard upper bound on future drawdown. 
+E. Out-of-sample testing, sensitivity analysis, and stress testing can provide evidence beyond the headline historical 
+metrics. 
+ 
+Answer Key: 
+ 
+A. True – Choosing the best result from many trials can capitalize on noise and create selection bias. 
+B. False – Market regimes, implementation, estimation error, and overﬁtting can alter live results. 
+C. True – Fat tails assign more probability to extreme outcomes than a comparable normal distribution. 
+D. False – Historical maximum drawdown is an observed sample statistic, not a guaranteed future limit. 
+E. True – These checks probe robustness and risks that a single optimized backtest can conceal. 
+ 
+  
+ 
+ 301 Rev:081020261230 

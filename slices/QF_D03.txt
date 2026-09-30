@@ -1,0 +1,507 @@
+Domain 3: Diversiﬁcation and Correlation 
+Domain Summary 
+ Portfolio diversiﬁcation 
+ Correlation and covariance 
+ Speciﬁc and systematic risk 
+ Concentration 
+ Marginal diversiﬁcation beneﬁt 
+ Correlation instability 
+ Effects of adding assets to a portfolio 
+ Diversiﬁcation versus diworsiﬁcation 
+Topic Groups 
+G1: Correlation and Co-Movement 
+ Positive, negative, and zero correlation 
+ Interpreting correlation coefficients 
+ Correlation versus causation 
+ Effects of changing correlation on a portfolio 
+G2: Covariance and Portfolio Risk 
+ Covariance as a measure of joint movement 
+ Relationship between covariance and correlation 
+ Contribution of covariance to portfolio variance 
+ Why asset risk cannot be evaluated independently 
+G3: Speciﬁc vs. Systematic Risk 
+ Company-speciﬁc risk 
+ Market-wide risk 
+ Risks that diversiﬁcation can reduce 
+ Risks that diversiﬁcation cannot eliminate 
+ 
+ 302 Rev:081020261230 
+G4: Diversiﬁcation Beneﬁts 
+ Combining imperfectly correlated assets 
+ Risk reduction without proportional return reduction 
+ Why two risky assets can form a lower-risk portfolio 
+ Negative correlation as a hedge 
+G5: Concentration and Position Sizing 
+ Large single-position exposure 
+ Impact of concentration on portfolio volatility 
+ Conviction versus diversiﬁcation 
+ Position limits and risk controls 
+G6: Diminishing Marginal Diversiﬁcation 
+ Beneﬁt of adding early versus later assets 
+ Redundant assets 
+ Highly correlated holdings 
+ Why more holdings do not always mean better diversiﬁcation 
+G7: Correlation Instability and Crisis Behavior 
+ Correlations changing across regimes 
+ Correlations rising during market stress 
+ Historical correlation as an imperfect forecast 
+ Failure of diversiﬁcation during crises 
+G1: Correlation and Co-Movement 
+[QF-D3G1Q1] 
+A family office holds two strategies with similar expected returns and volatilities. Their historical return correlation is -
+0.60, and the investment committee asks whether this means one strategy reliably gains whenever the other loses. 
+ 
+A. The negative correlation indicates that the strategies have tended to move in opposite directions, but not in every 
+period. 
+B. A correlation of -0.60 implies that 60% of one strategy's losses were exactly offset by gains in the other. 
+ 
+ 303 Rev:081020261230 
+C. If the correlation moved from -0.60 to +0.60 while other inputs stayed ﬁxed, the volatility of a long-only combination 
+would generally increase. 
+D. Correlation alone establishes that movements in one strategy cause movements in the other. 
+E. Correlation is not bounded between -1 and +1. 
+ 
+Answer Key: 
+ 
+A. True – Correlation summarizes a tendency toward opposite co-movement, not an exceptionless period-by-period rule. 
+B. False – Correlation is a standardized measure of linear co-movement, not an offset percentage. 
+C. True – A more positive covariance term increases portfolio variance when weights and volatilities are positive. 
+D. False – A statistical association does not by itself establish causation. 
+E. False – The statement reverses the correct conclusion. Standardized correlation cannot fall below -1 or exceed +1. 
+ 
+[QF-D3G1Q2] 
+A pension fund compares Asset A with two possible diversiﬁers. Asset B has a 0.05 historical correlation with A, while 
+Asset C has a 0.70 correlation with A; the chief investment officer proposes calling B “independent” and C “the same 
+trade. ” 
+ 
+A. Asset B's correlation near zero indicates little historical linear co-movement with Asset A. 
+B. A 0.05 correlation proves that A and B are statistically and economically independent. 
+C. All else equal, B would ordinarily offer more diversiﬁcation relative to A than C would. 
+D. A 0.70 correlation means A and C always have returns with the same sign. 
+E. The correlations should be interpreted with the sample period and estimation uncertainty in mind. 
+ 
+Answer Key: 
+ 
+A. True – A value near zero indicates little linear association in the observed sample. 
+B. False – Zero or near-zero linear correlation does not rule out nonlinear dependence or other relationships. 
+C. True – Lower correlation generally reduces the covariance contribution to the combined portfolio's variance. 
+D. False – A strong positive correlation allows periods in which returns have different signs. 
+E. True – Correlation is an estimate that can vary with the data window and market regime. 
+ 
+ 
+ 304 Rev:081020261230 
+[QF-D3G1Q3] 
+A multi-asset fund holds equal weights in two assets, each with 20% annual volatility. A risk analyst reports that their 
+estimated correlation rose from 0.10 to 0.80, although expected returns and individual volatilities were unchanged; the 
+risk committee must decide whether to reduce exposure. 
+ 
+A. The rise in correlation increases the covariance between the assets under the stated assumptions. 
+B. The portfolio's expected return must fall because the correlation rose. 
+C. A reviewer would be wrong to accept the claim that the portfolio's volatility increases when the correlation rises from 
+0.10 to 0.80, all else equal. 
+D. The assets' unchanged stand-alone volatilities are sufficient to conclude that portfolio risk is unchanged. 
+E. The change matters because portfolio risk depends on how holdings move together, not only on their individual risk. 
+ 
+Answer Key: 
+ 
+A. True – Covariance equals correlation times the two standard deviations, which are unchanged here. 
+B. False – Correlation affects the portfolio variance calculation, not the weighted expected return under these 
+assumptions. 
+C. False – The underlying claim is correct and should be accepted. For positive weights, the larger covariance term raises 
+portfolio variance and volatility. 
+D. False – Portfolio risk also depends on covariance among holdings. 
+E. True – Co-movement determines how much individual ﬂuctuations offset or reinforce one another. 
+ 
+G2: Covariance and Portfolio Risk 
+[QF-D3G2Q1] 
+An asset manager considers equal weights in Funds X and Y . X has 10% annual volatility, Y has 20%, and their correlation 
+is 0.50; a junior analyst claims their covariance is 0.50 because covariance and correlation are interchangeable. 
+ 
+A. Using returns in decimal form, the covariance is not 0.50 × 0.10 × 0.20 = 0.010. 
+B. Correlation is unitless, whereas covariance depends on the units used for returns. 
+C. The correlation can be recovered by dividing covariance by the product of the two standard deviations. 
+D. If both volatilities doubled while correlation stayed at 0.50, covariance would only double. 
+E. A positive covariance indicates that the funds have tended to move in the same direction relative to their means. 
+ 
+ 
+ 305 Rev:081020261230 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. The covariance is correlation multiplied by both standard 
+deviations. 
+B. True – Standardization removes units from correlation, while covariance retains product units. 
+C. True – This is the deﬁning relationship when both standard deviations are nonzero. 
+D. False – Doubling both standard deviations multiplies their product, and therefore covariance, by four. 
+E. True – Positive covariance reﬂects a tendency for deviations from each mean to share the same sign. 
+ 
+[QF-D3G2Q2] 
+A portfolio contains 60% in Asset A and 40% in Asset B. Their annual variances are 0.0225 and 0.0100, and their 
+covariance is 0.0030; the portfolio manager asks the quant team to explain the portfolio-variance calculation before 
+approving the allocation. 
+ 
+A. The two-asset variance is (0.60² × 0.0225) + (0.40² × 0.0100) + (2 × 0.60 × 0.40 × 0.0030). 
+B. Under the stated inputs, the portfolio variance equals 0.01114. 
+C. Omitting the covariance term would correctly measure portfolio variance because each asset's variance is already 
+included. 
+D. If covariance were lower while all other inputs stayed ﬁxed, portfolio variance would not be lower. 
+E. Portfolio volatility is not the square root of portfolio variance, not the weighted average of the two variances. 
+ 
+Answer Key: 
+ 
+A. True – The expression includes both weighted variance terms and the cross-covariance term. 
+B. True – The terms are 0.00810, 0.00160, and 0.00144, which sum to 0.01114. 
+C. False – Omitting covariance ignores whether the assets' returns reinforce or offset each other. 
+D. False – The statement reverses the correct conclusion. With positive weights, a lower covariance reduces the cross 
+term directly. 
+E. False – The statement reverses the correct conclusion. Variances combine through the covariance formula, after which 
+the square root gives volatility. 
+ 
+ 
+ 306 Rev:081020261230 
+[QF-D3G2Q3] 
+A risk committee compares two 50/50 portfolios. Both use assets with 15% annual volatility, but Portfolio P's pair has 
+covariance 0.0180 while Portfolio Q's pair has covariance -0.0045; expected returns are identical, and the committee 
+wants the lower-risk allocation. 
+ 
+A. Portfolio P has the larger covariance contribution to portfolio variance. 
+B. Portfolio Q can have lower volatility even though its component assets have the same stand-alone volatility as those 
+in P . 
+C. Negative covariance means that each asset in Q has negative stand-alone variance. 
+D. Evaluating only the assets' individual volatilities would miss the principal difference between P and Q. 
+E. Because expected returns are identical, covariance cannot affect the allocation decision. 
+ 
+Answer Key: 
+ 
+A. True – Its positive covariance produces a larger cross term than Q's negative covariance. 
+B. True – Offsetting co-movement can lower combined risk without changing the component volatilities. 
+C. False – Individual variances cannot be negative; the negative value describes joint movement. 
+D. True – The portfolios differ in co-movement, which is essential to total portfolio variance. 
+E. False – With equal expected return, the lower-risk portfolio may be preferable precisely because covariance differs. 
+ 
+G3: Speciﬁc vs. Systematic Risk 
+[QF-D3G3Q1] 
+A long-only equity fund holds nearly all its capital in one pharmaceutical company awaiting a regulatory decision. The 
+portfolio manager argues that the broad market is calm, so the fund's risk is low; the chief risk officer asks the team to 
+separate company-speciﬁc from market-wide exposure. 
+ 
+A. An adverse decision affecting only the company is not primarily a speciﬁc-risk event. 
+B. Spreading the position across many unrelated companies could not reduce the portfolio's exposure to that single 
+decision. 
+C. A broad recession that depresses most equities is systematic risk from the fund's perspective. 
+D. Holding more companies guarantees elimination of all equity-market risk. 
+E. Low recent market volatility does not remove the concentrated company's event risk. 
+ 
+ 
+ 307 Rev:081020261230 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. The regulatory outcome is tied to one issuer rather than the 
+market as a whole. 
+B. False – The statement reverses the correct conclusion. Diversiﬁcation can reduce the impact of idiosyncratic 
+outcomes from one company. 
+C. True – Economy-wide shocks tend to affect many securities and cannot be diversiﬁed away within equities. 
+D. False – Broad market exposure remains even in a well-diversiﬁed equity portfolio. 
+E. True – Company-speciﬁc catalysts can produce large moves independently of aggregate market conditions. 
+ 
+[QF-D3G3Q2] 
+An index manager expands a portfolio from 20 to 500 stocks while maintaining roughly the same market and sector 
+exposures. A client expects the expansion to eliminate both stock-selection risk and losses during market crashes. 
+ 
+A. Increasing the number of reasonably diversiﬁed holdings can reduce ﬁrm-speciﬁc risk. 
+B. The expansion necessarily reduces the portfolio's systematic market exposure to zero. 
+C. A market-wide interest-rate shock can still affect many or all 500 holdings. 
+D. The incremental reduction in speciﬁc risk is likely to diminish as the portfolio becomes broadly diversiﬁed. 
+E. A 500-stock portfolio cannot experience a negative return caused by an economy-wide shock. 
+ 
+Answer Key: 
+ 
+A. True – Idiosyncratic gains and losses have more opportunity to offset across many issuers. 
+B. False – Retaining similar market exposure preserves systematic risk. 
+C. True – Common macroeconomic shocks can affect a broad cross-section of securities. 
+D. True – Early additions remove more concentration, while later additions often provide smaller marginal beneﬁts. 
+E. False – Diversiﬁcation does not immunize a portfolio against common market declines. 
+ 
+[QF-D3G3Q3] 
+A market-neutral fund holds dozens of long and short positions but discovers that many depend on cheap ﬁnancing and 
+liquid credit markets. The head of risk asks whether the large position count proves that the portfolio is well protected 
+from systemic stress. 
+ 
+ 
+ 308 Rev:081020261230 
+A. A large number of positions does not guarantee diversiﬁcation if they share the same underlying risk driver. 
+B. An isolated accounting scandal at one small long position is not more diversiﬁable than a market-wide funding shock. 
+C. Equal dollar exposure across positions necessarily eliminates systematic risk. 
+D. Common exposure to ﬁnancing conditions cannot cause positions that appeared distinct to lose together. 
+E. Risk analysis should examine factor and scenario exposures in addition to counting securities. 
+ 
+Answer Key: 
+ 
+A. True – Positions can be economically redundant despite having different names or tickers. 
+B. False – The statement reverses the correct conclusion. An issuer-speciﬁc event can be diluted, whereas a funding 
+shock may affect the full portfolio. 
+C. False – Dollar neutrality does not ensure neutrality to market, sector, liquidity, or other systematic factors. 
+D. False – The statement reverses the correct conclusion. A shared dependency can create correlated losses under 
+stress. 
+E. True – Economic drivers reveal concentrations that a simple holdings count can conceal. 
+ 
+G4: Diversiﬁcation Beneﬁts 
+[QF-D3G4Q1] 
+A balanced fund considers combining two assets, each expected to return 8% annually with 12% volatility. Their 
+correlation is zero, and the investment committee asks whether combining two risky assets can genuinely reduce risk 
+without lowering expected return. 
+ 
+A. A 50/50 portfolio retains an expected return of 8% under the stated assumptions. 
+B. The 50/50 portfolio's variance is 0.5²(0.12²) + 0.5²(0.12²) because the covariance term is zero. 
+C. The resulting portfolio volatility is not approximately 8.49%, below either asset's 12% volatility. 
+D. Zero correlation means neither asset can ever lose in the same period as the other. 
+E. This example demonstrates that risk reduction need not require a proportional reduction in expected return. 
+ 
+Answer Key: 
+ 
+A. True – Expected portfolio return is the weighted average, here 0.5(8%) + 0.5(8%). 
+B. True – Zero correlation implies zero covariance when the volatilities are ﬁnite. 
+C. False – The statement reverses the correct conclusion. The variance is 0.0072, whose square root is about 0.0849. 
+ 
+ 309 Rev:081020261230 
+D. False – Zero linear correlation does not prohibit simultaneous losses. 
+E. True – Expected return remains 8% while volatility falls through imperfect co-movement. 
+ 
+[QF-D3G4Q2] 
+An endowment holds a growth asset and is considering an allocation to a defensive strategy with a -0.40 correlation to it. 
+The strategy has a positive expected return but lower stand-alone return than the growth asset; trustees worry that any 
+allocation to it must make the portfolio strictly worse. 
+ 
+A. The defensive strategy's negative correlation can reduce total portfolio volatility. 
+B. A lower stand-alone expected return automatically makes the defensive strategy undesirable in every portfolio. 
+C. The portfolio may achieve a more attractive risk-return tradeoff even if its expected return falls modestly. 
+D. Negative historical correlation guarantees protection in every future drawdown. 
+E. The allocation decision should not consider joint portfolio outcomes rather than ranking assets solely by stand-alone 
+return. 
+ 
+Answer Key: 
+ 
+A. True – Opposing co-movement can create a negative covariance contribution to portfolio variance. 
+B. False – Portfolio value depends on both expected return and interaction with existing holdings. 
+C. True – A sufficient reduction in risk may compensate for a smaller reduction in expected return. 
+D. False – Correlations are estimates and can change across regimes. 
+E. False – The statement reverses the correct conclusion. Diversiﬁcation is inherently a portfolio-level concept. 
+ 
+[QF-D3G4Q3] 
+A commodity producer invests its pension assets heavily in commodity-linked securities because management expects 
+strong returns. An adviser proposes adding assets that tend to perform well when commodity prices fall, but 
+management objects that these holdings may lag during commodity booms. 
+ 
+A. Assets with offsetting commodity exposure may hedge risk tied to the sponsor and current portfolio. 
+B. A hedge must have the highest expected stand-alone return to improve the portfolio. 
+C. Some underperformance by the hedge during commodity booms can be the economic cost of protection. 
+D. If the proposed assets are perfectly negatively correlated and appropriately sized, they can theoretically eliminate the 
+paired return variability. 
+ 
+ 310 Rev:081020261230 
+E. Adding another commodity producer with nearly identical exposure would ordinarily provide the same hedge as an 
+offsetting asset. 
+ 
+Answer Key: 
+ 
+A. True – The pension and sponsor already share commodity sensitivity, so opposing exposure can reduce aggregate risk. 
+B. False – A hedge can add value through covariance reduction even with a lower stand-alone return. 
+C. True – Protection often gives up some upside in states where the original exposure performs well. 
+D. True – With correlation of -1, weights can be chosen so the volatile components exactly offset. 
+E. False – A similarly exposed producer is likely to reinforce, rather than hedge, commodity risk. 
+ 
+G5: Concentration and Position Sizing 
+[QF-D3G5Q1] 
+A hedge fund manager wants to place 35% of fund capital in a single high-conviction stock. The investment thesis is 
+strong, but the fund's mandate limits severe drawdowns; the risk committee is evaluating whether conviction justiﬁes 
+the proposed size. 
+ 
+A. If the stock loses 50% while all other holdings are unchanged, it reduces fund value by approximately 17.5% before 
+secondary effects. 
+B. A strong expected-return estimate eliminates the need to consider position size. 
+C. The concentrated weight increases the portfolio's sensitivity to estimation error in the stock thesis. 
+D. A position limit cannot constrain the damage from an issuer-speciﬁc event. 
+E. Diversifying some capital away from the stock necessarily means the manager has no conviction in the thesis. 
+ 
+Answer Key: 
+ 
+A. True – A 35% weight multiplied by a 50% loss produces a 17.5% portfolio loss. 
+B. False – Expected returns are uncertain, and sizing determines the consequence of being wrong. 
+C. True – Errors in forecasts or omitted risks have a larger portfolio effect at a larger weight. 
+D. False – The statement reverses the correct conclusion. Limits cap direct exposure to a single issuer or thesis. 
+E. False – Position sizing balances conviction with uncertainty and portfolio-level risk. 
+ 
+ 
+ 311 Rev:081020261230 
+[QF-D3G5Q2] 
+A portfolio holds ten stocks at 10% each, but eight are regional banks with similar loan books and funding sources. The 
+portfolio manager cites the ten equal positions as evidence that no concentration risk exists; the chief risk officer 
+requests a broader assessment. 
+ 
+A. Equal security weights eliminate single-name concentration but may leave substantial sector concentration. 
+B. The eight bank positions may behave like a much smaller number of independent bets. 
+C. A regional credit shock could not cause correlated losses across most of the portfolio. 
+D. Because no individual stock exceeds 10%, additional exposure limits would serve no risk-management purpose. 
+E. Position controls can include sector, factor, and scenario limits in addition to single-name limits. 
+ 
+Answer Key: 
+ 
+A. True – Weight dispersion across names does not remove shared industry exposure. 
+B. True – Common economic drivers can make nominally separate holdings redundant. 
+C. False – The statement reverses the correct conclusion. Similar loan and funding exposures create vulnerability to the 
+same shock. 
+D. False – Aggregate sector and factor concentrations remain despite the single-name cap. 
+E. True – Multiple limit dimensions address risks that security-level limits miss. 
+ 
+[QF-D3G5Q3] 
+A systematic fund sizes positions in inverse proportion to each asset's volatility, but it ignores correlations. One low-
+volatility asset receives a very large weight and has become strongly correlated with several other holdings; the portfolio 
+manager asks whether inverse-volatility sizing alone is sufficient. 
+ 
+A. A low stand-alone volatility estimate does not guarantee a small contribution to portfolio risk. 
+B. The large weight can make the asset important to total risk even if its own volatility is relatively low. 
+C. Increased correlation with other holdings cannot raise the asset's marginal contribution to portfolio variance. 
+D. Inverse-volatility sizing automatically produces an optimally diversiﬁed portfolio for any covariance matrix. 
+E. Portfolio-level risk controls should not consider weights, volatilities, and correlations together. 
+ 
+Answer Key: 
+ 
+A. True – Risk contribution depends on weight and covariance with the full portfolio. 
+ 
+ 312 Rev:081020261230 
+B. True – A sufficiently large exposure can dominate despite modest stand-alone volatility. 
+C. False – The statement reverses the correct conclusion. Greater positive covariance means the position reinforces 
+more of the portfolio's movement. 
+D. False – Ignoring correlations can leave major factor or covariance concentrations. 
+E. False – The statement reverses the correct conclusion. All three inputs enter portfolio-risk and marginal-risk 
+calculations. 
+ 
+G6: Diminishing Marginal Diversiﬁcation 
+[QF-D3G6Q1] 
+A wealth manager begins with a single-stock portfolio and successively adds equal-sized positions from unrelated 
+industries. A client sees risk fall sharply at ﬁrst but only slightly after dozens of additions and asks whether the process 
+has stopped working. 
+ 
+A. The ﬁrst few independent additions often remove more ﬁrm-speciﬁc concentration than later additions. 
+B. A diminishing marginal beneﬁt means the later holdings increase risk in every case. 
+C. As speciﬁc risk is diversiﬁed away, systematic risk becomes a larger share of the remaining portfolio risk. 
+D. Adding inﬁnitely many stocks from the same market guarantees portfolio volatility will converge to zero. 
+E. The observed pattern is consistent with diversiﬁcation beneﬁts approaching a ﬂoor set by common risks. 
+ 
+Answer Key: 
+ 
+A. True – Moving away from one or a few names initially removes substantial idiosyncratic exposure. 
+B. False – Later additions may still reduce risk, just by progressively smaller amounts. 
+C. True – Common market exposure remains after much of the issuer-speciﬁc risk has been diluted. 
+D. False – Market-wide systematic risk cannot be eliminated merely by adding more stocks. 
+E. True – Diminishing beneﬁts arise as the diversiﬁable component shrinks. 
+ 
+[QF-D3G6Q2] 
+A multi-manager fund is considering a new equity strategy. It has attractive stand-alone statistics but a 0.95 correlation 
+with an existing strategy and uses nearly the same signals and securities; the allocator wants to count it as an additional 
+source of diversiﬁcation. 
+ 
+A. The new strategy is likely to provide limited marginal diversiﬁcation because its exposures are largely redundant. 
+ 
+ 313 Rev:081020261230 
+B. Attractive stand-alone performance is sufficient to establish that the combined portfolio improves. 
+C. A different manager name does not make the underlying return stream economically independent. 
+D. Replacing the candidate with a lower-correlated strategy could not provide more diversiﬁcation, even if that alternative 
+has similar stand-alone volatility. 
+E. Adding the candidate necessarily lowers portfolio volatility because the number of strategies increases. 
+ 
+Answer Key: 
+ 
+A. True – Near-identical signals and high correlation imply little new risk-offsetting behavior. 
+B. False – The effect on the existing portfolio depends on covariance as well as stand-alone results. 
+C. True – Diversiﬁcation follows economic exposures, not labels or organizational separation. 
+D. False – The statement reverses the correct conclusion. Lower co-movement generally supplies more portfolio-risk 
+reduction, all else equal. 
+E. False – A redundant strategy can leave risk unchanged or, depending on funding and weights, increase it. 
+ 
+[QF-D3G6Q3] 
+An investment committee can add either Fund M or Fund N to a mature 40-holding portfolio. M closely resembles current 
+holdings, while N introduces a genuinely different return driver but has modestly higher stand-alone volatility; the 
+committee is focused on total portfolio risk. 
+ 
+A. Fund N may offer the larger marginal diversiﬁcation beneﬁt despite its higher stand-alone volatility. 
+B. The number of holdings alone is enough to determine which candidate improves diversiﬁcation more. 
+C. Fund M's similarity to existing holdings can make its incremental risk reduction small. 
+D. Marginal diversiﬁcation should be evaluated relative to the existing portfolio, not in isolation. 
+E. Choosing the candidate with lower stand-alone volatility always minimizes the resulting portfolio volatility. 
+ 
+Answer Key: 
+ 
+A. True – Low covariance with current holdings can outweigh somewhat higher individual volatility. 
+B. False – Economic independence and covariance matter more than a raw count. 
+C. True – Redundant exposure adds little offset to risks already present. 
+D. True – The same asset may diversify one portfolio well and another poorly. 
+E. False – A low-volatility asset can reinforce existing risks, while a higher-volatility diversiﬁer can reduce total risk. 
+ 
+ 
+ 314 Rev:081020261230 
+G7: Correlation Instability and Crisis Behavior 
+[QF-D3G7Q1] 
+A risk model estimates correlations using ﬁve calm years and predicts a maximum portfolio loss of 8%. During a liquidity 
+crisis, several risky assets begin falling together; the chief risk officer asks why realized diversiﬁcation is weaker than the 
+model projected. 
+ 
+A. Correlations cannot rise during stress as assets respond to common deleveraging and liquidity shocks. 
+B. Correlations estimated in calm periods are guaranteed to remain valid during crises. 
+C. Higher positive correlations reduce the amount of offsetting movement among long positions. 
+D. The model cannot understate crisis risk if it assumes a stable covariance matrix. 
+E. Stress tests using adverse correlation scenarios can complement estimates based only on historical averages. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Shared funding pressure and simultaneous selling can 
+synchronize returns. 
+B. False – Dependence structures can change materially across market regimes. 
+C. True – More synchronized losses weaken the protection expected from diversiﬁcation. 
+D. False – The statement reverses the correct conclusion. A calm-period matrix may not represent stressed co-
+movement. 
+E. True – Scenario analysis tests the portfolio against plausible relationships absent from average history. 
+ 
+[QF-D3G7Q2] 
+A fund chose three asset classes because their ten-year full-sample correlations were low. A researcher ﬁnds that each 
+pair had near-zero correlation in normal months but correlations above 0.75 during the worst market months; the 
+portfolio manager must reassess the fund's drawdown protection. 
+ 
+A. The full-sample averages can conceal dependence that is strongest precisely when protection is needed. 
+B. Low unconditional correlation ensures low correlation conditional on severe market losses. 
+C. The stress-period evidence is relevant even if those months form a small portion of the sample. 
+D. Diversiﬁcation designed for drawdown control should examine tail and regime behavior, not only average correlation. 
+E. Because the assets belong to different labels or classes, their crisis correlations cannot be economically meaningful. 
+ 
+ 
+ 315 Rev:081020261230 
+Answer Key: 
+ 
+A. True – Averaging normal and stressed periods can mask state-dependent co-movement. 
+B. False – Conditional dependence in bad states may differ sharply from the full-sample statistic. 
+C. True – Rare stress periods can dominate drawdowns and investor outcomes. 
+D. True – Protection must be evaluated in the states where portfolio losses are most consequential. 
+E. False – Different asset labels do not prevent common macroeconomic, liquidity, or funding exposures. 
+ 
+[QF-D3G7Q3] 
+A machine-learning team forecasts next month's covariance matrix from a rolling historical window and uses it to 
+construct a highly leveraged “diversiﬁed” portfolio. The risk committee is concerned that small estimation errors or a 
+sudden regime shift could invalidate the allocation. 
+ 
+A. Leverage can magnify losses when realized correlations are higher than the forecast. 
+B. A precisely estimated historical matrix eliminates uncertainty about future relationships. 
+C. Portfolio weights optimized from estimated correlations cannot be sensitive to estimation error. 
+D. Combining rolling estimates with shrinkage, exposure limits, or stress scenarios may improve robustness. 
+E. Correlation instability means diversiﬁcation has no value and should never be attempted. 
+ 
+Answer Key: 
+ 
+A. True – Leverage scales the consequences of diversiﬁcation failing under stronger co-movement. 
+B. False – Even an accurate estimate of the past may fail after a structural or regime change. 
+C. False – The statement reverses the correct conclusion. Optimization can amplify small input differences into large and 
+concentrated weights. 
+D. True – Robust controls reduce dependence on one noisy forecast. 
+E. False – Diversiﬁcation remains valuable, but its estimates and limitations must be managed. 
+ 
+  
+ 
+ 316 Rev:081020261230 

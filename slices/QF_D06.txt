@@ -1,0 +1,518 @@
+Domain 6: Valuation and Mispricing 
+Domain Summary 
+ Market price versus estimated value 
+ Book value 
+ Intrinsic value 
+ Time value of money 
+ Discounted cash ﬂow 
+ Dividend valuation 
+ Growth assumptions 
+ Margin of safety 
+ Long and short opportunities arising from mispricing 
+Topic Groups 
+G1: Price vs. Value 
+ Market price as an observed transaction value 
+ Intrinsic value as an estimate 
+ Why investors may disagree 
+ Mispricing as the basis for a trade 
+ Uncertainty in valuation 
+G2: Book Value and Asset-Based Valuation 
+ Assets, liabilities, and shareholder equity 
+ Book value per share 
+ Price-to-book ratio 
+ Limits of accounting values 
+ Distress and liquidation value 
+G3: Time Value of Money 
+ Present and future value 
+ Discount rates 
+ Opportunity cost 
+ 
+ 347 Rev:081020261230 
+ Timing of cash ﬂows 
+ Why future money is worth less today 
+G4: Discounted Cash Flow and Dividend Valuation 
+ Present value of future cash ﬂows 
+ Dividend discount intuition 
+ Perpetuities 
+ Terminal value 
+ Sensitivity to discount rates 
+G5: Growth-Based Valuation 
+ Earnings or cash-ﬂow growth assumptions 
+ Compounding future cash ﬂows 
+ Sensitivity to small changes in growth 
+ Growth versus value characteristics 
+ Unrealistic perpetual growth assumptions 
+G6: Margin of Safety and Scenario Analysis 
+ Conservative versus optimistic assumptions 
+ Base, bull, and bear cases 
+ Valuation ranges 
+ Avoiding false precision 
+ Buying below estimated value 
+G7: Valuation-Based Long and Short Decisions 
+ Long undervalued assets 
+ Short overvalued assets 
+ Timing uncertainty 
+ Catalyst risk 
+ Correct valuation but unsuccessful trade outcomes 
+ 
+ 348 Rev:081020261230 
+G1: Price vs. Value 
+[QF-D6G1Q1] 
+A research analyst estimates that a stock is intrinsically worth $70 per share, while it currently trades at $55. The portfolio 
+manager asks whether the price difference is sufficient evidence to buy immediately. 
+ 
+A. The $55 market price is directly observable from current transactions or quotations. 
+B. The $70 intrinsic value is an estimate that depends on the analyst's assumptions and model. 
+C. If the analyst's estimate is correct, the stock appears undervalued by $15 per share. 
+D. The difference between estimated value and market price guarantees a proﬁtable trade. 
+E. Another informed analyst could not reasonably estimate a different intrinsic value. 
+ 
+Answer Key: 
+ 
+A. True – Market price is an observed trading value, unlike a model-derived estimate. 
+B. True – Intrinsic value depends on inputs such as expected cash ﬂows, growth, and discount rates. 
+C. True – The estimated value exceeds the market price by $70 - $55 = $15. 
+D. False – The estimate may be wrong, and even correct value can fail to converge within the investor's horizon. 
+E. False – The statement reverses the correct conclusion. Reasonable analysts may use different forecasts, risk 
+assessments, and valuation methods. 
+ 
+[QF-D6G1Q2] 
+Two analysts evaluate the same software company. Analyst A estimates a value of $40 using conservative growth and a 
+12% discount rate. Analyst B estimates $65 using stronger growth and a 9% discount rate. The shares trade at $50, and 
+the investment committee asks which analyst has identiﬁed the "true" value. 
+ 
+A. The same market price can appear overvalued under one defensible model and undervalued under another. 
+B. Analyst B's lower discount rate tends to increase estimated present value, all else equal. 
+C. Analyst A's more conservative growth assumption tends to increase estimated value. 
+D. The disagreement cannot arise from uncertainty rather than an arithmetic error by either analyst. 
+E. The $50 market price proves that both intrinsic-value estimates are incorrect. 
+ 
+Answer Key: 
+ 
+ 
+ 349 Rev:081020261230 
+A. True – $50 exceeds Analyst A's estimate but is below Analyst B's estimate. 
+B. True – A lower discount rate reduces the amount by which future cash ﬂows are discounted. 
+C. False – Lower assumed growth generally reduces projected cash ﬂows and estimated value. 
+D. False – The statement reverses the correct conclusion. Valuation requires uncertain forecasts and judgments on which 
+informed analysts may disagree. 
+E. False – Market price records where trading occurs; it does not reveal a uniquely correct intrinsic value. 
+ 
+[QF-D6G1Q3] 
+A merger rumor pushes a company's shares from $30 to $44. A fundamental analyst's stand-alone valuation remains 
+$34, while a completed acquisition could plausibly be worth $48. The fund must decide whether to trade before the rumor 
+is conﬁrmed. 
+ 
+A. The new $44 price can reﬂect the market's probability-weighted assessment of multiple outcomes. 
+B. Comparing $44 only with the $34 stand-alone estimate is sufficient to prove that the stock is mispriced. 
+C. If the acquisition fails, the price could fall even though the $44 price was reasonable given information available earlier. 
+D. A valuation-based trade should consider both payoff magnitude and the probability of each scenario. 
+E. Observing the price increase reveals with certainty that informed investors value the completed acquisition at exactly 
+$44. 
+ 
+Answer Key: 
+ 
+A. True – Prices can incorporate possible deal and no-deal outcomes rather than a single certain outcome. 
+B. False – The acquisition scenario and its probability are relevant to value while the rumor remains credible. 
+C. True – A reasonable ex ante price can lead to a loss when an uncertain adverse outcome occurs. 
+D. True – Expected value depends on both scenario payoffs and their probabilities. 
+E. False – The price does not uniquely identify investors' scenario valuations or probability estimates. 
+ 
+G2: Book Value and Asset-Based Valuation 
+[QF-D6G2Q1] 
+A manufacturer reports $500 million in assets, $320 million in liabilities, and 30 million shares outstanding. Its shares 
+trade at $9.00. The portfolio manager asks for a quick book-value assessment. 
+ 
+A. Reported shareholder equity is not $180 million. 
+ 
+ 350 Rev:081020261230 
+B. Reported book value per share is not $6.00. 
+C. The stock's price-to-book ratio is 1.5. 
+D. Trading above book value proves that the stock is overvalued. 
+E. A later $60 million asset write-down, with liabilities unchanged, would reduce book value per share to $4.00. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Shareholder equity is assets minus liabilities: $500 million - 
+$320 million = $180 million. 
+B. False – The statement reverses the correct conclusion. $180 million divided by 30 million shares equals $6.00 per 
+share. 
+C. True – Price-to-book is $9.00 / $6.00 = 1.5. 
+D. False – Market value may rationally exceed book value because of earning power, growth, or unrecorded intangible 
+assets. 
+E. True – Equity would fall to $120 million, or $4.00 for each of 30 million shares. 
+ 
+[QF-D6G2Q2] 
+A proﬁtable consulting ﬁrm has few physical assets, substantial employee expertise, and a strong client network 
+developed internally. Its shares trade at four times reported book value. A client concludes that the company must be 
+severely overpriced. 
+ 
+A. Internally developed human capital and client relationships may be incompletely reﬂected on the balance sheet. 
+B. Book value is not based primarily on accounting measurements rather than a direct estimate of future earning power. 
+C. A high price-to-book ratio is conclusive evidence of mispricing. 
+D. Comparing price-to-book ratios is generally more informative when ﬁrms have similar business models and 
+accounting practices. 
+E. If important productive assets are absent from reported book value, price-to-book can look high without the stock 
+necessarily being overvalued. 
+ 
+Answer Key: 
+ 
+A. True – Many valuable internally developed intangible resources are not recognized as balance-sheet assets. 
+B. False – The statement reverses the correct conclusion. Accounting book value measures recorded assets less 
+liabilities, not the present value of all future proﬁts. 
+C. False – The ratio must be interpreted in light of proﬁtability, asset composition, growth, and accounting choices. 
+ 
+ 351 Rev:081020261230 
+D. True – Comparability improves when the economic activities and measurement conventions are similar. 
+E. True – A small accounting denominator can produce a high ratio even when market value is economically reasonable. 
+ 
+[QF-D6G2Q3] 
+A distressed retailer reports inventory with a book value of $100 million and total book equity of $40 million. In a forced 
+liquidation, the inventory may sell for only $55 million, and closing costs are expected to be material. A distressed-debt 
+team evaluates the equity using reported book value. 
+ 
+A. Reported book value cannot overstate the amount available to shareholders in liquidation. 
+B. Replacing the inventory's $100 million carrying amount with a $55 million recovery estimate reduces asset value by 
+$45 million. 
+C. Before considering closing costs, that adjustment alone would not eliminate the reported $40 million of equity. 
+D. Creditors generally have claims ahead of common shareholders in liquidation. 
+E. Because book equity is positive, common shareholders are guaranteed a positive liquidation recovery. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Distressed assets may realize less than their accounting 
+carrying values, and liquidation itself creates costs. 
+B. True – The assumed shortfall is $100 million - $55 million = $45 million. 
+C. False – The statement reverses the correct conclusion. A $45 million reduction exceeds the reported $40 million equity 
+cushion. 
+D. True – Common equity is a residual claim after creditor obligations are satisﬁed. 
+E. False – Asset markdowns, senior claims, and liquidation costs can leave nothing for common shareholders. 
+ 
+G3: Time Value of Money 
+[QF-D6G3Q1] 
+A pension fund can receive $100 million today or a guaranteed $121 million two years from now. Its opportunity cost is 
+10% annually, compounded annually. The investment committee asks whether the two choices are economically 
+equivalent. 
+ 
+A. The present value of $121 million received in two years is $100 million at a 10% discount rate. 
+B. The future value of $100 million invested for two years at 10% is $121 million. 
+ 
+ 352 Rev:081020261230 
+C. At the stated discount rate, the fund should strictly prefer the delayed payment because $121 million is numerically 
+larger. 
+D. If the appropriate discount rate were 12%, the present value of the delayed payment would not be less than $100 
+million. 
+E. The discount rate reﬂects the return available on a comparable alternative and the relevant risk of the cash ﬂow. 
+ 
+Answer Key: 
+ 
+A. True – $121 million / 1.10² = $100 million. 
+B. True – $100 million × 1.10² = $121 million. 
+C. False – The two payments are equivalent at a 10% opportunity cost under the stated assumptions. 
+D. False – The statement reverses the correct conclusion. Discounting by a higher rate produces $121 million / 1.12², 
+which is about $96.46 million. 
+E. True – Opportunity cost and risk are central to selecting an appropriate discount rate. 
+ 
+[QF-D6G3Q2] 
+An asset manager compares two risk-equivalent contracts. Contract A pays $50,000 at the end of year 1, and Contract B 
+pays $50,000 at the end of year 4. The appropriate annual discount rate is positive. 
+ 
+A. Contract A has the higher present value. 
+B. The two contracts have equal present value because their nominal payments are equal. 
+C. Increasing the discount rate widens the present-value disadvantage of the later payment. 
+D. At a zero discount rate, the two payments would not have equal present value. 
+E. A reviewer would be wrong to accept the claim that receiving cash earlier creates ﬂexibility to reinvest it before year 4. 
+ 
+Answer Key: 
+ 
+A. True – The same payment is discounted for fewer periods when received at the end of year 1. 
+B. False – Timing affects present value whenever the discount rate is nonzero. 
+C. True – The longer-dated payment is more sensitive to a change in the discount rate. 
+D. False – The statement reverses the correct conclusion. With no discounting, both present values equal their $50,000 
+nominal amounts. 
+E. False – The underlying claim is correct and should be accepted. Earlier receipt allows the investor to earn a return 
+during the intervening years. 
+ 
+ 353 Rev:081020261230 
+ 
+[QF-D6G3Q3] 
+A university endowment sets aside $100,000 today for a commitment due in ﬁve years. It expects the funds to earn 6% 
+annually, compounded annually, and forecasts that the commitment will be $130,000. 
+ 
+A. The expected future value of the set-aside is approximately $133,823. 
+B. Under the forecast, the set-aside is expected to cover the $130,000 commitment. 
+C. Simple interest of $6,000 per year is the correct calculation under annual compounding. 
+D. If the realized return is lower than 6%, the ending value will be lower, all else equal. 
+E. The present value of the $130,000 commitment at 6% is greater than $130,000. 
+ 
+Answer Key: 
+ 
+A. True – $100,000 × 1.06⁵ is approximately $133,823. 
+B. True – The expected future value exceeds the forecast commitment by about $3,823. 
+C. False – Annual compounding earns returns on earlier returns, so growth is not limited to simple interest. 
+D. True – A lower compound growth rate produces a smaller future value. 
+E. False – At a positive discount rate, its present value is less than its future nominal amount. 
+ 
+G4: Discounted Cash Flow and Dividend Valuation 
+[QF-D6G4Q1] 
+An analyst values a stable dividend-paying company using a dividend discount model. The chief ﬁnancial officer argues 
+that increasing the discount rate should increase the stock's estimated value because investors would be demanding a 
+higher return. 
+ 
+A. A higher discount rate generally lowers the present value of future dividends. 
+B. A lower discount rate generally raises estimated intrinsic value. 
+C. A reviewer would be wrong to accept the claim that the discount rate represents an opportunity cost or required return. 
+D. Holding dividends constant, intrinsic value is unaffected by the discount rate. 
+E. Small changes in discount-rate assumptions cannot materially affect valuation. 
+ 
+Answer Key: 
+ 
+ 354 Rev:081020261230 
+ 
+A. True – Future cash ﬂows are discounted more heavily. 
+B. True – Lower discounting raises present value. 
+C. False – The underlying claim is correct and should be accepted. The discount rate reﬂects the return required for 
+bearing risk or foregoing alternatives. 
+D. False – Discount rate is a key input in present-value calculations. 
+E. False – The statement reverses the correct conclusion. Long-duration cash ﬂows are especially sensitive to the 
+discount rate. 
+ 
+[QF-D6G4Q2] 
+A utility is expected to pay a dividend of $3.00 one year from now, with dividends growing at 4% perpetually. An analyst 
+uses a 9% required return and the constant-growth dividend discount model. The investment committee asks about the 
+resulting valuation. 
+ 
+A. The model estimates value as $3.00 / (0.09 - 0.04) = $60.00 per share. 
+B. Raising the required return to 10%, while holding other assumptions ﬁxed, would reduce estimated value to $50.00. 
+C. Raising perpetual growth to 5%, while holding the 9% required return ﬁxed, would reduce estimated value. 
+D. The model requires the perpetual growth rate to be below the required return for a ﬁnite positive value. 
+E. The $60.00 estimate is certain because the formula is mathematically precise. 
+ 
+Answer Key: 
+ 
+A. True – The Gordon growth formula gives $3.00 / 0.05 = $60.00. 
+B. True – At a 6% spread between return and growth, value is $3.00 / 0.06 = $50.00. 
+C. False – A higher growth rate narrows the denominator and raises the model value. 
+D. True – If growth equals or exceeds the discount rate, the standard perpetuity formula does not yield a ﬁnite positive 
+value. 
+E. False – The output is highly dependent on uncertain dividend, growth, and required-return assumptions. 
+ 
+[QF-D6G4Q3] 
+A DCF model projects free cash ﬂow of $10 million in year 1 and $12 million in year 2, plus a terminal value of $120 million 
+at the end of year 2. The analyst discounts all cash ﬂows at 10% annually. 
+ 
+A. The present value of year-1 cash ﬂow is not approximately $9.09 million. 
+ 
+ 355 Rev:081020261230 
+B. The combined present value of year-2 cash ﬂow and terminal value is not approximately $109.09 million. 
+C. The total enterprise value from these modeled cash ﬂows is approximately $118.18 million. 
+D. The terminal value accounts for less than half of the total estimated present value. 
+E. Because terminal value is a large portion of the estimate, its assumptions deserve careful sensitivity analysis. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. $10 million / 1.10 is approximately $9.09 million. 
+B. False – The statement reverses the correct conclusion. ($12 million + $120 million) / 1.10² is approximately $109.09 
+million. 
+C. True – Adding $9.09 million and $109.09 million gives approximately $118.18 million. 
+D. False – The terminal value alone contributes about $99.17 million in present value, well over half of the total. 
+E. True – A valuation dominated by terminal value is especially sensitive to long-run assumptions. 
+ 
+G5: Growth-Based Valuation 
+[QF-D6G5Q1] 
+A company currently generates $5.0 million in annual free cash ﬂow. A growth-oriented analyst projects 8% annual 
+growth for the next three years, while the risk committee asks the team to verify the compounding logic. 
+ 
+A. Projected year-1 free cash ﬂow is $5.40 million. 
+B. Projected year-3 free cash ﬂow is approximately $6.30 million. 
+C. The three-year cumulative growth rate is exactly 24% because 8% × 3 = 24%. 
+D. Compounding causes the year-3 forecast to depend on growth applied to earlier growth. 
+E. If the starting cash-ﬂow estimate is too high, each projected cash ﬂow will not also be biased upward, all else equal. 
+ 
+Answer Key: 
+ 
+A. True – $5.0 million × 1.08 = $5.40 million. 
+B. True – $5.0 million × 1.08³ is approximately $6.30 million. 
+C. False – Compound growth is about 25.97%, not exactly 24%. 
+D. True – Each year's growth builds on the prior year's enlarged cash ﬂow. 
+E. False – The statement reverses the correct conclusion. The starting value scales the entire projected cash-ﬂow path. 
+ 
+ 
+ 356 Rev:081020261230 
+[QF-D6G5Q2] 
+A mature company's next dividend is expected to be $2.00 per share. An analyst uses a 10% required return and initially 
+assumes 4% perpetual growth, but a colleague proposes increasing perpetual growth to 5% based on one strong year. 
+ 
+A. At 4% perpetual growth, the constant-growth model estimates value at approximately $33.33. 
+B. At 5% perpetual growth, the same model estimates value at $40.00. 
+C. A one-percentage-point change in perpetual growth increases estimated value by only 1%. 
+D. Long-run growth assumptions should not be economically sustainable, not extrapolated mechanically from a single 
+strong year. 
+E. As perpetual growth approaches the required return, the valuation becomes less sensitive to estimation error. 
+ 
+Answer Key: 
+ 
+A. True – $2.00 / (0.10 - 0.04) is approximately $33.33. 
+B. True – $2.00 / (0.10 - 0.05) = $40.00. 
+C. False – The modeled value rises about 20%, illustrating nonlinear sensitivity. 
+D. False – The statement reverses the correct conclusion. A temporary result does not necessarily support an indeﬁnitely 
+sustainable growth rate. 
+E. False – The denominator becomes small, making valuation increasingly sensitive and unstable. 
+ 
+[QF-D6G5Q3] 
+A portfolio manager compares a rapidly expanding technology company trading at a high valuation multiple with a slow-
+growing industrial company trading at a low multiple. A client labels the ﬁrst stock "growth" and the second "value" and 
+assumes the labels determine future returns. 
+ 
+A. A growth stock's valuation generally depends heavily on expectations of future expansion. 
+B. A value stock cannot still be overvalued if its apparent cheapness reﬂects deteriorating fundamentals inadequately 
+captured by the analyst. 
+C. A growth company cannot be undervalued because it trades at a high multiple. 
+D. If expected growth fails to materialize, the growth stock's valuation may fall substantially. 
+E. Growth and value characteristics are descriptive inputs to analysis, not guarantees of investment performance. 
+ 
+Answer Key: 
+ 
+ 
+ 357 Rev:081020261230 
+A. True – A large share of value may come from cash ﬂows expected well into the future. 
+B. False – The statement reverses the correct conclusion. A low multiple can reﬂect genuine economic impairment rather 
+than mispricing. 
+C. False – Price relative to a simple current metric does not by itself determine price relative to intrinsic value. 
+D. True – Disappointing growth can reduce both forecast cash ﬂows and the multiple investors are willing to pay. 
+E. True – Either type can outperform or underperform depending on price, realized fundamentals, and changing 
+expectations. 
+ 
+G6: Margin of Safety and Scenario Analysis 
+[QF-D6G6Q1] 
+A research team estimates bear, base, and bull values of $40, $60, and $90 for a stock, with probabilities of 25%, 50%, 
+and 25%, respectively. The shares trade at $50. The portfolio manager asks whether the scenario analysis supports a 
+purchase. 
+ 
+A. The probability-weighted estimated value is not $62.50. 
+B. The market price is 20% below the probability-weighted estimate when the discount is measured relative to estimated 
+value. 
+C. A reviewer would be wrong to accept the claim that the bear case implies a 20% loss from the current market price. 
+D. The probability-weighted value guarantees a positive realized return. 
+E. The scenario framework makes the consequences of differing outcomes more visible than a single point estimate 
+alone. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. 0.25($40) + 0.50($60) + 0.25($90) = $62.50. 
+B. True – ($62.50 - $50) / $62.50 = 20%. 
+C. False – The underlying claim is correct and should be accepted. A decline from $50 to $40 is a 20% loss. 
+D. False – One outcome will occur, probabilities may be wrong, and price may not converge to modeled value. 
+E. True – Multiple scenarios expose downside, central, and upside assumptions rather than hiding them in one number. 
+ 
+[QF-D6G6Q2] 
+An analyst's model produces an intrinsic value of $73.42 per share. The chief risk officer asks the analyst to present a 
+reasonable range because revenue growth, margins, and the discount rate are uncertain. 
+ 
+ 358 Rev:081020261230 
+ 
+A. Reporting $73.42 without sensitivity analysis can imply more precision than the inputs justify. 
+B. A valuation range can show how plausible combinations of assumptions affect the conclusion. 
+C. A bear case should use assumptions at least as optimistic as the bull case. 
+D. If every plausible scenario produces a value below the market price, the analysis does not support an undervaluation 
+thesis. 
+E. Scenario analysis eliminates model risk by considering more than one outcome. 
+ 
+Answer Key: 
+ 
+A. True – Precise arithmetic does not remove uncertainty in forecasts and model choice. 
+B. True – Ranges connect the valuation conclusion to alternative assumptions. 
+C. False – A bear case normally represents less favorable assumptions than the base and bull cases. 
+D. True – Values below price across the stated range are inconsistent with a claim that price is below modeled value. 
+E. False – Scenarios illuminate model risk but cannot eliminate omitted variables, structural errors, or poor probability 
+judgments. 
+ 
+[QF-D6G6Q3] 
+A value fund requires a 25% margin of safety relative to its conservative intrinsic-value estimate. An analyst values a 
+company at $80 under conservative assumptions, and its stock trades at $62. The investment committee asks whether 
+it clears the rule. 
+ 
+A. A 25% discount to the $80 estimate corresponds to a maximum purchase price of $60. 
+B. At $62, the stock trades 22.5% below the $80 estimate. 
+C. The stock satisﬁes the fund's stated 25% margin-of-safety rule at $62. 
+D. If the conservative estimate were revised down to $72, the permitted purchase price under the rule would not fall to 
+$54. 
+E. A reviewer would be wrong to accept the claim that a margin of safety can reduce exposure to estimation error but 
+cannot guarantee against loss. 
+ 
+Answer Key: 
+ 
+A. True – $80 × (1 - 0.25) = $60. 
+B. True – ($80 - $62) / $80 = 22.5%. 
+ 
+ 359 Rev:081020261230 
+C. False – The 22.5% discount is smaller than the required 25% discount. 
+D. False – The statement reverses the correct conclusion. $72 × 0.75 = $54. 
+E. False – The underlying claim is correct and should be accepted. The estimate can still be wrong, adverse events can 
+occur, and convergence is uncertain. 
+ 
+G7: Valuation-Based Long and Short Decisions 
+[QF-D6G7Q1] 
+A fund estimates that a stock worth $80 trades at $60. Its bear-case value is $45, and management may announce a 
+strategic review within six months. The portfolio manager considers a long position. 
+ 
+A. Convergence from $60 to the $80 estimate would not produce a 33.3% price gain. 
+B. A decline from $60 to the $45 bear case would produce a 25% price loss. 
+C. The possible strategic review could serve as a catalyst, but its occurrence and effect are uncertain. 
+D. Buying below estimated value removes timing risk. 
+E. Position sizing should reﬂect downside scenarios as well as the estimated upside. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. ($80 - $60) / $60 is approximately 33.3%. 
+B. True – ($60 - $45) / $60 = 25%. 
+C. True – A catalyst may prompt reassessment, but it is neither certain to occur nor certain to raise price. 
+D. False – Price can remain below estimated value or fall further for an extended period. 
+E. True – The payoff distribution, not only the central valuation estimate, should inform risk taken. 
+ 
+[QF-D6G7Q2] 
+A short seller believes a stock trading at $120 is worth $90. The position has no near-term catalyst, borrow costs are high, 
+and enthusiasm for the stock is increasing. The risk manager reviews the proposed trade. 
+ 
+A. If the price falls from $120 to $90, the short earns $30 per share before borrowing and other costs. 
+B. A reviewer would be wrong to accept the claim that that convergence represents a 25% gross return relative to the 
+initial $120 short-sale proceeds. 
+C. A reviewer would be wrong to accept the claim that if the price instead rises to $150, the short loses $30 per share 
+before costs. 
+ 
+ 360 Rev:081020261230 
+D. The maximum possible loss on an unhedged short is limited to the initial $120 share price. 
+E. High borrow costs and uncertain timing can make the trade unsuccessful even if the $90 valuation is ultimately correct. 
+ 
+Answer Key: 
+ 
+A. True – Selling at $120 and repurchasing at $90 produces a $30 gross gain per share. 
+B. False – The underlying claim is correct and should be accepted. $30 / $120 = 25%, before ﬁnancing, borrow fees, and 
+other costs. 
+C. False – The underlying claim is correct and should be accepted. Repurchasing at $150 after selling at $120 creates a 
+$30 loss per share. 
+D. False – A stock's price can theoretically rise without bound, so an uncovered short has theoretically unlimited loss. 
+E. True – Carrying costs and an adverse price path can overwhelm eventual convergence. 
+ 
+[QF-D6G7Q3] 
+A hedge fund shorts an apparently overvalued company at $50 with an estimated value of $30. Over the next year, strong 
+momentum drives the shares to $85, triggering the fund's risk limit and forcing it to cover. Two years later, the company 
+disappoints and the price falls to $28. The investment committee evaluates the original thesis. 
+ 
+A. The later decline is evidence that the valuation concern may have had merit. 
+B. The fund's realized trade was proﬁtable because the eventual price fell below $30. 
+C. Covering at $85 after shorting at $50 creates a $35 loss per share before costs. 
+D. A correct long-run valuation thesis is sufficient to ensure a successful trade regardless of path and horizon. 
+E. The case illustrates that ﬁnancing, risk limits, catalysts, and timing are part of translating valuation into a trade. 
+ 
+Answer Key: 
+ 
+A. True – The eventual outcome is consistent with, though it does not alone prove, the original overvaluation thesis. 
+B. False – The fund exited at $85 and therefore did not participate in the later decline. 
+C. True – The short sold at $50 and bought back at $85, losing $35 per share before costs. 
+D. False – Adverse interim moves can force liquidation or exhaust capital before convergence. 
+E. True – Investment value and trade viability are related but distinct questions. 
+ 
+  
+ 
+ 361 Rev:081020261230 

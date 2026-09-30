@@ -1,0 +1,421 @@
+Domain 8: Model Evaluation & Metrics 
+Domain Summary 
+ Role of train, validation, and test sets 
+ MAE, MSE, and RMSE 
+ Sensitivity of metrics to outliers 
+ Baselines and benchmarking 
+ Fair model comparison 
+ Metric selection based on objectives 
+ Variability and stability across runs or splits 
+Topic Groups 
+G1: Role of Train, Validation, and Test Sets 
+ Purpose of each dataset split 
+ Why validation exists separately from test 
+ Risks of improper reuse of test data 
+G2: Error Metrics – MAE, MSE, RMSE 
+ Differences in how errors are penalized 
+ Sensitivity to outliers 
+ When one metric is preferred over another 
+G3: Baselines and Benchmarking 
+ Naive predictors (e.g., mean prediction) 
+ Why baselines matter in evaluating models 
+ Detecting when a model adds no value 
+G4: Fair Model Comparison 
+ Keeping splits consistent across models 
+ Using the same evaluation metric 
+ Avoiding data leakage in comparisons 
+ 
+ 224 Rev:081020261230 
+G5: Metric Selection and Business Alignment 
+ Matching metrics to objectives (e.g., trading performance) 
+ Misalignment between statistical metrics and real-world goals 
+ Tradeoffs between different evaluation criteria 
+G6: Variability and Stability of Results 
+ Variance across different splits or runs 
+ Sensitivity to randomness 
+ Interpreting unstable model performance 
+G1: Role of Train, Validation, and Test Sets 
+[ML-D8G1Q1] 
+A research team divides ten years of market data into a training period, a validation period, and a ﬁnal test period. It ﬁts 
+candidate models on the training period, uses the validation period to select hyperparameters, and plans to report 
+performance from the test period. 
+ 
+A. The training set is used to estimate model parameters from observed examples. 
+B. The validation set can support model and hyperparameter selection without directly ﬁtting the ﬁnal test observations. 
+C. The team should repeatedly inspect test results while revising features because the test data are not part of training. 
+D. The test set is most informative as a ﬁnal evaluation when earlier decisions have not been adapted to its results. 
+E. Having a validation set guarantees that the selected model will perform equally well in all future markets. 
+ 
+Answer Key: 
+ 
+A. True – Training data are used to ﬁt parameters or learned structure. 
+B. True – Validation data provide feedback for choices made before the ﬁnal test. 
+C. False – Repeatedly adapting to test results turns the test set into part of the development process. 
+D. True – An untouched test set better represents a ﬁnal out-of-sample check. 
+E. False – Market shifts and sampling uncertainty prevent such a guarantee. 
+ 
+[ML-D8G1Q2] 
+A student trains ﬁve decision-tree variants, chooses the depth with the lowest validation error, retrains that chosen 
+conﬁguration on the combined training and validation periods, and then evaluates it once on a later test period. 
+ 
+ 225 Rev:081020261230 
+ 
+A. Using validation performance to choose tree depth is an appropriate role for the validation set. 
+B. Retraining the chosen conﬁguration on training plus validation data can be reasonable if the test set remains 
+untouched. 
+C. The test score should be used to choose a different depth whenever it is disappointing. 
+D. A later test period can better respect temporal order than a random mixture of earlier and later observations. 
+E. Model selection on validation data means the validation score is completely free of selection optimism. 
+ 
+Answer Key: 
+ 
+A. True – Hyperparameter selection is a standard use of validation data. 
+B. True – After selection, more pre-test data may be used to ﬁt the ﬁnal model. 
+C. False – Changing depth in response to test performance contaminates the ﬁnal evaluation. 
+D. True – Evaluating on a later period avoids training on observations from the test period’s future. 
+E. False – Trying many alternatives can produce an optimistically low validation error. 
+ 
+[ML-D8G1Q3] 
+A small trading project has only three years of observations. To preserve data, the analyst skips validation, selects 
+features and model settings by repeatedly checking the test score, and then presents the best observed test result as an 
+unbiased estimate of future performance. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. Repeated test-set feedback can inﬂuence the analyst’s choices even if the test rows are never passed to the model’s 
+ﬁt method. 
+B. The reported best test result may be optimistic because the analyst selected it after many attempts. 
+C. A separate validation procedure could reduce the amount of model-selection pressure placed on the ﬁnal test set. 
+D. A small dataset makes test-set reuse harmless because fewer observations are available. 
+E. The labels of the test observations must be available to calculate prediction error, but they need not be used to ﬁt or 
+tune the model. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Human decisions based on test feedback create indirect adaptation to the test set. 
+ 
+ 226 Rev:081020261230 
+B. False – Selecting the best of repeated trials exploits chance variation in that particular set. 
+C. False – Validation data can guide development while reserving the test set for ﬁnal evaluation. 
+D. True – Scarce data do not eliminate contamination and may make estimates even less stable. 
+E. False – Test labels are needed for scoring but should remain outside ﬁtting and tuning. 
+ 
+G2: Error Metrics – MAE, MSE, RMSE 
+[ML-D8G2Q1] 
+A client reviewing your model asks why RMSE is used instead of MAE. The risk team is concerned about large prediction 
+errors during volatile periods. 
+ 
+A. MSE penalizes large errors more than MAE. 
+B. RMSE is less sensitive to outliers than MAE. 
+C. MAE treats all errors equally. 
+D. RMSE has the same units as the target variable. 
+E. RMSE highlights large errors more than MAE. 
+ 
+Answer Key: 
+ 
+A. True – The squared term ampliﬁes large errors. 
+B. False – RMSE is more sensitive to large errors and outliers. 
+C. True – MAE applies a linear penalty to absolute error magnitude. 
+D. True – Taking the square root restores the target variable’s units. 
+E. True – Squaring before averaging places greater emphasis on large deviations. 
+ 
+[ML-D8G2Q2] 
+Two return-forecasting models are evaluated on the same days. Most errors are small, but Model A makes one 
+exceptionally large error during a market shock. The team compares MAE, MSE, and RMSE. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The exceptionally large error will generally have more inﬂuence on MSE than on MAE. 
+B. RMSE and MAE can rank the two models differently because they weight error magnitudes differently. 
+ 
+ 227 Rev:081020261230 
+C. Squaring errors in MSE prevents positive and negative errors from canceling. 
+D. RMSE must always be numerically smaller than MAE on the same predictions. 
+E. Removing the shock day solely because it hurts Model A would change the evaluation question and could bias the 
+comparison. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Quadratic loss gives disproportionate weight to a very large miss. 
+B. False – A model with typical small errors but one large miss may look better under MAE and worse under RMSE. 
+C. False – Squared errors are nonnegative regardless of error direction. 
+D. True – RMSE is generally at least as large as MAE for the same set of errors. 
+E. False – Selective removal based on one model’s performance compromises a fair assessment. 
+ 
+[ML-D8G2Q3] 
+A model predicts daily dollar proﬁt for a strategy. Its MAE is $400, its MSE is 490,000 dollars squared, and its RMSE is 
+$700. A manager wants to interpret these values and decide which loss function reﬂects operational concerns. 
+ 
+A. The MAE indicates an average absolute prediction error of $400. 
+B. The MSE is expressed in dollars, just like the target. 
+C. The RMSE is expressed in dollars and is therefore easier to compare directly with the target scale than MSE. 
+D. The fact that RMSE exceeds MAE is consistent with variation in the sizes of the errors. 
+E. Choosing MAE rather than RMSE is purely mathematical and need not reﬂect how costly large misses are. 
+ 
+Answer Key: 
+ 
+A. True – MAE averages the absolute dollar errors. 
+B. False – MSE has squared units, here dollars squared. 
+C. True – RMSE returns the error measure to the original target units. 
+D. True – Larger dispersion in absolute errors tends to widen the gap between RMSE and MAE. 
+E. False – Metric choice should reﬂect whether error costs grow linearly or place extra weight on large misses. 
+ 
+ 
+ 228 Rev:081020261230 
+G3: Baselines and Benchmarking 
+[ML-D8G3Q1] 
+A regression model predicts next-day returns with an RMSE of 0.012. The team celebrates the low number, but it has not 
+compared the model with a predictor that always outputs the training-set mean return. 
+ 
+A. The RMSE value alone does not show whether the model improves on a simple baseline. 
+B. A mean-prediction baseline provides a reference for judging whether the model captures useful predictive structure 
+under squared-error evaluation. 
+C. If the model’s test RMSE is worse than the baseline’s on the same observations, the model has not added value 
+according to that metric. 
+D. A baseline must use a more complex algorithm than the candidate model to be informative. 
+E. The baseline’s mean should be calculated using the test targets before predictions are made. 
+ 
+Answer Key: 
+ 
+A. True – The magnitude needs context from the target scale and a relevant comparator. 
+B. True – Predicting the training mean is a simple benchmark for squared-error regression. 
+C. True – Higher RMSE indicates worse performance under that evaluation criterion. 
+D. False – Baselines are often deliberately simple. 
+E. False – Using test targets to construct predictions leaks information from the evaluation set. 
+ 
+[ML-D8G3Q2] 
+A classiﬁer predicts whether tomorrow’s market return will be positive. Because 60% of test days are positive, an always-
+up rule achieves 60% accuracy, while the new model achieves 58%. 
+ 
+A. The always-up rule is a relevant naive accuracy baseline for this imbalanced outcome. 
+B. The model’s 58% accuracy beats the always-up baseline because it uses features. 
+C. Comparing against the baseline reveals information that the model’s accuracy alone does not. 
+D. The model might still be useful under a different objective, but that claim would require an appropriate metric and 
+evidence. 
+E. A sophisticated model is automatically preferable to a naive rule even when it performs worse on the stated objective. 
+ 
+Answer Key: 
+ 
+ 229 Rev:081020261230 
+ 
+A. True – Always predicting the majority class establishes a simple reference accuracy. 
+B. False – Fifty-eight percent is below the baseline’s 60% on this metric. 
+C. True – The comparison shows that apparent predictive accuracy may not exceed a trivial rule. 
+D. True – For example, asymmetric payoffs could matter, but they must be evaluated rather than assumed. 
+E. False – Complexity alone does not establish value. 
+ 
+[ML-D8G3Q3] 
+A trading team compares a learned strategy with buy-and-hold. The learned strategy has a higher cumulative return in the 
+test period but also takes substantially more risk and incurs frequent transaction costs that were omitted from the 
+simulation. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. Buy-and-hold can serve as one useful benchmark for a trading strategy. 
+B. Higher raw return alone proves the learned strategy is superior under every reasonable objective. 
+C. A cash or no-trade benchmark may provide additional context beyond buy-and-hold. 
+D. Omitting transaction costs can overstate the apparent value added by a high-turnover strategy. 
+E. Benchmarks should be evaluated over the same market period as the learned strategy when making a direct 
+comparison. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – It represents a simple investable alternative for comparison. 
+B. True – Risk, costs, drawdowns, and the investor’s objective can change the conclusion. 
+C. False – Multiple simple alternatives can reveal what kind of value the strategy adds. 
+D. False – Frequent trading magniﬁes the effect of unmodeled costs. 
+E. False – A common period controls for differences in market conditions. 
+ 
+G4: Fair Model Comparison 
+[ML-D8G4Q1] 
+Two analysts compare a linear model and a decision tree. The linear model is tested on a calm recent year, while the tree 
+is tested on an earlier crisis year. Both report RMSE, and the team declares the model with the lower value the winner. 
+ 
+ 230 Rev:081020261230 
+ 
+A. Using different test periods confounds model quality with differences in market conditions. 
+B. The models should generally be scored on the same held-out observations for a direct comparison. 
+C. Using RMSE for both models is sufficient to make the comparison fair despite different test data. 
+D. A paired comparison on the same observations can reveal which model errs on particular cases. 
+E. The crisis-period model must be better if it was trained with more rows. 
+ 
+Answer Key: 
+ 
+A. True – One period may be intrinsically harder to predict than the other. 
+B. True – Common observations provide a consistent evaluation challenge. 
+C. False – A common metric does not correct for unequal test conditions. 
+D. True – Matching observations supports case-by-case analysis of error differences. 
+E. False – Training-set size alone does not establish test performance. 
+ 
+[ML-D8G4Q2] 
+A team compares KNN with a regression tree. It standardizes all features using means and standard deviations computed 
+from the full dataset before splitting, then trains both models and reports test error. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. Computing scaling statistics from the full dataset exposes the comparison to information from the test set. 
+B. Scaling parameters should be estimated from the training data and then applied unchanged to validation and test data. 
+C. Because trees are usually insensitive to monotonic feature scaling, leakage in the shared preprocessing is acceptable. 
+D. Applying a consistent, leakage-free preprocessing protocol supports a fairer comparison. 
+E. KNN may be affected more directly by feature scaling than a decision tree because KNN relies on distances. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – The preprocessing step uses the distribution of held-out observations. 
+B. False – This keeps test information out of the ﬁtted transformation. 
+C. True – Test leakage remains a methodological ﬂaw even if one learner is less sensitive to scaling. 
+D. False – Models should be compared under a valid protocol appropriate to each learner. 
+ 
+ 231 Rev:081020261230 
+E. False – Scale affects the relative contribution of features to KNN distance. 
+ 
+[ML-D8G4Q3] 
+A researcher reports MAE for Model A and RMSE for Model B, then selects whichever displayed number is smaller. Model 
+A predicts in percentage points, while Model B’s output was converted to decimal returns. 
+ 
+A. Comparing the displayed MAE and RMSE values directly mixes different loss deﬁnitions. 
+B. Different output units make the raw numerical values incomparable without conversion. 
+C. Both models should be evaluated with the same chosen metric and units on the same observations for a direct ranking. 
+D. A smaller displayed number always means better predictions regardless of metric and scale. 
+E. It can be reasonable to report multiple metrics, provided each metric is calculated consistently for both models and 
+interpreted separately. 
+ 
+Answer Key: 
+ 
+A. True – MAE and RMSE weight the error distribution differently. 
+B. True – One percentage point equals 0.01 in decimal-return units. 
+C. True – Consistency isolates model performance from evaluation choices. 
+D. False – Metric deﬁnition and units determine what a number means. 
+E. True – Multiple consistently calculated measures can illuminate different tradeoffs. 
+ 
+G5: Metric Selection and Business Alignment 
+[ML-D8G5Q1] 
+A model has excellent next-day price RMSE, but a strategy that trades on its forecasts loses money after bid-ask spreads, 
+commissions, and market impact. The research lead argues that prediction accuracy is all that matters. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. Low prediction RMSE does not guarantee proﬁtable trading after costs. 
+B. A trading-oriented evaluation may need to include returns, risk, turnover, and transaction costs. 
+C. Improving RMSE by correcting small forecasts that never change a trade can have little effect on strategy performance. 
+D. Statistical prediction metrics should be discarded entirely whenever the ﬁnal application is trading. 
+ 
+ 232 Rev:081020261230 
+E. The evaluation criterion should reﬂect how model outputs are converted into positions and outcomes. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Execution costs and decision rules intervene between predictions and proﬁt. 
+B. False – These measures connect evaluation to the deployed objective and constraints. 
+C. False – A statistical improvement need not alter any economically relevant decision. 
+D. True – Prediction metrics remain diagnostically useful even when they are not sufficient. 
+E. False – Business value depends on the full decision pipeline. 
+ 
+[ML-D8G5Q2] 
+A risk system predicts daily portfolio losses. The ﬁrm considers a $100 error on an ordinary day manageable but views a 
+$10,000 underestimate during a stressed day as especially dangerous. 
+ 
+A. An error measure that places extra weight on large misses may better reﬂect the stated concern than MAE alone. 
+B. MSE or RMSE can emphasize large absolute errors through squaring. 
+C. A symmetric metric treats overestimates and underestimates of equal magnitude the same, even if the ﬁrm considers 
+underestimation more harmful. 
+D. The lowest average error automatically identiﬁes the safest model under all tail-risk objectives. 
+E. The team may need an asymmetric or tail-focused evaluation in addition to standard aggregate error metrics. 
+ 
+Answer Key: 
+ 
+A. True – The ﬁrm assigns disproportionate importance to severe misses. 
+B. True – Squaring magniﬁes the contribution of large errors. 
+C. True – MAE, MSE, and RMSE do not distinguish error direction by themselves. 
+D. False – Average performance can conceal dangerous behavior in critical cases. 
+E. True – Additional measures can capture the ﬁrm’s unequal and tail-speciﬁc costs. 
+ 
+[ML-D8G5Q3] 
+A model predicts the correct direction of tomorrow’s return on 55% of days. Most correct calls occur on tiny moves, while 
+it is often wrong on large moves. Another model has 52% directional accuracy but captures several large proﬁtable 
+moves. 
+ 
+ 233 Rev:081020261230 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. Directional accuracy weights each day equally regardless of the size of the market move. 
+B. The 55% model must produce the greater trading proﬁt because it is correct more often. 
+C. Return magnitude, position sizing, and trading costs can make the 52% model more economically valuable. 
+D. Evaluating only directional accuracy may be misaligned with a proﬁt-oriented objective. 
+E. Choosing an economically aligned metric removes the need to evaluate the strategy out of sample. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – A correct tiny move and a correct large move each count as one correct classiﬁcation. 
+B. True – Frequency of correct direction does not determine the payoff magnitude. 
+C. False – Trading outcomes depend on more than the percentage of correct signs. 
+D. False – The metric may ignore the consequences of being right or wrong. 
+E. True – Any chosen metric still requires disciplined out-of-sample evaluation. 
+ 
+G6: Variability and Stability of Results 
+[ML-D8G6Q1] 
+A decision tree achieves test RMSE values of 0.010, 0.011, 0.029, 0.013, and 0.026 across ﬁve reasonable time-based 
+splits. The analyst wants to report only the lowest value because it demonstrates the model’s potential. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The range of results suggests that performance is sensitive to the evaluation period. 
+B. Reporting only 0.010 would conceal important information about variability. 
+C. Summarizing both central performance and dispersion across splits gives a fuller picture than reporting the best run 
+alone. 
+D. Variation across splits proves that every implementation of the model is incorrect. 
+E. Differences in market regimes could contribute to the observed instability. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+ 
+ 234 Rev:081020261230 
+A. False – The errors vary substantially across plausible evaluation windows. 
+B. False – The selected result is not representative of all reported trials. 
+C. False – Typical performance and uncertainty are both relevant to reliability. 
+D. True – Variation can arise from sampling and regime differences without an implementation defect. 
+E. False – Market relationships and volatility can change over time. 
+ 
+[ML-D8G6Q2] 
+A bagged learner is retrained ten times using different random seeds. Its validation scores are nearly identical, while a 
+single deep tree’s scores vary widely. Their average validation errors are similar. 
+ 
+A. The bagged learner appears more stable with respect to the tested source of randomness. 
+B. Similar average error means the two models have identical reliability. 
+C. Random seeds should be recorded when they affect resampling or model construction. 
+D. Repeated runs can help distinguish a typical result from a lucky initialization or sample. 
+E. Low variation across seeds guarantees stability under future changes in market regime. 
+ 
+Answer Key: 
+ 
+A. True – Its scores change little when the seed changes. 
+B. False – Models with the same mean can have very different dispersion. 
+C. True – Recording seeds improves reproducibility and clariﬁes experimental conditions. 
+D. True – Multiple runs reveal sensitivity that a single outcome cannot. 
+E. False – Seed stability does not test robustness to distributional change. 
+ 
+[ML-D8G6Q3] 
+Two models have the same mean out-of-sample MAE across six sequential test windows. Model A’s MAE is similar in 
+every window, while Model B is excellent in four windows and very poor in two volatile windows. The system will be used 
+where large performance swings are costly. 
+ 
+A. Equal mean MAE does not imply equal stability across windows. 
+B. Model A may be preferable if consistency is an important operational objective. 
+C. Examining window-level results can reveal failure patterns hidden by the overall average. 
+D. Model B’s strong performance in four windows guarantees that its two poor windows are irrelevant. 
+ 
+ 235 Rev:081020261230 
+E. The choice between the models may reasonably depend on both average error and variability. 
+ 
+Answer Key: 
+ 
+A. True – The same average can arise from different distributions of performance. 
+B. True – Lower variability aligns with the stated cost of large swings. 
+C. True – Aggregation can conceal regime-speciﬁc weakness. 
+D. False – Poor performance during volatile periods may be operationally important. 
+E. True – Evaluation should reﬂect typical accuracy and stability requirements. 
+ 
+  
+ 
+ 236 Rev:081020261230 

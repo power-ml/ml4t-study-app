@@ -1,0 +1,508 @@
+Domain 8: Market Efficiency and Arbitrage 
+Domain Summary 
+ Weak, semi-strong, and strong forms of EMH 
+ Information incorporation 
+ Technical and fundamental analysis 
+ Arbitrage 
+ Statistical arbitrage 
+ Mean reversion 
+ Relative-value trades 
+ Event-driven strategies 
+ Limits to arbitrage 
+Topic Groups 
+G1: Weak-Form Market Efficiency 
+ Historical price and volume information 
+ Implications for technical analysis 
+ Predictability from past market data 
+ Random-walk intuition 
+G2: Semi-Strong Market Efficiency 
+ Public information 
+ Financial statements and announcements 
+ Implications for fundamental analysis 
+ Speed of price adjustment 
+G3: Strong-Form Market Efficiency 
+ Public and private information 
+ Insider information 
+ Practical limitations of the strong form 
+ Relationship to insider-trading regulation 
+ 
+ 377 Rev:081020261230 
+G4: Arbitrage and Law-of-One-Price Reasoning 
+ Identical or equivalent assets 
+ Price discrepancies across markets 
+ Riskless versus risky arbitrage 
+ Convergence of prices 
+ Arbitraging away inefficiencies 
+G5: Statistical Arbitrage and Mean Reversion 
+ Temporary deviations from normal relationships 
+ Pair trading 
+ Z-score or spread intuition 
+ Regression to the mean 
+ Risk that historical relationships break 
+G6: Event-Driven and Relative-Value Strategies 
+ Merger events 
+ Earnings announcements 
+ Industry or macro events 
+ Long one asset and short a related asset 
+ Identifying relative rather than absolute mispricing 
+G7: Limits to Arbitrage and Market Efficiency 
+ Funding constraints 
+ Short-sale constraints 
+ Timing uncertainty 
+ Noise-trader risk 
+ Crowded trades 
+ Persistence of mispricing despite informed investors 
+G1: Weak-Form Market Efficiency 
+[QF-D8G1Q1] 
+A researcher ﬁnds that a trading rule based only on the previous ﬁve days of prices and volume earned positive returns in 
+the historical sample. She concludes that weak-form market efficiency has been disproved. 
+ 
+ 378 Rev:081020261230 
+ 
+A. Weak-form efficiency concerns whether historical market data can be used to earn abnormal returns consistently. 
+B. A proﬁtable in-sample result alone is sufficient to disprove weak-form efficiency. 
+C. Data snooping could produce an apparently successful historical rule even when no durable predictability exists. 
+D. Transaction costs and out-of-sample performance are relevant when evaluating the claimed inefficiency. 
+E. Weak-form efficiency implies that a stock's price can never rise on two consecutive days. 
+ 
+Answer Key: 
+ 
+A. True – Weak-form efficiency states that information contained in past prices and volume is already reﬂected in current 
+prices. 
+B. False – The result may be sample-speciﬁc, overﬁt, or uneconomic after costs and therefore does not by itself establish 
+exploitable inefficiency. 
+C. True – Searching many rules can identify a chance winner in historical data. 
+D. True – A usable abnormal return must survive independent testing and realistic implementation costs. 
+E. False – Random or weakly predictable returns can still produce runs of gains or losses. 
+ 
+[QF-D8G1Q2] 
+A stock closes at $100. Under a simpliﬁed random-walk model, tomorrow's price equals today's price plus an 
+unpredictable innovation with an expected value of zero. 
+ 
+A. The model's expected price for tomorrow is not $100. 
+B. The model guarantees that tomorrow's realized price will be $100. 
+C. New information can cause tomorrow's realized price to differ substantially from $100. 
+D. A random-walk intuition means price changes are independent of all possible information, including news released 
+tomorrow. 
+E. If price changes are unpredictable, a chart can still describe the past without necessarily forecasting abnormal future 
+returns. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. With a zero-mean innovation, the conditional expected next 
+price is the current price. 
+B. False – The innovation is uncertain, so the realized price need not equal its expectation. 
+ 
+ 379 Rev:081020261230 
+C. True – Unexpected information can be represented by a large positive or negative innovation. 
+D. False – The model concerns predictability using currently available information; future news can affect future prices. 
+E. True – Descriptive patterns do not automatically provide proﬁtable predictive power. 
+ 
+[QF-D8G1Q3] 
+An analyst tests a momentum signal derived exclusively from past returns. Before costs, the signal earns 6% per year 
+above the benchmark; realistic turnover costs are estimated at 7% per year. 
+ 
+A. The gross backtest suggests predictability based on historical price information. 
+B. Under the stated cost estimate, the strategy earns approximately -1% per year relative to the benchmark after costs. 
+C. A negative net result provides investors with an economically exploitable violation of weak-form efficiency. 
+D. The ﬁnding could still be academically interesting even if the signal cannot be traded proﬁtably after costs. 
+E. Lowering turnover while preserving enough of the signal could not change the strategy's net economics. 
+ 
+Answer Key: 
+ 
+A. True – The pre-cost result is associated with a signal constructed from past returns. 
+B. True – The approximate net abnormal return is 6% - 7% = -1% per year. 
+C. False – An opportunity that loses money after realistic costs is not economically exploitable as described. 
+D. True – Predictability and practical proﬁtability are related but distinct research questions. 
+E. False – The statement reverses the correct conclusion. Reducing implementation costs could allow some of the gross 
+edge to survive. 
+ 
+G2: Semi-Strong Market Efficiency 
+[QF-D8G2Q1] 
+A company releases unexpectedly strong earnings at 8:30 a.m. The stock price jumps before the market opens. A junior 
+analyst claims that the semi-strong form of market efficiency requires the stock to keep rising for several days because 
+the news was public. 
+ 
+A. Semi-strong efficiency implies public information should be incorporated rapidly into price. 
+B. A delayed multi-day drift is required by semi-strong efficiency. 
+C. Fundamental analysis based only on already-public information should consistently earn abnormal returns under 
+semi-strong efficiency. 
+ 
+ 380 Rev:081020261230 
+D. The immediate pre-market price jump is not consistent with semi-strong efficiency. 
+E. Semi-strong efficiency does not claim that prices are always correct in an absolute sense. 
+ 
+Answer Key: 
+ 
+A. True – Semi-strong efficiency concerns rapid incorporation of public information. 
+B. False – Persistent predictable drift would challenge the hypothesis. 
+C. False – The statement reverses the correct conclusion. Public information should already be reﬂected in prices. 
+D. False – The statement reverses the correct conclusion. Rapid adjustment is consistent with the hypothesis. 
+E. True – Efficiency concerns information incorporation, not perfect valuation. 
+ 
+[QF-D8G2Q2] 
+A company publishes an annual report at noon. At 2:00 p.m., an analyst reads the report, values the company using only 
+the disclosed ﬁgures, and plans to buy before other investors notice the information. 
+ 
+A. The annual report is public information once released. 
+B. Semi-strong efficiency predicts that the market must wait until every investor reads the report before adjusting the 
+price. 
+C. Competition among analysts and algorithms can cause the price to respond before this particular analyst completes 
+the valuation. 
+D. If the analyst repeatedly earns abnormal risk-adjusted returns from newly released reports after costs, that evidence 
+would challenge semi-strong efficiency. 
+E. Semi-strong efficiency rules out returns earned from bearing systematic risk. 
+ 
+Answer Key: 
+ 
+A. True – A published annual report is publicly available information. 
+B. False – Prices may adjust through the trades of informed market participants without every investor processing the 
+news. 
+C. True – Other participants can analyze and trade on the disclosure rapidly. 
+D. True – Consistent abnormal performance based on public disclosures would be evidence against the hypothesis. 
+E. False – The hypothesis addresses abnormal returns from public information, not compensation for systematic risk. 
+ 
+ 
+ 381 Rev:081020261230 
+[QF-D8G2Q3] 
+After a central bank makes an unexpected public rate announcement, an index falls 2% within one minute, rebounds 
+0.4% over the next ten minutes, and then trades in a narrow range. 
+ 
+A. The rapid initial movement is consistent with fast incorporation of public news. 
+B. Semi-strong efficiency requires the ﬁrst transaction after the announcement to establish the exact ﬁnal price with no 
+subsequent trading. 
+C. A brief period of price discovery and disagreement can occur even in a relatively efficient market. 
+D. The 0.4% rebound by itself proves that the announcement was ignored initially. 
+E. Testing efficiency would not require a systematic analysis of whether predictable abnormal returns remain after the 
+announcement and after costs. 
+ 
+Answer Key: 
+ 
+A. True – A large immediate response is consistent with rapid processing of the public surprise. 
+B. False – Efficiency does not require instantaneous perfection or eliminate price discovery. 
+C. True – Participants may interpret the news differently while liquidity and order ﬂow adjust. 
+D. False – A partial reversal can arise from price discovery, liquidity effects, or an initial overreaction; one observation is 
+not proof. 
+E. False – The statement reverses the correct conclusion. The relevant issue is whether a reliable, tradeable pattern 
+persists beyond chance and costs. 
+ 
+G3: Strong-Form Market Efficiency 
+[QF-D8G3Q1] 
+A pharmaceutical executive privately learns that a major clinical trial failed before the result is announced. The executive 
+believes strong-form market efficiency means the information must already be reﬂected in the company's stock price. 
+ 
+A. Strong-form efficiency claims that prices reﬂect both public and private information. 
+B. The executive's ability to proﬁt from genuinely private information would contradict the strong form. 
+C. Semi-strong efficiency necessarily predicts that the failed trial is already reﬂected before public disclosure. 
+D. Information can be economically valuable before it is legally permissible to trade on it. 
+E. Insider-trading laws are proof that the strong form always holds in practice. 
+ 
+ 
+ 382 Rev:081020261230 
+Answer Key: 
+ 
+A. True – The strong form extends the information set to private as well as public information. 
+B. True – Consistent abnormal proﬁts based on nonpublic information are inconsistent with the strong-form claim. 
+C. False – Semi-strong efficiency concerns public information, so it does not require undisclosed results to be in the 
+price. 
+D. True – Trading restrictions do not eliminate the informational value of private news. 
+E. False – Regulation restricts behavior; it does not demonstrate that prices already contain all private information. 
+ 
+[QF-D8G3Q2] 
+A study ﬁnds that corporate insiders' legally reported purchases are followed, on average, by positive abnormal returns. 
+The purchases become public only after the insiders trade and ﬁle the required reports. 
+ 
+A. The ﬁnding may indicate that insiders possessed information not fully reﬂected in price when they traded. 
+B. Such a ﬁnding is not easier to reconcile with semi-strong efficiency than with strong-form efficiency at the time of the 
+insider trades. 
+C. Once the ﬁling becomes public, it enters the information set considered by semi-strong efficiency. 
+D. Strong-form efficiency predicts that insiders can systematically proﬁt because they are better trained investors. 
+E. The result alone proves that every reported insider purchase is proﬁtable. 
+ 
+Answer Key: 
+ 
+A. True – Insiders may act on private knowledge or superior internal context before public disclosure. 
+B. False – The statement reverses the correct conclusion. Semi-strong efficiency does not require private information to 
+be reﬂected, while strong-form efficiency does. 
+C. True – A public ﬁling is public information once it is released. 
+D. False – Strong-form efficiency denies consistent abnormal proﬁts even to investors with private information. 
+E. False – An average relationship does not imply that every individual observation succeeds. 
+ 
+[QF-D8G3Q3] 
+A hedge fund pays for legal satellite imagery that estimates activity at retailers' parking lots. The images are commercially 
+available to any customer willing to pay, but most investors do not subscribe. 
+ 
+ 
+ 383 Rev:081020261230 
+A. The classiﬁcation of the imagery as public or private may depend on its availability, access, and applicable deﬁnition 
+of the information set. 
+B. Semi-strong efficiency requires every investor to own the same data subscriptions. 
+C. Prices can incorporate information through the trades of a subset of informed investors. 
+D. If the data are legally available but costly to acquire and process, information-acquisition costs can limit perfect 
+incorporation. 
+E. Strong-form and semi-strong efficiency are identical because both include all private information. 
+ 
+Answer Key: 
+ 
+A. True – Alternative data can occupy a practical gray area between broadly disseminated and costly-to-access 
+information. 
+B. False – Market prices can aggregate information without universal ownership of each source. 
+C. True – Informed trading can transmit information into prices for the wider market. 
+D. True – Acquisition and analysis costs can reduce incentives and slow complete incorporation. 
+E. False – The strong form includes private information; the semi-strong form is limited to public information. 
+ 
+G4: Arbitrage and Law-of-One-Price Reasoning 
+[QF-D8G4Q1] 
+The same freely transferable stock trades at $50.00 in Market A and $50.40 in Market B. A trader can buy and sell 
+simultaneously, with total transaction and transfer costs of $0.10 per share and no quantity limits. 
+ 
+A. Buying in Market A and selling in Market B produces a gross spread of $0.40 per share. 
+B. The stated net proﬁt is not $0.30 per share. 
+C. The strategy requires the stock's fundamental value to rise. 
+D. Simultaneous execution helps reduce the risk that one price changes before both sides are not completed. 
+E. Repeated arbitrage trading would tend to raise the price in Market A and lower the price in Market B. 
+ 
+Answer Key: 
+ 
+A. True – The gross price difference is $50.40 - $50.00 = $0.40 per share. 
+B. False – The statement reverses the correct conclusion. After $0.10 of total costs, the net spread is $0.30 per share. 
+ 
+ 384 Rev:081020261230 
+C. False – The proﬁt comes from the contemporaneous price discrepancy, not a directional forecast of fundamental 
+value. 
+D. False – The statement reverses the correct conclusion. Locking in both legs limits execution-related price risk. 
+E. True – Buying pressure in A and selling pressure in B push the two prices toward convergence. 
+ 
+[QF-D8G4Q2] 
+A convertible security and a replicating portfolio promise identical future cash ﬂows under all relevant states. The 
+convertible costs $102, while the replicating portfolio costs $100. Both can be traded without costs, ﬁnancing 
+constraints, or default risk. 
+ 
+A. The law of one price suggests the two positions should not have the same price under the stated assumptions. 
+B. A trader could buy the $100 replicating portfolio and short the $102 convertible. 
+C. The initial gross cash inﬂow from that trade is $2. 
+D. Because the future cash ﬂows offset in every state, the described discrepancy represents a theoretical arbitrage. 
+E. If the cash ﬂows were only highly correlated rather than identical, the trade would remain riskless. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Identical state-contingent cash ﬂows should command the 
+same price in a frictionless market. 
+B. True – The strategy buys the cheaper equivalent and sells the more expensive one. 
+C. True – Short-sale proceeds of $102 less the $100 purchase produce $2 initially. 
+D. True – The offsetting future obligations leave the initial price difference as proﬁt under the assumptions. 
+E. False – High correlation does not ensure identical payoffs, so residual risk would remain. 
+ 
+[QF-D8G4Q3] 
+An exchange-traded fund holds a basket worth $100.00 per share but trades at $99.60. Creating and redeeming ETF 
+shares costs $0.25 per share, and the basket value can change while the arbitrage is executed. 
+ 
+A. The observed discount is not $0.40 per share. 
+B. After the stated creation/redemption cost, the apparent spread is not $0.15 per share before other risks and costs. 
+C. The trade is necessarily riskless because the ETF and basket are closely related. 
+D. Execution delay and movements in the basket can eliminate the apparent proﬁt. 
+ 
+ 385 Rev:081020261230 
+E. Authorized creation/redemption activity can help keep an ETF's market price near the value of its holdings. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. The ETF trades $100.00 - $99.60 = $0.40 below the basket. 
+B. False – The statement reverses the correct conclusion. Subtracting the $0.25 cost leaves $0.15 per share before other 
+frictions. 
+C. False – Timing, execution, ﬁnancing, and tracking risks can prevent the spread from being locked in. 
+D. True – A small gross opportunity can disappear before all legs are completed. 
+E. True – The mechanism permits economically equivalent ETF shares and baskets to be exchanged, supporting 
+convergence. 
+ 
+G5: Statistical Arbitrage and Mean Reversion 
+[QF-D8G5Q1] 
+Two historically related stocks have a ﬁtted spread with a long-run mean of $0 and standard deviation of $2. The current 
+spread is +$5. A pair-trading model interprets positive spreads as Stock A being expensive relative to Stock B. 
+ 
+A. The current spread has a z-score of +2.5 under the stated estimates. 
+B. A mean-reversion trade would generally short the relatively expensive Stock A and buy Stock B. 
+C. The trade requires both stocks to fall in absolute price to succeed. 
+D. A large positive z-score guarantees that the spread will converge. 
+E. A structural change in the companies could make the historical spread relationship unreliable. 
+ 
+Answer Key: 
+ 
+A. True – The z-score is ($5 - $0) / $2 = +2.5. 
+B. True – The position is designed to proﬁt if A becomes cheaper relative to B and the spread declines. 
+C. False – The relative spread can narrow with both stocks rising, both falling, or moving in opposite directions. 
+D. False – A z-score measures historical unusualness, not certain future convergence. 
+E. True – Mergers, business-model changes, leverage, or other shifts can break the prior relationship. 
+ 
+ 
+ 386 Rev:081020261230 
+[QF-D8G5Q2] 
+A pair trade buys $100,000 of Stock B and shorts $100,000 of Stock A. Over the holding period, A rises 8% and B rises 5%, 
+excluding costs. 
+ 
+A. The long position in B earns $5,000. 
+B. The short position in A loses $8,000. 
+C. The pair trade earns $3,000 before costs. 
+D. Equal long and short dollar amounts prevent losses if the spread moves against the trade. 
+E. The result shows that a dollar-neutral trade cannot lose money even when both securities rise. 
+ 
+Answer Key: 
+ 
+A. True – The long gain is $100,000 × 5% = $5,000. 
+B. True – The short loses $100,000 × 8% = $8,000. 
+C. False – Net P&L is $5,000 - $8,000 = -$3,000 before costs. 
+D. False – Dollar neutrality limits net dollar exposure but does not eliminate relative-price risk. 
+E. False – The statement reverses the correct conclusion. The short rose more than the long, producing a loss despite 
+balanced initial dollars. 
+ 
+[QF-D8G5Q3] 
+A quant team chooses a mean-reversion threshold after testing z-score entry levels from 0.5 to 4.0 on the same 15-year 
+data set. The 2.3 threshold performs best, so the team reports its Sharpe ratio without independent validation. 
+ 
+A. Selecting the best threshold on the evaluation sample can overﬁt historical noise. 
+B. The reported Sharpe ratio may overstate expected future performance. 
+C. An independent out-of-sample period would provide a stronger test of the selected rule. 
+D. Calling the strategy “statistical arbitrage” means its trades are riskless. 
+E. Frequent re-estimation of the mean and variance always prevents relationships from breaking. 
+ 
+Answer Key: 
+ 
+A. True – The threshold was optimized on the same data used to report performance. 
+B. True – Selection bias makes the winning in-sample result unusually favorable. 
+ 
+ 387 Rev:081020261230 
+C. True – Untouched data better assess whether the chosen relationship and threshold generalize. 
+D. False – Statistical arbitrage typically carries model, convergence, market, and execution risk. 
+E. False – Re-estimation may adapt to change but cannot guarantee that a valid economic relationship remains. 
+ 
+G6: Event-Driven and Relative-Value Strategies 
+[QF-D8G6Q1] 
+A buyer agrees to acquire a target company for $50 per share in cash. The target trades at $47 after the announcement 
+because investors believe the deal might fail or be delayed. 
+ 
+A. The announced-deal spread is not $3 per share. 
+B. Buying at $47 and receiving $50 at closing would not produce a $3 gain per share before costs. 
+C. The $3 spread is a guaranteed arbitrage proﬁt once the merger is announced. 
+D. Regulatory rejection or ﬁnancing failure could cause the target price to fall and generate a loss. 
+E. The annualized return depends partly on how long the deal takes to close. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. The difference between the $50 offer and $47 market price is 
+$3. 
+B. False – The statement reverses the correct conclusion. Successful closing at the stated price produces $50 - $47 = $3 
+before costs. 
+C. False – Completion is uncertain, so merger arbitrage is generally risky event-driven investing. 
+D. True – Deal failure can remove the support of the offer price and expose the trader to downside. 
+E. True – Earning the same spread sooner produces a higher annualized return than earning it later. 
+ 
+[QF-D8G6Q2] 
+An investor believes Airline A is undervalued relative to otherwise similar Airline B. She buys $1 million of A and shorts $1 
+million of B before an industry-wide fuel-price announcement. 
+ 
+A. The trade expresses a relative-value view rather than a purely directional view on the airline industry. 
+B. Equal dollar sizing removes every difference in the two airlines' sensitivities to fuel prices. 
+C. If both stocks fall but B falls more than A, the trade can earn a positive gross return. 
+ 
+ 388 Rev:081020261230 
+D. Company-speciﬁc news affecting only A can inﬂuence the trade's outcome. 
+E. Borrow fees and short-sale availability for B are irrelevant because the long and short notionals are equal. 
+ 
+Answer Key: 
+ 
+A. True – The thesis is that A will outperform B, not necessarily that airlines will rise. 
+B. False – The companies may have different hedges, routes, costs, leverage, and betas despite equal notional positions. 
+C. True – The gain on the B short can exceed the loss on the A long when B underperforms. 
+D. True – Residual company-speciﬁc risk remains in a relative-value position. 
+E. False – Borrow costs and availability directly affect feasibility and net performance. 
+ 
+[QF-D8G6Q3] 
+A model predicts that a retailer will beat the market's earnings expectation. The trader buys the stock immediately before 
+the announcement. The company reports earnings above the published analyst consensus, but below the higher result 
+already implied by the stock price, and the stock falls. 
+ 
+A. Beating the published consensus does not guarantee a positive price reaction. 
+B. Market prices may reﬂect expectations that differ from the stated analyst consensus. 
+C. An event-driven strategy must not forecast both the event outcome and how that outcome compares with the market's 
+priced-in expectations. 
+D. The stock's decline proves that the reported earnings were objectively poor. 
+E. Volatility, spreads, and gaps around announcements cannot increase implementation risk. 
+ 
+Answer Key: 
+ 
+A. True – Returns depend on the surprise relative to what investors had already priced. 
+B. True – Informal forecasts, positioning, and other information can produce a higher embedded expectation. 
+C. False – The statement reverses the correct conclusion. A correct forecast of the reported number may still lose if the 
+market expected more. 
+D. False – The report can be strong in absolute terms while disappointing the market's implicit expectation. 
+E. False – The statement reverses the correct conclusion. Event windows often involve rapid repricing and reduced 
+execution certainty. 
+ 
+ 
+ 389 Rev:081020261230 
+G7: Limits to Arbitrage and Market Efficiency 
+[QF-D8G7Q1] 
+A fund manager believes an overpriced stock will eventually fall from $120 to its estimated value of $80. The manager 
+shorts it, but the stock ﬁrst rises to $170, causing margin calls and forcing the fund to close the position. 
+ 
+A. The manager can have a correct long-run valuation thesis and still lose money on the trade. 
+B. Timing uncertainty can prevent an investor from holding a position until convergence. 
+C. The interim rise represents noise-trader risk for the short seller. 
+D. Because the estimated fundamental value is $80, the broker must allow the fund unlimited time to maintain the short. 
+E. Forced liquidation cannot allow mispricing to persist even when informed investors recognize it. 
+ 
+Answer Key: 
+ 
+A. True – A trade can fail because of its path and ﬁnancing even if the terminal valuation view is eventually correct. 
+B. True – Capital and margin constraints make the time to convergence economically important. 
+C. True – Other traders can push price farther from estimated value before correction. 
+D. False – Brokers impose collateral and margin requirements based on current exposure, not the manager's valuation 
+estimate. 
+E. False – The statement reverses the correct conclusion. Constrained informed capital cannot necessarily eliminate an 
+inefficiency immediately. 
+ 
+[QF-D8G7Q2] 
+Several funds hold the same leveraged convergence trade. When one fund receives investor redemptions, it unwinds the 
+position, moving prices farther against the remaining funds and triggering additional margin calls. 
+ 
+A. This is not an example of crowded-trade risk. 
+B. One fund's liquidation can adversely affect other funds holding similar positions. 
+C. Leverage cannot convert a temporary adverse move into forced selling. 
+D. Crowding guarantees faster convergence because more informed capital is always stabilizing. 
+E. A strategy's risk can depend on other investors' positioning as well as on the underlying securities. 
+ 
+Answer Key: 
+ 
+ 
+ 390 Rev:081020261230 
+A. False – The statement reverses the correct conclusion. Many investors are exposed to the same trade and may try to 
+exit together. 
+B. True – Price impact from the ﬁrst liquidation can transmit losses and constraints to others. 
+C. False – The statement reverses the correct conclusion. Leveraged portfolios have less capacity to absorb adverse 
+mark-to-market movements. 
+D. False – Crowded exits can amplify divergence and delay convergence. 
+E. True – Common positioning creates endogenous liquidity and feedback-loop risk. 
+ 
+[QF-D8G7Q3] 
+An investor identiﬁes an apparently overpriced stock but learns that shares are difficult to borrow. The annual borrow fee 
+is 18%, the lender may recall the shares, and the timing of any correction is unknown. 
+ 
+A. A high borrow fee reduces the expected net proﬁt from the short position. 
+B. A share recall can force the investor to close the trade before the expected correction. 
+C. Short-sale constraints cannot allow overpricing to persist longer than under frictionless arbitrage. 
+D. If the stock is 10% overvalued by the investor's estimate, an 18% annual borrow fee is economically irrelevant. 
+E. Difficulty exploiting a suspected inefficiency can coexist with relatively efficient market prices. 
+ 
+Answer Key: 
+ 
+A. True – Borrow expense is a direct carrying cost of maintaining the short. 
+B. True – The lender's recall right introduces horizon and forced-closeout risk. 
+C. False – The statement reverses the correct conclusion. Pessimistic views may not be fully expressed when shorting is 
+costly or infeasible. 
+D. False – Carrying costs can exceed the expected convergence proﬁt, especially when timing is uncertain. 
+E. True – Efficiency is shaped by the cost and risk of trading; it need not mean every apparent discrepancy is free or 
+immediately removable. 
+ 
+  
+ 
+ 391 Rev:081020261230 

@@ -1,0 +1,6 @@
+{
+  "_doc": "Verified corrections where the SOURCE pool's answer-key letters are mislabeled relative to the choice statements. For these qids, build_data.py pairs each verdict to the choice by rationale CONTENT (safe here because the source rationale is a verbatim restatement). Each entry verified against the PDF/slice text. All OTHER questions use positional (letter) pairing, which is correct.",
+  "content_paired": {
+    "ML-D6G5Q5": "Source key letters mislabeled: key B/C/D describe choices C/D/B; key 'D. False' is choice B's monotonic-transform statement. Content pairing gives A=True, B=False, C=True, D=True, E=True. Verified against slices/ML_D06.txt on 2026-09-29."
+  }
+}

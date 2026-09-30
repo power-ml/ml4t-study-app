@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ML4T Exam 1 — Study App</title>
+<style>
+:root{
+  --bg:#0f1420; --panel:#161c2b; --panel2:#1d2536; --ink:#e6ebf5; --mut:#93a0b8; --line:#2a3346;
+  --red:#ff6b6b; --amber:#ffb454; --green:#4bd07f; --blue:#6cb6ff; --accent:#ff9900;
+}
+@media (prefers-color-scheme: light){:root{--bg:#f6f8fc;--panel:#fff;--panel2:#eef2f8;--ink:#12203a;--mut:#5a6b86;--line:#d7dee9;}}
+*{box-sizing:border-box}
+body{margin:0;font:14px/1.5 -apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+header{position:sticky;top:0;z-index:10;background:var(--panel);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+header h1{font-size:16px;margin:0;color:var(--accent)}
+nav button{background:none;border:1px solid var(--line);color:var(--ink);padding:6px 12px;border-radius:8px;cursor:pointer;margin-right:6px}
+nav button.on{background:var(--accent);color:#1a1200;border-color:var(--accent);font-weight:700}
+main{max-width:1000px;margin:0 auto;padding:16px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+select,input,textarea{background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:inherit}
+textarea{width:100%;min-height:60px;resize:vertical}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:12px 0}
+.q-scenario{margin:6px 0 10px}
+.pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--mut);margin-right:6px}
+.pill.inv{background:#3a1d00;color:var(--amber);border-color:var(--amber)}
+.choice{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;background:var(--panel2)}
+.choice .letter{font-weight:700;margin-right:6px}
+.verdict{font-weight:700}
+.v-true{color:var(--green)} .v-false{color:var(--red)}
+.why{color:var(--mut);margin-top:6px;font-size:13px}
+.flag{display:inline-block;font-size:11px;color:var(--amber);border:1px solid var(--amber);border-radius:6px;padding:1px 6px;margin-left:6px}
+.tf button{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:7px;padding:3px 12px;margin-right:6px;cursor:pointer}
+.tf button.selT{background:var(--green);color:#04240f;border-color:var(--green)}
+.tf button.selF{background:var(--red);color:#2a0606;border-color:var(--red)}
+.ok{outline:2px solid var(--green)} .bad{outline:2px solid var(--red)}
+.card.rev{border-left:3px solid var(--green)}
+.card.flagged{border-right:3px solid var(--amber)}
+.mut{color:var(--mut)} .small{font-size:12px}
+details.deep{margin:8px 0;border:1px dashed var(--line);border-radius:10px;padding:8px 12px;background:var(--panel2)}
+details.deep summary{cursor:pointer;color:var(--blue);font-weight:600}
+.md h1,.md h2,.md h3{font-size:14px;margin:10px 0 4px;color:var(--accent)}
+.md ul{margin:4px 0 4px 18px} .md code{background:var(--panel);padding:1px 4px;border-radius:4px}
+.heat{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.heat .d{padding:8px;border-radius:8px;border:1px solid var(--line);font-size:12px}
+.g{background:rgba(75,208,127,.18);border-color:var(--green)} .a{background:rgba(255,180,84,.16);border-color:var(--amber)}
+.r{background:rgba(255,107,107,.16);border-color:var(--red)} .u{opacity:.6}
+.btn{background:var(--accent);color:#1a1200;border:none;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer}
+.btn.sec{background:var(--panel2);color:var(--ink);border:1px solid var(--line);font-weight:500}
+.notebox{border-left:3px solid var(--blue);padding-left:8px;margin-top:8px}
+.kpi{font-size:26px;font-weight:800}
+a{color:var(--blue)}
+</style>
+</head>
+<body>
+<header>
+  <h1>ML4T Exam 1 — Study</h1>
+  <nav id="nav"></nav>
+  <span class="mut small" id="stat"></span>
+</header>
+<main id="view"></main>
+<script src="data.js"></script>
+<script>
+const D=window.ML4T, LS="ml4t_v1";
+let store={notes:{},attempts:{},seen:{}};
+let SERVER=false, _saveT;
+async function loadState(){
+  try{const r=await fetch('api/state',{cache:'no-store'});if(r.ok){const j=await r.json();store=Object.assign({notes:{},attempts:{},seen:{}},j);SERVER=true;return;}}catch(e){}
+  try{store=JSON.parse(localStorage.getItem(LS)||'{}');}catch(e){}
+  store=Object.assign({notes:{},attempts:{},seen:{}},store);
+}
+const save=()=>{ if(SERVER){clearTimeout(_saveT);_saveT=setTimeout(()=>fetch('api/state',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(store)}).catch(()=>{}),300);} else localStorage.setItem(LS,JSON.stringify(store)); };
+const ABS=/\b(always|never|must|only|all|every|none|guarantee[sd]?|ensures?|cannot|impossible|entirely|completely|zero|100%)\b/i;
+const NEG=/\b(not|cannot|never|no longer|isn't|doesn't|does not|won't|will not|reverses)\b/i;
+const $=(h)=>{const t=document.createElement('template');t.innerHTML=h.trim();return t.content.firstChild;};
+function inline(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')
+  .replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`(.+?)`/g,'<code>$1</code>');}
+function md(s){if(!s)return'';
+  const lines=s.split('\n'); let out=[]; let i=0;
+  while(i<lines.length){
+    let l=lines[i];
+    // table block: header row + separator (|---|) + body rows
+    if(/^\s*\|.*\|\s*$/.test(l) && i+1<lines.length && /^\s*\|[\s:\-|]+\|\s*$/.test(lines[i+1])){
+      const cells=r=>r.trim().replace(/^\||\|$/g,'').split('|').map(c=>inline(c.trim()));
+      let head=cells(l); i+=2; let body=[];
+      while(i<lines.length && /^\s*\|.*\|\s*$/.test(lines[i])){body.push(cells(lines[i]));i++;}
+      out.push('<table style="border-collapse:collapse;width:100%;margin:6px 0;font-size:12px">'+
+        '<thead><tr>'+head.map(h=>'<th style="border:1px solid var(--line);padding:4px 6px;text-align:left">'+h+'</th>').join('')+'</tr></thead><tbody>'+
+        body.map(r=>'<tr>'+r.map(c=>'<td style="border:1px solid var(--line);padding:4px 6px;vertical-align:top">'+c+'</td>').join('')+'</tr>').join('')+'</tbody></table>');
+      continue;
+    }
+    if(/^###?\s/.test(l)){out.push('<h3>'+inline(l.replace(/^#+\s/,''))+'</h3>');i++;continue;}
+    if(/^\s*[-*]\s/.test(l)){let ind=(l.match(/^\s*/)[0].length);out.push('<li style="margin-left:'+(ind*6)+'px">'+inline(l.replace(/^\s*[-*]\s/,''))+'</li>');i++;continue;}
+    if(l.trim()==='')  {out.push('');i++;continue;}
+    out.push('<div>'+inline(l)+'</div>');i++;
+  }
+  return out.join('').replace(/(<li.*?<\/li>)+/g,m=>'<ul>'+m+'</ul>');}
+const flags=(t)=>{let f=[];if(ABS.test(t))f.push('absolute → ~74% False');if(NEG.test(t))f.push('negation → check the claim');return f;};
+let route='study';
+const nav=document.getElementById('nav');
+[['study','Study'],['quiz','Quiz / Mock'],['notes','My Notes'],['progress','Readiness'],['tips','Heuristics']].forEach(([k,l])=>{
+  const b=$(`<button data-k="${k}">${l}</button>`);b.onclick=()=>{route=k;render();};nav.append(b);});
+document.getElementById('stat').textContent=`${D.counts.questions} Qs · ${D.counts.ML} ML · ${D.counts.QF} QF · ${D.heuristics.inverted_total} inverted`;
+const wsel=$(`<label class="small mut" style="margin-left:auto">📅 Studied thru week <select id="weeksel">${[1,2,3,4,5,6,7,8].map(w=>`<option value="${w}">${w}</option>`).join('')}</select></label>`);
+document.querySelector('header').append(wsel);
+const studiedWk=()=>store.week||8;
+const notYet=(x)=>x.weekMax>studiedWk();
+const today=()=>new Date().toISOString().slice(0,10);
+const revCount=()=>{const v=Object.values(store.reviewed||{});return{total:v.length,today:v.filter(d=>d===today()).length};};
+
+function attempt(id){return store.attempts[id];}
+function domAcc(){ // per-domain accuracy from attempts
+  const m={};D.questions.forEach(q=>{const a=attempt(q.id);if(!a)return;const key=q.part+q.domain;
+    m[key]=m[key]||{c:0,t:0,name:q.part+' D'+q.domain+' '+q.domainName};
+    a.forEach((sel,i)=>{if(sel===null)return;m[key].t++;if((sel==='T')===(q.choices[i].verdict==='True'))m[key].c++;});});
+  return m;}
+
+function choiceRow(q,i,mode,sel){
+  const c=q.choices[i];const fl=flags(c.text).map(x=>`<span class="flag">${x}</span>`).join('');
+  let tf='',reveal='';
+  if(mode==='quiz'){tf=`<div class="tf"><button class="${sel==='T'?'selT':''}" data-i="${i}" data-v="T">True</button><button class="${sel==='F'?'selF':''}" data-i="${i}" data-v="F">False</button></div>`;}
+  if(mode==='review'||mode==='study'){
+    const vc=c.verdict==='True'?'v-true':'v-false';
+    reveal=`<div><span class="verdict ${vc}">${c.verdict}${q.polarity==='inverted'?' ('+(c.accurate?'accurate':'incorrect')+')':''}</span></div><div class="why">${inline(c.why)}</div>`;
+  }
+  return `<div class="choice" data-ci="${i}"><span class="letter">${c.L}.</span>${c.text}${fl}${tf}${reveal}</div>`;
+}
+function noteBox(id){const v=store.notes[id]||'';return `<div class="notebox"><div class="small mut">📝 Note</div><textarea data-note="${id}" placeholder="Your note for ${id}…">${v}</textarea></div>`;}
+function bindNotes(el){el.querySelectorAll('textarea[data-note]').forEach(t=>t.onchange=()=>{const id=t.dataset.note;if(t.value.trim())store.notes[id]=t.value;else delete store.notes[id];save();});}
+
+function deepDive(part,dom){const d=D.domains.find(x=>x.part===part&&x.num===dom);if(!d)return'';
+  const notes=(d.bookNotes||[]).map(n=>`<details class="deep" style="margin-left:12px"><summary>📖 ${n.book} — ${n.title} <span class="small mut">(${n.file})</span></summary><div class="md">${md(n.md)}</div></details>`).join('');
+  const notesHdr=(d.bookNotes||[]).length?`<h3>Book notes (${d.bookNotes.length})</h3>${notes}`:'<h3>Book notes</h3><div class="small mut">None mapped to this domain yet.</div>';
+  return `<details class="deep"><summary>📚 Deep dive — concepts, traps, references &amp; book notes for ${part} Domain ${+dom}: ${d.name}</summary>
+    <div class="md"><h3>Cheat-sheet</h3>${md(d.cheatsheet)}<h3>Common traps</h3>${md(d.traps)}<h3>References</h3>${md(d.references)}</div>${notesHdr}</details>`;}
+
+function studyView(){
+  const v=document.getElementById('view');v.innerHTML='';
+  const parts=[...new Set(D.questions.map(q=>q.part))];
+  const bar=$(`<div class="row card"></div>`);
+  const partSel=$(`<select id="fp"><option value="">All parts</option>${parts.map(p=>`<option>${p}</option>`).join('')}</select>`);
+  const domSel=$(`<select id="fd"><option value="">All domains</option></select>`);
+  const q=$(`<input id="fq" placeholder="search text…" style="flex:1">`);
+  const hideRev=$(`<label class="small">&nbsp;<input type="checkbox" id="hiderev"> hide reviewed</label>`);
+  const flagOnly=$(`<label class="small">&nbsp;<input type="checkbox" id="flagonly"> 🚩 flagged only</label>`);
+  const revStat=$(`<span class="small mut" id="revstat" style="margin-left:auto"></span>`);
+  bar.append('Part:',partSel,'Domain:',domSel,q,hideRev,flagOnly,revStat);v.append(bar);
+  function updateRevStats(){const c=revCount();const t=(store.reviewLog||{})[today()]||0;const f=Object.keys(store.flagged||{}).length;revStat.textContent=`✅ ${t} today · ${c.total}/${D.counts.questions} reviewed · 🚩 ${f} flagged`;}
+  function fillDom(){const p=partSel.value;domSel.innerHTML='<option value="">All domains</option>'+
+    D.domains.filter(d=>!p||d.part===p).map(d=>`<option value="${d.part}|${d.num}">${d.part} D${+d.num} ${d.name}</option>`).join('');}
+  fillDom();
+  const list=$(`<div id="list"></div>`);v.append(list);
+  function draw(){const p=partSel.value,d=domSel.value,s=q.value.toLowerCase();const hr=hideRev.querySelector('input').checked;const fo=flagOnly.querySelector('input').checked;
+    const qs=D.questions.filter(x=>(!p||x.part===p)&&(!d||(x.part+'|'+x.domain)===d)&&(!s||JSON.stringify(x).toLowerCase().includes(s))&&(!hr||!store.reviewed[x.id])&&(!fo||store.flagged[x.id]));
+    list.innerHTML=`<div class="small mut" style="margin:8px 0">${qs.length} questions${hr?' · unreviewed only':''}${fo?' · flagged only':''}</div>`;
+    let lastDom='';
+    qs.forEach(x=>{const dk=x.part+x.domain;
+      if(dk!==lastDom){const ny=notYet(x);
+        list.append($(`<div class="card" style="background:var(--panel2)${ny?';opacity:.55':''}"><b>${x.part} Domain ${+x.domain}: ${x.domainName}</b> <span class="pill">📅 wk ${x.weeks.join('/')}</span>${ny?'<span class="pill inv">⏳ not yet covered (studying thru wk '+studiedWk()+')</span>':''}${deepDive(x.part,x.domain)}</div>`));lastDom=dk;}
+      const inv=x.polarity==='inverted'?`<span class="pill inv">INVERTED: True = statement is WRONG</span>`:'';
+      const fb=x.flag?`<div class="pill inv" style="display:block;margin:6px 0">⚠ ${x.flag}</div>`:'';
+      const dup=x.duplicateOf?`<span class="pill">🔁 duplicate of ${x.duplicateOf}</span>`:'';
+      const ref=x.reference?`<div class="small mut" style="margin-top:8px">📖 ${inline(x.reference)}</div>`:'';
+      const flg=store.flagged[x.id]?'<span class="pill" style="border-color:var(--amber);color:var(--amber)">🚩 flagged</span>':'';
+      const card=$(`<div class="card${store.reviewed[x.id]?' rev':''}${store.flagged[x.id]?' flagged':''}"${notYet(x)?' style="opacity:.6"':''}><div><span class="pill">#${x.n}</span><span class="pill">${x.id}</span><span class="pill">${x.group}</span><span class="pill">📅 wk ${x.weeks.join('/')}</span>${dup}${inv}${flg}<label class="small" style="float:right">&nbsp;<input type="checkbox" data-flag="${x.id}" ${store.flagged[x.id]?'checked':''}> 🚩 &nbsp; <input type="checkbox" data-rev="${x.id}" ${store.reviewed[x.id]?'checked':''}> reviewed</label></div>${fb}
+        <div class="q-scenario">${x.scenario}</div>
+        <div class="small mut">What it tests: concepts in ${x.domainName} (${x.group}). See Deep dive above.</div>
+        ${x.choices.map((c,i)=>choiceRow(x,i,'study')).join('')}
+        ${ref}${noteBox(x.id)}</div>`);
+      list.append(card);});
+    list.querySelectorAll('input[data-rev]').forEach(cb=>cb.onchange=()=>{const id=cb.dataset.rev;const t=today();
+      if(cb.checked){store.reviewLog[t]=(store.reviewLog[t]||0)+1;store.reviewed[id]=t;cb.closest('.card').classList.add('rev');}
+      else{if(store.reviewed[id]===t)store.reviewLog[t]=Math.max(0,(store.reviewLog[t]||0)-1);delete store.reviewed[id];cb.closest('.card').classList.remove('rev');}
+      save();updateRevStats();if(hideRev.querySelector('input').checked)draw();});
+    list.querySelectorAll('input[data-flag]').forEach(cb=>cb.onchange=()=>{const id=cb.dataset.flag;
+      if(cb.checked)store.flagged[id]=today();else delete store.flagged[id];
+      cb.closest('.card').classList.toggle('flagged',cb.checked);
+      save();updateRevStats();if(flagOnly.querySelector('input').checked)draw();});
+    updateRevStats();bindNotes(list);}
+  partSel.onchange=()=>{fillDom();draw();};domSel.onchange=draw;q.oninput=draw;hideRev.querySelector('input').onchange=draw;flagOnly.querySelector('input').onchange=draw;draw();
+}
+
+function quizView(){
+  const v=document.getElementById('view');v.innerHTML='';
+  const cfg=$(`<div class="card"><h3 style="margin-top:0">Build a quiz</h3>
+    <div class="row">Mode:
+      <select id="qmode">
+        <option value="smart">Smart (unseen + missed first)</option>
+        <option value="trap">Trap drill (inverted + absolute/negation)</option>
+        <option value="flagged">🚩 Flagged (re-review)</option>
+        <option value="random">Random</option>
+        <option value="exam">Exam simulator (40 Q, 2/domain)</option>
+      </select>
+      Count: <input id="qn" type="number" value="10" min="1" max="40" style="width:70px">
+      Part: <select id="qpart"><option value="">All</option><option>ML</option><option>QF</option></select>
+      <label class="small">&nbsp;<input type="checkbox" id="qcov"> covered only (≤ studied week)</label>
+      <button class="btn" id="qstart">Start</button>
+    </div><div class="small mut">Scored the real way: 1 pt per correct True/False; marking all 5 the same = 0 for that question. "Covered only" excludes domains you haven't studied yet.</div></div>`);
+  v.append(cfg);const area=$(`<div id="quizarea"></div>`);v.append(area);
+  cfg.querySelector('#qstart').onclick=()=>{
+    const mode=cfg.querySelector('#qmode').value,n=+cfg.querySelector('#qn').value,part=cfg.querySelector('#qpart').value;
+    const cov=cfg.querySelector('#qcov').checked;
+    let pool=D.questions.filter(q=>(!part||q.part===part)&&(!cov||q.weekMax<=studiedWk()));
+    let qs=[];
+    if(mode==='exam'){const byd={};D.questions.forEach(q=>{(byd[q.part+q.domain]=byd[q.part+q.domain]||[]).push(q);});
+      Object.values(byd).forEach(arr=>{shuffle(arr);qs.push(arr[0],arr[1]);});shuffle(qs);}
+    else if(mode==='trap'){pool=pool.filter(q=>q.polarity==='inverted'||q.choices.some(c=>ABS.test(c.text)||NEG.test(c.text)));shuffle(pool);qs=pool.slice(0,n);}
+    else if(mode==='flagged'){pool=pool.filter(q=>store.flagged&&store.flagged[q.id]);shuffle(pool);qs=pool.slice(0,n);}
+    else if(mode==='smart'){pool.sort((a,b)=>score(a)-score(b));qs=pool.slice(0,n);}
+    else {shuffle(pool);qs=pool.slice(0,n);}
+    runQuiz(qs,area);};
+  function score(q){const b=(store.box||{})[q.id];return b===undefined?-1:b;} // Leitner: unseen(-1) first, then lowest box (recently-missed) first
+}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}}
+function runQuiz(qs,area){
+  const state=qs.map(q=>({q,sel:Array(q.choices.length).fill(null)}));
+  area.innerHTML='';
+  state.forEach((s,qi)=>{const q=s.q;const inv=q.polarity==='inverted'?`<span class="pill inv">INVERTED: True = statement is WRONG</span>`:'';
+    const fb=q.flag?`<div class="pill inv" style="display:block;margin:6px 0">⚠ ${q.flag}</div>`:'';
+    const card=$(`<div class="card"><div><span class="pill">${qi+1}/${state.length}</span><span class="pill">${q.id}</span><span class="pill">${q.part} D${+q.domain}</span>${inv}</div>${fb}
+      <div class="q-scenario">${q.scenario}</div>${q.choices.map((c,i)=>choiceRow(q,i,'quiz',null)).join('')}</div>`);
+    card.querySelectorAll('.tf button').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;s.sel[i]=b.dataset.v;
+      card.querySelectorAll(`.tf button[data-i="${i}"]`).forEach(x=>x.className=(x.dataset.v==='T'?'':''));
+      card.querySelector(`.tf button[data-i="${i}"][data-v="T"]`).className=s.sel[i]==='T'?'selT':'';
+      card.querySelector(`.tf button[data-i="${i}"][data-v="F"]`).className=s.sel[i]==='F'?'selF':'';});
+    area.append(card);});
+  const submit=$(`<button class="btn" style="margin:12px 0">Submit &amp; score</button>`);area.append(submit);
+  submit.onclick=()=>gradeQuiz(state,area);
+}
+function gradeQuiz(state,area){
+  let raw=0,max=0,perDom={};
+  state.forEach(s=>{const q=s.q;max+=q.choices.length;
+    const allSame=s.sel.every(x=>x==='T')||s.sel.every(x=>x==='F');
+    let correct=q.choices.map((c,i)=>s.sel[i]&&(s.sel[i]==='T')===(c.verdict==='True'));
+    let pts=allSame?0:correct.filter(Boolean).length; raw+=pts;
+    store.attempts[q.id]=s.sel.slice();store.seen[q.id]=(store.seen[q.id]||0)+1;
+    store.box=store.box||{}; const allRight=!allSame&&correct.every(Boolean);
+    store.box[q.id]=allRight?Math.min(5,(store.box[q.id]||0)+1):1;  // Leitner: promote if fully correct, else reset to 1
+    const k=q.part+q.domain;perDom[k]=perDom[k]||{c:0,t:0};perDom[k].t+=q.choices.length;perDom[k].c+=correct.filter(Boolean).length;
+  });save();
+  const pct=Math.round(raw/max*100);
+  const rec=Object.entries(perDom).map(([k,v])=>({k,p:v.c/v.t})).sort((a,b)=>a.p-b.p);
+  const head=$(`<div class="card"><div class="kpi">${pct}%</div><div class="mut">${raw}/${max} correct choices this quiz. Progress saved.</div>
+    <div style="margin-top:8px"><b>Focus next on:</b> ${rec.slice(0,3).map(r=>r.k.replace(/(ML|QF)(\d+)/,'$1 D$2')+' ('+Math.round(r.p*100)+'%)').join(', ')||'—'}</div>
+    ${state.some(s=>s.sel.every(x=>x==='T')||s.sel.every(x=>x==='F'))?'<div style="color:var(--red)">⚠ One or more questions had all-5 marked the same → scored 0 (real-exam rule).</div>':''}</div>`);
+  area.prepend(head);
+  // reveal answers inline
+  state.forEach((s,qi)=>{const q=s.q;const card=area.querySelectorAll('.card')[qi+1];if(!card)return;
+    q.choices.forEach((c,i)=>{const ch=card.querySelectorAll('.choice')[i];if(!ch)return;
+      const right=s.sel[i]&&(s.sel[i]==='T')===(c.verdict==='True');ch.classList.add(right?'ok':'bad');
+      ch.insertAdjacentHTML('beforeend',`<div><span class="verdict ${c.verdict==='True'?'v-true':'v-false'}">Answer: ${c.verdict}</span> <span class="why">${inline(c.why)}</span></div>`);});
+    card.insertAdjacentHTML('beforeend',noteBox(q.id));});
+  bindNotes(area);window.scrollTo(0,0);
+}
+function notesView(){const v=document.getElementById('view');const ids=Object.keys(store.notes);
+  v.innerHTML=`<div class="card"><h3 style="margin-top:0">My Notes (${ids.length})</h3>${ids.length?'':'<div class="mut">No notes yet — add them from Study or after a quiz.</div>'}</div>`;
+  ids.forEach(id=>{const q=D.questions.find(x=>x.id===id);
+    v.append($(`<div class="card"><span class="pill">${id}</span> ${q?'<span class="pill">'+q.part+' D'+ +q.domain+'</span>':''}
+      <div class="q-scenario small mut">${q?q.scenario.slice(0,160)+'…':''}</div>
+      <div class="notebox">${md(store.notes[id])}</div></div>`));});
+}
+function progressView(){const v=document.getElementById('view');const m=domAcc();
+  const rl=store.reviewLog||{}; const rdays=Object.keys(rl).filter(d=>rl[d]>0).sort().reverse();
+  const rlActions=Object.values(rl).reduce((a,b)=>a+b,0); const rlDistinct=Object.keys(store.reviewed||{}).length;
+  const rlRows=rdays.length?rdays.slice(0,14).map(d=>`<div>${d==today()?'<b>'+d+' (today)</b>':d}: <b>${rl[d]}</b> reviewed</div>`).join(''):'<div class="mut">No reviews logged yet — tick "reviewed" on questions in Study.</div>';
+  const reviewCard=`<div class="card"><h3 style="margin-top:0">📈 Daily review log</h3><div class="small mut">${rlDistinct}/${D.counts.questions} distinct questions reviewed · ${rlActions} total review actions</div><div style="margin-top:6px">${rlRows}</div></div>`;
+  const rag=p=>p>=.85?'g':p>=.7?'a':'r';
+  const seen=Object.keys(store.attempts).length;
+  const glyph={g:'🟢',a:'🟡',r:'🔴'};
+  const cells=D.domains.map(d=>{const e=m[d.part+d.num];const p=e?e.c/e.t:null;const cl=p===null?'u':rag(p);
+    const gl=p===null?'⚪':glyph[cl];
+    return `<div class="d ${cl}"><b>${gl} ${d.part} D${+d.num}</b><br>${d.name}<br>${p===null?'not attempted':Math.round(p*100)+'% ('+e.c+'/'+e.t+')'}</div>`;}).join('');
+  const attempted=Object.values(m);const overall=attempted.length?Math.round(attempted.reduce((s,e)=>s+e.c,0)/attempted.reduce((s,e)=>s+e.t,0)*100):0;
+  const weak=Object.entries(m).map(([k,e])=>({k,p:e.c/e.t})).filter(x=>x.p<.7).sort((a,b)=>a.p-b.p);
+  v.innerHTML=`<div class="card"><div class="kpi">${overall}%</div><div class="mut">overall accuracy · ${seen}/${D.counts.questions} questions attempted</div>
+    <div style="margin-top:8px"><b>Readiness call:</b> ${overall>=85&&seen>D.counts.questions*0.6?'On track ✅':overall>=70?'Getting there — close the red domains 🟡':'Keep drilling, esp. red domains 🔴'}</div>
+    ${weak.length?'<div style="margin-top:6px"><b>Weakest domains:</b> '+weak.slice(0,5).map(w=>w.k.replace(/(ML|QF)(\d+)/,'$1 D$2')+' '+Math.round(w.p*100)+'%').join(', ')+'</div>':''}</div>
+    <div class="card"><h3 style="margin-top:0">Domain readiness heatmap</h3><div class="heat">${cells}</div></div>
+    ${reviewCard}
+    <div class="row"><button class="btn sec" id="exp">Export progress</button><button class="btn sec" id="imp">Import</button><button class="btn sec" id="rst">Reset</button></div>`;
+  v.querySelector('#exp').onclick=()=>{const b=new Blob([JSON.stringify(store)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='ml4t_progress.json';a.click();};
+  v.querySelector('#imp').onclick=()=>{const inp=document.createElement('input');inp.type='file';inp.onchange=e=>{const r=new FileReader();r.onload=()=>{Object.assign(store,JSON.parse(r.result));save();render();};r.readAsText(e.target.files[0]);};inp.click();};
+  v.querySelector('#rst').onclick=()=>{if(confirm('Erase all notes & progress?')){localStorage.removeItem(LS);location.reload();}};
+}
+function tipsView(){const h=D.heuristics;const v=document.getElementById('view');
+  v.innerHTML=`<div class="card md"><h2>Data-mined answer heuristics (from all ${D.counts.questions} questions)</h2>
+  <ul>
+  <li><b>Absolute words → ~${h.absolute_false_pct}% False.</b> "always / never / must / only / all / guarantees / cannot / ensures" — default to False/flawed unless certain.</li>
+  <li><b>Negation choices → ~${h.negation_inacc_pct}% inaccurate.</b> "is not X" / "reverses…": compute the real value, then check if the "not" makes it lie.</li>
+  <li><b>Base rate ${h.accurate_base_pct}% accurate</b> — leans slightly True, but NEVER mark all 5 the same (auto-zero).</li>
+  <li><b>Positional skew:</b> A accurate ${h.positional.A}%, B ${h.positional.B}%, C ${h.positional.C}%, D ${h.positional.D}%, E ${h.positional.E}%. Early choices skew accurate; C–E ≈ coin flip. Weak tiebreaker only.</li>
+  <li><b>${h.inverted_total} inverted-logic questions</b> (dominantly ML): read the polarity line FIRST — "True = incorrect" flips everything.</li>
+  <li><b>Process:</b> 1) read polarity, 2) judge each choice on its own merits, 3) apply absolute/negation priors only to break ties, 4) ensure you have a mix of T and F.</li>
+  </ul></div>`;
+}
+function render(){document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.k===route));
+  ({study:studyView,quiz:quizView,notes:notesView,progress:progressView,tips:tipsView})[route]();}
+loadState().then(()=>{
+  if(!store.week)store.week=8;
+  store.reviewed=store.reviewed||{};
+  store.reviewLog=store.reviewLog||{};
+  store.flagged=store.flagged||{};
+  const ws=document.getElementById('weeksel');
+  if(ws){ws.value=store.week; ws.onchange=()=>{store.week=+ws.value;save();render();};}
+  document.getElementById('stat').textContent+= SERVER?' · notes→file ✅':' · notes→browser (open via serve.py to save to file)';
+  render();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,518 @@
+Domain 10: Quantitative Strategy Design and Evaluation 
+Domain Summary 
+ Investment hypotheses 
+ Signals and forecasts 
+ Position construction 
+ Backtesting 
+ Benchmarking 
+ Turnover 
+ Capacity 
+ Leverage 
+ Transaction costs 
+ Model degradation 
+ Statistical versus economic performance 
+ Implementation constraints 
+Topic Groups 
+G1: Investment Hypothesis and Signal Design 
+ Economic rationale 
+ Translating an idea into a measurable signal 
+ Signal direction and magnitude 
+ Distinguishing correlation from a defensible hypothesis 
+ Conditions under which a signal should work 
+G2: Forecasts, Positions, and Trades 
+ Difference between prediction and action 
+ Mapping forecasts into positions 
+ Position sizing 
+ Thresholds and conﬁdence 
+ Why an accurate forecast may not produce a proﬁtable trade 
+ 
+ 407 Rev:081020261230 
+G3: Backtesting and Benchmark Selection 
+ Historical simulation 
+ Appropriate benchmarks 
+ In-sample and out-of-sample periods 
+ Performance attribution 
+ Comparing against naive or passive alternatives 
+G4: Turnover, Costs, and Net Performance 
+ Trading frequency 
+ Commissions and spreads 
+ Market impact 
+ Gross alpha versus net alpha 
+ Why small predictive edges may disappear after costs 
+G5: Capacity, Liquidity, and Scalability 
+ Strategy size limits 
+ Market depth 
+ Crowding 
+ Return degradation as capital increases 
+ Why a proﬁtable small strategy may not scale 
+G6: Leverage, Exposure, and Risk Controls 
+ Magnifying gains and losses 
+ Margin and funding risk 
+ Position limits 
+ Stop-loss logic 
+ Portfolio-level exposure controls 
+G7: Robustness, Degradation, and Live Deployment 
+ Regime dependence 
+ Model drift 
+ Signal decay 
+ Monitoring live performance 
+ 
+ 408 Rev:081020261230 
+ Difference between backtest success and production success 
+ Need for retraining, recalibration, or retirement 
+G1: Investment Hypothesis and Signal Design 
+[QF-D10G1Q1] 
+A quant team ﬁnds that stocks with unusually high social-media mentions outperform over the next day. The portfolio 
+manager asks whether the pattern justiﬁes a strategy, but requires an economic explanation and evidence that the data 
+would have been available before trading. 
+ 
+A. The observed correlation alone proves that social-media activity causes the subsequent returns. 
+B. A defensible hypothesis should explain why mentions might predict returns and when the relationship should weaken 
+or reverse. 
+C. Testing whether the effect survives controls for news, liquidity, and recent returns can help distinguish the proposed 
+mechanism from alternatives. 
+D. The team should deﬁne the signal and trading rule before using an untouched sample for validation. 
+E. A statistically signiﬁcant relationship necessarily remains proﬁtable after transaction costs. 
+ 
+Answer Key: 
+ 
+A. False – Correlation can arise from confounding, reverse causality, data leakage, or chance. 
+B. True – A useful investment hypothesis identiﬁes a plausible mechanism and conditions governing the effect. 
+C. True – Relevant controls test whether another known inﬂuence better explains the relationship. 
+D. True – Freezing the design before validation reduces selection and tuning on the evaluation data. 
+E. False – Statistical evidence does not establish sufficient economic magnitude or net proﬁtability. 
+ 
+[QF-D10G1Q2] 
+An asset manager believes that slow-moving institutional demand creates medium-term price continuation. The 
+research director asks the team to translate the idea into a measurable signal without merely choosing whichever 
+lookback performed best historically. 
+ 
+A. A past-return measure over a stated lookback could not operationalize the direction of the proposed continuation 
+effect. 
+B. The hypothesis predicts that stronger recent performance should always create a more negative position. 
+C. Trading volume or fund-ﬂow measures could be tested as evidence related to the proposed demand mechanism. 
+ 
+ 409 Rev:081020261230 
+D. Selecting the lookback solely because it maximizes full-sample performance increases overﬁtting risk. 
+E. Pre-specifying expected behavior in liquid versus illiquid securities cannot make the hypothesis more falsiﬁable. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. A deﬁned past-return feature is one measurable representation 
+of price continuation. 
+B. False – Continuation implies that stronger recent performance generally maps toward a more positive, not more 
+negative, forecast. 
+C. True – These variables may provide evidence about whether persistent demand is actually present. 
+D. True – Choosing the best result after searching the whole history capitalizes on sample-speciﬁc noise. 
+E. False – The statement reverses the correct conclusion. Conditional predictions create evidence that can support or 
+contradict the proposed mechanism. 
+ 
+[QF-D10G1Q3] 
+A researcher reports that ﬁrms with ticker symbols beginning with letters A–M outperformed N–Z ﬁrms in one historical 
+sample. The chief investment officer will fund further work only if the team can explain the effect and demonstrate that it 
+is not a chance partition. 
+ 
+A. The alphabetical pattern is automatically an investment hypothesis because it separates ﬁrms into two groups. 
+B. Searching many arbitrary partitions can produce an apparently strong result by chance. 
+C. Stability across different periods would be more persuasive than performance in the discovery sample alone. 
+D. A plausible channel linking the feature to expected returns would strengthen the case for continued research. 
+E. If the pattern has no economic rationale, increasing leverage is an appropriate substitute for validation. 
+ 
+Answer Key: 
+ 
+A. False – A measurable correlation is not by itself a defensible explanation of expected returns. 
+B. True – Multiple testing creates many opportunities to discover spurious relationships. 
+C. True – Temporal replication helps assess whether the ﬁnding generalizes beyond its selected sample. 
+D. True – A mechanism supports conditional predictions and helps distinguish signal from coincidence. 
+E. False – Leverage magniﬁes exposure; it does not create evidence that the signal is genuine. 
+ 
+ 
+ 410 Rev:081020261230 
+G2: Forecasts, Positions, and Trades 
+[QF-D10G2Q1] 
+A model predicts next-day returns of +0.04%, +0.01%, and -0.03% for three stocks. The trader estimates a 0.02% round-
+trip cost for each and asks whether every nonzero forecast should become a trade. 
+ 
+A. The sign of a forecast can help determine position direction, but it does not alone determine whether to trade. 
+B. Before considering risk, the +0.01% forecast is not smaller than its estimated round-trip cost. 
+C. A no-trade threshold cannot prevent forecasts too small to cover expected costs from generating positions. 
+D. Forecast magnitude and uncertainty can both be inputs to position sizing. 
+E. Because the ﬁrst forecast is positive, a long position is guaranteed to earn a proﬁt. 
+ 
+Answer Key: 
+ 
+A. True – Action also depends on magnitude, conﬁdence, costs, risk, and portfolio constraints. 
+B. False – The statement reverses the correct conclusion. The expected gross edge is 0.01%, compared with a 0.02% cost 
+estimate. 
+C. False – The statement reverses the correct conclusion. Thresholding can reserve trades for signals with sufficient 
+expected net value. 
+D. True – Larger and more reliable forecasts may justify different exposure than weak or uncertain ones. 
+E. False – A forecast is uncertain and realized returns can differ from its predicted value. 
+ 
+[QF-D10G2Q2] 
+A classiﬁer correctly predicts whether the market will close up or down on 60% of days. The portfolio manager notes that 
+its correct calls tend to occur on tiny moves while several incorrect calls coincide with large market declines. 
+ 
+A. Directional accuracy alone is sufficient to establish trading proﬁtability. 
+B. The magnitude of returns on correct and incorrect days affects strategy P&L. 
+C. A 60% hit rate can coexist with a negative average trading return. 
+D. Position sizing that ignores forecast conﬁdence and downside exposure cannot worsen the large-error problem. 
+E. Evaluating a return-weighted objective can provide information that classiﬁcation accuracy omits. 
+ 
+Answer Key: 
+ 
+ 
+ 411 Rev:081020261230 
+A. False – Accuracy treats small and large outcomes alike and ignores costs and sizing. 
+B. True – Trading P&L depends on the signed size of each realized outcome, not only the number correct. 
+C. True – A few large losses can outweigh many small gains. 
+D. False – The statement reverses the correct conclusion. Equal or aggressive sizing can assign too much capital to 
+uncertain, high-consequence predictions. 
+E. True – Return-based evaluation reﬂects economic magnitudes more directly than hit rate. 
+ 
+[QF-D10G2Q3] 
+A market-neutral fund converts stock-return forecasts into positions proportional to predicted return. The risk manager 
+observes that the model repeatedly assigns its largest positions to volatile, thinly traded stocks and requires a safer 
+construction rule. 
+ 
+A. Raw forecast-proportional sizing can concentrate risk in securities with large forecast magnitudes. 
+B. Scaling forecasts by volatility cannot help make position risk more comparable across securities. 
+C. Liquidity and position limits can constrain trades even when a forecast is strong. 
+D. Dollar neutrality guarantees neutrality to every market, sector, and factor exposure. 
+E. Converting forecasts into portfolio weights is not a separate design problem from producing the forecasts. 
+ 
+Answer Key: 
+ 
+A. True – Large predictions mechanically receive large weights unless additional controls intervene. 
+B. False – The statement reverses the correct conclusion. Volatility scaling reduces the allocation to a high-risk security 
+for a given forecast. 
+C. True – Tradability and concentration constraints can override an unconstrained signal mapping. 
+D. False – Equal long and short dollars can retain beta, sector, style, and other systematic exposures. 
+E. False – The statement reverses the correct conclusion. Portfolio construction must translate predictive information 
+into feasible, risk-controlled actions. 
+ 
+G3: Backtesting and Benchmark Selection 
+[QF-D10G3Q1] 
+A long-only U.S. equity model earned 12% annually in a period when its investable index earned 14%. The investment 
+committee asks the researcher to compare the strategy with meaningful alternatives before claiming success. 
+ 
+ 
+ 412 Rev:081020261230 
+A. A zero-return cash benchmark alone is sufficient to determine whether the equity selection model added value. 
+B. The investable index is relevant because it represents a passive exposure available to the strategy. 
+C. Under the stated returns, the strategy underperformed the index by 2 percentage points annually before further risk 
+adjustment. 
+D. Differences in beta, sector exposure, risk, costs, and constraints cannot matter when attributing the performance gap. 
+E. Comparing with a simple signal or naive allocation can reveal whether model complexity adds incremental value. 
+ 
+Answer Key: 
+ 
+A. False – Beating cash may merely reward taking equity-market risk during a rising market. 
+B. True – It is a plausible opportunity-cost benchmark for a long-only U.S. equity mandate. 
+C. True – 12% - 14% = -2 percentage points per year. 
+D. False – The statement reverses the correct conclusion. Raw return alone does not identify why the strategy differed 
+from its benchmark. 
+E. True – A simple alternative tests whether sophistication improves performance enough to justify it. 
+ 
+[QF-D10G3Q2] 
+A researcher tunes a strategy on 2010–2022 data and reports performance on the same years. The head of research asks 
+for evidence that the result could survive deployment beginning in 2023. 
+ 
+A. The reported 2010–2022 result is not in-sample because it helped determine the ﬁnal strategy. 
+B. Testing the frozen strategy on later, untouched data provides a more credible out-of-sample assessment. 
+C. Strong in-sample performance guarantees comparable performance after 2022. 
+D. Walk-forward testing cannot repeatedly train on past data and evaluate on subsequent periods while preserving 
+temporal order. 
+E. Retuning after observing every out-of-sample result eventually makes those observations part of development. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Data used for speciﬁcation or tuning are part of the model-
+development sample. 
+B. True – Untouched later data better approximate prospective use of the ﬁxed rule. 
+C. False – The strategy may be overﬁt or the return-generating process may change. 
+ 
+ 413 Rev:081020261230 
+D. False – The statement reverses the correct conclusion. Each evaluation window occurs after the information used to 
+ﬁt its model. 
+E. True – Repeated feedback erodes the independence of the nominal holdout set. 
+ 
+[QF-D10G3Q3] 
+A sector-rotation strategy beats the broad market, but the performance report shows that it maintained a persistent 
+overweight to technology during a technology-led rally. The client asks how much return came from the timing model 
+rather than static exposure. 
+ 
+A. Broad-market outperformance alone proves that the rotation decisions added alpha. 
+B. A sector-matched or exposure-matched benchmark can improve performance attribution. 
+C. Comparing the strategy with a ﬁxed portfolio holding its average sector weights can help isolate timing value. 
+D. Factor regression may reveal that known systematic exposures explain part of the excess return. 
+E. Attribution is unnecessary if the backtest's total return is positive. 
+ 
+Answer Key: 
+ 
+A. False – A persistent sector tilt can explain the result without successful rotation. 
+B. True – Matching relevant exposures creates a more informative counterfactual. 
+C. True – The comparison separates dynamic changes from the return of the average allocation. 
+D. True – Estimated factor loadings can identify compensation for systematic risks rather than unique skill. 
+E. False – Investors need to know what exposures produced returns and whether they match the intended process. 
+ 
+G4: Turnover, Costs, and Net Performance 
+[QF-D10G4Q1] 
+A predictive model has a small but statistically signiﬁcant edge and trades every few minutes. In backtesting, the strategy 
+earns 8% annually before costs. The head of trading estimates that spreads, commissions, and market impact would 
+total roughly 10% annually at the proposed turnover. 
+ 
+A. The strategy is not proﬁtable on a gross basis. 
+B. The strategy is proﬁtable on a net basis under the cost estimate. 
+C. High turnover cannot cause a statistically useful signal to become economically unviable. 
+D. Transaction costs should be incorporated before deciding whether to deploy the strategy. 
+ 
+ 414 Rev:081020261230 
+E. Reducing turnover could improve net performance even if gross predictive accuracy falls slightly. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Gross return is positive before costs. 
+B. False – Estimated costs exceed gross return. 
+C. False – The statement reverses the correct conclusion. Small edges can be consumed by implementation costs. 
+D. True – Deployment decisions should be based on net, not gross, performance. 
+E. True – Lower trading intensity may improve net economics. 
+ 
+[QF-D10G4Q2] 
+A daily strategy manages $10 million and turns over 40% of portfolio value each day, where turnover denotes the dollar 
+value traded divided by portfolio value. The execution team estimates an average one-way trading cost of 0.10% of dollars 
+traded and asks for a ﬁrst-order cost estimate. 
+ 
+A. The strategy trades approximately $4 million per day under the stated turnover deﬁnition. 
+B. The estimated daily trading cost is approximately $4,000. 
+C. If gross expected proﬁt is $3,000 per day, the strategy remains proﬁtable after the estimated trading cost. 
+D. Reducing unnecessary rebalancing can improve net returns without changing the underlying forecast model. 
+E. The 0.10% estimate must remain constant regardless of order size, liquidity, or market conditions. 
+ 
+Answer Key: 
+ 
+A. True – 40% × $10 million = $4 million traded. 
+B. True – 0.10% × $4 million = $4,000. 
+C. False – $3,000 - $4,000 = a $1,000 estimated daily net loss. 
+D. True – A turnover-aware position rule can reduce implementation drag separately from prediction. 
+E. False – Spreads and market impact can vary with size, liquidity, volatility, and execution conditions. 
+ 
+[QF-D10G4Q3] 
+Two versions of a signal have identical 9% gross annual returns. Version A costs an estimated 2% annually and Version B 
+costs 6%; the portfolio manager prefers B because it reacts faster to every forecast change. 
+ 
+ 
+ 415 Rev:081020261230 
+A. Version A has an estimated 7% net return before other fees. 
+B. Version B has an estimated 3% net return before other fees. 
+C. Faster reaction necessarily makes Version B economically superior. 
+D. A no-trade band could not reduce turnover by leaving small target-weight changes unexecuted. 
+E. A reviewer would be wrong to accept the claim that cost estimates should include market impact as well as explicit 
+commissions when those costs are material. 
+ 
+Answer Key: 
+ 
+A. True – 9% gross minus 2% costs equals 7% net. 
+B. True – 9% gross minus 6% costs equals 3% net. 
+C. False – The higher implementation cost leaves B with lower estimated net performance. 
+D. False – The statement reverses the correct conclusion. Ignoring immaterial adjustments can avoid costs that exceed 
+their expected beneﬁt. 
+E. False – The underlying claim is correct and should be accepted. Impact and spread costs can dominate explicit fees 
+for some strategies. 
+ 
+G5: Capacity, Liquidity, and Scalability 
+[QF-D10G5Q1] 
+A strategy earned strong returns while managing $5 million in small-cap stocks. A prospective investor wants to allocate 
+$500 million, but the head trader warns that many desired positions represent a substantial fraction of average daily 
+volume. 
+ 
+A. Historical percentage returns at $5 million necessarily remain unchanged at $500 million. 
+B. Larger orders cannot consume available depth and create greater market impact. 
+C. Participation-rate or average-daily-volume limits can constrain feasible position changes. 
+D. Spreading trades over time may reduce immediate impact but can introduce delay and price risk. 
+E. Capacity analysis should consider how the strategy's own trading changes execution prices. 
+ 
+Answer Key: 
+ 
+A. False – Scaling can worsen execution and prevent the fund from obtaining the historical positions at observed prices. 
+B. False – The statement reverses the correct conclusion. Larger demand often walks the order book or moves other 
+participants' quotes. 
+ 
+ 416 Rev:081020261230 
+C. True – Such limits restrict trading to a manageable portion of market liquidity. 
+D. True – Slower execution trades impact against the risk that prices move before completion. 
+E. True – A scalable backtest cannot assume unlimited ﬁlls at unaffected historical prices. 
+ 
+[QF-D10G5Q2] 
+A relative-value strategy has an expected gross edge of 0.50% per trade. Estimated round-trip impact is 0.10% at $1 
+million, 0.30% at $5 million, and 0.70% at $10 million; the portfolio manager asks whether more capital always produces 
+proportionally more proﬁt. 
+ 
+A. At $1 million, the estimated net edge is not 0.40% before other costs. 
+B. At $5 million, the estimated net edge is 0.20% before other costs. 
+C. At $10 million, the estimated net edge remains positive. 
+D. The relationship illustrates that percentage return can decline as strategy size increases. 
+E. Maximizing assets under management and maximizing net investment performance are always the same objective. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. 0.50% - 0.10% = 0.40%. 
+B. True – 0.50% - 0.30% = 0.20%. 
+C. False – 0.50% - 0.70% = -0.20% before other costs. 
+D. True – Rising impact consumes an increasing share of the ﬁxed gross opportunity. 
+E. False – Additional capital can reduce returns or proﬁts once capacity constraints bind. 
+ 
+[QF-D10G5Q3] 
+Several funds begin trading similar signals in the same securities. The chief risk officer observes faster price adjustment, 
+more crowded entries, and sharp losses when many funds attempt to exit simultaneously. 
+ 
+A. Crowding can reduce the amount or duration of the original opportunity. 
+B. Independent ﬁrms using similar data and models can still create correlated positions. 
+C. Exit liquidity cannot be worse precisely when crowded strategies seek to unwind. 
+D. Diversifying fund names guarantees diversiﬁcation of underlying strategy exposure. 
+E. Capacity estimates based only on calm, uncrowded periods may be optimistic. 
+ 
+ 
+ 417 Rev:081020261230 
+Answer Key: 
+ 
+A. True – Competition can cause information to enter prices sooner. 
+B. True – Similar processes can lead to the same trades even without explicit coordination. 
+C. False – The statement reverses the correct conclusion. Simultaneous selling can overwhelm available buyers and 
+amplify impact. 
+D. False – Different managers can hold substantially overlapping positions and risks. 
+E. True – Stress conditions and competitor activity can materially reduce executable capacity. 
+ 
+G6: Leverage, Exposure, and Risk Controls 
+[QF-D10G6Q1] 
+A fund has $10 million of equity and uses borrowed funds to hold $30 million of a risky portfolio, creating 3-to-1 gross 
+exposure relative to equity. The risk committee asks how leverage changes outcomes before ﬁnancing costs. 
+ 
+A. A 2% gain on the risky portfolio produces approximately a 6% gain on fund equity before costs. 
+B. A reviewer would be wrong to accept the claim that a 2% loss on the risky portfolio produces approximately a 6% loss 
+on fund equity before costs. 
+C. Leverage magniﬁes gains but leaves losses unchanged. 
+D. Adverse moves can trigger margin calls or forced deleveraging even if the long-run thesis remains valid. 
+E. Financing cost and availability cannot affect the realized beneﬁt of leverage. 
+ 
+Answer Key: 
+ 
+A. True – 2% × $30 million = $0.6 million, or 6% of $10 million equity. 
+B. False – The underlying claim is correct and should be accepted. A $0.6 million loss is likewise 6% of fund equity. 
+C. False – Leverage magniﬁes both favorable and adverse portfolio returns. 
+D. True – Lenders and brokers impose collateral requirements based on current conditions. 
+E. False – The statement reverses the correct conclusion. Borrowing is neither free nor guaranteed to remain available. 
+ 
+[QF-D10G6Q2] 
+A market-neutral portfolio holds $120 million long and $120 million short against $40 million of investor equity. The chief 
+risk officer is concerned that the team reports only zero net dollar exposure. 
+ 
+ 418 Rev:081020261230 
+ 
+A. The portfolio's net dollar exposure is zero. 
+B. Its gross exposure is $240 million, or 600% of investor equity. 
+C. Zero net dollar exposure means the portfolio cannot suffer a large loss. 
+D. Long and short positions cannot both lose if their relative prices move adversely. 
+E. Sector, beta, factor, liquidity, and concentration limits can provide information not captured by net dollars alone. 
+ 
+Answer Key: 
+ 
+A. True – $120 million long minus $120 million short equals zero net dollars. 
+B. True – $120 million + $120 million = $240 million; $240 million/$40 million = 6, or 600%. 
+C. False – High gross exposure, imperfect hedges, and correlated adverse moves can create substantial losses. 
+D. False – The statement reverses the correct conclusion. The longs can fall while the shorts rise, harming both sides of 
+the relative trade. 
+E. True – Net dollar exposure does not measure every economically important risk. 
+ 
+[QF-D10G6Q3] 
+A trading desk proposes an automatic 5% stop-loss on every position. The portfolio manager expects it to prevent large 
+losses, while the quant warns that volatile assets can cross the threshold during ordinary price noise and that gaps can 
+bypass the intended exit price. 
+ 
+A. A stop-loss guarantees execution at exactly 5% below entry. 
+B. A ﬁxed percentage threshold can affect high- and low-volatility assets differently. 
+C. Frequent stop-outs cannot crystallize losses shortly before a valid signal recovers. 
+D. Position sizing and portfolio-level exposure limits can complement, rather than necessarily replace, stop-loss rules. 
+E. Risk controls should not be evaluated for behavior during gaps, illiquidity, and correlated stress events. 
+ 
+Answer Key: 
+ 
+A. False – A gap or lack of liquidity can cause execution well beyond the trigger level. 
+B. True – A 5% move may be routine for one asset and exceptional for another. 
+C. False – The statement reverses the correct conclusion. Mechanical exits can create whipsaw when prices reverse after 
+reaching the threshold. 
+D. True – Different controls address different dimensions of loss and concentration risk. 
+ 
+ 419 Rev:081020261230 
+E. False – The statement reverses the correct conclusion. Controls designed from normal trading conditions may fail or 
+behave unexpectedly in stress. 
+ 
+G7: Robustness, Degradation, and Live Deployment 
+[QF-D10G7Q1] 
+A model performed well in a low-volatility training period but loses money after deployment during a high-volatility regime. 
+The research lead asks whether the model should be retrained immediately or whether the failure reﬂects a deeper 
+change. 
+ 
+A. A regime shift cannot change feature distributions and the relationship between features and returns. 
+B. Retraining on the most recent observations always restores proﬁtable performance. 
+C. Comparing live inputs and outcomes with training distributions can help diagnose drift. 
+D. Performance by volatility regime can reveal dependence hidden by an overall backtest average. 
+E. The team should consider recalibration, redesign, or retirement if the original economic relationship no longer holds. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Both the inputs and the conditional return process can change 
+across regimes. 
+B. False – Recent data may be limited or noisy, and the predictive relationship may have disappeared. 
+C. True – Distribution and residual monitoring can identify ways deployment differs from training. 
+D. True – Aggregate results can conceal that success was concentrated in one environment. 
+E. True – Retraining is not the only response when the underlying mechanism has degraded. 
+ 
+[QF-D10G7Q2] 
+A strategy's backtest assumes ﬁlls at the closing price, but live orders arrive after the close signal is computed and 
+execute at worse prices. The trading desk also reports rejected orders and occasional missing data, none of which 
+appeared in research. 
+ 
+A. The discrepancy cannot arise from implementation assumptions even if the predictive model behaves as coded. 
+B. Backtest success alone validates the reliability of the production data and order pipeline. 
+C. Paper trading or staged deployment can expose operational problems before full capital is committed. 
+D. Monitoring signal timestamps, order status, ﬁlls, slippage, and data quality cannot help locate the performance gap. 
+ 
+ 420 Rev:081020261230 
+E. Production evaluation should compare realized execution with prices that were actually attainable after the decision 
+time. 
+ 
+Answer Key: 
+ 
+A. False – The statement reverses the correct conclusion. Timing, execution, and system failures can separate live results 
+from theoretical model output. 
+B. False – A historical simulation does not test every live data, software, broker, and execution dependency. 
+C. True – Controlled rollout provides evidence about the complete implementation with limited ﬁnancial risk. 
+D. False – The statement reverses the correct conclusion. These records connect research forecasts to submitted trades 
+and realized outcomes. 
+E. True – A valid comparison must respect when the signal became available and an order could reach the market. 
+ 
+[QF-D10G7Q3] 
+A deployed signal's six-month rolling information coefficient falls from 0.06 to near zero, turnover rises, and net returns 
+become negative. The investment committee asks for a monitoring rule that avoids both ignoring decay and retiring a 
+strategy after one unlucky week. 
+ 
+A. Several related diagnostics provide stronger evidence than a single short-term P&L observation. 
+B. Predeﬁned review thresholds cannot reduce purely emotional reactions to recent performance. 
+C. A declining information coefficient alongside higher costs can explain deterioration in net returns. 
+D. Continuing indeﬁnitely is justiﬁed because the original backtest was statistically signiﬁcant. 
+E. A retirement decision should consider statistical uncertainty, implementation quality, current market conditions, and 
+whether the economic thesis remains credible. 
+ 
+Answer Key: 
+ 
+A. True – Signal quality, costs, exposures, and outcomes together help distinguish noise from structural degradation. 
+B. False – The statement reverses the correct conclusion. Governance established in advance makes escalation and 
+review more consistent. 
+C. True – Weaker predictive value reduces gross opportunity while higher turnover increases implementation drag. 
+D. False – Historical evidence does not guarantee that a relationship persists after deployment. 
+E. True – No single metric conclusively distinguishes temporary underperformance from permanent decay. 
+ 
+  
+ 
+ 421 Rev:081020261230 

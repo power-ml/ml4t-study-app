@@ -1,0 +1,417 @@
+Domain 9: Overﬁtting, Underﬁtting & Generalization 
+Domain Summary 
+ Overﬁtting vs. underﬁtting 
+ Bias–variance tradeoff 
+ Model capacity vs. dataset size 
+ Cross-validation intuition 
+ Detecting overﬁtting in practice 
+ Model stability 
+ Regularization and complexity control 
+Topic Groups 
+G1: Identifying Overﬁtting vs. Underﬁtting 
+ Symptoms in training vs. test performance 
+ Recognizing high variance vs. high bias 
+ Visual and conceptual indicators 
+G2: Bias–Variance Tradeoff 
+ Effect of model complexity on bias and variance 
+ Tradeoffs when increasing model capacity 
+ Implications for model selection 
+G3: Model Capacity vs. Data Size 
+ Relationship between dataset size and model complexity 
+ When more data helps vs. when it doesn’t 
+ Limits of model expressiveness 
+G4: Cross-Validation and Generalization Estimation 
+ Purpose of cross-validation 
+ How it improves reliability of performance estimates 
+ Conceptual understanding of folds 
+ 
+ 237 Rev:081020261230 
+G5: Detecting Overﬁtting in Practice 
+ Large gap between training and test error 
+ Instability across runs 
+ “Too good to be true” results 
+G6: Controlling Model Complexity 
+ Hyperparameters as complexity controls (e.g., tree depth, k in KNN) 
+ Regularization intuition 
+ Early stopping (conceptual) 
+G1: Identifying Overﬁtting vs. Underﬁtting 
+[ML-D9G1Q1] 
+Your team presents a model with near-zero training error but much worse performance on new data. The PM asks whether 
+this is acceptable. 
+ 
+A. This indicates overﬁtting. 
+B. The model likely has high variance. 
+C. Increasing training data may help. 
+D. Reducing model complexity may help. 
+E. This indicates underﬁtting. 
+ 
+Answer Key: 
+ 
+A. True – Near-zero training error combined with poor performance on new data is the classic overﬁtting pattern. 
+B. True – Strong sensitivity to the particular training sample is characteristic of high variance. 
+C. True – More representative training data can make it harder for the model to ﬁt sample-speciﬁc noise. 
+D. True – Reducing capacity can limit the model’s ability to ﬁt noise. 
+E. False – Underﬁtting normally produces poor performance even on the training data. 
+ 
+[ML-D9G1Q2] 
+A student ﬁts a shallow decision tree to a nonlinear relationship between market indicators and next-day returns. Both 
+training and test errors are high and similar, and increasing the training sample without changing the tree produces little 
+improvement. 
+ 
+ 238 Rev:081020261230 
+ 
+A. The similar, high training and test errors are consistent with underﬁtting. 
+B. The tree may have insufficient capacity to represent the relevant relationship. 
+C. Making the tree shallower would necessarily correct the problem. 
+D. A modest increase in model complexity could reduce bias. 
+E. A small train–test gap by itself proves that the model generalizes well. 
+ 
+Answer Key: 
+ 
+A. True – Underﬁt models often perform poorly on both seen and unseen observations. 
+B. True – A tree that is too shallow may be unable to express an important nonlinear pattern. 
+C. False – Further reducing capacity would generally worsen an underﬁtting problem. 
+D. True – Additional capacity may capture structure that the current model misses. 
+E. False – Two similarly poor scores indicate consistency, not useful predictive performance. 
+ 
+[ML-D9G1Q3] 
+Three models are evaluated on the same return-prediction task. Model A has high training and high validation error. Model 
+B has very low training error but high validation error. Model C has moderate, similar training and validation error and 
+outperforms both on validation data. 
+ 
+A. Model A shows a pattern consistent with underﬁtting. 
+B. Model B shows a pattern consistent with overﬁtting. 
+C. Model C currently provides the strongest evidence of generalization among the three. 
+D. Model B should be preferred because the lowest training error always identiﬁes the best model. 
+E. The train–validation gap is useful only for classiﬁcation models, not regression models. 
+ 
+Answer Key: 
+ 
+A. True – High error even on training data suggests that Model A is not capturing enough structure. 
+B. True – Excellent training ﬁt with poor validation performance is a standard overﬁtting symptom. 
+C. True – Model C has the best validation performance without a large gap from training performance. 
+D. False – Training error alone rewards memorization and does not establish performance on new data. 
+E. False – Training and validation behavior is informative for both regression and classiﬁcation. 
+ 
+ 239 Rev:081020261230 
+ 
+G2: Bias–Variance Tradeoff 
+[ML-D9G2Q1] 
+An analyst gradually increases the maximum depth of a decision tree. Training error falls at every step, while validation 
+error ﬁrst falls and then rises after the tree becomes deep. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The shallowest trees may have relatively high bias. 
+B. Very deep trees may have relatively high variance. 
+C. The depth with the lowest validation error may be a better choice than the depth with the lowest training error. 
+D. Increasing depth must reduce both bias and variance simultaneously. 
+E. The rise in validation error suggests that additional capacity has begun to harm generalization. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Very limited trees may systematically miss useful structure. 
+B. False – Deep trees can become sensitive to noise and small changes in the training set. 
+C. False – Validation performance better reﬂects the goal of performing well on unseen data. 
+D. True – Greater capacity often reduces bias while increasing variance. 
+E. False – Worsening validation performance despite improving training ﬁt is evidence of overﬁtting. 
+ 
+[ML-D9G2Q2] 
+A team compares a straight-line model with a ﬂexible nonlinear learner across many independently sampled training 
+sets. The linear model makes similar predictions each time but repeatedly misses a curved relationship. The nonlinear 
+learner ﬁts the curve on average but changes substantially across samples. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The linear model’s systematic miss is evidence of relatively high bias. 
+B. The nonlinear learner’s sensitivity across samples is evidence of relatively high variance. 
+C. A model can have low variance yet still make consistently inaccurate predictions. 
+D. High variance means that a model must have high training error on every sample. 
+ 
+ 240 Rev:081020261230 
+E. Model selection should consider expected out-of-sample error rather than minimizing either bias or variance in 
+isolation. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Repeatedly missing the same structural pattern indicates systematic error. 
+B. False – Large prediction changes across plausible training samples indicate variance. 
+C. False – Stable predictions can be consistently wrong when the model is too restrictive. 
+D. True – A high-variance model can ﬁt each training set extremely well while generalizing poorly. 
+E. False – Useful selection balances sources of error according to performance on new observations. 
+ 
+[ML-D9G2Q3] 
+A KNN regressor is tested with several values of k. With k = 1, predictions follow individual training observations closely. 
+With a very large k, predictions are nearly constant across the feature space. 
+ 
+A. The k = 1 model will generally have lower training error than the very-large-k model. 
+B. Increasing k usually smooths the prediction function. 
+C. A very large k can increase bias by averaging away local structure. 
+D. A very small k can increase variance by making predictions sensitive to individual observations. 
+E. Increasing k always increases model capacity. 
+ 
+Answer Key: 
+ 
+A. True – A point can be its own nearest neighbor, producing extremely close training ﬁts. 
+B. True – Each prediction averages over a broader neighborhood as k grows. 
+C. True – Excessive smoothing may miss real local relationships. 
+D. True – Predictions based on very few neighbors can change sharply with the sample. 
+E. False – Larger k generally reduces the effective ﬂexibility or capacity of KNN. 
+ 
+ 
+ 241 Rev:081020261230 
+G3: Model Capacity vs. Data Size 
+[ML-D9G3Q1] 
+A deep decision tree overﬁts a training set containing only 300 trading days. The team can collect several years of 
+comparable observations from the same data-generating process. 
+ 
+A. Additional representative data may reduce the tree’s tendency to ﬁt peculiarities of the original small sample. 
+B. More observations can make estimates of recurring patterns more reliable. 
+C. Adding duplicated copies of the same 300 rows provides the same beneﬁt as collecting genuinely new observations. 
+D. More data guarantees that an arbitrarily complex model cannot overﬁt. 
+E. The usefulness of additional data depends partly on whether it represents the deployment setting. 
+ 
+Answer Key: 
+ 
+A. True – A larger representative sample can reduce sensitivity to accidental patterns in a small dataset. 
+B. True – Repeated evidence helps distinguish persistent structure from noise. 
+C. False – Duplicates add no independent information about the underlying relationship. 
+D. False – Excessive capacity, noise, leakage, or poor sampling can still produce overﬁtting. 
+E. True – Large but unrepresentative datasets may not improve performance where the model is used. 
+ 
+[ML-D9G3Q2] 
+A linear model underﬁts a strongly curved relationship. The analyst adds one million more observations from the same 
+relationship but retains exactly the same linear feature representation and model form. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. More data alone may not remove error caused by an inability to represent the curve. 
+B. The model’s limitation is primarily one of capacity rather than sample size. 
+C. A richer feature representation or a more expressive model may be needed. 
+D. With enough data, every model class can represent every possible target function. 
+E. The larger sample can still improve the precision with which the best linear approximation is estimated. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+ 
+ 242 Rev:081020261230 
+A. False – Additional examples do not change the functions the model class can express. 
+B. False – The speciﬁed linear form cannot capture the relevant curvature. 
+C. False – Greater representational capacity may reduce this systematic error. 
+D. True – Data quantity does not eliminate restrictions imposed by the hypothesis class. 
+E. False – More data can estimate the model’s parameters more reliably even if approximation bias remains. 
+ 
+[ML-D9G3Q3] 
+Two teams train the same ﬂexible learner. Team A uses 500 clean, relevant observations. Team B uses 50,000 
+observations, but most come from an old market regime with different relationships from the intended deployment 
+period. 
+ 
+A. Team B’s larger row count does not automatically make its model more generalizable to the new regime. 
+B. Relevant sampling can matter as much as raw dataset size. 
+C. Historical regime mismatch can create poor deployment performance even when training error is low. 
+D. Team A must outperform Team B because smaller datasets always contain less bias. 
+E. Evaluating both models on representative out-of-sample data would help assess which dataset supports the intended 
+use. 
+ 
+Answer Key: 
+ 
+A. True – Quantity cannot fully compensate for observations drawn from the wrong distribution. 
+B. True – The training examples should reﬂect the relationships the model will encounter. 
+C. True – A model may learn old-regime patterns that no longer apply. 
+D. False – Neither sample size alone nor a general rule guarantees Team A’s superiority. 
+E. True – A representative evaluation provides evidence about performance under the target conditions. 
+ 
+G4: Cross-Validation and Generalization Estimation 
+[ML-D9G4Q1] 
+A researcher performs ﬁve-fold cross-validation on a dataset. In each round, the model is trained on four folds and 
+evaluated on the remaining fold, with each fold serving as the evaluation fold once. 
+ 
+A. Each observation is used for evaluation in one of the ﬁve rounds. 
+ 
+ 243 Rev:081020261230 
+B. Each ﬁtted model is trained on all ﬁve folds, including its evaluation fold. 
+C. Averaging the fold scores can provide a less split-speciﬁc estimate than relying on one arbitrary holdout. 
+D. Cross-validation produces ﬁve evaluations of one unchanged ﬁtted model. 
+E. Model preprocessing that learns from data should be ﬁtted within each training portion rather than once on the full 
+dataset. 
+ 
+Answer Key: 
+ 
+A. True – Every fold takes one turn as the held-out evaluation subset. 
+B. False – The evaluation fold is excluded from training in that round. 
+C. True – Multiple partitions reveal how performance changes with the split. 
+D. False – A separate model is ﬁtted for each training-fold combination. 
+E. True – Fitting preprocessing globally can leak information from evaluation folds into training. 
+ 
+[ML-D9G4Q2] 
+A student uses cross-validation to select tree depth from 20 alternatives. The student reports the best mean cross-
+validation score as the ﬁnal, unbiased estimate of performance and does not retain a separate test set. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. Cross-validation can support the selection of tree depth. 
+B. Choosing the best of many alternatives can make the selected cross-validation score optimistic. 
+C. A separate untouched test set can provide a stronger ﬁnal check after model selection. 
+D. Cross-validation guarantees that the selected depth will generalize equally well to all future periods. 
+E. The folds should be constructed in a way that respects the structure of the data and prediction task. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Comparing validation performance across depths is a valid use of cross-validation. 
+B. False – Selection can exploit chance advantages in the folds used for tuning. 
+C. False – An untouched test set avoids reusing the same evidence for selection and ﬁnal assessment. 
+D. True – Sampling uncertainty and market change prevent such a guarantee. 
+E. False – Time order or other dependencies may make ordinary random folds inappropriate. 
+ 
+ 
+ 244 Rev:081020261230 
+[ML-D9G4Q3] 
+A forecasting team randomly assigns daily observations from ten years of market data to cross-validation folds. As a 
+result, models are sometimes trained on later dates and evaluated on earlier dates, even though deployment will predict 
+the future from the past. 
+ 
+A. Random folds can create an evaluation that does not match the temporal direction of deployment. 
+B. Time-aware folds that train on earlier observations and validate on later observations may be more appropriate. 
+C. Using future observations for training can produce misleading estimates when relationships change over time. 
+D. Cross-validation is invalid for every time-series problem. 
+E. More folds automatically correct any violation of temporal order. 
+ 
+Answer Key: 
+ 
+A. True – The random split can allow future information to inﬂuence models evaluated on the past. 
+B. True – Forward or rolling splits better mirror forecasting use. 
+C. True – Regime changes can make access to later patterns an unrealistic advantage. 
+D. False – Cross-validation can be adapted to preserve time order. 
+E. False – Increasing the fold count does not repair an inappropriate splitting design. 
+ 
+G5: Detecting Overﬁtting in Practice 
+[ML-D9G5Q1] 
+A model reports 99.9% directional accuracy on unseen market data, far above every prior experiment. The analyst 
+discovers that features were normalized using statistics calculated from the full dataset and that one feature was 
+constructed using the next day’s closing price. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. The extraordinary result should prompt checks for leakage and evaluation errors. 
+B. Using the next day’s closing price to predict next-day direction gives the model information unavailable at decision 
+time. 
+C. Full-dataset normalization can contaminate the evaluation because test-period information inﬂuences 
+preprocessing. 
+D. A very high score proves the model has discovered a durable market inefficiency. 
+ 
+ 245 Rev:081020261230 
+E. Rebuilding the pipeline using only information available at each training and prediction point is necessary for a credible 
+assessment. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – Results that are implausibly strong warrant careful examination of data and procedure. 
+B. False – The feature directly incorporates future information about the target period. 
+C. False – Even unsupervised preprocessing should be learned without access to held-out observations. 
+D. True – Leakage provides a more immediate explanation and the result requires validation. 
+E. False – The experiment must reproduce the information boundaries of actual use. 
+ 
+[ML-D9G5Q2] 
+A single decision tree is retrained on ﬁve slightly different samples. Its training error remains near zero, but its chosen 
+splits and out-of-sample returns change dramatically from run to run. 
+ 
+A. The changing structure and performance are signs of model instability. 
+B. Near-zero training error rules out overﬁtting. 
+C. Sensitivity to small sample changes is consistent with high variance. 
+D. Examining results across repeated samples reveals information that one run would hide. 
+E. The most proﬁtable run should be reported alone because it shows the model’s true expected performance. 
+ 
+Answer Key: 
+ 
+A. True – Small data changes are producing large changes in the learned model and its results. 
+B. False – Extremely low training error can accompany severe overﬁtting. 
+C. True – Sample sensitivity is a deﬁning symptom of variance. 
+D. True – Repeated trials expose the range and reliability of performance. 
+E. False – Selecting the best run conceals variability and creates an optimistic impression. 
+ 
+[ML-D9G5Q3] 
+An analyst tries 500 combinations of indicators, lookback periods, and model settings on one validation period. One 
+combination earns an exceptional Sharpe ratio, but its training score is ordinary and its performance collapses on a later 
+test period. 
+ 
+ 246 Rev:081020261230 
+ 
+A. Trying many alternatives increases the chance of ﬁnding a conﬁguration that beneﬁts from random validation noise. 
+B. The later test failure is consistent with selection overﬁtting. 
+C. The best validation result among 500 trials is necessarily an unbiased estimate of future performance. 
+D. Recording the full search process and evaluating the selected model on untouched data would improve the credibility 
+of the conclusion. 
+E. An ordinary training score guarantees that the validation success was genuine. 
+ 
+Answer Key: 
+ 
+A. True – A broad search can identify a chance winner even when no durable advantage exists. 
+B. True – The selected conﬁguration may have adapted to peculiarities of the validation period. 
+C. False – Choosing the maximum observed score introduces selection optimism. 
+D. True – Transparency and fresh evaluation data help distinguish stable performance from data mining. 
+E. False – Training behavior does not validate an exceptional result found through repeated search. 
+ 
+G6: Controlling Model Complexity 
+[ML-D9G6Q1] 
+A deep decision tree ﬁts nearly every ﬂuctuation in the training data but performs poorly on validation data. The team 
+considers reducing maximum depth and increasing the minimum number of observations required in each leaf. 
+The team asks you to identify the ﬂawed claims. For this question, mark each statement True if it is incorrect and False if 
+it is accurate. 
+ 
+A. Reducing maximum depth limits the number of successive splits the tree can make. 
+B. Increasing the minimum leaf size can prevent the tree from creating leaves for very small groups of observations. 
+C. Both changes can reduce the tree’s effective complexity. 
+D. These changes are guaranteed to improve test performance for every dataset. 
+E. Complexity controls should be selected using appropriate validation evidence rather than test-set feedback. 
+ 
+Answer Key (True = incorrect; False = accurate): 
+ 
+A. False – A shallower tree has fewer levels available to partition the data. 
+B. False – Larger leaves discourage highly speciﬁc partitions. 
+ 
+ 247 Rev:081020261230 
+C. False – Each constraint limits the tree’s ability to ﬁt ﬁne-grained sample variation. 
+D. True – Excessive restriction can cause underﬁtting, and results depend on the data. 
+E. False – The ﬁnal test set should remain independent of hyperparameter selection. 
+ 
+[ML-D9G6Q2] 
+A team uses regularized linear regression with a penalty on large coefficient values. It gradually increases the penalty 
+strength while monitoring training and validation error. 
+ 
+A. The penalty discourages the model from relying on extremely large coefficients. 
+B. Stronger regularization typically increases the freedom of the model to ﬁt the training data. 
+C. Moderate regularization may improve generalization when the unregularized model has high variance. 
+D. Excessively strong regularization can create underﬁtting. 
+E. Regularization eliminates the need for validation because any positive penalty prevents overﬁtting. 
+ 
+Answer Key: 
+ 
+A. True – Large coefficient magnitudes make the optimization objective more costly. 
+B. False – A stronger penalty constrains the ﬁtted solution rather than increasing its freedom. 
+C. True – Accepting some additional bias can reduce variance and improve performance on new data. 
+D. True – An overly restrictive penalty can suppress useful relationships. 
+E. False – The appropriate penalty is data dependent and still requires disciplined selection and evaluation. 
+ 
+[ML-D9G6Q3] 
+During iterative training, a learner’s training error keeps decreasing. Validation error decreases through iteration 40, then 
+rises steadily while training continues to improve. The team considers early stopping. 
+ 
+A. The divergence after iteration 40 suggests that later training is ﬁtting details that do not generalize. 
+B. Stopping near the best validation iteration can act as a form of complexity control. 
+C. Selecting the stopping point by repeatedly examining the ﬁnal test set is appropriate. 
+D. Training until training error is minimized must produce the best out-of-sample model. 
+E. If training is stopped too early, the model may underﬁt. 
+ 
+ 
+ 248 Rev:081020261230 
+Answer Key: 
+ 
+A. True – Continued training helps the training set while harming validation performance. 
+B. True – Limiting the number of iterations restricts how fully the learner adapts to the training sample. 
+C. False – A validation set, not the ﬁnal test set, should guide the stopping decision. 
+D. False – The lowest training error may occur well after generalization begins to worsen. 
+E. True – Insufficient training can leave useful structure unlearned. 
+ 
+  
+ 
+ 249 Rev:081020261230 
