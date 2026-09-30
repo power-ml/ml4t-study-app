@@ -122,12 +122,12 @@ const studiedWk=()=>store.week||8;
 const notYet=(x)=>x.weekMax>studiedWk();
 const today=()=>new Date().toISOString().slice(0,10);
 const revCount=()=>{const v=Object.values(store.reviewed||{});return{total:v.length,today:v.filter(d=>d===today()).length};};
-// remember scroll position (by top-most visible question) so we resume where we left off
-let _scrollT;
-function saveScrollPos(){ if(route!=='study')return; store.ui=store.ui||{}; store.ui.scrollY=Math.round(window.scrollY);
-  const cards=[...document.querySelectorAll('#list .card[data-qid]')]; const top=cards.find(c=>c.getBoundingClientRect().top>=50);
-  if(top)store.ui.anchor=top.dataset.qid; save(); }
-window.addEventListener('scroll',()=>{clearTimeout(_scrollT);_scrollT=setTimeout(saveScrollPos,500);});
+function domReviewStats(){const m={};D.questions.forEach(q=>{const k=q.part+q.domain;(m[k]=m[k]||{reviewed:0,total:0,part:q.part,domain:q.domain,name:q.domainName});m[k].total++;if(store.reviewed&&store.reviewed[q.id])m[k].reviewed++;});return m;}
+// remember position by the LAST QUESTION YOU ACTED ON (note/checkbox/reveal) — no scroll listener (that fought the scrollbar)
+function noteAnchor(qid){ if(qid){store.ui=store.ui||{};store.ui.anchor=qid;} }
+// low-frequency safety net: every 3 min, if you're on Study and the top-visible question changed, remember it (no per-scroll work)
+setInterval(()=>{ if(route!=='study')return; const cards=[...document.querySelectorAll('#list .card[data-qid]')]; const top=cards.find(c=>c.getBoundingClientRect().bottom>80); if(top&&(!store.ui||store.ui.anchor!==top.dataset.qid)){noteAnchor(top.dataset.qid);save();} },180000);
+window.addEventListener('resize',()=>{const h=document.querySelector('header');const b=document.querySelector('#view .row.card');if(h&&b&&getComputedStyle(b).position==='sticky')b.style.top=(h.offsetHeight-1)+'px';},{passive:true});
 
 function attempt(id){return store.attempts[id];}
 function domAcc(){ // per-domain accuracy from attempts
@@ -154,7 +154,7 @@ function choiceRow(q,i,mode,sel){
   return `<div class="${cls}" data-ci="${i}"><span class="letter">${c.L}.</span>${c.text}${fl}${tf}${reveal}</div>`;
 }
 function noteBox(id){const v=store.notes[id]||'';return `<div class="notebox"><div class="small mut">📝 Note</div><textarea data-note="${id}" placeholder="Your note for ${id}…">${v}</textarea></div>`;}
-function bindNotes(el){el.querySelectorAll('textarea[data-note]').forEach(t=>t.oninput=()=>{const id=t.dataset.note;if(t.value.trim())store.notes[id]=t.value;else delete store.notes[id];save();});}
+function bindNotes(el){el.querySelectorAll('textarea[data-note]').forEach(t=>t.oninput=()=>{const id=t.dataset.note;if(t.value.trim())store.notes[id]=t.value;else delete store.notes[id];noteAnchor(id);save();});}
 
 function deepDive(part,dom){const d=D.domains.find(x=>x.part===part&&x.num===dom);if(!d)return'';
   const notes=(d.bookNotes||[]).map(n=>`<details class="deep" style="margin-left:12px"><summary>📖 ${n.book} — ${n.title} <span class="small mut">(${n.file})</span></summary><div class="md">${md(n.md)}</div></details>`).join('');
@@ -176,6 +176,8 @@ function studyView(){
   function revLabel(){revTog.textContent=(store.ui&&store.ui.revealAll)?'👁 answers shown':'🙈 self-test (tap to reveal)';}
   revTog.onclick=()=>{store.ui=store.ui||{};store.ui.revealAll=!store.ui.revealAll;save();revLabel();draw();};
   bar.append('Part:',partSel,'Domain:',domSel,q,hideRev,flagOnly,revTog,revStat);v.append(bar);revLabel();
+  bar.style.position='sticky';bar.style.zIndex='9';bar.style.background='var(--panel)';bar.style.boxShadow='0 3px 8px rgba(0,0,0,.18)';bar.style.marginTop='0';
+  const stickTop=()=>{const h=document.querySelector('header');bar.style.top=((h?h.offsetHeight:52)-1)+'px';};stickTop();setTimeout(stickTop,50);
   function updateRevStats(){const c=revCount();const t=(store.reviewLog||{})[today()]||0;const f=Object.keys(store.flagged||{}).length;revStat.textContent=`✅ ${t} today · ${c.total}/${D.counts.questions} reviewed · 🚩 ${f} flagged`;}
   function fillDom(){const p=partSel.value;domSel.innerHTML='<option value="">All domains</option>'+
     D.domains.filter(d=>!p||d.part===p).map(d=>`<option value="${d.part}|${d.num}">${d.part} D${+d.num} ${d.name}</option>`).join('');}
@@ -187,7 +189,8 @@ function studyView(){
     let lastDom='';
     qs.forEach(x=>{const dk=x.part+x.domain;
       if(dk!==lastDom){const ny=notYet(x);
-        list.append($(`<div class="card" style="background:var(--panel2)${ny?';opacity:.55':''}"><b>${x.part} Domain ${+x.domain}: ${x.domainName}</b> <span class="pill">📅 wk ${x.weeks.join('/')}</span>${ny?'<span class="pill inv">⏳ not yet covered (studying thru wk '+studiedWk()+')</span>':''}${deepDive(x.part,x.domain)}</div>`));lastDom=dk;}
+        const dq=D.questions.filter(z=>z.part===x.part&&z.domain===x.domain);const rv=dq.filter(z=>store.reviewed&&store.reviewed[z.id]).length;
+        list.append($(`<div class="card" style="background:var(--panel2)${ny?';opacity:.55':''}"><b>${x.part} Domain ${+x.domain}: ${x.domainName}</b> <span class="pill">📅 wk ${x.weeks.join('/')}</span> <span class="pill">✅ ${rv}/${dq.length} reviewed</span>${ny?'<span class="pill inv">⏳ not yet covered (studying thru wk '+studiedWk()+')</span>':''}${deepDive(x.part,x.domain)}</div>`));lastDom=dk;}
       const inv=x.polarity==='inverted'?`<span class="pill inv">INVERTED: True = statement is WRONG</span>`:'';
       const fb=x.flag?`<div class="pill inv" style="display:block;margin:6px 0">⚠ ${x.flag}</div>`:'';
       const dup=x.duplicateOf?`<span class="pill">🔁 duplicate of ${x.duplicateOf}</span>`:'';
@@ -202,15 +205,16 @@ function studyView(){
     list.querySelectorAll('input[data-rev]').forEach(cb=>cb.onchange=()=>{const id=cb.dataset.rev;const t=today();
       if(cb.checked){store.reviewLog[t]=(store.reviewLog[t]||0)+1;store.reviewed[id]=t;cb.closest('.card').classList.add('rev');}
       else{if(store.reviewed[id]===t)store.reviewLog[t]=Math.max(0,(store.reviewLog[t]||0)-1);delete store.reviewed[id];cb.closest('.card').classList.remove('rev');}
-      save();updateRevStats();if(hideRev.querySelector('input').checked)draw();});
+      noteAnchor(id);save();updateRevStats();if(hideRev.querySelector('input').checked)draw();});
     list.querySelectorAll('input[data-flag]').forEach(cb=>cb.onchange=()=>{const id=cb.dataset.flag;
       if(cb.checked)store.flagged[id]=today();else delete store.flagged[id];
       cb.closest('.card').classList.toggle('flagged',cb.checked);
-      save();updateRevStats();if(flagOnly.querySelector('input').checked)draw();});
+      noteAnchor(id);save();updateRevStats();if(flagOnly.querySelector('input').checked)draw();});
     list.querySelectorAll('.choice.revealable').forEach(ch=>ch.addEventListener('click',()=>{
       const a=ch.querySelector('.ans');if(a)a.hidden=false;
       const tr=ch.querySelector('.tapreveal');if(tr)tr.remove();
-      ch.classList.remove('revealable');ch.style.cursor='default';}));
+      ch.classList.remove('revealable');ch.style.cursor='default';
+      const card=ch.closest('.card[data-qid]');if(card){noteAnchor(card.dataset.qid);save();}}));
     updateRevStats();bindNotes(list);}
   partSel.onchange=()=>{fillDom();draw();};domSel.onchange=draw;q.oninput=draw;hideRev.querySelector('input').onchange=draw;flagOnly.querySelector('input').onchange=draw;draw();
   requestAnimationFrame(()=>{const ui=store.ui||{};                                   // resume where we left off
@@ -303,6 +307,9 @@ function progressView(){const v=document.getElementById('view');const m=domAcc()
   const rlActions=Object.values(rl).reduce((a,b)=>a+b,0); const rlDistinct=Object.keys(store.reviewed||{}).length;
   const rlRows=rdays.length?rdays.slice(0,14).map(d=>`<div>${d==today()?'<b>'+d+' (today)</b>':d}: <b>${rl[d]}</b> reviewed</div>`).join(''):'<div class="mut">No reviews logged yet — tick "reviewed" on questions in Study.</div>';
   const reviewCard=`<div class="card"><h3 style="margin-top:0">📈 Daily review log</h3><div class="small mut">${rlDistinct}/${D.counts.questions} distinct questions reviewed · ${rlActions} total review actions</div><div style="margin-top:6px">${rlRows}</div></div>`;
+  const drs=domReviewStats();
+  const drRows=Object.values(drs).sort((a,b)=>(a.reviewed/a.total)-(b.reviewed/b.total)).map(d=>{const pct=Math.round(d.reviewed/d.total*100);const col=pct>=100?'var(--green)':pct>0?'var(--blue)':'var(--line)';return `<div style="margin:5px 0"><div class="small">${d.part} D${+d.domain} ${d.name} — <b>${d.reviewed}/${d.total}</b> (${pct}%)</div><div style="background:var(--panel2);border-radius:6px;height:8px;margin-top:2px"><div style="width:${pct}%;height:8px;border-radius:6px;background:${col}"></div></div></div>`;}).join('');
+  const domReviewCard=`<div class="card"><h3 style="margin-top:0">📚 Review coverage by domain <span class="small mut">— least-reviewed first; prioritize the top</span></h3><div style="margin-top:8px">${drRows}</div></div>`;
   const rag=p=>p>=.85?'g':p>=.7?'a':'r';
   const seen=Object.keys(store.attempts).length;
   const glyph={g:'🟢',a:'🟡',r:'🔴'};
@@ -314,7 +321,8 @@ function progressView(){const v=document.getElementById('view');const m=domAcc()
   v.innerHTML=`<div class="card"><div class="kpi">${overall}%</div><div class="mut">overall accuracy · ${seen}/${D.counts.questions} questions attempted</div>
     <div style="margin-top:8px"><b>Readiness call:</b> ${overall>=85&&seen>D.counts.questions*0.6?'On track ✅':overall>=70?'Getting there — close the red domains 🟡':'Keep drilling, esp. red domains 🔴'}</div>
     ${weak.length?'<div style="margin-top:6px"><b>Weakest domains:</b> '+weak.slice(0,5).map(w=>w.k.replace(/(ML|QF)(\d+)/,'$1 D$2')+' '+Math.round(w.p*100)+'%').join(', ')+'</div>':''}</div>
-    <div class="card"><h3 style="margin-top:0">Domain readiness heatmap</h3><div class="heat">${cells}</div></div>
+    ${domReviewCard}
+    <div class="card"><h3 style="margin-top:0">Domain readiness heatmap <span class="small mut">(quiz accuracy)</span></h3><div class="heat">${cells}</div></div>
     ${reviewCard}
     <div class="row"><button class="btn sec" id="exp">Export progress</button><button class="btn sec" id="imp">Import</button><button class="btn sec" id="rst">Reset</button></div>`;
   v.querySelector('#exp').onclick=()=>{const b=new Blob([JSON.stringify(store)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='ml4t_progress.json';a.click();};
