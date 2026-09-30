@@ -112,7 +112,7 @@ const flags=(t)=>{let f=[];if(ABS.test(t))f.push('absolute → ~74% False');if(N
 let route='study';
 const nav=document.getElementById('nav');
 [['study','Study'],['quiz','Quiz / Mock'],['notes','My Notes'],['progress','Readiness'],['tips','Heuristics']].forEach(([k,l])=>{
-  const b=$(`<button data-k="${k}">${l}</button>`);b.onclick=()=>{route=k;render();};nav.append(b);});
+  const b=$(`<button data-k="${k}">${l}</button>`);b.onclick=()=>{route=k;store.ui=store.ui||{};store.ui.route=k;save();render();};nav.append(b);});
 document.getElementById('stat').textContent=`${D.counts.questions} Qs · ${D.counts.ML} ML · ${D.counts.QF} QF · ${D.heuristics.inverted_total} inverted`;
 const wsel=$(`<label class="small mut" style="margin-left:auto">📅 Studied thru week <select id="weeksel">${[1,2,3,4,5,6,7,8].map(w=>`<option value="${w}">${w}</option>`).join('')}</select></label>`);
 document.querySelector('header').append(wsel);
@@ -121,6 +121,12 @@ const studiedWk=()=>store.week||8;
 const notYet=(x)=>x.weekMax>studiedWk();
 const today=()=>new Date().toISOString().slice(0,10);
 const revCount=()=>{const v=Object.values(store.reviewed||{});return{total:v.length,today:v.filter(d=>d===today()).length};};
+// remember scroll position (by top-most visible question) so we resume where we left off
+let _scrollT;
+function saveScrollPos(){ if(route!=='study')return; store.ui=store.ui||{}; store.ui.scrollY=Math.round(window.scrollY);
+  const cards=[...document.querySelectorAll('#list .card[data-qid]')]; const top=cards.find(c=>c.getBoundingClientRect().top>=50);
+  if(top)store.ui.anchor=top.dataset.qid; save(); }
+window.addEventListener('scroll',()=>{clearTimeout(_scrollT);_scrollT=setTimeout(saveScrollPos,500);});
 
 function attempt(id){return store.attempts[id];}
 function domAcc(){ // per-domain accuracy from attempts
@@ -176,7 +182,7 @@ function studyView(){
       const dup=x.duplicateOf?`<span class="pill">🔁 duplicate of ${x.duplicateOf}</span>`:'';
       const ref=x.reference?`<div class="small mut" style="margin-top:8px">📖 ${inline(x.reference)}</div>`:'';
       const flg=store.flagged[x.id]?'<span class="pill" style="border-color:var(--amber);color:var(--amber)">🚩 flagged</span>':'';
-      const card=$(`<div class="card${store.reviewed[x.id]?' rev':''}${store.flagged[x.id]?' flagged':''}"${notYet(x)?' style="opacity:.6"':''}><div><span class="pill">#${x.n}</span><span class="pill">${x.id}</span><span class="pill">${x.group}</span><span class="pill">📅 wk ${x.weeks.join('/')}</span>${dup}${inv}${flg}<label class="small" style="float:right">&nbsp;<input type="checkbox" data-flag="${x.id}" ${store.flagged[x.id]?'checked':''}> 🚩 &nbsp; <input type="checkbox" data-rev="${x.id}" ${store.reviewed[x.id]?'checked':''}> reviewed</label></div>${fb}
+      const card=$(`<div class="card${store.reviewed[x.id]?' rev':''}${store.flagged[x.id]?' flagged':''}" data-qid="${x.id}"${notYet(x)?' style="opacity:.6"':''}><div><span class="pill">#${x.n}</span><span class="pill">${x.id}</span><span class="pill">${x.group}</span><span class="pill">📅 wk ${x.weeks.join('/')}</span>${dup}${inv}${flg}<label class="small" style="float:right">&nbsp;<input type="checkbox" data-flag="${x.id}" ${store.flagged[x.id]?'checked':''}> 🚩 &nbsp; <input type="checkbox" data-rev="${x.id}" ${store.reviewed[x.id]?'checked':''}> reviewed</label></div>${fb}
         <div class="q-scenario">${x.scenario}</div>
         <div class="small mut">What it tests: concepts in ${x.domainName} (${x.group}). See Deep dive above.</div>
         ${x.choices.map((c,i)=>choiceRow(x,i,'study')).join('')}
@@ -192,6 +198,10 @@ function studyView(){
       save();updateRevStats();if(flagOnly.querySelector('input').checked)draw();});
     updateRevStats();bindNotes(list);}
   partSel.onchange=()=>{fillDom();draw();};domSel.onchange=draw;q.oninput=draw;hideRev.querySelector('input').onchange=draw;flagOnly.querySelector('input').onchange=draw;draw();
+  requestAnimationFrame(()=>{const ui=store.ui||{};                                   // resume where we left off
+    const sel=ui.anchor?('#list .card[data-qid="'+(window.CSS&&CSS.escape?CSS.escape(ui.anchor):ui.anchor)+'"]'):null;
+    const el=sel&&document.querySelector(sel);
+    if(el)el.scrollIntoView({block:'start'}); else if(ui.scrollY)window.scrollTo(0,ui.scrollY);});
 }
 
 function quizView(){
@@ -314,6 +324,7 @@ loadState().then(()=>{
   store.reviewed=store.reviewed||{};
   store.reviewLog=store.reviewLog||{};
   store.flagged=store.flagged||{};
+  store.ui=store.ui||{}; route=store.ui.route||'study';
   const ws=document.getElementById('weeksel');
   if(ws){ws.value=store.week; ws.onchange=()=>{store.week=+ws.value;save();render();};}
   document.getElementById('stat').textContent+= SERVER?' · notes→file ✅':' · notes→browser (open via serve.py to save to file)';
