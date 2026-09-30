@@ -178,7 +178,10 @@ function studyView(){
   bar.append('Part:',partSel,'Domain:',domSel,q,hideRev,flagOnly,revTog,revStat);v.append(bar);revLabel();
   bar.style.position='sticky';bar.style.zIndex='9';bar.style.background='var(--panel)';bar.style.boxShadow='0 3px 8px rgba(0,0,0,.18)';bar.style.marginTop='0';
   const stickTop=()=>{const h=document.querySelector('header');bar.style.top=((h?h.offsetHeight:52)-1)+'px';};stickTop();setTimeout(stickTop,50);
-  function updateRevStats(){const c=revCount();const t=(store.reviewLog||{})[today()]||0;const f=Object.keys(store.flagged||{}).length;revStat.textContent=`✅ ${t} today · ${c.total}/${D.counts.questions} reviewed · 🚩 ${f} flagged`;}
+  function updateRevStats(){const c=revCount();const t=(store.reviewLog||{})[today()]||0;const f=Object.keys(store.flagged||{}).length;
+    let dseg='';const dv=domSel.value;
+    if(dv){const [dp,dn]=dv.split('|');const dq=D.questions.filter(x=>(x.part+'|'+x.domain)===dv);const dr=dq.filter(x=>store.reviewed&&store.reviewed[x.id]).length;dseg=`📂 ${dp} D${+dn}: ${dr}/${dq.length} reviewed · `;}
+    revStat.textContent=`${dseg}✅ ${t} today · ${c.total}/${D.counts.questions} reviewed · 🚩 ${f} flagged`;}
   function fillDom(){const p=partSel.value;domSel.innerHTML='<option value="">All domains</option>'+
     D.domains.filter(d=>!p||d.part===p).map(d=>`<option value="${d.part}|${d.num}">${d.part} D${+d.num} ${d.name}</option>`).join('');}
   fillDom();
