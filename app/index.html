@@ -36,6 +36,7 @@ textarea{width:100%;min-height:60px;resize:vertical}
 .ok{outline:2px solid var(--green)} .bad{outline:2px solid var(--red)}
 .card.rev{border-left:3px solid var(--green)}
 .card.flagged{border-right:3px solid var(--amber)}
+.choice.revealable{cursor:pointer} .choice.revealable:hover{border-color:var(--blue)} .tapreveal{margin-top:6px}
 .mut{color:var(--mut)} .small{font-size:12px}
 details.deep{margin:8px 0;border:1px dashed var(--line);border-radius:10px;padding:8px 12px;background:var(--panel2)}
 details.deep summary{cursor:pointer;color:var(--blue);font-weight:600}
@@ -139,11 +140,18 @@ function choiceRow(q,i,mode,sel){
   const c=q.choices[i];const fl=flags(c.text).map(x=>`<span class="flag">${x}</span>`).join('');
   let tf='',reveal='';
   if(mode==='quiz'){tf=`<div class="tf"><button class="${sel==='T'?'selT':''}" data-i="${i}" data-v="T">True</button><button class="${sel==='F'?'selF':''}" data-i="${i}" data-v="F">False</button></div>`;}
-  if(mode==='review'||mode==='study'){
+  let cls='choice';
+  if(mode==='review'){
     const vc=c.verdict==='True'?'v-true':'v-false';
     reveal=`<div><span class="verdict ${vc}">${c.verdict}${q.polarity==='inverted'?' ('+(c.accurate?'accurate':'incorrect')+')':''}</span></div><div class="why">${inline(c.why)}</div>`;
   }
-  return `<div class="choice" data-ci="${i}"><span class="letter">${c.L}.</span>${c.text}${fl}${tf}${reveal}</div>`;
+  if(mode==='study'){
+    const vc=c.verdict==='True'?'v-true':'v-false';
+    const ans=`<div><span class="verdict ${vc}">${c.verdict}${q.polarity==='inverted'?' ('+(c.accurate?'accurate':'incorrect')+')':''}</span></div><div class="why">${inline(c.why)}</div>`;
+    if(store.ui&&store.ui.revealAll){ reveal=`<div class="ans">${ans}</div>`; }
+    else { cls+=' revealable'; reveal=`<div class="ans" hidden>${ans}</div><div class="tapreveal small mut">tap to reveal answer ▸</div>`; }
+  }
+  return `<div class="${cls}" data-ci="${i}"><span class="letter">${c.L}.</span>${c.text}${fl}${tf}${reveal}</div>`;
 }
 function noteBox(id){const v=store.notes[id]||'';return `<div class="notebox"><div class="small mut">📝 Note</div><textarea data-note="${id}" placeholder="Your note for ${id}…">${v}</textarea></div>`;}
 function bindNotes(el){el.querySelectorAll('textarea[data-note]').forEach(t=>t.oninput=()=>{const id=t.dataset.note;if(t.value.trim())store.notes[id]=t.value;else delete store.notes[id];save();});}
@@ -164,7 +172,10 @@ function studyView(){
   const hideRev=$(`<label class="small">&nbsp;<input type="checkbox" id="hiderev"> hide reviewed</label>`);
   const flagOnly=$(`<label class="small">&nbsp;<input type="checkbox" id="flagonly"> 🚩 flagged only</label>`);
   const revStat=$(`<span class="small mut" id="revstat" style="margin-left:auto"></span>`);
-  bar.append('Part:',partSel,'Domain:',domSel,q,hideRev,flagOnly,revStat);v.append(bar);
+  const revTog=$(`<button class="btn sec" id="revtog" style="padding:4px 10px"></button>`);
+  function revLabel(){revTog.textContent=(store.ui&&store.ui.revealAll)?'👁 answers shown':'🙈 self-test (tap to reveal)';}
+  revTog.onclick=()=>{store.ui=store.ui||{};store.ui.revealAll=!store.ui.revealAll;save();revLabel();draw();};
+  bar.append('Part:',partSel,'Domain:',domSel,q,hideRev,flagOnly,revTog,revStat);v.append(bar);revLabel();
   function updateRevStats(){const c=revCount();const t=(store.reviewLog||{})[today()]||0;const f=Object.keys(store.flagged||{}).length;revStat.textContent=`✅ ${t} today · ${c.total}/${D.counts.questions} reviewed · 🚩 ${f} flagged`;}
   function fillDom(){const p=partSel.value;domSel.innerHTML='<option value="">All domains</option>'+
     D.domains.filter(d=>!p||d.part===p).map(d=>`<option value="${d.part}|${d.num}">${d.part} D${+d.num} ${d.name}</option>`).join('');}
@@ -196,6 +207,10 @@ function studyView(){
       if(cb.checked)store.flagged[id]=today();else delete store.flagged[id];
       cb.closest('.card').classList.toggle('flagged',cb.checked);
       save();updateRevStats();if(flagOnly.querySelector('input').checked)draw();});
+    list.querySelectorAll('.choice.revealable').forEach(ch=>ch.addEventListener('click',()=>{
+      const a=ch.querySelector('.ans');if(a)a.hidden=false;
+      const tr=ch.querySelector('.tapreveal');if(tr)tr.remove();
+      ch.classList.remove('revealable');ch.style.cursor='default';}));
     updateRevStats();bindNotes(list);}
   partSel.onchange=()=>{fillDom();draw();};domSel.onchange=draw;q.oninput=draw;hideRev.querySelector('input').onchange=draw;flagOnly.querySelector('input').onchange=draw;draw();
   requestAnimationFrame(()=>{const ui=store.ui||{};                                   // resume where we left off
