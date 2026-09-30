@@ -78,8 +78,8 @@ function persist(){                       // write NOW (server + localStorage mi
   else setSaved('✓ saved (browser)');
   _dirty=false;
 }
-const save=()=>{ _dirty=true; setSaved('saving…'); clearTimeout(_saveT); _saveT=setTimeout(persist,1200); };  // debounced
-setInterval(()=>{ if(_dirty) persist(); },2000);                                   // periodic auto-save safety net
+const save=()=>{ _dirty=true; setSaved('saving…'); clearTimeout(_saveT); _saveT=setTimeout(persist,1200); };  // debounced; fully event-driven (no polling timer)
+document.addEventListener('visibilitychange',()=>{ if(document.hidden && _dirty) persist(); });  // flush when tab hidden/app switched/screen locks — battery-friendly
 window.addEventListener('beforeunload',()=>{ if(!_dirty)return;                     // flush on tab close
   try{localStorage.setItem(LS,JSON.stringify(store));}catch(e){}
   if(SERVER&&navigator.sendBeacon) navigator.sendBeacon('api/state',new Blob([JSON.stringify(store)],{type:'application/json'})); });
