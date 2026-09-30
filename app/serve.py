@@ -8,7 +8,7 @@ Run:  python3 serve.py    then open the printed URL.
 import http.server, socketserver, json, os, datetime, threading, shutil, glob
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-NOTES_DIR = os.path.join(os.path.dirname(HERE), "notes")
+NOTES_DIR = os.environ.get("ML4T_NOTES_DIR") or os.path.join(os.path.dirname(HERE), "notes")  # override for safe testing
 STATE = os.path.join(NOTES_DIR, "ml4t_state.json")
 NOTES_MD = os.path.join(NOTES_DIR, "ml4t_notes.md")
 BACKUP_DIR = os.path.join(NOTES_DIR, "_backups")

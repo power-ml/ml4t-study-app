@@ -69,7 +69,20 @@ async function loadState(){
   try{store=JSON.parse(localStorage.getItem(LS)||'{}');}catch(e){}
   store=Object.assign({notes:{},attempts:{},seen:{}},store);
 }
-const save=()=>{ if(SERVER){clearTimeout(_saveT);_saveT=setTimeout(()=>fetch('api/state',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(store)}).catch(()=>{}),300);} else localStorage.setItem(LS,JSON.stringify(store)); };
+let _dirty=false;
+function setSaved(t){const el=document.getElementById('savestat');if(el)el.textContent=t;}
+function persist(){                       // write NOW (server + localStorage mirror)
+  const body=JSON.stringify(store);
+  try{localStorage.setItem(LS,body);}catch(e){}            // always keep a browser-side backup copy
+  if(SERVER){fetch('api/state',{method:'POST',headers:{'Content-Type':'application/json'},body}).then(()=>setSaved('✓ saved')).catch(()=>setSaved('⚠ save failed (kept in browser)'));}
+  else setSaved('✓ saved (browser)');
+  _dirty=false;
+}
+const save=()=>{ _dirty=true; setSaved('saving…'); clearTimeout(_saveT); _saveT=setTimeout(persist,1200); };  // debounced
+setInterval(()=>{ if(_dirty) persist(); },2000);                                   // periodic auto-save safety net
+window.addEventListener('beforeunload',()=>{ if(!_dirty)return;                     // flush on tab close
+  try{localStorage.setItem(LS,JSON.stringify(store));}catch(e){}
+  if(SERVER&&navigator.sendBeacon) navigator.sendBeacon('api/state',new Blob([JSON.stringify(store)],{type:'application/json'})); });
 const ABS=/\b(always|never|must|only|all|every|none|guarantee[sd]?|ensures?|cannot|impossible|entirely|completely|zero|100%)\b/i;
 const NEG=/\b(not|cannot|never|no longer|isn't|doesn't|does not|won't|will not|reverses)\b/i;
 const $=(h)=>{const t=document.createElement('template');t.innerHTML=h.trim();return t.content.firstChild;};
@@ -103,6 +116,7 @@ const nav=document.getElementById('nav');
 document.getElementById('stat').textContent=`${D.counts.questions} Qs · ${D.counts.ML} ML · ${D.counts.QF} QF · ${D.heuristics.inverted_total} inverted`;
 const wsel=$(`<label class="small mut" style="margin-left:auto">📅 Studied thru week <select id="weeksel">${[1,2,3,4,5,6,7,8].map(w=>`<option value="${w}">${w}</option>`).join('')}</select></label>`);
 document.querySelector('header').append(wsel);
+document.querySelector('header').append($(`<span id="savestat" class="small mut" style="margin-left:8px">✓ saved</span>`));
 const studiedWk=()=>store.week||8;
 const notYet=(x)=>x.weekMax>studiedWk();
 const today=()=>new Date().toISOString().slice(0,10);
@@ -126,7 +140,7 @@ function choiceRow(q,i,mode,sel){
   return `<div class="choice" data-ci="${i}"><span class="letter">${c.L}.</span>${c.text}${fl}${tf}${reveal}</div>`;
 }
 function noteBox(id){const v=store.notes[id]||'';return `<div class="notebox"><div class="small mut">📝 Note</div><textarea data-note="${id}" placeholder="Your note for ${id}…">${v}</textarea></div>`;}
-function bindNotes(el){el.querySelectorAll('textarea[data-note]').forEach(t=>t.onchange=()=>{const id=t.dataset.note;if(t.value.trim())store.notes[id]=t.value;else delete store.notes[id];save();});}
+function bindNotes(el){el.querySelectorAll('textarea[data-note]').forEach(t=>t.oninput=()=>{const id=t.dataset.note;if(t.value.trim())store.notes[id]=t.value;else delete store.notes[id];save();});}
 
 function deepDive(part,dom){const d=D.domains.find(x=>x.part===part&&x.num===dom);if(!d)return'';
   const notes=(d.bookNotes||[]).map(n=>`<details class="deep" style="margin-left:12px"><summary>📖 ${n.book} — ${n.title} <span class="small mut">(${n.file})</span></summary><div class="md">${md(n.md)}</div></details>`).join('');
