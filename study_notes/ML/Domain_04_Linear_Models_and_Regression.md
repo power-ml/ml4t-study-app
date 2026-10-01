@@ -2,9 +2,9 @@
 
 ## Domain cheat-sheet
 
-- **Form of a linear model**: prediction = intercept + a weighted (additive) sum of feature values, `ŷ = β₀ + Σ βⱼXⱼ`. The model is defined as **linear in its coefficients (parameters)**, NOT necessarily linear in the raw features — this is the single most-tested idea in the domain.
+- **Form of a linear model**: prediction = intercept + a weighted (additive) sum of feature values, `ŷ = β0 + Σ βjXj`. The model is defined as **linear in its coefficients (parameters)**, NOT necessarily linear in the raw features — this is the single most-tested idea in the domain.
 - **Coefficient meaning & directionality**:
-  - A coefficient βⱼ is the modeled change in the prediction per one-unit change in Xⱼ, **holding the other included features fixed** (a *conditional/partial/marginal* association, not a total or unconditional effect).
+  - A coefficient βj is the modeled change in the prediction per one-unit change in Xj, **holding the other included features fixed** (a *conditional/partial/marginal* association, not a total or unconditional effect).
   - The **sign** gives the direction of the modeled association; a positive/negative sign does **not** establish causality.
   - **Magnitude is NOT importance** unless features are on a common scale. Raw coefficient size depends on the feature's units/scale; comparing coefficients across differing units (percentage points vs. basis points) or across models with different specifications is misleading.
   - **Standardizing** features (mean 0, variance 1) makes absolute coefficient magnitudes comparable as "effect per one-standard-deviation change."
@@ -12,24 +12,24 @@
 - **Intercept** = the prediction when all features equal zero (for standardized features, when all features are at their sample means). It is a fitted value, not a guarantee about any future realized outcome; may lack practical meaning.
 - **OLS assumptions / estimation**:
   - OLS does **not** require features to be independent/uncorrelated. A **unique** OLS solution fails only under **exact linear dependence** (perfect multicollinearity / rank-deficient design matrix).
-  - **Multicollinearity** (high but imperfect correlation) inflates variance/standard errors of individual coefficients → estimates unstable, can swing or flip sign across samples — yet R², F-statistic, and *combined predictions* can stay stable. It does NOT bias coefficients and is distinct from serial correlation (which concerns residuals over time).
+  - **Multicollinearity** (high but imperfect correlation) inflates variance/standard errors of individual coefficients → estimates unstable, can swing or flip sign across samples — yet R2, F-statistic, and *combined predictions* can stay stable. It does NOT bias coefficients and is distinct from serial correlation (which concerns residuals over time).
   - **Zero conditional mean** `E[ε|X] = 0` is what buys unbiasedness; **omitted-variable bias** arises when an omitted variable is correlated with an included predictor (the coefficient then absorbs confounded effects).
   - **Gauss–Markov / BLUE** requires linearity, exogeneity, homoscedasticity, no perfect collinearity — **normality of errors is NOT required** for BLUE (only for exact finite-sample t/F inference).
 - **Capacity & polynomial expansion**:
-  - Adding polynomial (X², X³…) or interaction (X₁X₂) terms increases capacity/flexibility to represent curvature and interactions while the model **stays linear in coefficients**.
-  - A squared term lets the slope vary with the feature (a turning point); an interaction lets one feature's marginal effect depend on another (∂ŷ/∂X₂ = β₂ + β₃X₁).
+  - Adding polynomial (X2, X3...) or interaction (X1X2) terms increases capacity/flexibility to represent curvature and interactions while the model **stays linear in coefficients**.
+  - A squared term lets the slope vary with the feature (a turning point); an interaction lets one feature's marginal effect depend on another (∂ŷ/∂X2 = β2 + β3X1).
   - **Bias–variance tradeoff**: higher degree lowers bias but raises variance; matching capacity to the true functional form (e.g., quadratic for a parabola) minimizes both. Degree 15 on noisy data overfits (wild oscillation), low OOS performance. Polynomial term count **grows fast** with the raw feature count. Raw powers of one feature are often **highly correlated** → multicollinearity; centering / orthogonal polynomials help.
-- **Residuals & fit**: residual `eᵢ = yᵢ − ŷᵢ` (observed − predicted); positive residual ⇒ model underpredicted. With an intercept, OLS residuals **sum to zero** (mean ≈ 0) by construction — so a near-zero mean residual proves nothing about correct specification. **Systematic patterns** (curvature vs. fitted values ⇒ nonlinearity/omitted structure; fan shape ⇒ heteroscedasticity; sign runs over time ⇒ serial correlation; heavy tails on Q-Q ⇒ non-normal errors). **MSE** (squared) penalizes large errors far more than **MAE** (absolute), so a single outlier can dominate MSE and the two metrics can rank models differently. **R² = 0** means "explains none beyond the mean," NOT "all residuals zero" (that is R² = 1).
+- **Residuals & fit**: residual `ei = yi − ŷi` (observed − predicted); positive residual ⇒ model underpredicted. With an intercept, OLS residuals **sum to zero** (mean ≈ 0) by construction — so a near-zero mean residual proves nothing about correct specification. **Systematic patterns** (curvature vs. fitted values ⇒ nonlinearity/omitted structure; fan shape ⇒ heteroscedasticity; sign runs over time ⇒ serial correlation; heavy tails on Q-Q ⇒ non-normal errors). **MSE** (squared) penalizes large errors far more than **MAE** (absolute), so a single outlier can dominate MSE and the two metrics can rank models differently. **R2 = 0** means "explains none beyond the mean," NOT "all residuals zero" (that is R2 = 1).
 - **When linear models fail**: cannot represent U-shaped/non-monotone relationships with a single raw term, disconnected/clustered decision regions, or interaction effects without engineered features. Logistic regression on raw features gives a **linear decision boundary**; adding interactions/polynomials/splines can curve it. **More data does not fix high bias** from an inappropriate model class.
-- **Regularization intuition**: add a coefficient penalty to the RSS objective to discourage large weights → accept higher training error for lower variance / better generalization (bias–variance tradeoff). **Ridge (L₂)** shrinks toward zero, keeps all features, shares weight among correlated ones; **Lasso (L₁)** can set coefficients exactly to zero (feature selection / sparsity) but its selection among correlated features is unstable. Larger λ ⇒ stronger penalty, less flexibility, more bias (too large ⇒ underfitting); choose λ by **cross-validation / validation set**, never by training error (which favors no penalty). A zero/near-zero coefficient does **not** prove no population relationship, and shrinkage does **not** confer causal meaning.
+- **Regularization intuition**: add a coefficient penalty to the RSS objective to discourage large weights → accept higher training error for lower variance / better generalization (bias–variance tradeoff). **Ridge (L2)** shrinks toward zero, keeps all features, shares weight among correlated ones; **Lasso (L1)** can set coefficients exactly to zero (feature selection / sparsity) but its selection among correlated features is unstable. Larger λ ⇒ stronger penalty, less flexibility, more bias (too large ⇒ underfitting); choose λ by **cross-validation / validation set**, never by training error (which favors no penalty). A zero/near-zero coefficient does **not** prove no population relationship, and shrinkage does **not** confer causal meaning.
 
 ## Common traps
 
 - **Inverted-logic questions (8 of 36):** the Answer Key reads "**True = incorrect; False = accurate**," so a **True** verdict means the statement is *wrong* and **False** means the statement is *correct*. Read the polarity line first. Inverted here: **G1Q3, G1Q4, G2Q2, G3Q3, G4Q1, G5Q1, G5Q2, G6Q1.**
 - **Double-negative "embedded claim" choices** — the choice literally starts *"The following claim is false: [an accurate statement]."* The embedded statement is true, so asserting it is false is itself incorrect. In **normal** polarity these are keyed **False** (G5Q3A, G6Q2A, G6Q3A). In **inverted** polarity these are keyed **True (incorrect)** (G1Q3A, G3Q3A, G4Q1A). Parse the inner claim, judge its truth, then negate — and re-negate again for inverted polarity.
 - **Magnitude ≠ importance; "always" is a red flag.** Choices claiming a bigger coefficient is "always more important," a term "always" reduces error/improves OOS, or added flexibility "guarantees" zero error are keyed false (or "incorrect" when inverted). Comparability requires standardized/same-scale features.
-- **Multicollinearity myths.** It does NOT (a) bias coefficients, (b) violate a core OLS independence assumption, (c) force R²/F toward zero, (d) create serial correlation, or (e) get eliminated by standardizing or by adding an interaction term. It only inflates coefficient variance; a unique solution fails only under *exact* linear dependence.
-- **"Still a linear model."** Adding X², X₁X₂, or other transforms keeps the model linear in coefficients — choices claiming it "is no longer a linear model" or "changes the OLS objective / creates local optima / non-convexity" are false. OLS RSS is convex.
+- **Multicollinearity myths.** It does NOT (a) bias coefficients, (b) violate a core OLS independence assumption, (c) force R2/F toward zero, (d) create serial correlation, or (e) get eliminated by standardizing or by adding an interaction term. It only inflates coefficient variance; a unique solution fails only under *exact* linear dependence.
+- **"Still a linear model."** Adding X2, X1X2, or other transforms keeps the model linear in coefficients — choices claiming it "is no longer a linear model" or "changes the OLS objective / creates local optima / non-convexity" are false. OLS RSS is convex.
 - **In-sample fit ≠ truth.** Low training error, near-zero mean residual, or perfect training fit never proves correct specification or good generalization — always evaluate out-of-sample (time-aware for overlapping/serial data).
 
 ## Questions
@@ -105,15 +105,15 @@
 **Reference:** Standardized coefficients, omitted/added-variable effects — ISLR ch.3 (§3.2–3.3); ESL ch.3 (subset/coefficient behavior).
 
 ### [ML-D4G1Q6] Interpreting a fitted standardized OLS equation
-**Scenario:** A team standardizes three fundamentals (earnings yield X₁, debt-to-equity X₂, 3-month volatility X₃) and fits OLS: ŷ = 0.02 + 0.045X₁ − 0.012X₂ − 0.038X₃. They evaluate interpretations of structure and coefficients.
+**Scenario:** A team standardizes three fundamentals (earnings yield X1, debt-to-equity X2, 3-month volatility X3) and fits OLS: ŷ = 0.02 + 0.045X1 − 0.012X2 − 0.038X3. They evaluate interpretations of structure and coefficients.
 **Answer polarity:** Normal (True = accurate).
 
 | Choice | Verdict | Why |
 |--------|---------|-----|
-| A | True | Standardized features have mean zero, so at the sample means X₁=X₂=X₃=0 and the prediction equals the intercept, 0.02 (2%). |
+| A | True | Standardized features have mean zero, so at the sample means X1=X2=X3=0 and the prediction equals the intercept, 0.02 (2%). |
 | B | False | The −0.012 coefficient is a conditional association holding other features fixed, not an unconditional or causal effect of debt-to-equity. |
-| C | True | Standardization puts features on a common scale, so \|0.045\| > \|0.038\| > \|0.012\| ranks estimated per-SD effects: X₁ then X₃ then X₂. |
-| D | True | With no interaction terms the marginal effect of X₁ is constant, so a one-SD increase changes the prediction by +0.045 at every value of X₃. |
+| C | True | Standardization puts features on a common scale, so \|0.045\| > \|0.038\| > \|0.012\| ranks estimated per-SD effects: X1 then X3 then X2. |
+| D | True | With no interaction terms the marginal effect of X1 is constant, so a one-SD increase changes the prediction by +0.045 at every value of X3. |
 | E | False | High correlation inflates coefficient variance but does not necessarily break uniqueness; only *exact* linear dependence (perfect multicollinearity) prevents a unique OLS solution. |
 
 **Reference:** Standardized OLS interpretation, additive marginal effects, multicollinearity vs. rank deficiency — ISLR ch.3 (§3.2, §3.3.3); concept "perfect multicollinearity."
@@ -161,14 +161,14 @@
 **Reference:** Independence assumption, autocorrelation, time-aware validation — ISLR ch.3 (§3.3.3, correlation of error terms); ch.5 (validation); concept "overlapping-sample bias."
 
 ### [ML-D4G2Q4] High feature correlation on the yield curve
-**Scenario:** An analyst fits OLS predicting next-day index return from changes in the 10-year (X₁) and 2-year (X₂) Treasury yields, which move together with r = 0.92. Evaluate how the high correlation affects assumptions, stability, and prediction.
+**Scenario:** An analyst fits OLS predicting next-day index return from changes in the 10-year (X1) and 2-year (X2) Treasury yields, which move together with r = 0.92. Evaluate how the high correlation affects assumptions, stability, and prediction.
 **Answer polarity:** Normal (True = accurate).
 
 | Choice | Verdict | Why |
 |--------|---------|-----|
 | A | False | OLS does not require independent/uncorrelated features; high-but-imperfect correlation does not bias estimates or invalidate OLS — only exact linear dependence breaks uniqueness. |
 | B | True | Multicollinearity inflates the variance/standard errors of individual coefficients, so small sample changes can move them substantially or flip signs. |
-| C | False | R² and the F-statistic can stay high when correlated features are collectively predictive, even though individual coefficients are imprecise. |
+| C | False | R2 and the F-statistic can stay high when correlated features are collectively predictive, even though individual coefficients are imprecise. |
 | D | False | Multicollinearity concerns relationships among features; serial correlation concerns residuals over time — the former does not automatically create the latter. |
 | E | True | Individual coefficients can be unstable while combined predictions stay reliable for new data drawn from the same joint distribution/correlation structure. |
 
@@ -259,7 +259,7 @@
 **Reference:** Bias-variance tradeoff, polynomial capacity, multicollinearity of raw powers — ISLR ch.2 (§2.2), ch.3 (§3.3.2); ESL ch.5 (orthogonal polynomials).
 
 ### [ML-D4G3Q5] Fourth-degree expansion — statistical consequences (slippage)
-**Scenario:** An analyst models slippage (bps) from order size (%ADV), believes it is roughly quadratic, but applies a fourth-degree expansion (X, X², X³, X⁴) fit by OLS on 10,000 trades. Evaluate the statistical consequences.
+**Scenario:** An analyst models slippage (bps) from order size (%ADV), believes it is roughly quadratic, but applies a fourth-degree expansion (X, X2, X3, X4) fit by OLS on 10,000 trades. Evaluate the statistical consequences.
 **Answer polarity:** Normal (True = accurate).
 
 | Choice | Verdict | Why |
@@ -273,7 +273,7 @@
 **Reference:** Multicollinearity of polynomial terms, OLS objective, overfitting — ISLR ch.3 (§3.3.2–3.3.3); scikit-learn `PolynomialFeatures` docs.
 
 ### [ML-D4G3Q6] Polynomial features, capacity, and "still a linear model"
-**Scenario:** A quant fund adds polynomial transforms of momentum (M², M³) to a cross-sectional linear model to capture nonlinearity. The PM worries about overfitting/instability for portfolio construction; the risk team wants OOS justification.
+**Scenario:** A quant fund adds polynomial transforms of momentum (M2, M3) to a cross-sectional linear model to capture nonlinearity. The PM worries about overfitting/instability for portfolio construction; the risk team wants OOS justification.
 **Answer polarity:** Normal (True = accurate).
 
 | Choice | Verdict | Why |
@@ -334,7 +334,7 @@
 
 | Choice | Verdict | Why |
 |--------|---------|-----|
-| A | True | A residual is the observed return minus the model-predicted return for each observation (eᵢ = yᵢ − ŷᵢ). |
+| A | True | A residual is the observed return minus the model-predicted return for each observation (ei = yi − ŷi). |
 | B | False | Low training error does not guarantee structureless residuals; systematic patterns can persist under misspecification even with small in-sample error. |
 | C | True | Systematic patterns (e.g., curvature vs. fitted values) can indicate misspecification such as nonlinearity or omitted variables. |
 | D | True | With an intercept, OLS residuals sum to exactly zero in-sample by the first-order optimality conditions. |
@@ -342,8 +342,8 @@
 
 **Reference:** Residual definition, residual sum-to-zero, diagnostics — ISLR ch.3 (§3.1, §3.3.3).
 
-### [ML-D4G4Q5] Residual definition, R², and serial correlation
-**Scenario:** A data scientist fits OLS to predict a trend-following portfolio's Sharpe ratio from microstructure features, computes residuals eᵢ = yᵢ − ŷᵢ, and examines diagnostic plots. Evaluate interpretations of residuals and patterns.
+### [ML-D4G4Q5] Residual definition, R2, and serial correlation
+**Scenario:** A data scientist fits OLS to predict a trend-following portfolio's Sharpe ratio from microstructure features, computes residuals ei = yi − ŷi, and examines diagnostic plots. Evaluate interpretations of residuals and patterns.
 **Answer polarity:** Normal (True = accurate).
 
 | Choice | Verdict | Why |
@@ -352,9 +352,9 @@
 | B | False | A U-shaped/parabolic residual pattern signals *unmodeled* nonlinear structure, not a well-captured relationship; it suggests adding a transformation. |
 | C | False | OLS minimizes the sum of *squared* residuals, not absolute residuals; the intercept's first-order condition is what forces the residual mean to zero. |
 | D | True | Long runs of same-sign residuals plotted chronologically indicate serial correlation (autocorrelation) in the errors. |
-| E | False | R² = 0 means the model explains none of the variation beyond the sample mean, not that every residual is zero (that would be R² = 1). |
+| E | False | R2 = 0 means the model explains none of the variation beyond the sample mean, not that every residual is zero (that would be R2 = 1). |
 
-**Reference:** Residuals, OLS objective, serial correlation, R² interpretation — ISLR ch.3 (§3.1, §3.3.3).
+**Reference:** Residuals, OLS objective, serial correlation, R2 interpretation — ISLR ch.3 (§3.1, §3.3.3).
 
 ### [ML-D4G4Q6] Heavy-tailed residuals, Q-Q plots, and BLUE
 **Scenario:** A macro researcher's EUR/USD volatility model has E[ε\|X] = 0 and constant variance, but the residual histogram and Normal Q-Q plot show symmetric, heavy-tailed (leptokurtic) errors deviating from the 45° line at both extremes. Diagnose implications for the linear framework.
@@ -413,29 +413,29 @@
 **Reference:** Linear separability, hyperplane boundaries, feature engineering — ISLR ch.4 (§4.3, logistic regression boundary), ch.9 (§9.1, hyperplanes).
 
 ### [ML-D4G5Q4] Logistic regression's linear boundary and interactions (downgrade risk)
-**Scenario:** A team fits logistic regression to predict bond-rating downgrades from interest coverage (X₁) and leverage (X₂). Risk rises sharply only when coverage is very low *and* leverage very high, but the two-feature model fits poorly. Diagnose the limits and fixes.
+**Scenario:** A team fits logistic regression to predict bond-rating downgrades from interest coverage (X1) and leverage (X2). Risk rises sharply only when coverage is very low *and* leverage very high, but the two-feature model fits poorly. Diagnose the limits and fixes.
 **Answer polarity:** Normal (True = accurate).
 
 | Choice | Verdict | Why |
 |--------|---------|-----|
-| A | True | The sigmoid makes probability nonlinear in the linear predictor, but at any fixed threshold the boundary β₀+β₁X₁+β₂X₂ = const is a straight line in (X₁,X₂) — so raw-feature logistic regression cannot draw a curved boundary. |
-| B | True | Without an interaction the log-odds are additive: the effect of X₁ is always β₁ regardless of X₂, so the model cannot express the compounding "low coverage dangerous only when leverage is high" effect. |
+| A | True | The sigmoid makes probability nonlinear in the linear predictor, but at any fixed threshold the boundary β0+β1X1+β2X2 = const is a straight line in (X1,X2) — so raw-feature logistic regression cannot draw a curved boundary. |
+| B | True | Without an interaction the log-odds are additive: the effect of X1 is always β1 regardless of X2, so the model cannot express the compounding "low coverage dangerous only when leverage is high" effect. |
 | C | False | The logistic negative log-likelihood is convex, so there are no multiple local optima to trap optimization; the poor fit is inadequate feature specification, not a local-optimum problem. |
-| D | True | Adding X₁X₂ keeps the model linear in coefficients while letting each ratio's effect on log-odds depend on the other, producing a nonlinear boundary in the original space. |
+| D | True | Adding X1X2 keeps the model linear in coefficients while letting each ratio's effect on log-odds depend on the other, producing a nonlinear boundary in the original space. |
 | E | False | Logistic regression is linear in the *expanded* features, so suitable polynomial/interaction/spline/RBF transforms can separate complex patterns — though richer expansions raise cost, variance, and overfitting risk. |
 
 **Reference:** Logistic regression boundary, interactions, convex likelihood, feature maps — ISLR ch.4 (§4.3), ch.3 (§3.3.2); ESL ch.4.
 
 ### [ML-D4G5Q5] Size-dependent momentum and the interaction term
-**Scenario:** A PM predicts cross-sectional returns from log market cap (X₁) and momentum (X₂) with an additive OLS model, hypothesizing momentum helps small caps but hurts large caps. OOS testing shows the additive model misses this size-dependent effect.
+**Scenario:** A PM predicts cross-sectional returns from log market cap (X1) and momentum (X2) with an additive OLS model, hypothesizing momentum helps small caps but hurts large caps. OOS testing shows the additive model misses this size-dependent effect.
 **Answer polarity:** Normal (True = accurate).
 
 | Choice | Verdict | Why |
 |--------|---------|-----|
-| A | True | In the additive model ∂ŷ/∂X₂ = β₂ is constant across all X₁, so it can estimate only one common momentum slope and cannot flip sign with company size. |
+| A | True | In the additive model ∂ŷ/∂X2 = β2 is constant across all X1, so it can estimate only one common momentum slope and cannot flip sign with company size. |
 | B | False | OLS minimizes a convex quadratic RSS, so a missing interaction produces a poorly specified model, not local minima; the solution is still the global minimum (unique if the design has full column rank). |
-| C | True | Adding X₁X₂ gives ∂ŷ/∂X₂ = β₂ + β₃X₁, letting the momentum slope vary with size and cross zero within the observed range. |
-| D | False | The expanded model is still linear regression (linear in β₀…β₃); the interaction makes it nonadditive/nonlinear in the original space but OLS still fits a linear combination of feature columns. |
+| C | True | Adding X1X2 gives ∂ŷ/∂X2 = β2 + β3X1, letting the momentum slope vary with size and cross zero within the observed range. |
+| D | False | The expanded model is still linear regression (linear in β0...β3); the interaction makes it nonadditive/nonlinear in the original space but OLS still fits a linear combination of feature columns. |
 | E | False | Adding an interaction does not eliminate multicollinearity — the product can itself be correlated with its components; centering may reduce it but neither guarantees stable estimates. |
 
 **Reference:** Interaction terms, marginal effects, convex OLS objective, multicollinearity — ISLR ch.3 (§3.3.2–3.3.3).
@@ -447,7 +447,7 @@
 | Choice | Verdict | Why |
 |--------|---------|-----|
 | A | True | If the true relationship is highly nonlinear, a linear model shows systematic (bias) errors regardless of dataset size. |
-| B | False | Standard linear regression models only additive effects; interactions must be explicitly engineered (e.g., X₁X₂) before they can be learned. |
+| B | False | Standard linear regression models only additive effects; interactions must be explicitly engineered (e.g., X1X2) before they can be learned. |
 | C | True | A clearly curved residual pattern indicates unmodeled nonlinear structure. |
 | D | False | More data reduces estimation variance but cannot overcome high bias from an inappropriate model class — an underpowered linear model stays systematically biased. |
 | E | True | Polynomial and interaction features increase expressive power while keeping the model linear in its coefficients. |
@@ -503,12 +503,12 @@
 | Choice | Verdict | Why |
 |--------|---------|-----|
 | A | True | Ridge and Lasso add a coefficient penalty to the RSS, accepting worse training fit for lower estimation variance and potentially better OOS performance. |
-| B | False | Ridge uses the L₂ penalty (Σβⱼ²) and shrinks toward zero without zeroing coefficients; it is Lasso's L₁ penalty that performs feature selection. |
+| B | False | Ridge uses the L2 penalty (Σβj2) and shrinks toward zero without zeroing coefficients; it is Lasso's L1 penalty that performs feature selection. |
 | C | True | With similar-information predictors, Ridge distributes weight across the correlated group while Lasso may keep some and zero others. |
 | D | True | Larger λ strengthens the penalty, reducing flexibility/variance and raising bias, so λ should be chosen by validation/cross-validation, not training error. |
 | E | True | Lasso can produce a sparse model when the true signal is sparse, but its selected variables can be unstable across samples when predictors are highly correlated. |
 
-**Reference:** Ridge (L₂) vs. Lasso (L₁), penalty form, λ selection — ISLR ch.6 (§6.2); scikit-learn `linear_model` (`Ridge`, `Lasso`) docs.
+**Reference:** Ridge (L2) vs. Lasso (L1), penalty form, λ selection — ISLR ch.6 (§6.2); scikit-learn `linear_model` (`Ridge`, `Lasso`) docs.
 
 ### [ML-D4G6Q5] Regularization to reduce overfitting
 **Scenario:** A quant fund's model with hundreds of indicators fits training data exceptionally well but is inconsistent on unseen market data. The CRO asks whether constraining the model could improve reliability even if it slightly reduces training accuracy.
@@ -542,6 +542,6 @@
 
 1. **ISLR — *An Introduction to Statistical Learning* (James, Witten, Hastie, Tibshirani):** ch.3 (Linear Regression) — §3.1 simple regression, intercept, residual sum-to-zero; §3.2 multiple regression and coefficient interpretation; §3.3.2 extensions (polynomial regression, interaction terms, removing the additive assumption); §3.3.3 potential problems (non-linearity, correlation of errors, non-constant variance, outliers, collinearity/VIF). ch.4 (§4.3, logistic regression and its linear decision boundary). ch.6 (§6.2, Ridge and Lasso shrinkage). ch.2 (§2.2, bias-variance tradeoff, MSE). ch.5 (cross-validation for tuning).
 2. **ESL — *The Elements of Statistical Learning* (Hastie, Tibshirani, Friedman):** ch.3 (linear methods, subset selection, ridge/lasso, Gauss-Markov / BLUE), ch.5 (basis expansions and orthogonal polynomials), ch.7 (model assessment, bias-variance).
-3. **scikit-learn User Guide — `linear_model`:** `LinearRegression` (OLS), `Ridge` (L₂), `Lasso` (L₁), `ElasticNet`; `preprocessing.StandardScaler` and `PolynomialFeatures` (standardization and polynomial expansion); "Metrics and scoring" (MSE vs. MAE, regression metrics).
+3. **scikit-learn User Guide — `linear_model`:** `LinearRegression` (OLS), `Ridge` (L2), `Lasso` (L1), `ElasticNet`; `preprocessing.StandardScaler` and `PolynomialFeatures` (standardization and polynomial expansion); "Metrics and scoring" (MSE vs. MAE, regression metrics).
 4. **OLS assumptions & concepts:** linearity, zero conditional mean E[ε\|X]=0 (unbiasedness), homoscedasticity, no perfect multicollinearity, independence of errors; Gauss-Markov theorem / BLUE (normality not required); omitted-variable bias; multicollinearity vs. serial correlation; Q-Q plots and residual diagnostics.
 5. **Regularization & robustness:** Ridge/Lasso bias-variance mechanics, sparsity and selection instability under correlated features; robust regression (Huber loss) and Student-t error models for heavy-tailed residuals.

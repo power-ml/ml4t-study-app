@@ -13,7 +13,7 @@
 - **Time value of money (TVM)**: a dollar today is worth more than a dollar later. PV = FV / (1+r)^n; FV = PV × (1+r)^n. The discount rate reflects opportunity cost and the risk of the cash flow.
   - A larger nominal amount later is **not** automatically preferable — compare on a PV basis at the appropriate rate. Equal nominal payments at different times have *unequal* PV whenever r ≠ 0; only at r = 0 are they equal.
   - **Compounding** earns returns on prior returns, so growth exceeds simple interest. Longer-dated cash flows are more sensitive to the discount rate; a higher r lowers PV.
-- **DCF & dividend valuation**: value = PV of future cash flows. Gordon constant-growth DDM: V = D₁ / (r − g), valid only when g < r for a finite positive value.
+- **DCF & dividend valuation**: value = PV of future cash flows. Gordon constant-growth DDM: V = D1 / (r − g), valid only when g < r for a finite positive value.
   - Higher r → lower value; higher g → higher value (narrows the denominator). As g → r the denominator shrinks and valuation becomes explosive/unstable and hypersensitive.
   - **Terminal value** often dominates a DCF's present value, so long-run assumptions deserve careful sensitivity analysis. A precise-looking output is still only as good as its uncertain inputs.
 - **Growth-based valuation**: compound projections build growth on prior-year growth, so multi-year cumulative growth ≠ (annual rate × years). Value is highly sensitive to small changes in the growth assumption (nonlinear). A biased starting cash-flow scales the entire projected path.
@@ -25,10 +25,10 @@
 
 - **No inverted-logic questions in this domain.** All 21 items (G1Q1–G7Q3) use plain "Answer Key:" → **Normal polarity (True = accurate).** There is no "(True = incorrect; False = accurate)" header anywhere in QF-D06, so do not invert. (Flag retained because inverted items *do* appear in sibling domains — always re-check the polarity line per question.)
 - **Double-negative "embedded claim" choices** — phrased "*A reviewer would be wrong to accept the claim that* [an accurate statement]." The embedded claim is true and *should* be accepted, so the choice is **False**. Parse the inner claim, confirm it's accurate, then the "would be wrong to accept" wrapper makes the verdict False. Appears in: **G3Q2E, G4Q1C, G6Q1C, G6Q3E, G7Q2B, G7Q2C.**
-- **Negation / "reversal" choices** — phrased "is **not** $X" or "would **not**…" where the arithmetic actually *is* X. The Answer Key marks these **False** with "The statement reverses the correct conclusion." Do the math, then negate the negation. Appears in: G2Q1A, G2Q1B, G2Q2B, G2Q3A, G2Q3C, G3Q1D, G3Q2D, G4Q3A, G4Q3B, G5Q1E, G5Q2D, G6Q1A, G6Q3D, G7Q1A.
+- **Negation / "reversal" choices** — phrased "is **not** $X" or "would **not**..." where the arithmetic actually *is* X. The Answer Key marks these **False** with "The statement reverses the correct conclusion." Do the math, then negate the negation. Appears in: G2Q1A, G2Q1B, G2Q2B, G2Q3A, G2Q3C, G3Q1D, G3Q2D, G4Q3A, G4Q3B, G5Q1E, G5Q2D, G6Q1A, G6Q3D, G7Q1A.
 - **"Guarantee/proof" absolutes are almost always False.** A price-value gap does not *guarantee* a profit (G1Q1D); market price does not *prove* estimates wrong (G1Q2E) or reveal the "true" value (G1Q3E); trading above book does not *prove* overvaluation (G2Q1D); a high P/B is not *conclusive* mispricing (G2Q2C); probability-weighted value does not *guarantee* a positive return (G6Q1D); a margin of safety cannot *guarantee* against loss; a correct thesis is not *sufficient* for a winning trade (G7Q3D).
 - **Gordon-model denominator sensitivity**: watch g approaching r — value explodes and becomes *more* (not less) sensitive to error (G5Q2E). Requires g < r for a finite positive value (G4Q2D).
-- **Simple vs. compound growth**: cumulative compound growth (e.g., 1.08³ ≈ 25.97%) is greater than rate × years (24%) (G5Q1C); annual compounding beats simple interest (G3Q3C).
+- **Simple vs. compound growth**: cumulative compound growth (e.g., 1.083 ≈ 25.97%) is greater than rate × years (24%) (G5Q1C); annual compounding beats simple interest (G3Q3C).
 - **Short-selling payoff mechanics**: gross gain/loss = sell price − cover price; max loss is unbounded (not capped at the initial share price) (G7Q2D). Exiting early (forced cover) forfeits any later favorable move (G7Q3B).
 
 ## Questions
@@ -123,10 +123,10 @@
 
 | Choice | Verdict | Why |
 |--------|---------|-----|
-| A | True | PV of $121M in two years at 10% = $121M ÷ 1.10² = $100M. |
-| B | True | FV of $100M for two years at 10% = $100M × 1.10² = $121M. |
+| A | True | PV of $121M in two years at 10% = $121M ÷ 1.102 = $100M. |
+| B | True | FV of $100M for two years at 10% = $100M × 1.102 = $121M. |
 | C | False | At a 10% opportunity cost the two are equivalent; a larger nominal amount later is not strictly preferable once discounted. |
-| D | False | Reverses the correct conclusion: at 12%, PV = $121M ÷ 1.12² ≈ $96.46M, which *is* less than $100M. |
+| D | False | Reverses the correct conclusion: at 12%, PV = $121M ÷ 1.122 ≈ $96.46M, which *is* less than $100M. |
 | E | True | The discount rate reflects the return on a comparable alternative and the risk of the cash flow. |
 
 **Reference:** Present value / future value, discount-rate selection — Investopedia "Time Value of Money," "Present Value"; CFA quantitative methods (TVM).
@@ -151,7 +151,7 @@
 
 | Choice | Verdict | Why |
 |--------|---------|-----|
-| A | True | FV = $100,000 × 1.06⁵ ≈ $133,823. |
+| A | True | FV = $100,000 × 1.065 ≈ $133,823. |
 | B | True | $133,823 exceeds the $130,000 commitment by ≈ $3,823, so the set-aside is expected to cover it. |
 | C | False | Annual compounding earns returns on prior returns, so growth exceeds simple interest of $6,000/year. |
 | D | True | A realized return below 6% produces a smaller compound future value, all else equal. |
@@ -194,9 +194,9 @@
 | Choice | Verdict | Why |
 |--------|---------|-----|
 | A | False | Reverses the correct conclusion: PV of year-1 FCF = $10M ÷ 1.10 ≈ $9.09M (it *is* ≈ $9.09M). |
-| B | False | Reverses the correct conclusion: ($12M + $120M) ÷ 1.10² ≈ $109.09M (it *is* ≈ $109.09M). |
+| B | False | Reverses the correct conclusion: ($12M + $120M) ÷ 1.102 ≈ $109.09M (it *is* ≈ $109.09M). |
 | C | True | Enterprise value ≈ $9.09M + $109.09M ≈ $118.18M. |
-| D | False | Terminal value alone contributes ≈ $99.17M ($120M ÷ 1.10²) — well over half of the ≈ $118.18M total, not less than half. |
+| D | False | Terminal value alone contributes ≈ $99.17M ($120M ÷ 1.102) — well over half of the ≈ $118.18M total, not less than half. |
 | E | True | A valuation dominated by terminal value is especially sensitive to long-run assumptions, warranting sensitivity analysis. |
 
 **Reference:** Multi-period DCF, terminal value, sensitivity — Damodaran on DCF/terminal value; Investopedia "Discounted Cash Flow," "Terminal Value"; CFA equity valuation (FCFF/DCF).
@@ -208,8 +208,8 @@
 | Choice | Verdict | Why |
 |--------|---------|-----|
 | A | True | Year-1 FCF = $5.0M × 1.08 = $5.40M. |
-| B | True | Year-3 FCF = $5.0M × 1.08³ ≈ $6.30M. |
-| C | False | Compound three-year growth is ≈ 25.97% (1.08³ − 1), not exactly 24% (8% × 3) — simple multiplication understates it. |
+| B | True | Year-3 FCF = $5.0M × 1.083 ≈ $6.30M. |
+| C | False | Compound three-year growth is ≈ 25.97% (1.083 − 1), not exactly 24% (8% × 3) — simple multiplication understates it. |
 | D | True | Each year's growth compounds on the prior year's enlarged base — growth applied to earlier growth. |
 | E | False | Reverses the correct conclusion: an overstated starting value scales the *entire* projected path, so each cash flow *is* biased upward. |
 

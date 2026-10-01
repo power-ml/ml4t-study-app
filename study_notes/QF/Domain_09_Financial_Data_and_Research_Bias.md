@@ -25,9 +25,9 @@
 
 ## Common traps
 
-- **No inverted-logic questions in this domain.** Every question in this slice uses the standard Answer Key form ("A. True – …" / "B. False – …", True = accurate). There is no "True = incorrect; False = accurate" polarity flip here — but always re-read each Answer Key line before trusting that.
+- **No inverted-logic questions in this domain.** Every question in this slice uses the standard Answer Key form ("A. True – ..." / "B. False – ...", True = accurate). There is no "True = incorrect; False = accurate" polarity flip here — but always re-read each Answer Key line before trusting that.
 - **Negation-flip distractors are the dominant trap.** Most *False* choices are phrased as "cannot," "does not," "guarantees," "necessarily," "is irrelevant," or "reverses the correct conclusion." The Answer Key repeatedly tags these False with the note "The statement reverses the correct conclusion." Read each choice for a hidden negation before answering. Examples: G1Q2C, G1Q3D, G2Q1E, G2Q2B/E, G3Q1C, G4Q3B, G5Q1C/D, G6Q1C(no)/G6Q3C, G7Q1D/E, G7Q3A.
-- **Embedded double-negative "claim" choice — [QF-D9G4Q2] C.** "A reviewer would be *wrong to accept the claim that* delaying first use until public availability would improve temporal validity." The inner claim is *accurate*, so the choice (which calls it wrong) is **False**. Parse the inner claim, judge its truth, then negate. Same pattern in **[QF-D9G5Q3] E** ("Researchers should *not* investigate delisting codes … rather than automatically treating the last quote as full value" → False, because they *should* investigate).
+- **Embedded double-negative "claim" choice — [QF-D9G4Q2] C.** "A reviewer would be *wrong to accept the claim that* delaying first use until public availability would improve temporal validity." The inner claim is *accurate*, so the choice (which calls it wrong) is **False**. Parse the inner claim, judge its truth, then negate. Same pattern in **[QF-D9G5Q3] E** ("Researchers should *not* investigate delisting codes ... rather than automatically treating the last quote as full value" → False, because they *should* investigate).
 - **"It became historical / it's public, therefore it was known" fallacy.** Later availability (a restatement, a delayed 10-K, revised GDP, public data) does NOT make information available at the historical decision time. See G1Q2D, G4Q1C/E, G4Q2D, G4Q3D.
 - **Significance / in-sample strength ≠ durable value.** A single low p-value, a max Sharpe among many trials, or a favorable selected subsample does not prove persistence, universality, or net-of-cost profitability (G2Q3C, G3Q1E, G3Q3A/C).
 - **"More data" red herrings.** Adding years for the same survivors doesn't remove survivorship bias (G2Q2D); more observations from an obsolete regime just make a stale estimate precise (G7Q1C).
@@ -63,7 +63,7 @@
 **Reference:** Look-ahead bias in feature construction — Investopedia "Look-Ahead Bias"; Lopez de Prado, *AFML*, ch. 3 (labeling) & ch. 7.
 
 ### [QF-D9G1Q3] Overlapping forward-return labels across the train/test boundary
-**Scenario:** A model predicts 5-day-forward returns (labels use t+1…t+5). Training ends June 30, testing starts July 1, with no removal of overlapping boundary labels.
+**Scenario:** A model predicts 5-day-forward returns (labels use t+1...t+5). Training ends June 30, testing starts July 1, with no removal of overlapping boundary labels.
 **Answer polarity:** Normal (True = accurate).
 
 | Choice | Verdict | Why |

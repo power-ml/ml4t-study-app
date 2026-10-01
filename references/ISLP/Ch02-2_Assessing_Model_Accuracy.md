@@ -8,10 +8,10 @@
 > the bias-variance framing behind every learner in ML Domain 4–7.
 
 ## 2.2.1 Measuring the Quality of Fit (regression)
-- **Mean Squared Error (MSE)**: `MSE = (1/n) Σ_i ( y_i − f̂(x_i) )²`  (Eq. 2.5).
+- **Mean Squared Error (MSE)**: `MSE = (1/n) Σ_i ( y_i − f̂(x_i) )2`  (Eq. 2.5).
   Small when predictions are close to truth.
 - **Training MSE** uses the data the model was fit on. We *do not* care about it per se — we care
-  about **test MSE** = `Ave( y_0 − f̂(x_0) )²` on previously unseen (x_0, y_0) (Eq. 2.6).
+  about **test MSE** = `Ave( y_0 − f̂(x_0) )2` on previously unseen (x_0, y_0) (Eq. 2.6).
   - Example intuition: predicting *tomorrow's* stock price, not last week's; predicting diabetes
     for *future* patients, not the training patients.
 - **Key pitfall**: minimizing training MSE does **not** guarantee low test MSE. Many methods fit
@@ -28,7 +28,7 @@
 ## 2.2.2 The Bias-Variance Trade-Off
 - The U-shape in test MSE comes from decomposing expected test MSE at a point x_0 into **three
   non-negative** parts (Eq. 2.7):
-  `E( y_0 − f̂(x_0) )² = Var(f̂(x_0)) + [Bias(f̂(x_0))]² + Var(ε)`
+  `E( y_0 − f̂(x_0) )2 = Var(f̂(x_0)) + [Bias(f̂(x_0))]2 + Var(ε)`
   = **Variance + squared Bias + irreducible error**.
 - Expected test MSE can **never** be below `Var(ε)` (the irreducible error).
 - **Variance**: how much f̂ would change with a different training set. More flexible → higher

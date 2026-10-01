@@ -4,8 +4,8 @@
 
 - **KNN core idea:** predict a query from the *k* stored training observations closest to it under a chosen distance metric. Classification = majority (or weighted) vote of neighbor labels; regression = (weighted) average of neighbor targets. It is **non-parametric** — no global equation is fit; predictions are local.
 - **Distance & similarity (G1):**
-  - Ordinary **Euclidean distance** `d(x,y)=√Σ(xᵢ−yᵢ)²` uses raw numerical differences and does **not** auto-correct for units. A feature with a much larger numerical range **dominates** the distance and drives neighbor selection.
-  - **Manhattan** distance `Σ|xᵢ−yᵢ|` sums absolute differences (no squaring) but still uses raw magnitudes → switching metric does **not** fix scale imbalance.
+  - Ordinary **Euclidean distance** `d(x,y)=√Σ(xi−yi)2` uses raw numerical differences and does **not** auto-correct for units. A feature with a much larger numerical range **dominates** the distance and drives neighbor selection.
+  - **Manhattan** distance `Σ|xi−yi|` sums absolute differences (no squaring) but still uses raw magnitudes → switching metric does **not** fix scale imbalance.
   - **Feature scaling** (z-score `(x−μ)/σ`, min-max, rank/percentile) makes contributions comparable. Fit scaler on **training data only** (μ, σ, min/max, ranks) → apply to val/test/future to avoid **leakage**.
   - Different metrics can rank the *same* candidates differently; the metric is a **hyperparameter** chosen with train/validation, never the test set. Scaling improves comparability but does **not** make distinct metrics equivalent, nor make an irrelevant/identifier feature meaningful.
   - **Cosine similarity** is invariant to scaling the *whole vector* by a positive scalar, but **not** to rescaling individual features.
@@ -22,7 +22,7 @@
 ## Common traps
 
 - **Inverted-logic questions (8 of 36):** the Answer Key reads "**True = incorrect; False = accurate**," so a "True" verdict means the statement is *wrong* and "False" means it is *correct*. Read the polarity line first. Inverted here: **G1Q2, G1Q3, G1Q4, G2Q1, G2Q2, G4Q6, G5Q1, G5Q5.**
-- **Double-negative "embedded claim" choices:** a choice wraps an inner claim in "The following claim is false: …" or "It is incorrect to conclude that …". Parse the inner claim, judge *its* truth, then negate. In **normal**-polarity questions the key marks an accurate embedded claim **False** (G2Q3A, G5Q6A) and an inaccurate one **True** (G6Q4A). An embedded claim also appears inside the **inverted** question **G1Q2A** ("The following claim is false: …"), where the negation compounds with the inverted polarity — resolve the inner claim first, then apply "True = incorrect."
+- **Double-negative "embedded claim" choices:** a choice wraps an inner claim in "The following claim is false: ..." or "It is incorrect to conclude that ...". Parse the inner claim, judge *its* truth, then negate. In **normal**-polarity questions the key marks an accurate embedded claim **False** (G2Q3A, G5Q6A) and an inaccurate one **True** (G6Q4A). An embedded claim also appears inside the **inverted** question **G1Q2A** ("The following claim is false: ..."), where the negation compounds with the inverted polarity — resolve the inner claim first, then apply "True = incorrect."
 - **Scale ≠ meaning ≠ relevance:** standardizing puts features on comparable scales but does **not** make an arbitrary identifier meaningful, guarantee equal predictive value, or cure the curse of dimensionality. Frequent distractor: "scaling proves every feature now contributes meaningfully" → false.
 - **Changing the metric is not a scaling fix:** Manhattan (or any raw-magnitude metric) still lets a billions-vs-units feature dominate. Distractor that "Manhattan treats all features equally regardless of units" is false.
 - **k=N ≠ zero variance / "single best neighbor is most stable":** k=N gives max bias but still sample-dependent (not literally zero variance); k=1 *maximizes* variance (a common reversed distractor claims k=1 minimizes it).
@@ -196,7 +196,7 @@
 | D | True | At k=N every prediction is the training mean ȳ — a constant, feature-independent, high-bias surface. |
 | E | False | Lower variance does not guarantee monotonically improving test error; bias rises with k, so test error is typically U-shaped — select k via validation/CV. |
 
-**Reference:** KNN regression f̂(x₀)=(1/k)Σyᵢ, U-shaped test error — ISLR §2.2.3; §5 (cross-validation).
+**Reference:** KNN regression f̂(x0)=(1/k)Σyi, U-shaped test error — ISLR §2.2.3; §5 (cross-validation).
 
 ### [ML-D5G3Q1] Corrupted target & averaging over neighbors
 **Scenario:** A KNN volatility regressor has one data-entry error giving an extreme target to a record whose features sit near a common market state; predictions there are extreme at k=1 and milder at k=15.
@@ -507,12 +507,12 @@
 **Reference:** Lazy-learning deployment tradeoffs — scikit-learn "Nearest Neighbors" (performance); ISLR §2.2.3.
 
 ### [ML-D5G6Q5] HFT unsuitability & ANN alternatives
-**Scenario:** An HFT firm needs sub-100-µs inference to classify order-book liquidity regimes; a researcher proposes KNN over N=500,000 snapshots (p=50). The lead rejects pure KNN but asks where instance-based ideas remain viable.
+**Scenario:** An HFT firm needs sub-100-μs inference to classify order-book liquidity regimes; a researcher proposes KNN over N=500,000 snapshots (p=50). The lead rejects pure KNN but asks where instance-based ideas remain viable.
 **Answer polarity:** Normal (True = accurate).
 
 | Choice | Verdict | Why |
 |--------|---------|-----|
-| A | True | Brute-force O(N·p) ≈ 25M float ops per tick takes milliseconds — far beyond a 100-µs budget, so exact KNN is unsuitable for sub-ms HFT. |
+| A | True | Brute-force O(N·p) ≈ 25M float ops per tick takes milliseconds — far beyond a 100-μs budget, so exact KNN is unsuitable for sub-ms HFT. |
 | B | False | Exact spatial trees degrade to O(N) once p ≳ 20–30 (curse of dimensionality), so at p=50 they give almost no speedup. |
 | C | True | ANN methods (HNSW, LSH) trade a little recall for orders-of-magnitude faster, sub-ms lookups on high-D data, making instance-based retrieval viable. |
 | D | False | No formal retraining does not fix the inference bottleneck; eager models evaluate in ~O(p) (nanoseconds), so KNN is not "ideally suited" to real-time execution. |
@@ -521,7 +521,7 @@
 **Reference:** HFT latency, tree degradation, ANN — scikit-learn "Nearest Neighbors"; HNSW (Malkov & Yashunin), LSH literature.
 
 ### [ML-D5G6Q6] KNN vs. eager FNN across two trading regimes
-**Scenario:** A team compares KNN vs. an eager feedforward neural net for Strategy 1 (ultra-low-latency market making, <500 µs) and Strategy 2 (end-of-day tactical asset allocation on macro/valuation/volatility data).
+**Scenario:** A team compares KNN vs. an eager feedforward neural net for Strategy 1 (ultra-low-latency market making, <500 μs) and Strategy 2 (end-of-day tactical asset allocation on macro/valuation/volatility data).
 **Answer polarity:** Normal (True = accurate).
 
 | Choice | Verdict | Why |

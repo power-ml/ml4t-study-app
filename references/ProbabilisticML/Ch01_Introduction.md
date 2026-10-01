@@ -23,22 +23,22 @@
 Key terminology (memorize — exam loves synonyms):
 - **Inputs x** = features = covariates = predictors. Often a fixed-dim vector, X = R^D (D = number of features / dimensionality). In statsmodels: *exogenous* variables.
 - **Output y** = label = target = response. In statsmodels: *endogenous* variable.
-- **Experience E** = training set **D = {(xₙ, yₙ)}**, n = 1..N. **N = sample size.**
+- **Experience E** = training set **D = {(xn, yn)}**, n = 1..N. **N = sample size.**
 - **Design matrix:** N × D matrix; each **row = an example**, each **column = a feature**.
   - Tall & skinny: N ≫ D. Short & fat: D ≫ N (e.g., genomics). "Big data" = large N; "wide data" = large D.
 - **Tabular data** vs. variable-size inputs (sequences, graphs) → converted to fixed-size vectors via **featurization**.
 
 ### 1.2.1 Classification (PDF p. 32)
-- Output space = **C unordered, mutually exclusive labels (classes)**, Y = {1,…,C}. Also called **pattern recognition**.
+- Output space = **C unordered, mutually exclusive labels (classes)**, Y = {1,...,C}. Also called **pattern recognition**.
 - **Binary classification** = 2 classes (y ∈ {0,1} or {−1,+1}).
 - **Exploratory data analysis (EDA):** inspect data first (patterns, label noise, outliers). Tools: **pair plot** (scatter of feature pairs + marginal on diagonal), color-coded by class; for high-D data, do **dimensionality reduction** first.
 - **Decision rule / classifier** partitions input space via a **decision boundary**; nested rules form a **decision tree** inducing a **decision surface**. Tree stores, per node, feature index + threshold; all these are **parameters θ**.
 
 **Empirical Risk Minimization (ERM) (PDF p. 36):**
-- **Misclassification rate** on training set: L(θ) = (1/N) Σ I(yₙ ≠ f(xₙ;θ)), where **I** = indicator function (1 if true, else 0).
-- **Loss function ℓ(y, ŷ)** generalizes this; errors can be asymmetric (costlier one way — poisonous-flower loss matrix example).
-- **Empirical risk** = average loss on training set: L(θ) = (1/N) Σ ℓ(yₙ, f(xₙ;θ)).
-- **Zero-one loss** ℓ₀₁ = I(y ≠ ŷ) → makes empirical risk equal the misclassification rate.
+- **Misclassification rate** on training set: L(θ) = (1/N) Σ I(yn ≠ f(xn;θ)), where **I** = indicator function (1 if true, else 0).
+- **Loss function l(y, ŷ)** generalizes this; errors can be asymmetric (costlier one way — poisonous-flower loss matrix example).
+- **Empirical risk** = average loss on training set: L(θ) = (1/N) Σ l(yn, f(xn;θ)).
+- **Zero-one loss** l01 = I(y ≠ ŷ) → makes empirical risk equal the misclassification rate.
 - **Model fitting / training** = **ERM**: θ̂ = argmin_θ L(θ). **But the true goal is to minimize expected loss on FUTURE data (generalize), not just training loss** (see §1.2.3).
 
 **Uncertainty (PDF p. 37):**
@@ -48,18 +48,18 @@ Key terminology (memorize — exam loves synonyms):
 - **Softmax function** converts unnormalized **logits** a = f(x;θ) into a valid probability distribution: softmax(a)_c = e^{a_c} / Σ e^{a_c'}.
 
 **Logistic regression & MLE (PDF p. 38):**
-- Affine model f(x;θ) = b + wᵀx → passed through softmax = **logistic regression**.
+- Affine model f(x;θ) = b + wTx → passed through softmax = **logistic regression**.
 - Terminology: **w** = weights (stats: regression coefficients β); **b** = bias (stats: intercept). Bias here ≠ statistical bias.
-- Absorbing bias into weights turns an **affine** function into a **linear** one: f(x;w) = wᵀx.
-- **Maximum Likelihood Estimation (MLE):** use **negative log-likelihood (NLL)** as loss: ℓ = −log p(y|f(x;θ)); θ̂_mle = argmin NLL(θ). A good model assigns high probability to the true output.
+- Absorbing bias into weights turns an **affine** function into a **linear** one: f(x;w) = wTx.
+- **Maximum Likelihood Estimation (MLE):** use **negative log-likelihood (NLL)** as loss: l = −log p(y|f(x;θ)); θ̂_mle = argmin NLL(θ). A good model assigns high probability to the true output.
 
 ### 1.2.2 Regression (PDF p. 38)
 - Predict a **real-valued** output y ∈ R (vs. discrete class).
-- **Quadratic / ℓ₂ loss:** ℓ₂(y,ŷ) = (y − ŷ)². Penalizes large **residuals** (y − ŷ). Empirical risk = **Mean Squared Error (MSE)**.
-- Model output uncertainty with a **Gaussian/normal**: p(y|x;θ) = N(y | f(x;θ), σ²). With fixed σ², **NLL ∝ MSE** → MLE = minimizing squared error.
+- **Quadratic / l2 loss:** l2(y,ŷ) = (y − ŷ)2. Penalizes large **residuals** (y − ŷ). Empirical risk = **Mean Squared Error (MSE)**.
+- Model output uncertainty with a **Gaussian/normal**: p(y|x;θ) = N(y | f(x;θ), σ2). With fixed σ2, **NLL ∝ MSE** → MLE = minimizing squared error.
 - **Linear regression:** f(x;θ) = b + wx (w = slope, b = offset/intercept); **least squares** = argmin MSE. **Multiple linear regression** = many input features.
-- **Polynomial regression:** f(x;w) = wᵀφ(x) with φ(x) = [1, x, x²,…,x^D] — an example of **feature preprocessing / feature engineering**. Still **linear in the parameters w** (nonlinear in x) → MSE has a unique global optimum.
-- **Deep Neural Networks (DNNs) (PDF p. 42):** learn the feature extractor φ(x;V) automatically; stack of L nested functions f(x;θ) = f_L(f_{L−1}(…f₁(x)…)). Variants: **CNNs** (images), **RNNs** (sequences).
+- **Polynomial regression:** f(x;w) = wTφ(x) with φ(x) = [1, x, x2,...,x^D] — an example of **feature preprocessing / feature engineering**. Still **linear in the parameters w** (nonlinear in x) → MSE has a unique global optimum.
+- **Deep Neural Networks (DNNs) (PDF p. 42):** learn the feature extractor φ(x;V) automatically; stack of L nested functions f(x;θ) = f_L(f_{L−1}(...f1(x)...)). Variants: **CNNs** (images), **RNNs** (sequences).
 
 ### 1.2.3 Overfitting and generalization (PDF p. 42) ★ high-yield
 - A flexible model can drive **training loss to 0** by memorizing → **overfitting** (fits training data but too complex).
@@ -78,12 +78,12 @@ Key terminology (memorize — exam loves synonyms):
 
 ## 1.3 Unsupervised learning (PDF p. 44)
 
-- Only inputs **D = {xₙ}**, no outputs. Goal: "make sense of" data, not learn a mapping.
+- Only inputs **D = {xn}**, no outputs. Goal: "make sense of" data, not learn a mapping.
 - Probabilistic view: fit an **unconditional model p(x)** (vs. supervised **conditional model p(y|x)**).
 - Advantages: no need for expensive labels; avoids arbitrary category definitions; forces the model to "explain" high-dimensional inputs → richer world models. (Supervised learning is "glorified curve fitting.")
 
 - **§1.3.1 Clustering:** partition inputs into regions of similar points. **No single correct number of clusters** — trade off model complexity vs. fit.
-- **§1.3.2 Latent factors of variation:** assume high-D xₙ generated from low-D **latent factors zₙ ∈ R^K**. Linear version = **Factor Analysis (FA)**; special case (Σ = σ²I) = **(probabilistic) PCA**. Nonlinear extension via DNN → **variational autoencoder (VAE)**.
+- **§1.3.2 Latent factors of variation:** assume high-D xn generated from low-D **latent factors zn ∈ R^K**. Linear version = **Factor Analysis (FA)**; special case (Σ = σ2I) = **(probabilistic) PCA**. Nonlinear extension via DNN → **variational autoencoder (VAE)**.
 - **§1.3.3 Self-supervised learning:** create **proxy supervised tasks from unlabeled data** (e.g., predict masked words, colorize grayscale). Learns useful features for downstream supervised tasks.
 - **§1.3.4 Evaluating unsupervised learning:** hard — no ground truth. Approaches: (1) **density estimation** — measure NLL/probability assigned to unseen test data (good model isn't "surprised"); relates to **data compression**; (2) use learned representation as features for a downstream task → improves **sample efficiency**; (3) **gain understanding / interpretability** ("carve nature at its joints").
 
@@ -102,7 +102,7 @@ Key terminology (memorize — exam loves synonyms):
 
 - Data nature/quality is as vital as the model.
 - **Image datasets:** MNIST (60k train / 10k test, 28×28 grayscale digits — the "drosophila of ML"), EMNIST, Fashion-MNIST, CIFAR-10/100, **ImageNet** (~14M images; ILSVRC benchmark; CNNs surpassed a human in 2015).
-- **Text / NLP datasets & tasks:** text classification / **sentiment analysis** (IMDB reviews), **machine translation** (WMT), **seq2seq** (summarization, question answering — SQuAD), **language modeling** (unconditional generative model of text p(x₁…x_T) — a form of unsupervised learning).
+- **Text / NLP datasets & tasks:** text classification / **sentiment analysis** (IMDB reviews), **machine translation** (WMT), **seq2seq** (summarization, question answering — SQuAD), **language modeling** (unconditional generative model of text p(x1...x_T) — a form of unsupervised learning).
 
 ### 1.5.3 Preprocessing discrete input data (PDF p. 53)
 - **One-hot encoding (dummy encoding):** categorical variable with K values → indicator vector, e.g., red = [1,0,0].
@@ -133,11 +133,11 @@ Key terminology (memorize — exam loves synonyms):
 ## Key formulas cheat-sheet
 | Concept | Formula |
 |---|---|
-| Empirical risk | L(θ) = (1/N) Σ ℓ(yₙ, f(xₙ;θ)) |
-| Misclassification rate | zero-one loss ℓ₀₁ = I(y ≠ ŷ) |
+| Empirical risk | L(θ) = (1/N) Σ l(yn, f(xn;θ)) |
+| Misclassification rate | zero-one loss l01 = I(y ≠ ŷ) |
 | Softmax | softmax(a)_c = e^{a_c} / Σ_{c'} e^{a_{c'}} |
-| Regression (ℓ₂) loss / MSE | (y − ŷ)² ; MSE = (1/N) Σ (yₙ − f(xₙ;θ))² |
-| NLL (fitting probabilistic models) | −(1/N) Σ log p(yₙ | f(xₙ;θ)); MLE = argmin NLL |
+| Regression (l2) loss / MSE | (y − ŷ)2 ; MSE = (1/N) Σ (yn − f(xn;θ))2 |
+| NLL (fitting probabilistic models) | −(1/N) Σ log p(yn | f(xn;θ)); MLE = argmin NLL |
 | Generalization gap | L(θ; p*) − L(θ; D_train) |
 
 ---

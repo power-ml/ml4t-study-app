@@ -7,14 +7,14 @@ Trees, 8.1.3 Trees vs Linear Models, 8.1.4 Advantages/Disadvantages.*
 > weakness that motivates ensembles. → ML Domain 5 (Decision Trees / CART).
 
 ## Terminology
-- **Terminal nodes / leaves**: the final regions R_1,…,R_J. **Internal nodes**: split points.
+- **Terminal nodes / leaves**: the final regions R_1,...,R_J. **Internal nodes**: split points.
   **Branches**: segments connecting nodes. Trees are drawn upside down (leaves at bottom).
 
 ## 8.1.1 Regression Trees
 - **Two-step build**:
-  1. Partition predictor space into J distinct, non-overlapping regions R_1,…,R_J (boxes).
+  1. Partition predictor space into J distinct, non-overlapping regions R_1,...,R_J (boxes).
   2. Predict the **mean** of the training responses in the region an observation falls into.
-- **Goal**: choose boxes minimizing `RSS = Σ_j Σ_{i∈R_j} (y_i − ŷ_{R_j})²` (Eq. 8.1), where ŷ_{R_j}
+- **Goal**: choose boxes minimizing `RSS = Σ_j Σ_{i∈R_j} (y_i − ŷ_{R_j})2` (Eq. 8.1), where ŷ_{R_j}
   is the region mean. Considering all partitions is infeasible.
 - **Recursive binary splitting** (top-down, greedy): at each step pick predictor X_j and cutpoint s
   splitting into `{X | X_j < s}` and `{X | X_j ≥ s}` giving the **greatest RSS reduction** (Eq. 8.2–8.3).
@@ -26,7 +26,7 @@ Trees, 8.1.3 Trees vs Linear Models, 8.1.4 Advantages/Disadvantages.*
   threshold is too short-sighted (a weak split may enable a great later split).
 - **Better**: grow a large tree T_0, then **prune** back to a subtree.
 - **Cost complexity pruning** (a.k.a. weakest-link pruning): index subtrees by tuning parameter
-  **α ≥ 0**, minimizing `Σ_{m=1}^{|T|} Σ_{i:x_i∈R_m} (y_i − ŷ_{R_m})² + α|T|` (Eq. 8.4).
+  **α ≥ 0**, minimizing `Σ_{m=1}^{|T|} Σ_{i:x_i∈R_m} (y_i − ŷ_{R_m})2 + α|T|` (Eq. 8.4).
   - |T| = number of terminal nodes. α trades complexity vs training fit. α=0 → full tree T_0; larger
     α → smaller subtree (penalty per leaf). Analogous to the **lasso** penalty.
   - Branches prune in a nested, predictable way as α increases. **Select α via cross-validation**

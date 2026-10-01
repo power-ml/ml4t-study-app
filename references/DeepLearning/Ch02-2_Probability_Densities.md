@@ -46,4 +46,4 @@ $$\text{cov}[x,y] = \mathbb{E}_{x,y}[\{x - \mathbb{E}[x]\}\{y - \mathbb{E}[y]\}]
 ## Quick exam anchors
 - Density: p(x) ≥ 0, integrates to 1; probabilities come from integrating over an interval; CDF is the integral, its derivative is the density.
 - E[·] = probability-weighted average; sample mean approximates it (basis of Monte Carlo).
-- var[x] = E[x²] − E[x]²; cov measures co-movement; independent ⇒ cov = 0 (directly relevant to portfolio variance and diversification).
+- var[x] = E[x2] − E[x]2; cov measures co-movement; independent ⇒ cov = 0 (directly relevant to portfolio variance and diversification).

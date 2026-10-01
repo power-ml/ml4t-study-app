@@ -7,7 +7,7 @@
   - **Net exposure** = `Σ w_i` (signed). **Gross exposure** = `Σ |w_i|`. Net can be 100% while gross far exceeds 100% (e.g., 120/30/−50 → net 100%, gross 200%) — offsetting longs/shorts create **leverage** even at 100% net.
   - **Position bounds** (min/max per asset, e.g. 5%–35%) shrink the feasible set and can change the optimum *even when expected returns and the covariance matrix are unchanged*. Five 5% minimums pre-commit 25% of capital; three 35% maxes already sum to 105% (infeasible under a 100% budget).
 - **Minimum-variance & the Global Minimum-Variance (GMV) portfolio.**
-  - Portfolio variance: `σ_p² = Σ_i Σ_j w_i w_j σ_ij` = `wᵀΣw`. For two assets: `σ_p² = w₁²σ₁² + w₂²σ₂² + 2w₁w₂·ρ₁₂σ₁σ₂`. Covariance `σ_ij = ρ_ij σ_i σ_j`.
+  - Portfolio variance: `σ_p2 = Σ_i Σ_j w_i w_j σ_ij` = `wTΣw`. For two assets: `σ_p2 = w12σ12 + w22σ22 + 2w1w2·ρ12σ1σ2`. Covariance `σ_ij = ρ_ij σ_i σ_j`.
   - **GMV** = feasible portfolio with the *lowest* variance overall — a risk objective, not a return objective. It generally is NOT the single lowest-volatility asset: **diversification** (imperfect/negative correlation) can push a combination below the volatility of any component alone.
   - Identifying GMV requires the **covariance matrix**, not merely a ranking of stand-alone volatilities. Moving off GMV trades higher risk for higher expected return.
 - **Maximum-Sharpe & the tangency portfolio.**
@@ -16,7 +16,7 @@
   - Changing `R_f` changes the excess-return numerator by the same amount for all portfolios but divides by *different* `σ`, so the Sharpe *ranking* can flip when candidates have different volatilities. Raising `R_f` (risky returns fixed) *lowers* every excess return. Tangency ≠ GMV in general.
 - **Efficient frontier.** Set of portfolios offering the **minimum risk for each target return** (equivalently max return per risk). A portfolio is **dominated** if another offers ≥ return at ≤ risk (with one strict). The frontier is the *upper* branch above the GMV point; anything below the GMV return is dominated by GMV. Interior/dominated portfolios are **inefficient**. An **efficient** portfolio cannot raise return without raising risk, nor cut risk without cutting return.
 - **Estimation error / error-maximization.** MV optimization is highly sensitive to its inputs, *especially expected returns*. Small changes in expected-return estimates can produce large swings in weights ("**error maximization**" — the optimizer over-weights assets with over-estimated returns). Extreme/concentrated allocations often reflect **noise, not genuine edge**. Similar covariance matrices do NOT guarantee similar solutions if expected-return vectors differ. Numerical precision ≠ input accuracy. **Garbage in, garbage out**: exact math can't rescue bad inputs. Remedies: **shrinkage** (e.g., Ledoit-Wolf), longer/alternative samples, stress scenarios, position bounds, regularization.
-- **Constraints & practical design.** Long-only, leverage/gross-exposure caps, sector/asset-class limits, and **turnover** limits change the feasible set. A constraint is **binding** when the optimum sits on its boundary. Constraints can only *reduce* the in-sample (modeled) objective value (the unconstrained feasible set contains all constrained portfolios) — but they improve real-world robustness, implementability, and control of concentrated estimation error. **One-way turnover** here = `½ · Σ|Δw_i|`; a binding turnover cap spreads movement toward the target across several rebalances.
+- **Constraints & practical design.** Long-only, leverage/gross-exposure caps, sector/asset-class limits, and **turnover** limits change the feasible set. A constraint is **binding** when the optimum sits on its boundary. Constraints can only *reduce* the in-sample (modeled) objective value (the unconstrained feasible set contains all constrained portfolios) — but they improve real-world robustness, implementability, and control of concentrated estimation error. **One-way turnover** here = `1⁄2 · Σ|Δw_i|`; a binding turnover cap spreads movement toward the target across several rebalances.
 - **In-sample vs. out-of-sample.** Using the same data to choose weights *and* to report performance is **in-sample** and flatters the strategy by fitting noise that won't repeat. Real **out-of-sample (OOS)** tests apply fixed weights to later, previously unused data. **Ex post** ("after the fact") optimal weights use information not available at decision time → **look-ahead bias**; correct math doesn't cure improper timing. Large weight swings across adjacent estimation windows signal instability; the *ex post* optimal portfolio need not stay optimal next period.
 
 ## Common traps
@@ -78,7 +78,7 @@
 
 | Choice | Verdict | Why |
 |--------|---------|-----|
-| A | True | The GMV portfolio is by definition the feasible portfolio minimizing `σ_p² = wᵀΣw` over the entire feasible set. |
+| A | True | The GMV portfolio is by definition the feasible portfolio minimizing `σ_p2 = wTΣw` over the entire feasible set. |
 | B | False | **Double negative.** It *can* combine assets: with imperfect (or negative) co-movement, diversification drives portfolio volatility below that of the least-volatile component alone. "Cannot combine" reverses the correct conclusion. |
 | C | True | GMV depends on the full covariance structure (`σ_ij = ρ_ij σ_i σ_j`), so you need covariance information, not just a ranking of stand-alone volatilities. |
 | D | False | GMV minimizes variance; the highest-expected-return portfolio is a different objective (top of the frontier), not GMV. |
@@ -92,8 +92,8 @@
 
 | Choice | Verdict | Why |
 |--------|---------|-----|
-| A | True | Single-asset variance = `σ² = 0.20² = 0.0400`. |
-| B | True | Covariance = `ρσ₁σ₂ = −0.50 × 0.20 × 0.20 = −0.0200`. |
+| A | True | Single-asset variance = `σ2 = 0.202 = 0.0400`. |
+| B | True | Covariance = `ρσ1σ2 = −0.50 × 0.20 × 0.20 = −0.0200`. |
 | C | False | **Double negative.** 50/50 variance = `0.25(0.0400) + 0.25(0.0400) + 2(0.5)(0.5)(−0.0200) = 0.0100`. "Is not 0.0100" reverses the correct calculation. |
 | D | True | Volatility = `√0.0100 = 0.10 = 10%` — diversification cut it from 20% (single asset) to 10%. |
 | E | False | At `ρ = +1`, equal-volatility assets give no risk reduction: `σ_p = 20%`, not 10%. Correlation drives the diversification benefit. |
@@ -233,7 +233,7 @@
 | Choice | Verdict | Why |
 |--------|---------|-----|
 | A | True | Understated covariance makes the holdings look more independent than they are, so the optimizer **overstates** the diversification benefit. |
-| B | True | If realized covariance is higher than estimated, the larger cross-covariance term raises realized portfolio variance above forecast (`σ_p²` rises with `w_i w_j σ_ij`). |
+| B | True | If realized covariance is higher than estimated, the larger cross-covariance term raises realized portfolio variance above forecast (`σ_p2` rises with `w_i w_j σ_ij`). |
 | C | False | Solving the specified model exactly cannot make an incorrect covariance assumption accurate — computation ≠ correct inputs. |
 | D | True | **Shrinkage**, longer/alternative samples, and stress scenarios are legitimate ways to test or reduce reliance on one noisy covariance estimate. |
 | E | False | **Double negative.** "Garbage in, garbage out" applies precisely because a mathematically correct optimizer *can* still produce a poor allocation from poor estimates. The statement's "cannot still produce a poor allocation" reverses the truth. |
@@ -275,7 +275,7 @@
 | Choice | Verdict | Why |
 |--------|---------|-----|
 | A | True | A falls 50% → 20% (−30 pp); B rises 50% → 80% (+30 pp). |
-| B | True | One-way turnover = `½(|−30%| + |+30%|) = ½(60%) = 30%`. |
+| B | True | One-way turnover = `1⁄2(|−30%| + |+30%|) = 1⁄2(60%) = 30%`. |
 | C | False | The required 30% turnover exceeds the 10% cap, so the proposed trade violates the limit. |
 | D | False | **Double negative.** Moving 10 pp from A to B (→ 40% A / 60% B) gives one-way turnover of exactly 10%, which *is* feasible. "Could not be 40%/60%" reverses the truth. |
 | E | False | **Double negative.** A binding turnover cap *can* cause the portfolio to adjust toward the target gradually over several rebalances rather than immediately. "Cannot cause ... over several rebalances" reverses the conclusion. |
@@ -326,7 +326,7 @@
 
 ## References (domain-level)
 
-1. **Markowitz, H. (1952), "Portfolio Selection," *Journal of Finance*; and *Portfolio Selection: Efficient Diversification of Investments* (1959):** mean-variance optimization, portfolio variance `wᵀΣw`, the efficient frontier, GMV portfolio, and diversification via covariance.
+1. **Markowitz, H. (1952), "Portfolio Selection," *Journal of Finance*; and *Portfolio Selection: Efficient Diversification of Investments* (1959):** mean-variance optimization, portfolio variance `wTΣw`, the efficient frontier, GMV portfolio, and diversification via covariance.
 2. **Grinold, R. & Kahn, R., *Active Portfolio Management*:** practical constraints (long-only, leverage/gross-exposure caps, sector limits, turnover), implementation shortfall/transaction costs, and the gap between mathematically optimal and implementable portfolios.
 3. **CFA Institute curriculum, "Portfolio Risk and Return" (Levels I–II):** Sharpe ratio, Capital Allocation Line, capital market line, tangency portfolio, two-fund separation, and inputs to optimization.
 4. **Investopedia:** "Efficient Frontier," "Tangency Portfolio," "Capital Allocation Line," "Minimum Variance Portfolio," "Sharpe Ratio," "Gross/Net Exposure," "Portfolio Constraints," "Portfolio Turnover," "Estimation Error," "Look-Ahead Bias," "Backtesting."

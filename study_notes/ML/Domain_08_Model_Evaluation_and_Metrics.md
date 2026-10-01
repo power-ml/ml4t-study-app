@@ -15,7 +15,7 @@
   - Test **labels** are needed to *score* (compute error) but must stay out of *fitting and tuning*.
 - **Error metrics — MAE, MSE, RMSE** (regression):
   - **MAE** (mean absolute error): linear penalty on |error|; treats all errors proportionally; robust to outliers. Same units as target.
-  - **MSE** (mean squared error): squares errors → **disproportionate weight to large errors/outliers**; squaring also prevents +/− errors from canceling; units are **squared** (e.g., dollars²).
+  - **MSE** (mean squared error): squares errors → **disproportionate weight to large errors/outliers**; squaring also prevents +/− errors from canceling; units are **squared** (e.g., dollars2).
   - **RMSE** = √MSE: restores the **target's original units** (easier to compare to the target scale than MSE), while keeping MSE's emphasis on large errors. RMSE is **more** sensitive to outliers than MAE, not less.
   - **RMSE ≥ MAE always** for the same set of errors (equality only when all absolute errors are equal). A wider RMSE–MAE gap indicates **greater dispersion/variation in error sizes**.
 - **Baselines & benchmarking**:
@@ -129,7 +129,7 @@
 | Choice | Verdict | Why |
 |--------|---------|-----|
 | A | True | MAE averages the absolute dollar errors, so $400 is the average absolute prediction error. |
-| B | False | MSE is in **squared** units (dollars²), not dollars — 490,000 dollars² is not directly comparable to the target. |
+| B | False | MSE is in **squared** units (dollars2), not dollars — 490,000 dollars2 is not directly comparable to the target. |
 | C | True | RMSE returns the error to the target's original units ($700 in dollars), so it is easier to compare to the target scale than MSE. |
 | D | True | RMSE exceeding MAE ($700 > $400) reflects dispersion in error sizes — greater spread in absolute errors widens the RMSE–MAE gap. |
 | E | False | Choosing MAE vs. RMSE is not purely mathematical — it should reflect whether large misses are disproportionately costly (linear vs. squared penalty). |

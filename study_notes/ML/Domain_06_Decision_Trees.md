@@ -18,9 +18,9 @@
 
 - **Inverted-logic questions (12 of 42):** the Answer Key flips scoring — "**True = incorrect; False = accurate**." So a verdict of **False actually means the statement is correct**. Read the polarity line first. Inverted here: **G1Q1, G2Q5, G2Q6, G3Q3, G4Q1, G4Q2, G4Q4, G4Q6, G6Q2, G6Q4, G7Q3, G7Q5.** (Verdicts below are shown as `True (incorrect)` / `False (accurate)` for these.)
 - **Double-negative "embedded claim" choices:** a choice asserts that an accurate statement is *false/incorrect*, so the whole choice is false.
-  - **G1Q1 A** ("The following claim is false: the observation first follows momentum>2%…") — inner claim is accurate, so the choice is incorrect → **True (incorrect)** under inverted scoring.
+  - **G1Q1 A** ("The following claim is false: the observation first follows momentum>2%...") — inner claim is accurate, so the choice is incorrect → **True (incorrect)** under inverted scoring.
   - **G4Q3 A** ("The following claim is false: max depth and min leaf size both influence complexity") — inner claim accurate → whole choice false → **False** (normal scoring).
-  - **G7Q4 A** ("It is incorrect to conclude that trees struggle with smooth/diagonal boundaries…") — inner conclusion is accurate, so calling it incorrect is **False** (normal scoring).
+  - **G7Q4 A** ("It is incorrect to conclude that trees struggle with smooth/diagonal boundaries...") — inner conclusion is accurate, so calling it incorrect is **False** (normal scoring).
   - In inverted questions **G4Q4E, G4Q6A, G6Q2, G6Q4** the key literally writes "The statement is accurate → marked False" — read the polarity, not the word.
 - **"Single tree averages all paths / combines all leaves"** is always wrong for one tree (that describes ensembles). One observation → one path → one leaf. (G1Q1C, G1Q4A.)
 - **Scaling/standardization is NOT required for trees** — repeated distractor. Monotonic transforms only change reported threshold numbers, not the partitions/structure. Claiming scaling is *mandatory* is false; claiming a monotonic transform *stabilizes* the tree is also false (G5Q5B, G5Q6B). Trees are the contrast to distance-based KNN/SVM.
@@ -93,7 +93,7 @@
 | Choice | Verdict | Why |
 |--------|---------|-----|
 | A | False | CART evaluates one feature at a time; a split depends on which points fall each side of the threshold, not on relative feature scale → no standardization needed. |
-| B | True | Splits X_j ≤ s are axis-aligned rectangles; a diagonal boundary X₁+X₂>C needs a many-split staircase approximation. |
+| B | True | Splits X_j ≤ s are axis-aligned rectangles; a diagonal boundary X1+X2>C needs a many-split staircase approximation. |
 | C | True | Greedy top-down recursive binary splitting selects the (feature, threshold) minimizing within-node squared error / maximizing impurity reduction. |
 | D | True | Deep, minimally constrained trees have low training bias but high variance: a changed early split propagates through downstream branches. |
 | E | False | A mean-predicting regression tree cannot extrapolate; out-of-range inputs still land in an existing leaf and get its bounded mean, so ŷ ∈ [y_min, y_max] of training. |
@@ -255,7 +255,7 @@
 **Reference:** Unrestricted growth → high variance; hyper-rectangular partitions — ISLR §8.1; ESL §9.2.
 
 ### [ML-D6G3Q5] Zero training error ≠ deterministic process
-**Scenario:** A Decision Tree Regressor on 500 daily observations grows until nearly one obs/leaf: MSE_train=0, R²=1, but test MSE worse than a mean baseline.
+**Scenario:** A Decision Tree Regressor on 500 daily observations grows until nearly one obs/leaf: MSE_train=0, R2=1, but test MSE worse than a mean baseline.
 **Answer polarity:** Normal (True = accurate).
 
 | Choice | Verdict | Why |
@@ -263,7 +263,7 @@
 | A | True | Deeper trees reduce training bias but raise variance (more sensitive to the particular sample/noise). |
 | B | True | Axis-aligned splits shrink regions; single-observation leaves let the tree memorize exact responses. |
 | C | False | Zero training error shows only interpolation capacity, not that returns are a deterministic noise-free function of the 15 features. |
-| D | False | p features impose **no** log₂(p) depth cap — a tree can split repeatedly on the same feature; depth relates to N/arrangement (log₂N balanced up to N−1 unbalanced). |
+| D | False | p features impose **no** log2(p) depth cap — a tree can split repeatedly on the same feature; depth relates to N/arrangement (log2N balanced up to N−1 unbalanced). |
 | E | True | Deep splits act on small subsets → more likely to capture localized, sample-specific variation that fails to generalize. |
 
 **Reference:** Interpolation vs. true process; depth not bounded by p; deep-split variance — ISLR §8.1; ESL ch.7.
@@ -358,7 +358,7 @@
 
 | Choice | Verdict | Why |
 |--------|---------|-----|
-| A | False (accurate) | Correct: max_depth=3 caps paths at 3 splits → ≤2³=8 leaves; it is an upper bound, so branches may stop early / be asymmetric. |
+| A | False (accurate) | Correct: max_depth=3 caps paths at 3 splits → ≤23=8 leaves; it is an upper bound, so branches may stop early / be asymmetric. |
 | B | False (accurate) | Correct: min_samples_leaf=250 averages each leaf over ≥250 orders → stabilizes leaf variance. |
 | C | True (incorrect) | Wrong: min_samples_split=10 governs split eligibility (can leave a child of 1); it does **not** force ≥10 per leaf — that needs min_samples_leaf. |
 | D | False (accurate) | Correct: max_leaf_nodes uses best-first impurity-reduction growth → asymmetric, flexible capacity allocation. |

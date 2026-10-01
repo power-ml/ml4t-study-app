@@ -3,15 +3,15 @@
 ## Domain cheat-sheet
 
 - **One-period (holding-period) return:** `r = (P_end − P_begin + income) / P_begin`. The percentage depends on the *starting price*, not the raw dollar change — an $8 move on $80 (10%) is worse than a $4 move on $20 (20%).
-- **Linking periods multiplicatively:** cumulative return over consecutive periods is `(1+r₁)(1+r₂)…(1+rₙ) − 1`, **not** the sum of the returns. Summing (`r₁+r₂`) is only a first-order approximation and ignores compounding.
+- **Linking periods multiplicatively:** cumulative return over consecutive periods is `(1+r1)(1+r2)...(1+rn) − 1`, **not** the sum of the returns. Summing (`r1+r2`) is only a first-order approximation and ignores compounding.
 - **Each period's return applies to the value entering that period.** A −6% second-quarter return applies to the *post-first-quarter* balance ($10.8M), not the original ($10M).
 - **CAGR (compound annual growth rate):** `CAGR = (V_end / V_begin)^(1/n) − 1` — the single constant annual rate that connects the endpoints. Example: $100M → $121M over 2 yrs ⇒ `(121/100)^(1/2) − 1 = 10%`. Dividing total return by n (21%/2 = 10.5%) is **wrong** — it ignores compounding.
 - **Compounding growth factor:** `$1 → (1+r)^n`. `(1.07)^30 ≈ 7.61`. Small annual rate gaps compound into large terminal-wealth gaps; you cannot evaluate a 0.25pp gap by multiplying 0.25% × years.
 - **Rule of 72:** doubling time ≈ `72 / (annual % return)`. 72/6 ≈ 12 yrs (exact `ln2/ln1.06 ≈ 11.9`); 72/4 ≈ 18 yrs. It is an approximation, not a guarantee.
-- **Arithmetic mean** `(Σrᵢ)/n` = best estimate of a *single* future period's return. **Geometric mean** `(Π(1+rᵢ))^(1/n) − 1` = the realized constant compound rate over multiple periods (describes terminal wealth).
+- **Arithmetic mean** `(Σri)/n` = best estimate of a *single* future period's return. **Geometric mean** `(Π(1+ri))^(1/n) − 1` = the realized constant compound rate over multiple periods (describes terminal wealth).
 - **Volatility drag / Jensen gap:** with any return dispersion, geometric mean ≤ arithmetic mean; they are equal only when every period's return is identical. +30%/−20% ⇒ arithmetic 5% but geometric `√1.04 − 1 ≈ 1.98%`.
 - **Annualization units differ:** *returns* compound → `(1+r_period)^(periods/yr) − 1`; *volatility* scales with the **square root of time** → `σ_period × √(periods/yr)` (under i.i.d. assumption). E.g. 1% monthly → `(1.01)^12 − 1 ≈ 12.68%`; 3% monthly σ → `3%×√12 ≈ 10.39%`. Trading-day count (252) drives both figures.
-- **Portfolio return = weighted sum of asset returns:** `r_p = Σ wᵢ rᵢ`. An asset's *return* (10%) differs from its *contribution* (weight × return = 6pp at 60% weight). Long weights >0, short weights <0; a negative weight × negative return = positive contribution.
+- **Portfolio return = weighted sum of asset returns:** `r_p = Σ wi ri`. An asset's *return* (10%) differs from its *contribution* (weight × return = 6pp at 60% weight). Long weights >0, short weights <0; a negative weight × negative return = positive contribution.
 - **Leverage:** invested weight >100% funded by borrowing magnifies both gains and losses; net financing cost (`−borrow% × borrow rate`) is subtracted. 120% ETF at 10% less 20% borrowed at 1% ⇒ `12% − 0.2% = 11.8%`.
 - **Gross vs net vs benchmark-relative:** net = gross − fees − costs. Excess (relative) return = fund return − benchmark return. A fund can beat its benchmark on a relative basis while posting a negative absolute return (−6% vs −10% ⇒ +4pp). Hedge-fund fees layer: management fee on capital, then incentive fee on *post-management-fee* profit.
 - **Path dependence / sequence-of-returns:** without cash flows, order doesn't matter (multiplication commutes). *With* withdrawals or contributions, order matters — same returns produce different terminal wealth. Equal ± percentage moves don't offset: +50% then −50% ⇒ $100→$150→$75.
@@ -21,7 +21,7 @@
 
 - **Inverted-logic questions in this slice: NONE.** All 21 questions (G1Q1–G7Q3) use a plain `Answer Key:` — True = accurate statement, False = inaccurate. Do not assume inversion just because rationales say "reverses the correct conclusion" (that phrase describes the *choice's* embedded double negative, not the question's polarity).
 - **Double-negative "embedded claim" choices — the real trap here.** Many choices are phrased as a negation, e.g. "Its CAGR is **not** 10% per year" or "The two-year cumulative return is **not** 4%." When the underlying fact IS true (CAGR *is* 10%), the negated statement is **False**. Read the whole sentence: verdict tracks the *negated* statement, and the rationale "reverses the correct conclusion" is your signal the writer buried a truth inside a "not."
-- **"A reviewer would be wrong to accept the claim that…" choices.** These flip twice. If the underlying claim is correct, then "would be wrong to accept it" is itself **False** (rationale: "The underlying claim is correct and should be accepted"). Examples: G1Q3-A, G3Q3-A/B, G4Q2-E, G7Q3-C.
+- **"A reviewer would be wrong to accept the claim that..." choices.** These flip twice. If the underlying claim is correct, then "would be wrong to accept it" is itself **False** (rationale: "The underlying claim is correct and should be accepted"). Examples: G1Q3-A, G3Q3-A/B, G4Q2-E, G7Q3-C.
 - **Summing instead of compounding.** Adding periodic returns (8% + −6% = 2%; +50% + −50% = 0%) is only an approximation and understates the compounding effect; the exact link is multiplicative. Classic distractor in G1Q2-C, G3Q1, G7Q1.
 - **Arithmetic-for-geometric substitution.** Reporting the arithmetic mean as "the return you actually earned" overstates realized compound growth whenever returns vary (volatility drag). G3Q1-E, G3Q3-D.
 - **Volatility annualized like a return.** Choices that scale σ by the period count (×12 or ×252) instead of by √(periods) are False — σ scales with √time. G4Q1-D, G4Q2-D.
@@ -79,8 +79,8 @@
 |---|---|---|
 | A. Total two-year return is 21%. | True | 121/100 − 1 = **21%** cumulative. |
 | B. Its CAGR is **not** 10% per year. | False | Embedded double negative: CAGR = (121/100)^(1/2) − 1 = √1.21 − 1 = **10%**. So it *is* 10%; the negation reverses the correct conclusion → False. |
-| C. A 10.5% annual simple average is the realized annual compound growth rate. | False | 21%/2 = 10.5% ignores compounding. The true compound rate is 10% (since (1.10)² = 1.21, not (1.105)²). |
-| D. Compounding a 10% annual return for two years produces a 21% cumulative return. | True | (1.10)² − 1 = 1.21 − 1 = **21%** — confirms 10% is the correct CAGR. |
+| C. A 10.5% annual simple average is the realized annual compound growth rate. | False | 21%/2 = 10.5% ignores compounding. The true compound rate is 10% (since (1.10)2 = 1.21, not (1.105)2). |
+| D. Compounding a 10% annual return for two years produces a 21% cumulative return. | True | (1.10)2 − 1 = 1.21 − 1 = **21%** — confirms 10% is the correct CAGR. |
 | E. CAGR is the constant annual rate connecting the beginning and ending values. | True | By definition CAGR is the single geometric rate that maps V_begin to V_end over n periods. |
 
 **Reference:** CFA curriculum — geometric mean / CAGR; Investopedia, "Compound Annual Growth Rate (CAGR)."
@@ -122,7 +122,7 @@
 | A. The arithmetic average return is 5%. | True | (30% + (−20%))/2 = **5%**. |
 | B. The two-year cumulative return is **not** 4%. | False | Embedded double negative: (1.30)(0.80) − 1 = 1.04 − 1 = **4%**. So it *is* 4%; the negation reverses this → False. |
 | C. The geometric average is **not** ≈1.98% per year. | False | Embedded double negative: geometric mean = √(1.04) − 1 ≈ **1.98%**. So it *is* ≈1.98%; negation reverses → False. |
-| D. Investing $100 would produce $110.25 after two years. | False | Terminal value = $100 × 1.30 × 0.80 = **$104**, not $110.25 (which would be (1.05)²). |
+| D. Investing $100 would produce $110.25 after two years. | False | Terminal value = $100 × 1.30 × 0.80 = **$104**, not $110.25 (which would be (1.05)2). |
 | E. The arithmetic average overstates the annualized compound growth achieved. | True | 5% arithmetic > 1.98% geometric — the classic volatility-drag gap. |
 
 **Reference:** CFA curriculum — arithmetic vs geometric mean; Investopedia, "Geometric Mean."
@@ -135,7 +135,7 @@
 |---|---|---|
 | A. Arithmetic mean is generally more relevant for estimating a single future period's average outcome. | True | The arithmetic mean is the unbiased estimator of a single-period expected return from a sample. |
 | B. Geometric mean describes the constant compound rate linking beginning to ending wealth over multiple periods. | True | The geometric mean reproduces realized multi-period terminal wealth. |
-| C. The geometric mean is computed by adding periodic returns and dividing by n. | False | That is the *arithmetic* mean. Geometric mean multiplies growth factors and takes the n-th root: (Π(1+rᵢ))^(1/n) − 1. |
+| C. The geometric mean is computed by adding periodic returns and dividing by n. | False | That is the *arithmetic* mean. Geometric mean multiplies growth factors and takes the n-th root: (Π(1+ri))^(1/n) − 1. |
 | D. When returns vary and compound wealth stays positive, geometric mean cannot exceed arithmetic mean. | True | Return dispersion forces geometric ≤ arithmetic (Jensen's inequality / volatility drag); equal only with zero dispersion. |
 | E. Arithmetic and geometric means are always identical when the sample has both + and − returns. | False | They are equal only when *every* periodic return is identical — mixed signs alone do not make them equal. |
 

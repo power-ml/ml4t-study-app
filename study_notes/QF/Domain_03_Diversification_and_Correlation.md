@@ -10,7 +10,7 @@
 - **Covariance vs. correlation**: `Cov(A,B) = ρ · σ_A · σ_B`, and equivalently `ρ = Cov(A,B) / (σ_A · σ_B)`. Covariance carries the product of the return units; correlation is the standardized (unitless) version.
   - Doubling *both* volatilities (ρ fixed) multiplies covariance by **4** (2×2), not 2 — covariance scales with the *product* of the standard deviations.
   - Individual variances are always **≥ 0**; a *negative* covariance describes *joint* movement, not a negative stand-alone variance.
-- **Two-asset portfolio variance**: `σ_p² = w_A²σ_A² + w_B²σ_B² + 2·w_A·w_B·Cov(A,B)`. Portfolio volatility = `√σ_p²` — NOT the weighted average of the component variances/volatilities. Omitting the cross-covariance term is wrong; it is exactly where diversification lives.
+- **Two-asset portfolio variance**: `σ_p2 = w_A2σ_A2 + w_B2σ_B2 + 2·w_A·w_B·Cov(A,B)`. Portfolio volatility = `√σ_p2` — NOT the weighted average of the component variances/volatilities. Omitting the cross-covariance term is wrong; it is exactly where diversification lives.
   - With positive weights, a **larger covariance raises** portfolio variance; a **lower/negative covariance lowers** it. This is why two identically-volatile assets can form portfolios with very different risk.
   - **Expected return** of the portfolio is just the weighted average of expected returns — it is unaffected by correlation. So risk can fall via imperfect co-movement *without* a proportional cut in expected return.
 - **Specific (idiosyncratic) vs. systematic risk**:
@@ -26,7 +26,7 @@
 
 - **NO inverted-logic questions in this slice.** Every question uses a standard "Answer Key:" (True = accurate). There is no "True = incorrect; False = accurate" header anywhere in QF-D3. Do NOT assume polarity flips just because many choices sound negative — read each verdict straight.
 - **Double-negative "embedded claim" choices are the real trap.** Many choices assert the *negation* of a true fact, so the correct verdict is **False**. The Answer Key flags these with the phrase **"The statement reverses the correct conclusion."** Parse the inner claim, judge its truth, then apply the negation. These occur at: **G1Q1-E, G2Q1-A, G2Q2-D, G2Q2-E, G3Q1-A, G3Q1-B, G3Q3-B, G3Q3-D, G4Q1-C, G4Q2-E, G5Q1-D, G5Q2-C, G5Q3-C, G5Q3-E, G6Q2-D, G7Q1-A, G7Q1-D.**
-- **"Cannot / could not / not" framing.** Choices like "diversification cannot reduce…", "correlation cannot rise…", "a limit cannot constrain…" negate a true statement → **False**. When a choice claims something is *impossible* about a real diversification/correlation effect, suspect it is False.
+- **"Cannot / could not / not" framing.** Choices like "diversification cannot reduce...", "correlation cannot rise...", "a limit cannot constrain..." negate a true statement → **False**. When a choice claims something is *impossible* about a real diversification/correlation effect, suspect it is False.
 - **Correlation ≠ causation, offset %, or a period-by-period guarantee.** ρ = -0.60 does not mean 60% of losses are offset (G1Q1-B, False) and does not prove causation (G1Q1-D, False). Strong ρ still permits opposite-sign periods (G1Q2-D, False).
 - **Stand-alone stats never settle portfolio risk.** "Unchanged individual volatilities ⇒ unchanged portfolio risk" (G1Q3-D) and "equal expected returns ⇒ covariance is irrelevant" (G2Q3-E) are both **False** — covariance is the missing term.
 - **Counting names ≠ diversification.** Equal weights, dollar neutrality, or a large position count do not eliminate shared-driver/systematic risk (G3Q3-C, G5Q2-C, G6Q2-E). A different manager label does not make a return stream independent (G6Q2-C).
@@ -95,7 +95,7 @@
 
 | Choice | Verdict | Why |
 |--------|---------|-----|
-| A | True | Correct expression: `(0.60²×0.0225) + (0.40²×0.0100) + (2×0.60×0.40×0.0030)` — weighted variances plus the cross-covariance term. |
+| A | True | Correct expression: `(0.602×0.0225) + (0.402×0.0100) + (2×0.60×0.40×0.0030)` — weighted variances plus the cross-covariance term. |
 | B | True | The terms are 0.00810 + 0.00160 + 0.00144 = **0.01114**, matching the stated value. |
 | C | False | Omitting the covariance term ignores whether the assets reinforce or offset each other — it does not correctly measure portfolio variance. |
 | D | False | **Embedded-claim / reverses the conclusion:** with positive weights a *lower* covariance reduces the cross term and thus lowers portfolio variance; "would not be lower" reverses this, so False. |
@@ -166,7 +166,7 @@
 | Choice | Verdict | Why |
 |--------|---------|-----|
 | A | True | Expected return is the weighted average: 0.5(8%) + 0.5(8%) = 8% under the stated assumptions. |
-| B | True | With ρ = 0 the covariance term is zero, so `σ_p² = 0.5²(0.12²) + 0.5²(0.12²)`. |
+| B | True | With ρ = 0 the covariance term is zero, so `σ_p2 = 0.52(0.122) + 0.52(0.122)`. |
 | C | False | **Embedded-claim / reverses the conclusion:** variance = 0.0072, whose square root ≈ 0.0849 (8.49%), which is below 12%. The choice says volatility is "not approximately 8.49%," reversing the correct result → False. |
 | D | False | Zero *linear* correlation does not prohibit simultaneous losses in the same period. |
 | E | True | Expected return stays 8% while volatility falls to ~8.49% — risk reduction need not require a proportional cut in expected return. |
@@ -329,7 +329,7 @@
 
 ## References (domain-level)
 
-1. **Markowitz portfolio theory** (Markowitz, 1952, "Portfolio Selection"): mean-variance framework; portfolio variance `σ_p² = ΣΣ w_i w_j Cov(i,j)`; diversification benefit from imperfect (ρ < 1) and negative correlation; the ρ = -1 risk-elimination case; sensitivity of optimized weights to covariance inputs.
+1. **Markowitz portfolio theory** (Markowitz, 1952, "Portfolio Selection"): mean-variance framework; portfolio variance `σ_p2 = ΣΣ w_i w_j Cov(i,j)`; diversification benefit from imperfect (ρ < 1) and negative correlation; the ρ = -1 risk-elimination case; sensitivity of optimized weights to covariance inputs.
 2. **Bodie, Kane & Marcus — *Investments*:** two-asset and multi-asset portfolio math; diversification vs. portfolio size and the systematic-risk floor; firm-specific (diversifiable) vs. market (systematic) risk; the perfect-hedge case.
 3. **CFA Institute curriculum — Portfolio Management & Risk:** correlation as an estimated input, estimation uncertainty; factor/shared-driver and sector concentration beyond single-name limits; position sizing and risk controls; stress testing and tail/regime risk; estimation risk in portfolio construction.
 4. **Investopedia:** "Covariance vs. Correlation," "Correlation Coefficient," "Systematic vs. Unsystematic (Idiosyncratic) Risk," "Diversification" (and its limits), "Diworsification," "Correlation Breakdown."

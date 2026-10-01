@@ -39,7 +39,7 @@
 - **x_ij** = value of the *j*-th variable for the *i*-th observation; **X** is the n×p matrix.
 - **x_i** = row vector (length p) of one observation; **x_j** (bold) = column vector (length n)
   of one variable. Vectors default to columns; `T` = transpose.
-- **y_i** = *i*-th response; observed data = {(x_1,y_1), …, (x_n,y_n)}.
+- **y_i** = *i*-th response; observed data = {(x_1,y_1), ..., (x_n,y_n)}.
 - Convention: vectors of length n in **lowercase bold**; matrices in **bold capitals**; random
   variables in **capital normal font**; scalars in lowercase normal.
 

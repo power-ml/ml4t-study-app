@@ -10,6 +10,7 @@ or where a match is weak, is flagged so it can be verified against the PDF.
 Reads slices/ + study_notes/ only; writes app/data.js only. Never edits source files.
 """
 import re, glob, json, os, difflib
+from pdf_text_cleanup import clean, garbled_chars   # repair PDF math-font mojibake (X₁, ŷ, •, …)
 HERE=os.path.dirname(os.path.abspath(__file__)); ROOT=os.path.dirname(HERE)
 DOMNAMES={
  ('ML','01'):'Learning Paradigms & Problem Framing',('ML','02'):'Data & Sampling Discipline',
@@ -129,6 +130,14 @@ for f in sorted(glob.glob(os.path.join(ROOT,'slices','*.txt'))):
         if sig in seen_sig: q['duplicateOf']=seen_sig[sig]
         else: seen_sig[sig]=qid
         if qid in WITHDRAWN: q['withdrawn']=True
+        # --- repair PDF math-font mojibake in all displayed text; flag any residual we can't safely fix ---
+        q['scenario']=clean(q['scenario'])
+        for c in q['choices']:
+            c['text']=clean(c['text']); c['why']=clean(c.get('why','')); c['whyPool']=clean(c.get('whyPool',''))
+        if q.get('reference'): q['reference']=clean(q['reference'])
+        blob=q['scenario']+' '+' '.join(c['text']+' '+c['why'] for c in q['choices'])
+        g=garbled_chars(blob)
+        if g: q['pdfArtifacts']=g
         questions.append(q)
 
 # ---- attach distilled book-note references to domains (via 'ML/QF Domain N' tags in each note) ----
@@ -149,7 +158,8 @@ heur={'absolute_false_pct':74,'negation_inacc_pct':69,'accurate_base_pct':58,
 for i,q in enumerate(questions,1): q['n']=i   # stable global question number (survives filters/reorder)
 data={'generated':'2026-10-01','counts':{'questions':len(questions),
       'ML':sum(1 for q in questions if q['part']=='ML'),'QF':sum(1 for q in questions if q['part']=='QF'),
-      'withdrawn':sum(1 for q in questions if q.get('withdrawn'))},
+      'withdrawn':sum(1 for q in questions if q.get('withdrawn')),
+      'pdfArtifacts':sum(1 for q in questions if q.get('pdfArtifacts'))},
       'heuristics':heur,'domains':domains,'questions':questions,
       'overridden':overridden,'suspects':suspects,'withdrawn':sorted(WITHDRAWN)}
 open(os.path.join(HERE,'data.js'),'w').write('window.ML4T='+json.dumps(data,ensure_ascii=False)+';')
@@ -159,6 +169,8 @@ print('expanded-why coverage (all 5 choices):',expanded_full,'/',len(questions))
 print('duplicates marked:',dups)
 _wfound=sorted(q['id'] for q in questions if q.get('withdrawn')); _wmiss=sorted(WITHDRAWN-set(_wfound))
 print('withdrawn marked:',len(_wfound),_wfound,('| MISSING(not in pool!): '+str(_wmiss)) if _wmiss else '')
+_art=[q['id'] for q in questions if q.get('pdfArtifacts')]
+print('pdf-mojibake repaired across all Qs; residual-garble flagged on',len(_art),'questions:',_art)
 print('overridden (verified mislabels, content-paired):',overridden)
 print('NEW suspects to verify vs PDF:',suspects if suspects else 'none 🎉')
 q=[x for x in questions if x['id']=='ML-D6G5Q5'][0]

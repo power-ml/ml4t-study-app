@@ -17,7 +17,7 @@ Each question's answer key is one of two modes:
 ## The #2 trap: choice-level negation / "embedded claim" (heavy in QF)
 Even in Normal-polarity questions, individual choices flip meaning with wording like:
 - **"It is incorrect to conclude that <X>"** / **"The following claim is false: <X>"** / **"A reviewer would be wrong to accept that <X>"** — if the inner claim X is actually accurate, the whole choice is **False**. Parse the inner claim, judge its truth, then negate.
-- **"… is not <the correct value>"** — the pool marks these **False** with the recurring phrase *"the statement reverses the correct conclusion."*
+- **"... is not <the correct value>"** — the pool marks these **False** with the recurring phrase *"the statement reverses the correct conclusion."*
 QF domains lean on these instead of question-level inversion (e.g., QF D8 had 16 such choices, QF D4 ~20). Slow down and evaluate the literal claim.
 
 ## The #3 trap: absolute/overreaching claims are usually False

@@ -12,7 +12,7 @@
 
 ## 8.2.1 Bagging (Bootstrap AGGregatING)
 - **Motivation**: single trees have **high variance** (a different data split gives a very different
-  tree). Averaging n independent observations with variance σ² gives variance σ²/n → **averaging
+  tree). Averaging n independent observations with variance σ2 gives variance σ2/n → **averaging
   reduces variance**.
 - **Procedure**: draw B **bootstrap** samples from the training data, fit a tree to each, average:
   `f̂_bag(x) = (1/B) Σ_b f̂*^b(x)`. Trees are grown **deep and unpruned** (high variance, low bias);

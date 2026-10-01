@@ -19,7 +19,7 @@
 - **Generalization vs. memorization / bias-variance**:
   - Goal is performance on *unseen* data, not reproduction of the training set. Near-zero training error + high test error = overfitting/memorization = **high variance**.
   - Underfitting = **high bias** (too simple to capture the true relationship). Adding data of the same type doesn't fix high bias — need more capacity/better features.
-  - Expected test error = **bias² + variance + irreducible error (ε)**. ε (unmeasured factors, inherent randomness) cannot be reduced by any model and sets the accuracy floor; the U-shaped test-error-vs-complexity curve persists above that floor.
+  - Expected test error = **bias2 + variance + irreducible error (ε)**. ε (unmeasured factors, inherent randomness) cannot be reduced by any model and sets the accuracy floor; the U-shaped test-error-vs-complexity curve persists above that floor.
   - Generalization is defined for a **stationary** distribution; a regime shift (change in the data-generating process) can break even a well-generalizing model.
   - **Regularization** trades training fit for a simpler, more stable hypothesis to favor generalization.
 - **What makes a "good" model** is contextual — judged against the decision it supports, not a single metric:
@@ -278,8 +278,8 @@
 
 **Reference:** Model staleness / retraining cadence & distribution shift — ISLR §2.2 (irreducible error, changing f); concept "concept drift."
 
-### [ML-D1G3Q4] Hours to train vs. 500 µs to execute — INVERTED logic
-**Scenario:** An HFT firm's momentum model takes hours to optimize on limit-order-book history but must emit a signal in < 500 µs per packet. Explain resource allocation across the two phases.
+### [ML-D1G3Q4] Hours to train vs. 500 μs to execute — INVERTED logic
+**Scenario:** An HFT firm's momentum model takes hours to optimize on limit-order-book history but must emit a signal in < 500 μs per packet. Explain resource allocation across the two phases.
 **Answer polarity:** Inverted (True = incorrect; False = accurate).
 
 | Choice | Verdict | Why |
@@ -386,7 +386,7 @@
 | B | True | The linear models show high bias — a too-simple form can't capture nonlinear market structure (consistent, moderate error). |
 | C | True | A large train-vs-test gap (0.02 → 0.85) is the classic overfitting/memorized-noise symptom. |
 | D | False | For a high-bias (underfitting) model, more data of the same type won't help — you need more capacity or better features. |
-| E | True | Total expected error = bias² + variance + variance of the irreducible error term (bias-variance decomposition). |
+| E | True | Total expected error = bias2 + variance + variance of the irreducible error term (bias-variance decomposition). |
 
 **Reference:** Bias-variance decomposition, overfitting gap — ISLR §2.2.2; ESL §7.3.
 
