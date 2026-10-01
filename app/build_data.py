@@ -76,6 +76,8 @@ def detect_mislabel(stmts, keys):
     return False
 
 OVR=json.load(open(os.path.join(HERE,'overrides.json'))).get('content_paired',{})
+# Questions withdrawn from the official exam pool — kept for completeness but flagged so they can be skipped in study.
+WITHDRAWN={'ML-D1G2Q8','ML-D2G4Q5','ML-D3G1Q4','ML-D3G3Q6','ML-D5G5Q4','ML-D6G4Q6','ML-D6G5Q5','ML-D6G5Q6','QF-D8G4Q1'}
 questions=[]; domains=[]; suspects=[]; overridden=[]; seen_sig={}; expanded_full=0
 for f in sorted(glob.glob(os.path.join(ROOT,'slices','*.txt'))):
     base=os.path.basename(f); part='ML' if base.startswith('ML_') else 'QF'
@@ -126,6 +128,7 @@ for f in sorted(glob.glob(os.path.join(ROOT,'slices','*.txt'))):
         sig=scen+'||'+'||'.join(c['text'] for c in choices)
         if sig in seen_sig: q['duplicateOf']=seen_sig[sig]
         else: seen_sig[sig]=qid
+        if qid in WITHDRAWN: q['withdrawn']=True
         questions.append(q)
 
 # ---- attach distilled book-note references to domains (via 'ML/QF Domain N' tags in each note) ----
@@ -144,15 +147,18 @@ heur={'absolute_false_pct':74,'negation_inacc_pct':69,'accurate_base_pct':58,
       'positional':{'A':75,'B':63,'C':47,'D':53,'E':50},
       'inverted_total':sum(1 for q in questions if q['polarity']=='inverted')}
 for i,q in enumerate(questions,1): q['n']=i   # stable global question number (survives filters/reorder)
-data={'generated':'2026-09-29','counts':{'questions':len(questions),
-      'ML':sum(1 for q in questions if q['part']=='ML'),'QF':sum(1 for q in questions if q['part']=='QF')},
+data={'generated':'2026-10-01','counts':{'questions':len(questions),
+      'ML':sum(1 for q in questions if q['part']=='ML'),'QF':sum(1 for q in questions if q['part']=='QF'),
+      'withdrawn':sum(1 for q in questions if q.get('withdrawn'))},
       'heuristics':heur,'domains':domains,'questions':questions,
-      'overridden':overridden,'suspects':suspects}
+      'overridden':overridden,'suspects':suspects,'withdrawn':sorted(WITHDRAWN)}
 open(os.path.join(HERE,'data.js'),'w').write('window.ML4T='+json.dumps(data,ensure_ascii=False)+';')
 dups=[q['id'] for q in questions if q.get('duplicateOf')]
 print('questions:',len(questions),'| inverted',heur['inverted_total'])
 print('expanded-why coverage (all 5 choices):',expanded_full,'/',len(questions))
 print('duplicates marked:',dups)
+_wfound=sorted(q['id'] for q in questions if q.get('withdrawn')); _wmiss=sorted(WITHDRAWN-set(_wfound))
+print('withdrawn marked:',len(_wfound),_wfound,('| MISSING(not in pool!): '+str(_wmiss)) if _wmiss else '')
 print('overridden (verified mislabels, content-paired):',overridden)
 print('NEW suspects to verify vs PDF:',suspects if suspects else 'none 🎉')
 q=[x for x in questions if x['id']=='ML-D6G5Q5'][0]

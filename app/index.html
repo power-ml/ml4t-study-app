@@ -171,11 +171,12 @@ function studyView(){
   const q=$(`<input id="fq" placeholder="search text…" style="flex:1">`);
   const hideRev=$(`<label class="small">&nbsp;<input type="checkbox" id="hiderev"> hide reviewed</label>`);
   const flagOnly=$(`<label class="small">&nbsp;<input type="checkbox" id="flagonly"> 🚩 flagged only</label>`);
+  const hideWd=$(`<label class="small">&nbsp;<input type="checkbox" id="hidewd" checked> 🚫 hide withdrawn</label>`);
   const revStat=$(`<span class="small mut" id="revstat" style="margin-left:auto"></span>`);
   const revTog=$(`<button class="btn sec" id="revtog" style="padding:4px 10px"></button>`);
   function revLabel(){revTog.textContent=(store.ui&&store.ui.revealAll)?'👁 answers shown':'🙈 self-test (tap to reveal)';}
   revTog.onclick=()=>{store.ui=store.ui||{};store.ui.revealAll=!store.ui.revealAll;save();revLabel();draw();};
-  bar.append('Part:',partSel,'Domain:',domSel,q,hideRev,flagOnly,revTog,revStat);v.append(bar);revLabel();
+  bar.append('Part:',partSel,'Domain:',domSel,q,hideRev,flagOnly,hideWd,revTog,revStat);v.append(bar);revLabel();
   bar.style.position='sticky';bar.style.zIndex='9';bar.style.background='var(--panel)';bar.style.boxShadow='0 3px 8px rgba(0,0,0,.18)';bar.style.marginTop='0';
   const stickTop=()=>{const h=document.querySelector('header');bar.style.top=((h?h.offsetHeight:52)-1)+'px';};stickTop();setTimeout(stickTop,50);
   function updateRevStats(){const c=revCount();const t=(store.reviewLog||{})[today()]||0;const f=Object.keys(store.flagged||{}).length;
@@ -186,9 +187,10 @@ function studyView(){
     D.domains.filter(d=>!p||d.part===p).map(d=>`<option value="${d.part}|${d.num}">${d.part} D${+d.num} ${d.name}</option>`).join('');}
   fillDom();
   const list=$(`<div id="list"></div>`);v.append(list);
-  function draw(){const p=partSel.value,d=domSel.value,s=q.value.toLowerCase();const hr=hideRev.querySelector('input').checked;const fo=flagOnly.querySelector('input').checked;
-    const qs=D.questions.filter(x=>(!p||x.part===p)&&(!d||(x.part+'|'+x.domain)===d)&&(!s||JSON.stringify(x).toLowerCase().includes(s))&&(!hr||!store.reviewed[x.id])&&(!fo||store.flagged[x.id]));
-    list.innerHTML=`<div class="small mut" style="margin:8px 0">${qs.length} questions${hr?' · unreviewed only':''}${fo?' · flagged only':''}</div>`;
+  function draw(){const p=partSel.value,d=domSel.value,s=q.value.toLowerCase();const hr=hideRev.querySelector('input').checked;const fo=flagOnly.querySelector('input').checked;const hw=hideWd.querySelector('input').checked;
+    const qs=D.questions.filter(x=>(!p||x.part===p)&&(!d||(x.part+'|'+x.domain)===d)&&(!s||JSON.stringify(x).toLowerCase().includes(s))&&(!hr||!store.reviewed[x.id])&&(!fo||store.flagged[x.id])&&(!hw||!x.withdrawn));
+    const wdHidden=hw?D.questions.filter(x=>x.withdrawn&&(!p||x.part===p)&&(!d||(x.part+'|'+x.domain)===d)).length:0;
+    list.innerHTML=`<div class="small mut" style="margin:8px 0">${qs.length} questions${hr?' · unreviewed only':''}${fo?' · flagged only':''}${wdHidden?` · 🚫 ${wdHidden} withdrawn hidden`:''}</div>`;
     let lastDom='';
     qs.forEach(x=>{const dk=x.part+x.domain;
       if(dk!==lastDom){const ny=notYet(x);
@@ -199,7 +201,8 @@ function studyView(){
       const dup=x.duplicateOf?`<span class="pill">🔁 duplicate of ${x.duplicateOf}</span>`:'';
       const ref=x.reference?`<div class="small mut" style="margin-top:8px">📖 ${inline(x.reference)}</div>`:'';
       const flg=store.flagged[x.id]?'<span class="pill" style="border-color:var(--amber);color:var(--amber)">🚩 flagged</span>':'';
-      const card=$(`<div class="card${store.reviewed[x.id]?' rev':''}${store.flagged[x.id]?' flagged':''}" data-qid="${x.id}"${notYet(x)?' style="opacity:.6"':''}><div><span class="pill">#${x.n}</span><span class="pill">${x.id}</span><span class="pill">${x.group}</span><span class="pill">📅 wk ${x.weeks.join('/')}</span>${dup}${inv}${flg}<label class="small" style="float:right">&nbsp;<input type="checkbox" data-flag="${x.id}" ${store.flagged[x.id]?'checked':''}> 🚩 &nbsp; <input type="checkbox" data-rev="${x.id}" ${store.reviewed[x.id]?'checked':''}> reviewed</label></div>${fb}
+      const wd=x.withdrawn?'<span class="pill" style="border-color:#d64545;color:#d64545">🚫 withdrawn — not on exam</span>':'';
+      const card=$(`<div class="card${store.reviewed[x.id]?' rev':''}${store.flagged[x.id]?' flagged':''}" data-qid="${x.id}"${x.withdrawn?' style="opacity:.5;border-color:#d64545"':(notYet(x)?' style="opacity:.6"':'')}><div><span class="pill">#${x.n}</span><span class="pill">${x.id}</span><span class="pill">${x.group}</span><span class="pill">📅 wk ${x.weeks.join('/')}</span>${wd}${dup}${inv}${flg}<label class="small" style="float:right">&nbsp;<input type="checkbox" data-flag="${x.id}" ${store.flagged[x.id]?'checked':''}> 🚩 &nbsp; <input type="checkbox" data-rev="${x.id}" ${store.reviewed[x.id]?'checked':''}> reviewed</label></div>${fb}
         <div class="q-scenario">${x.scenario}</div>
         <div class="small mut">What it tests: concepts in ${x.domainName} (${x.group}). See Deep dive above.</div>
         ${x.choices.map((c,i)=>choiceRow(x,i,'study')).join('')}
@@ -219,7 +222,7 @@ function studyView(){
       ch.classList.remove('revealable');ch.style.cursor='default';
       const card=ch.closest('.card[data-qid]');if(card){noteAnchor(card.dataset.qid);save();}}));
     updateRevStats();bindNotes(list);}
-  partSel.onchange=()=>{fillDom();draw();};domSel.onchange=draw;q.oninput=draw;hideRev.querySelector('input').onchange=draw;flagOnly.querySelector('input').onchange=draw;draw();
+  partSel.onchange=()=>{fillDom();draw();};domSel.onchange=draw;q.oninput=draw;hideRev.querySelector('input').onchange=draw;flagOnly.querySelector('input').onchange=draw;hideWd.querySelector('input').onchange=draw;draw();
   requestAnimationFrame(()=>{const ui=store.ui||{};                                   // resume where we left off
     const sel=ui.anchor?('#list .card[data-qid="'+(window.CSS&&CSS.escape?CSS.escape(ui.anchor):ui.anchor)+'"]'):null;
     const el=sel&&document.querySelector(sel);
@@ -246,9 +249,9 @@ function quizView(){
   cfg.querySelector('#qstart').onclick=()=>{
     const mode=cfg.querySelector('#qmode').value,n=+cfg.querySelector('#qn').value,part=cfg.querySelector('#qpart').value;
     const cov=cfg.querySelector('#qcov').checked;
-    let pool=D.questions.filter(q=>(!part||q.part===part)&&(!cov||q.weekMax<=studiedWk()));
+    let pool=D.questions.filter(q=>!q.withdrawn&&(!part||q.part===part)&&(!cov||q.weekMax<=studiedWk()));
     let qs=[];
-    if(mode==='exam'){const byd={};D.questions.forEach(q=>{(byd[q.part+q.domain]=byd[q.part+q.domain]||[]).push(q);});
+    if(mode==='exam'){const byd={};D.questions.forEach(q=>{if(q.withdrawn)return;(byd[q.part+q.domain]=byd[q.part+q.domain]||[]).push(q);});
       Object.values(byd).forEach(arr=>{shuffle(arr);qs.push(arr[0],arr[1]);});shuffle(qs);}
     else if(mode==='trap'){pool=pool.filter(q=>q.polarity==='inverted'||q.choices.some(c=>ABS.test(c.text)||NEG.test(c.text)));shuffle(pool);qs=pool.slice(0,n);}
     else if(mode==='flagged'){pool=pool.filter(q=>store.flagged&&store.flagged[q.id]);shuffle(pool);qs=pool.slice(0,n);}
