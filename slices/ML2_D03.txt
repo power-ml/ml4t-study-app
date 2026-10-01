@@ -1,0 +1,509 @@
+Domain 3: Q-Learning Mechanics
+
+[ML2-D3G1Q1] 
+A trading learner uses four discrete market states and three actions: short, cash, and long. Its Q-table contains one row 
+per state and one column per action. In State 2, the estimates are short = -0.4, cash = 0.7, and long = 1.3. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+ 
+ 461 Rev:081020261230 
+A. The table contains 12 state-action entries. 
+B. The value 1.3 estimates the return associated with choosing long in State 2 and then following the target behavior 
+represented by the learned values. 
+C. A greedy policy selects long in State 2. 
+D. The row for State 2 directly represents the probability of entering each next state. 
+E. Because long has the greatest estimate in this row, it must be the best action in every market state. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Four states multiplied by three actions gives 12 entries. 
+B. False – The underlying claim is correct: A Q-value is an estimated action value for a particular state-action pair. 
+C. False – The underlying claim is correct: Greedy action selection chooses the largest Q-value in the current row. 
+D. True – The underlying claim is incorrect: Q-values estimate returns, not transition probabilities. 
+E. True – The underlying claim is incorrect: Action comparisons are state-speciﬁc; another row can favor another action.
+
+[ML2-D3G1Q2] 
+A warehouse robot has learned the following values in State loading_dock: wait = 2.1, move_north = 2.1, and move_east 
+= 0.5. The implementation extracts a greedy policy by applying argmax to the row, and its library returns the ﬁrst index 
+when values tie. 
+ 
+A. Both wait and move north are greedy-maximizing actions under the learned estimates. 
+B. The implementation will select wait if wait is stored before move north. 
+C. The tie proves the two actions have identical true expected returns. 
+D. A different valid tie-breaking rule could randomly choose between wait and move north. 
+E. The value for move east should be compared with entries in other state rows before choosing an action in loading_dock. 
+ 
+Answer Key: 
+ 
+A. True – Both actions attain the row maximum of 2.1. 
+B. True – First-index tie handling returns the earliest maximizing column. 
+C. False – Equal estimates need not imply equal true values, especially with ﬁnite data. 
+D. True – Random tie-breaking among maximizing actions remains greedy with respect to the table. 
+E. False – Action selection for the current state compares the actions within its row. 
+ 
+ 
+ 462 Rev:081020261230
+
+[ML2-D3G1Q3] 
+A learner is trained with states numbered 0 through 9 and actions numbered 0 through 2. A reviewer sees Q[7,1] = -3.0 
+and claims this single entry completely describes what will happen after Action 1 in State 7. 
+ 
+A. The entry is associated with one particular state-action pair. 
+B. A negative Q-value can still be the greedy choice if the other actions in State 7 have still lower values. 
+C. The value speciﬁes the exact next state that the environment will produce. 
+D. The entry is necessarily the immediate reward observed on the most recent visit. 
+E. Reading Q[7,1] alone is sufficient to determine whether Action 1 is greedy in State 7. 
+ 
+Answer Key: 
+ 
+A. True – The row and column identify State 7 and Action 1. 
+B. True – Greedy selection depends on relative, not absolute, values in the row. 
+C. False – A Q-value estimates return and does not encode a guaranteed next state. 
+D. False – The estimate can combine many updates and discounted future value. 
+E. False – The other action values in the same row are required for the comparison. 
+ 
+G2: Temporal-Difference Update
+
+[ML2-D3G2Q1] 
+A Q-Learner observes a transition with current Q-value 2.0, reward 1.0, discount factor 0.9, maximum next-state Q-value 
+4.0, and learning rate 0.5. The team is reviewing how the temporal-difference update changes the estimate. 
+ 
+A. The one-step target is 1.0 + 0.9 × 4.0. 
+B. The one-step target is 4.6. 
+C. The updated Q-value is halfway between the old estimate and the target. 
+D. The updated Q-value is 3.3. 
+E. A learning rate of 1.0 would ignore the observed transition. 
+ 
+Answer Key: 
+ 
+A. True – The target is reward plus discounted maximum future value. 
+ 
+ 463 Rev:081020261230 
+B. True – 1.0 + 3.6 = 4.6. 
+C. True – A learning rate of 0.5 moves halfway toward the target. 
+D. True – 2.0 + 0.5 × (4.6 - 2.0) = 3.3. 
+E. False – A learning rate of 1.0 would fully replace the old estimate with the new target.
+
+[ML2-D3G2Q2] 
+A learner observes s → a → s' with Q(s,a) = 5, reward -2, max Q(s' ,·) = 3, γ = 0.5, and α = 0.2. 
+ 
+A. The temporal-difference target is -2 + 0.5(3) = -0.5. 
+B. The temporal-difference error is -0.5 - 5 = -5.5. 
+C. The updated value is 5 + 0.2(-5.5) = 3.9. 
+D. The update must increase the estimate because the successor state has a positive maximum Q-value. 
+E. The reward alone becomes the new Q-value whenever it is negative. 
+ 
+Answer Key: 
+ 
+A. True – The target combines the observed reward and discounted successor estimate. 
+B. True – TD error is target minus the current estimate. 
+C. True – Scaling the error by 0.2 moves the value from 5 to 3.9. 
+D. False – The complete target is below the old estimate, so this update decreases it. 
+E. False – With bootstrapping and α below one, neither the reward nor target automatically replaces the estimate.
+
+[ML2-D3G2Q3] 
+During two visits to the same state-action pair, a trading agent observes different rewards and different next states. An 
+analyst says the ﬁrst observed transition should permanently determine the Q-value because it is an actual sample, 
+whereas later estimates are only predictions. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Each transition can provide a sample target for updating the same Q-value. 
+B. A single sample target can differ from the expected return the Q-value is intended to estimate. 
+C. Repeated updates can integrate information from multiple stochastic outcomes. 
+D. The update requires knowing the environment's complete transition-probability table before learning can begin. 
+ 
+ 464 Rev:081020261230 
+E. Once a Q-value has been updated, later visits to that pair should be ignored. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Every observed transition supplies reward and successor information for a TD 
+update. 
+B. False – The underlying claim is correct: One stochastic realization need not equal the expectation over possible 
+outcomes. 
+C. False – The underlying claim is correct: Repeated sampling can move the estimate toward the experience-weighted 
+expected value. 
+D. True – The underlying claim is incorrect: Model-free Q-learning updates directly from sampled experience. 
+E. True – The underlying claim is incorrect: Continued visitation and updating are central to reﬁning the estimate. 
+ 
+G3: Learning Rate
+
+[ML2-D3G3Q1] 
+Two learners receive the same transition target of 10 from a current Q-value of 2. Learner H uses α = 0.8, while Learner L 
+uses α = 0.1. 
+ 
+A. Learner H updates its value to 8.4. 
+B. Learner L updates its value to 2.8. 
+C. Learner H places more weight on this new target than Learner L does. 
+D. The lower learning rate guarantees a better ﬁnal policy. 
+E. Both learners replace the old estimate with 10 after this one update. 
+ 
+Answer Key: 
+ 
+A. True – 2 + 0.8(10 - 2) = 8.4. 
+B. True – 2 + 0.1(10 - 2) = 2.8. 
+C. True – A larger α moves a greater fraction of the way toward the new target. 
+D. False – Performance also depends on sampling, nonstationarity, schedules, and other conditions. 
+E. False – Full replacement occurs at α = 1, not at 0.8 or 0.1. 
+ 
+ 
+ 465 Rev:081020261230
+
+[ML2-D3G3Q2] 
+A stationary simulator produces noisy rewards. A Q-learner keeps a constant learning rate of 0.9 throughout a very long 
+training run. Its estimates continue to swing after unusually good or bad samples. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The high constant learning rate makes individual recent samples strongly inﬂuential. 
+B. Noisy targets can produce persistent estimate variability when α remains large. 
+C. Reducing α over time can support greater stability in a stationary setting. 
+D. A learning rate of 0.9 mathematically averages all historical samples with equal weight. 
+E. Estimate movement proves that the agent is still discovering new states. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Each update moves 90% of the way toward its new target. 
+B. False – The underlying claim is correct: Large reactions to variable targets can prevent estimates from settling tightly. 
+C. False – The underlying claim is correct: Smaller later steps reduce the effect of individual noisy observations. 
+D. True – The underlying claim is incorrect: Constant-step updates weight recent experience more heavily than remote 
+experience. 
+E. True – The underlying claim is incorrect: Values can ﬂuctuate from noisy revisits even with no newly discovered states.
+
+[ML2-D3G3Q3] 
+A market regime changes after training: an action that used to be proﬁtable becomes costly. One deployed learner 
+continues updating with α = 0, while another uses a small positive constant learning rate. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The learner with α = 0 will not change the affected Q-value from new transitions. 
+B. A positive learning rate permits the second learner to adapt toward the new experience. 
+C. A smaller positive α generally adapts more gradually than a larger positive α, all else equal. 
+D. Setting α to zero makes the learner forget old experience immediately. 
+E. In a changing environment, convergence to one permanent set of Q-values is guaranteed regardless of the learning-
+rate design. 
+ 
+Answer Key: 
+ 
+ 
+ 466 Rev:081020261230 
+A. False – The underlying claim is correct: Multiplying the TD error by zero produces no update. 
+B. False – The underlying claim is correct: New targets can inﬂuence the stored estimate when α is positive. 
+C. False – The underlying claim is correct: A smaller step size changes the estimate by a smaller fraction per comparable 
+update. 
+D. True – The underlying claim is incorrect: Zero learning freezes the old estimate rather than erasing it. 
+E. True – The underlying claim is incorrect: Nonstationarity can continually change the values the agent is trying to learn. 
+ 
+G4: Discount Factor in Q-Learning
+
+[ML2-D3G4Q1] 
+In a terminal two-step task, Action A gives reward 4 immediately and then ends. Action B gives reward 0 immediately, 
+followed by reward 10 one step later. Ignore exploration and assume the values have been learned correctly. 
+ 
+A. With γ = 0.9, Action B has discounted return 9 and is preferred to Action A. 
+B. With γ = 0.2, Action B has discounted return 2 and Action A is preferred. 
+C. Increasing γ raises the relative inﬂuence of B's delayed reward in this scenario. 
+D. The discount factor changes the immediate reward of Action A from 4 to 4γ. 
+E. Both actions must be equally valued because each episode eventually terminates. 
+ 
+Answer Key: 
+ 
+A. True – The delayed reward contributes 0.9 × 10 = 9, exceeding 4. 
+B. True – The delayed reward contributes only 2, so immediate reward 4 is larger. 
+C. True – A larger γ reduces the penalty applied to the delayed payoff. 
+D. False – The current reward is not discounted in the one-step Q-learning target. 
+E. False – Termination does not make differently timed and sized returns equal.
+
+[ML2-D3G4Q2] 
+A trading agent can earn a small transaction rebate now by entering a position, but the position may create a much larger 
+loss several steps later. A developer changes γ from 0.95 to 0.05 while leaving the state, reward function, and data 
+unchanged. 
+ 
+A. The lower γ makes distant estimated consequences contribute less to current Q-updates. 
+ 
+ 467 Rev:081020261230 
+B. The agent may become more attracted to the immediate rebate despite the later loss. 
+C. The learned policy can change even though the reward function itself did not change. 
+D. Lowering γ increases the numerical weight on every delayed reward. 
+E. The discount factor controls how often the learner explores random actions. 
+ 
+Answer Key: 
+ 
+A. True – Successor values are multiplied by a much smaller factor. 
+B. True – Short-sighted valuation can emphasize the near reward over a distant cost. 
+C. True – The objective's time preference changes the action-value comparison. 
+D. False – Future rewards receive less, not more, weight with lower γ. 
+E. False – Exploration is governed separately, such as by ε or random-action rate.
+
+[ML2-D3G4Q3] 
+A learner updates from a nonterminal transition with reward 6 and maximum successor Q-value 8. The old Q-value is 3 
+and α = 0.5. The team compares γ = 0 with γ = 1. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. With γ = 0, the target is 6. 
+B. With γ = 1, the target is 14. 
+C. The update with γ = 1 produces a larger new Q-value than the update with γ = 0 in this example. 
+D. With γ = 0, the learning rate no longer affects the update. 
+E. A discount factor of 1 always causes Q-values to diverge in every task. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The future estimate contributes zero, leaving the reward. 
+B. False – The underlying claim is correct: The undiscounted target is 6 + 8 = 14. 
+C. False – The underlying claim is correct: The respective updates are 4.5 and 8.5. 
+D. True – The underlying claim is incorrect: α still controls movement from the old estimate toward the target of 6. 
+E. True – The underlying claim is incorrect: Finite episodic tasks can use γ = 1 without inevitable divergence. 
+ 
+ 
+ 468 Rev:081020261230 
+G5: Maximum Future Q-Value
+
+[ML2-D3G5Q1] 
+After an action, a learner reaches State s' , whose Q-values are [-1, 2, 5]. The observed reward is 1 and γ = 0.8. The action 
+actually selected next during exploration is the action valued at -1. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Standard Q-learning uses 5 as the maximum successor estimate in the update target. 
+B. The target is 1 + 0.8(5) = 5. 
+C. Using the maximum makes the update target greedy with respect to successor estimates even though behavior 
+selected another action. 
+D. The target must use -1 because that was the action actually selected next. 
+E. The maximum operator means the learner has already proven that the action valued at 5 is truly optimal. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The Q-learning target bootstraps from max_a Q(s' ,a). 
+B. False – The underlying claim is correct: The reward plus discounted maximum is 5. 
+C. False – The underlying claim is correct: This separates the greedy target from exploratory behavior. 
+D. True – The underlying claim is incorrect: Using the value of the next behavior action would be on-policy-style reasoning, 
+not the standard Q-learning target. 
+E. True – The underlying claim is incorrect: The maximum is taken over current estimates, which can be inaccurate.
+
+[ML2-D3G5Q2] 
+Early in training, random estimation error makes one poorly sampled action in a successor state appear much better than 
+its true value. That inﬂated entry is repeatedly selected by the max operation when predecessor states are updated. 
+ 
+A. Bootstrapping can propagate the inﬂated successor estimate backward to predecessor Q-values. 
+B. The maximum over noisy estimates can contribute to overestimation bias. 
+C. Additional representative experience can correct the inﬂated value and later targets. 
+D. The max operation averages all successor actions and therefore cancels estimation noise automatically. 
+E. Overestimation can occur only when every action's estimate is below its true value. 
+ 
+ 
+ 469 Rev:081020261230 
+Answer Key: 
+ 
+A. True – Predecessor targets incorporate the selected successor estimate. 
+B. True – Selecting the largest noisy estimate preferentially selects positive errors. 
+C. True – Further observations and updates can revise the erroneous estimate. 
+D. False – A maximum selects one estimate rather than averaging all of them. 
+E. False – The concern arises particularly when some estimates are spuriously high.
+
+[ML2-D3G5Q3] 
+A robot enters a terminal goal state and receives reward 20. The implementation represents the terminal state's future 
+value as zero. Immediately before the transition, Q(s,a) = 8, and the learner uses α = 0.25 and γ = 0.9. 
+ 
+A. The target for this terminal transition is 20. 
+B. No successor action value needs to be added after termination. 
+C. The updated Q-value is 8 + 0.25(20 - 8) = 11. 
+D. The target is 38 because the terminal reward must be counted twice. 
+E. The maximum future Q-value should be taken from the initial state of the next episode. 
+ 
+Answer Key: 
+ 
+A. True – With zero continuation value, the target is the terminal reward. 
+B. True – The episode has no future action return beyond the terminal state. 
+C. True – The update moves one quarter of the 12-point TD error. 
+D. False – The reward is included once in the target. 
+E. False – A reset belongs to a new episode and is not a continuation of the terminal transition. 
+ 
+G6: Off-Policy Learning
+
+[ML2-D3G6Q1] 
+A Q-learner follows an ε-greedy behavior policy. In State s' , the greedy action has Q-value 7, but exploration causes the 
+agent to choose an action with Q-value 1. A colleague says the transition is useless for learning the greedy policy because 
+the agent acted randomly. 
+ 
+ 
+ 470 Rev:081020261230 
+A. The transition's observed reward and next state can still update the preceding state-action pair. 
+B. Standard Q-learning's target uses 7 as the successor maximum. 
+C. The behavior policy can differ from the greedy target policy. 
+D. Off-policy learning requires the behavior policy always to choose the greedy action. 
+E. An exploratory action prevents any Q-table entry from being updated. 
+ 
+Answer Key: 
+ 
+A. True – Experience generated during exploration remains usable for TD learning. 
+B. True – The target uses the largest successor Q-value, not necessarily the action taken next. 
+C. True – This separation is the deﬁning off-policy intuition here. 
+D. False – The behavior policy may explore while the target remains greedy. 
+E. False – Exploratory transitions are an important source of state-action coverage.
+
+[ML2-D3G6Q2] 
+Two agents observe the same transition into a next state where action values are Q(left)=4 and Q(right)=9. Their behavior 
+policy next chooses left. Agent Q uses the maximum successor value; Agent S uses the value of the behavior action 
+actually chosen. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Agent Q bootstraps from 9. 
+B. Agent S bootstraps from 4 under the stated rule. 
+C. Agent Q's target is greedy even though the behavior chose left. 
+D. The two targets must be identical because both agents observed the same next state. 
+E. Agent Q is on-policy solely because its stored table is used in its update. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Nine is the maximum current successor estimate. 
+B. False – The underlying claim is correct: The stated on-policy-style rule evaluates the next action actually selected. 
+C. False – The underlying claim is correct: Its target favors the maximizing next action independently of behavior. 
+D. True – The underlying claim is incorrect: Different target rules can produce different updates from the same transition. 
+ 
+ 471 Rev:081020261230 
+E. True – The underlying claim is incorrect: Using a value table does not determine on- versus off-policy status; the target-
+behavior relationship does.
+
+[ML2-D3G6Q3] 
+A trading learner deliberately takes random actions during early episodes. Some of those actions produce losses. A 
+manager concludes that off-policy Q-learning cannot learn an optimal greedy policy unless every training action comes 
+from that greedy policy. 
+ 
+A. Exploratory losses provide information that can lower estimates for poor state-action pairs. 
+B. Visiting alternatives can reveal that an action initially believed inferior is actually valuable. 
+C. Q-learning can use exploratory behavior while updating toward a greedy successor target. 
+D. Every random action is treated as though it were chosen by the ﬁnal greedy policy. 
+E. Off-policy learning removes the need for adequate visitation of relevant state-action pairs. 
+ 
+Answer Key: 
+ 
+A. True – Negative outcomes are informative samples for the actions that produced them. 
+B. True – Exploration can correct inaccurate initial rankings. 
+C. True – Behavior generates experience while the max operator deﬁnes the target policy. 
+D. False – The experienced current action is updated, but the successor target is greedy; the action is not relabeled. 
+E. False – Unvisited or rarely visited pairs can remain poorly estimated. 
+ 
+G7: Initialization, Visitation, and Convergence
+
+[ML2-D3G7Q1] 
+A learner initializes every Q-value to zero. During training, it never visits State 12. At evaluation time, State 12 appears and 
+the system chooses the ﬁrst action because all entries in that row remain tied at zero. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The row for State 12 still reﬂects initialization rather than learned evidence about that state. 
+B. Zero values in the row prove that every action has a true expected return of zero. 
+C. A deterministic ﬁrst-index tie rule can choose an action without making the row informative. 
+ 
+ 472 Rev:081020261230 
+D. More visits to other states directly update State 12's row even when no transition uses it as the current state. 
+E. Training coverage affects conﬁdence in the extracted policy for individual states. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: No update has replaced the initial entries with experience from State 12 
+actions. 
+B. True – The underlying claim is incorrect: Unchanged initialization is not evidence about true returns. 
+C. False – The underlying claim is correct: Tie-breaking supplies a choice but not a learned preference. 
+D. True – The underlying claim is incorrect: Tabular updates modify the experienced state-action entry, not every unvisited 
+row automatically. 
+E. False – The underlying claim is correct: Poorly covered states can yield arbitrary or unreliable action choices.
+
+[ML2-D3G7Q2] 
+In a ﬁnite stationary task, a Q-learner continues to visit all relevant state-action pairs, uses an exploration schedule that 
+does not eliminate needed coverage too early, and gradually reduces its learning rate. Its Q-values change less as training 
+proceeds. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Repeated visitation supplies multiple samples for reﬁning estimates. 
+B. Smaller later updates can reduce sensitivity to individual noisy transitions. 
+C. Broad state-action coverage supports stronger convergence claims than observing only a narrow path. 
+D. Values changing less is by itself conclusive proof that the globally optimal policy has been learned. 
+E. Convergence intuition means one pass through each state-action pair is always sufficient. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Multiple experiences help estimates incorporate the range of outcomes. 
+B. False – The underlying claim is correct: A reduced step size limits the inﬂuence of one late sample. 
+C. False – The underlying claim is correct: Relevant alternatives need adequate experience to be compared reliably. 
+D. True – The underlying claim is incorrect: Apparent stability can coexist with biased estimates, inadequate 
+representation, or poor coverage. 
+ 
+ 473 Rev:081020261230 
+E. True – The underlying claim is incorrect: Stochastic outcomes and bootstrapped dependencies generally require 
+repeated updates.
+
+[ML2-D3G7Q3] 
+Two identical tabular learners use different initial values. Learner Z initializes all entries to zero; Learner O initializes them 
+to 100. Both use greedy action selection with deterministic tie-breaking and are stopped after only a few episodes. 
+ 
+A. Their early behavior can differ after updates begin because unvisited optimistic entries may remain attractive to 
+Learner O. 
+B. If both receive sufficient representative experience under suitable learning conditions, initialization need not 
+determine their eventual estimates. 
+C. Optimistic initialization guarantees that every state-action pair will be visited in every environment. 
+D. Equal initial entries guarantee adequate exploration when deterministic tie-breaking is used. 
+E. Because Learner O starts with larger numbers, its ﬁnal greedy policy is mathematically guaranteed to outperform 
+Learner Z's. 
+ 
+Answer Key: 
+ 
+A. True – Updated actions can fall below still-optimistic alternatives and indirectly encourage trying them. 
+B. True – With adequate coverage and suitable updates, evidence can overcome starting values. 
+C. False – Reachability, dynamics, tie-breaking, and exploration behavior can still prevent visits. 
+D. False – Deterministic greedy tie-breaking can repeatedly select the same action instead of exploring ties. 
+E. False – Numerical optimism affects learning dynamics but does not guarantee superior ﬁnal performance. 
+ 
+  
+ 
+ 474 Rev:081020261230 
+Domain 4: Exploration, Exploitation, and Learning Dynamics 
+Domain Summary 
+ Exploration versus exploitation 
+ Random-action policies 
+ Epsilon-greedy behavior 
+ Exploration decay 
+ State-action coverage 
+ Premature convergence 
+ Stochastic environments 
+ Training versus deployment 
+ Nonstationarity 
+Topic Groups 
+G1: Exploration vs. Exploitation 
+ Trying uncertain actions 
+ Selecting the currently best-known action 
+ Short-term reward versus information gathering 
+ Costs of excessive exploration 
+G2: Epsilon-Greedy Action Selection 
+ Random versus greedy actions 
+ Interpretation of exploration probability 
+ Effects of high and low epsilon 
+ Stochastic action selection 
+G3: Exploration Decay 
+ Reducing exploration over time 
+ Balancing early learning and later stability 
+ Decaying too quickly 
+ Maintaining residual exploration 
+ 
+ 475 Rev:081020261230 
+G4: State-Action Coverage 
+ Visiting enough combinations 
+ Unexplored actions 
+ Sparse experience 
+ Why incomplete coverage can produce misleading policies 
+G5: Premature Convergence and Local Behavior 
+ Settling too early on a suboptimal policy 
+ Reinforcing early lucky outcomes 
+ Limited exploration 
+ Apparent stability without genuine optimality 
+G6: Training vs. Deployment Behavior 
+ Exploration during training 
+ Greedy or near-greedy action selection in deployment 
+ Reproducibility 
+ Why training behavior should not always be used live 
+G7: Nonstationary and Stochastic Environments 
+ Changing reward or transition patterns 
+ Continued learning 
+ Exploration after deployment 
+ Policy degradation when the environment changes 
+G1: Exploration vs. Exploitation

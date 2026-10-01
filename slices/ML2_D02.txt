@@ -1,0 +1,545 @@
+Domain 2: Markov Decision Processes, Policies, and Values
+
+[ML2-D2G1Q1] 
+A robot-navigation team includes only the robot’s current grid location in its state. The robot’s movement also depends 
+on whether it is carrying a package, but that information is omitted. The project lead claims that the state still satisﬁes 
+the Markov property because location is the most important variable. 
+ 
+A. A Markov state should contain the information needed to predict relevant future outcomes. 
+B. Omitting package status can cause two materially different situations to appear identical. 
+C. The state is guaranteed to be Markov because it contains the robot’s location. 
+ 
+ 445 Rev:081020261230 
+D. State aliasing can prevent the learner from selecting the correct action. 
+E. Adding package status may improve the state representation. 
+ 
+Answer Key: 
+ 
+A. True – The state should be sufficient for decision-making. 
+B. True – The same location may imply different future dynamics depending on package status. 
+C. False – Location alone may be insufficient. 
+D. True – Different underlying conditions can require different actions. 
+E. True – Including the omitted variable can reduce aliasing.
+
+[ML2-D2G1Q2] 
+A strategy learner represents each trading state using current momentum and volatility indicators but omits the portfolio 
+position. Transaction costs depend on how far the requested target position is from the position already held. The 
+developer argues that the market indicators alone are sufficient because they summarize current market conditions. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Two observations with identical market indicators can have different action consequences when the current holdings 
+differ. 
+B. Omitting position can violate the Markov assumption for this formulation because costs depend on information absent 
+from the state. 
+C. Adding the entire raw price history is the only way to repair a non-Markov state. 
+D. The Markov property concerns whether the represented state is sufficient for relevant future dynamics and rewards, 
+not whether it contains every historical observation. 
+E. Transaction costs cannot create state aliasing because they are ﬁnancial rather than physical dynamics. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Buying from cash and buying while already long can produce different trades 
+and costs despite identical market indicators. 
+B. False – The underlying claim is correct: Holdings affect the reward and next portfolio condition but are hidden by the 
+proposed state. 
+C. True – The underlying claim is incorrect: Adding the relevant current position may be sufficient; retaining all raw history 
+is not inherently required. 
+ 
+ 446 Rev:081020261230 
+D. False – The underlying claim is correct: A Markov state summarizes the history needed to determine future behavior 
+under an action. 
+E. True – The underlying claim is incorrect: Any omitted variable that changes relevant rewards or transitions can cause 
+aliasing, including portfolio-dependent costs.
+
+[ML2-D2G1Q3] 
+A credit-risk control system chooses whether to approve, review, or reject an application. Its state includes current 
+income and requested loan size, but not whether the applicant has an unresolved earlier application that changes both 
+legal processing rules and the effect of the next action. 
+ 
+A. The same displayed state can correspond to different underlying decision situations. 
+B. A learner may estimate a blended value for aliased situations even when different actions are appropriate in each one. 
+C. The state satisﬁes the Markov property as long as the omitted information occurred earlier in time. 
+D. Including the unresolved-application status could make transition and reward predictions better conditioned on the 
+current state. 
+E. A Markov representation must record every event in the applicant’s life rather than summarize relevant history. 
+ 
+Answer Key: 
+ 
+A. True – Identical income and loan size do not reveal the processing condition created by the earlier application. 
+B. True – When distinct situations share one representation, learned estimates can average their different outcomes. 
+C. False – Past information may need to be represented when it still affects future transitions, rewards, or available 
+actions. 
+D. True – The missing status is a current summary of historical information that remains decision-relevant. 
+E. False – The state need only retain a sufficient summary of relevant history, not an exhaustive record. 
+ 
+G2: State Transitions and Environment Dynamics
+
+[ML2-D2G2Q1] 
+An execution agent chooses among passive, midpoint, and aggressive orders. From the same market state, a passive 
+order may remain unﬁlled, partially ﬁll, or fully ﬁll, while an aggressive order is more likely to ﬁll but may incur greater 
+market impact. 
+ 
+A. The action and current state together inﬂuence the distribution of possible next states. 
+ 
+ 447 Rev:081020261230 
+B. Multiple possible ﬁll outcomes from the same state-action pair indicate stochastic transitions. 
+C. A stochastic transition means the agent has no inﬂuence over the next state. 
+D. Transition probabilities can represent the likelihood of no ﬁll, partial ﬁll, and full ﬁll. 
+E. Because the environment is stochastic, the realized next state must be independent of the selected order type. 
+ 
+Answer Key: 
+ 
+A. True – Environment dynamics map the current state and action to possible next states. 
+B. True – Repeated occurrences of the same state-action pair need not produce the same result. 
+C. False – The action can change outcome probabilities even when it does not determine the result with certainty. 
+D. True – A probability distribution can describe the alternative ﬁll outcomes. 
+E. False – Different order types can induce different next-state distributions.
+
+[ML2-D2G2Q2] 
+A delivery robot moves on a grid. On dry ﬂooring, each command moves it exactly one square in the chosen direction. On 
+a wet section, a forward command moves forward with probability 0.8, leaves the robot in place with probability 0.1, and 
+slides it sideways with probability 0.1. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Movement on the dry section is deterministic under the stated model. 
+B. Movement on the wet section is stochastic because one state-action pair can lead to several next states. 
+C. The probabilities for the wet-section outcomes should sum to one. 
+D. A deterministic policy makes wet-ﬂoor transitions deterministic. 
+E. Observing one forward movement proves the probability of moving forward is one. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Each command has one speciﬁed next state on the dry ﬂooring. 
+B. False – The underlying claim is correct: The next state is sampled from several possible outcomes. 
+C. False – The underlying claim is correct: The transition distribution accounts for all modeled outcomes of that state-
+action pair. 
+D. True – The underlying claim is incorrect: A deterministic policy removes randomness in action selection, not 
+randomness in environment dynamics. 
+E. True – The underlying claim is incorrect: One realized transition does not identify the underlying probability distribution. 
+ 
+ 448 Rev:081020261230
+
+[ML2-D2G2Q3] 
+A market simulator models tomorrow’s volatility regime as low or high. After a “reduce exposure” action in today’s high-
+volatility state, historical estimates assign probability 0.6 to remaining in the high-volatility state and 0.4 to entering the 
+low-volatility state. A manager says the action must cause the regime change whenever low volatility is observed next. 
+ 
+A. The observed low-volatility outcome is consistent with the stated transition model. 
+B. Seeing low volatility next establishes that the action deterministically caused the change. 
+C. The 0.6 probability of remaining high must be discarded after one low-volatility observation. 
+D. The transition model describes a distribution across repeated comparable state-action transitions, not a guarantee for 
+one trial. 
+E. The next portfolio exposure can still respond deterministically to the action even when the market regime evolves 
+stochastically. 
+ 
+Answer Key: 
+ 
+A. True – Low volatility is an allowed next state with probability 0.4. 
+B. False – A realized outcome does not prove deterministic causation, especially when the market regime is modeled as 
+stochastic. 
+C. False – One observation is insufficient to invalidate the estimated transition distribution. 
+D. True – Probabilities characterize relative likelihoods over repeated transitions. 
+E. True – Different components of the next state can have different dynamics; controlled exposure need not share the 
+regime’s randomness. 
+ 
+G3: Rewards, Returns, and Objectives
+
+[ML2-D2G3Q1] 
+A trading agent receives a reward equal to daily net portfolio change after costs. On Monday it receives -2, on Tuesday +1, 
+and on Wednesday +5. The team evaluates the three-day undiscounted return beginning Monday and discusses whether 
+Monday’s reward alone measures the full result of Monday’s decision context. 
+ 
+A. Monday’s immediate reward is -2. 
+B. The three-day undiscounted return beginning Monday is 4. 
+C. Return and immediate reward are always identical in a multi-step task. 
+ 
+ 449 Rev:081020261230 
+D. A state or action can have poor immediate reward but still lead to a favorable cumulative return. 
+E. The objective must be Wednesday’s reward because it is the largest reward in the sequence. 
+ 
+Answer Key: 
+ 
+A. True – The reward observed for Monday is -2. 
+B. True – With no discounting, the rewards sum to -2 + 1 + 5 = 4. 
+C. False – Return aggregates a sequence of current and future rewards, whereas immediate reward is one term. 
+D. True – Later rewards can outweigh an initial cost or loss. 
+E. False – The objective can concern cumulative net performance rather than the single largest reward.
+
+[ML2-D2G3Q2] 
+A warehouse agent earns +20 for completing an order, -1 for each minute used, and -50 for a collision. Engineers discover 
+that it rushes through crowded aisles because the completion bonus dominates the expected collision penalty. One 
+engineer argues that the learned behavior cannot be related to the reward design because reward is only a reporting 
+metric. 
+ 
+A. The numerical reward signal operationalizes what the agent is encouraged to optimize. 
+B. Completing an order quickly can produce a high return under the speciﬁed rewards even when the behavior is 
+undesirable to the engineers. 
+C. Reward design and the real organizational objective are guaranteed to be perfectly aligned. 
+D. Increasing the collision penalty or otherwise revising the reward can change which behavior has the greatest expected 
+return. 
+E. The collision penalty is not a reward because rewards must be positive. 
+ 
+Answer Key: 
+ 
+A. True – The learner evaluates behavior using the reward signal supplied by the environment. 
+B. True – The encoded incentives may favor risky speed despite the engineers’ broader safety objective. 
+C. False – A reward is a designed proxy and can be misspeciﬁed or incomplete. 
+D. True – Changing reward magnitudes changes the returns associated with candidate behaviors. 
+E. False – Negative rewards are valid and are commonly used to represent costs or penalties. 
+ 
+ 
+ 450 Rev:081020261230
+
+[ML2-D2G3Q3] 
+A portfolio policy receives +1 whenever the market rises on a day the agent is long and 0 otherwise. It receives no penalty 
+for losses, leverage, turnover, or drawdown. Backtests show that it takes extreme long positions, and the designer claims 
+that maximizing this reward is equivalent to maximizing risk-adjusted net return. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The reward omits several consequences included in the claimed investment objective. 
+B. A policy can achieve a high encoded return while performing poorly under a different evaluation measure. 
+C. The absence of negative rewards guarantees conservative behavior. 
+D. Adding costs and risk-sensitive terms may better align the reward with the stated objective. 
+E. Once an RL algorithm converges, reward misspeciﬁcation can no longer affect its policy. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Losses, leverage, turnover, and drawdown are absent from the supplied signal. 
+B. False – The underlying claim is correct: Optimizing the encoded reward does not guarantee strong risk-adjusted net 
+performance. 
+C. True – The underlying claim is incorrect: Removing penalties can encourage rather than limit aggressive behavior. 
+D. False – The underlying claim is correct: Relevant reward components can make the learned incentives closer to the 
+intended objective. 
+E. True – The underlying claim is incorrect: Convergence can produce a stable optimum for the wrong objective. 
+ 
+G4: Discount Factor and Time Preference
+
+[ML2-D2G4Q1] 
+At a state, a robot can take Action X and receive reward 6 immediately with no later reward, or take Action Y and receive 
+0 immediately followed by reward 10 one step later. The team compares the two actions using different discount factors. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. With a discount factor of 0.5, the return for Action Y is 5 under the stated timing. 
+B. With a discount factor of 0.5, Action Y has the greater return. 
+C. With a discount factor of 0.9, the return for Action Y is 9. 
+D. Increasing the discount factor can make delayed rewards relatively more important. 
+E. The discount factor changes the immediate reward of 6 received from Action X. 
+ 
+ 451 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The delayed reward contributes 0.5 × 10 = 5. 
+B. True – The underlying claim is incorrect: Action Y returns 5, so Action X has the greater return of 6. 
+C. False – The underlying claim is correct: The delayed reward contributes 0.9 × 10 = 9. 
+D. False – The underlying claim is correct: A larger discount factor reduces the penalty applied to future rewards. 
+E. True – The underlying claim is incorrect: Immediate reward is not discounted in the return from the current decision.
+
+[ML2-D2G4Q2] 
+A trading desk tests two otherwise identical agents. Agent L uses a low discount factor, while Agent H uses a discount 
+factor close to one. Changing positions has an immediate transaction cost but may improve returns over several later 
+periods. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Agent L will generally place less relative weight on distant rewards than Agent H. 
+B. Agent H may be more willing to accept an immediate trading cost for sufficiently valuable future rewards. 
+C. A discount factor close to one guarantees higher realized trading proﬁts. 
+D. The appropriate discount factor can depend on the task horizon and how future uncertainty or time preference should 
+be represented. 
+E. A low discount factor eliminates immediate rewards from the return. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Repeated multiplication by a smaller discount factor reduces distant 
+contributions more sharply. 
+B. False – The underlying claim is correct: Greater weight on later outcomes can justify a current cost. 
+C. True – The underlying claim is incorrect: Performance also depends on estimates, data, dynamics, reward design, and 
+policy quality. 
+D. False – The underlying claim is correct: Discounting should reﬂect the formulation rather than being chosen solely to 
+maximize its numerical size. 
+E. True – The underlying claim is incorrect: The current reward ordinarily receives weight one; discounting applies 
+increasingly to later rewards. 
+ 
+ 
+ 452 Rev:081020261230
+
+[ML2-D2G4Q3] 
+A ﬁnite trading simulation always ends after ﬁve decisions. An analyst says that discounting is mathematically required 
+to make the ﬁve-step return ﬁnite and that setting the discount factor to one makes the ﬁfth reward more important than 
+the ﬁrst. 
+ 
+A. A ﬁve-step undiscounted return can remain ﬁnite when the individual rewards are ﬁnite. 
+B. Setting the discount factor to one gives the stated rewards equal temporal weight in the return. 
+C. A discount factor below one makes later rewards count more than earlier rewards. 
+D. Every ﬁnite-horizon task must use a discount factor strictly below one. 
+E. Changing the discount factor cannot change the ranking of policies in a ﬁnite-horizon problem. 
+ 
+Answer Key: 
+ 
+A. True – A ﬁnite sum of ﬁnite rewards does not require discounting for convergence. 
+B. True – With a discount factor of one, the timing alone does not reduce any reward’s contribution. 
+C. False – A factor below one reduces the weight applied to later rewards. 
+D. False – Undiscounted ﬁnite-horizon returns are valid when appropriate to the objective. 
+E. False – Policies with differently timed rewards can change rank when discounting changes. 
+ 
+G5: State-Value Functions
+
+[ML2-D2G5Q1] 
+A navigation policy reaches a charging station from State A with probability 0.8 and becomes stranded with probability 
+0.2. The corresponding returns are 10 and -10. From State B, the same policy always reaches a smaller charger for a return 
+of 5. The team uses expected undiscounted return as the state value. 
+ 
+A. Under this policy, the value of State A is 6. 
+B. Under this policy, the value of State B is 5. 
+C. State A has the greater value even though one possible outcome from it is worse than the outcome from State B. 
+D. The value of State A must equal 10 because reaching the charger is its most likely outcome. 
+E. State value ignores the policy used after entering the state. 
+ 
+Answer Key: 
+ 
+ 
+ 453 Rev:081020261230 
+A. True – The expected return is 0.8 × 10 + 0.2 × (-10) = 6. 
+B. True – A certain return of 5 has expected value 5. 
+C. True – Expected value accounts for both possible State A outcomes and is 6, which exceeds 5. 
+D. False – Value is an expectation over possible returns, not merely the most likely return. 
+E. False – A state’s value is deﬁned relative to the behavior followed from that state unless an optimal value is explicitly 
+used.
+
+[ML2-D2G5Q2] 
+Two portfolio managers evaluate the same market state. Policy P remains in cash, while Policy Q takes a long position. 
+Their models therefore assign different expected returns to the state. A reviewer claims a state can have only one value 
+regardless of the policy. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The value of a state can differ under Policy P and Policy Q. 
+B. A state-value function averages over the actions selected by the policy and their subsequent outcomes. 
+C. Different state values imply that the physical market state itself changed between the two evaluations. 
+D. Writing the policy as part of the value notation helps clarify which behavior is being evaluated. 
+E. State value is determined only by the reward received before the state was entered. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Expected future return depends on what the agent will do from the state. 
+B. False – The underlying claim is correct: The policy determines the action probabilities whose consequences contribute 
+to the expectation. 
+C. True – The underlying claim is incorrect: The same state can have different values because the planned future behavior 
+differs. 
+D. False – The underlying claim is correct: Policy-conditioned notation prevents treating all policy values as 
+interchangeable. 
+E. True – The underlying claim is incorrect: State value concerns returns beginning from the state, not sunk rewards 
+received earlier. 
+ 
+ 
+ 454 Rev:081020261230
+
+[ML2-D2G5Q3] 
+A robot can be in State C with immediate reward 0 and a reliable path to rewards of 4 on each of the next three steps, or 
+State D with immediate reward 5 followed by no additional reward. A supervisor compares states only by the reward 
+shown on the current screen. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Immediate reward alone may rank the states differently from their expected cumulative values. 
+B. State C can be more valuable than State D when future rewards are weighted sufficiently. 
+C. A state with zero immediate reward must have zero state value. 
+D. State value summarizes expected return from the state rather than only the reward currently displayed. 
+E. Comparing state values requires both states to have identical immediate rewards. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: State D looks better immediately, while State C offers a stream of later rewards. 
+B. False – The underlying claim is correct: With little or no discounting, the future rewards from State C can exceed 5. 
+C. True – The underlying claim is incorrect: Future rewards can give positive value to a state with no immediate payoff. 
+D. False – The underlying claim is correct: Value incorporates the relevant sequence of future rewards under a policy. 
+E. True – The underlying claim is incorrect: Values can compare states with any reward proﬁles using expected return. 
+ 
+G6: Action-Value Functions
+
+[ML2-D2G6Q1] 
+In a market state, a trading policy can choose long, cash, or short. Estimated action values are Q(s,long) = 2.4, Q(s,cash) 
+= 1.1, and Q(s,short) = -0.3. The deployment rule is greedy with respect to these estimates. 
+ 
+A. The greedy rule selects long in this state. 
+B. Q(s,long) represents expected return after choosing long in the state and then following the speciﬁed continuation 
+behavior. 
+C. The negative value for short means every individual short trade from this state must lose money. 
+D. If the action-value estimates change, the greedy action can change without the represented state changing. 
+E. The three Q-values are transition probabilities and therefore must sum to one. 
+ 
+Answer Key: 
+ 
+ 455 Rev:081020261230 
+ 
+A. True – Long has the largest estimated action value. 
+B. True – An action value evaluates the initial state-action choice plus subsequent behavior. 
+C. False – A negative expectation can arise even though some realized outcomes are positive. 
+D. True – Greedy action selection depends on the relative estimates at that state. 
+E. False – Q-values are expected returns, not probabilities, and need not sum to one.
+
+[ML2-D2G6Q2] 
+At State s, a policy chooses Action A with probability 0.75 and Action B with probability 0.25. Their action values under 
+the policy are Q(s,A) = 8 and Q(s,B) = 0. The team wants the corresponding state value. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The state value under this policy is 6. 
+B. The calculation weights each action value by the probability that the policy selects that action. 
+C. The state value must equal 8 because Action A has the greatest Q-value. 
+D. If the policy changed to always choose Action A while the Q-values remained applicable, the state value would become 
+8. 
+E. The action values must be recomputed as zero because the policy is stochastic. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: V(s) = 0.75 × 8 + 0.25 × 0 = 6. 
+B. False – The underlying claim is correct: State value is the policy-weighted expectation over available action values. 
+C. True – The underlying claim is incorrect: Using the maximum would describe greedy choice, not the stated stochastic 
+policy’s value. 
+D. False – The underlying claim is correct: A deterministic choice of A places all action probability on the value 8. 
+E. True – The underlying claim is incorrect: Stochastic action selection does not force the expected returns of the actions 
+to zero.
+
+[ML2-D2G6Q3] 
+A warehouse controller compares two actions from the same state. “Wait” gives reward -1 and is expected to lead to a 
+state valued at 10, while “Dispatch” gives reward 3 and is expected to lead to a state valued at 4. The discount factor is 
+0.5, and the stated successor values are appropriate for the continuation policy. 
+ 
+ 
+ 456 Rev:081020261230 
+A. The one-step action-value estimate for Wait is -1 + 0.5 × 10 = 4. 
+B. The one-step action-value estimate for Dispatch is 3 + 0.5 × 4 = 5. 
+C. Dispatch has the greater action value under these estimates. 
+D. Wait must be preferred because its successor state has the greater value. 
+E. Comparing actions requires ignoring immediate reward whenever successor values are available. 
+ 
+Answer Key: 
+ 
+A. True – The estimate combines Wait’s immediate reward with discounted successor value. 
+B. True – The same decomposition gives 3 + 2 = 5 for Dispatch. 
+C. True – Five exceeds four under the supplied model and discount factor. 
+D. False – The immediate reward and discounting must also be included in the action comparison. 
+E. False – Action value combines immediate and future consequences rather than discarding either one. 
+ 
+G7: Bellman Reasoning and Optimal Policies
+
+[ML2-D2G7Q1] 
+A robot in State s can choose Safe or Risky. Safe gives reward 2 and deterministically reaches a state with optimal value 
+5. Risky gives reward 0 and reaches a state worth 10 with probability 0.5 or a state worth -2 with probability 0.5. The 
+discount factor is 0.9. 
+ 
+A. The Bellman one-step value for Safe is 2 + 0.9 × 5 = 6.5. 
+B. The expected successor value for Risky is 4. 
+C. The Bellman one-step value for Risky is 3.6. 
+D. Under these estimates, an optimal greedy choice selects Risky. 
+E. Bellman reasoning compares only successor values and excludes the immediate reward. 
+ 
+Answer Key: 
+ 
+A. True – Safe combines its immediate reward with the discounted successor value. 
+B. True – The expected successor value is 0.5 × 10 + 0.5 × (-2) = 4. 
+C. True – Risky’s value is 0 + 0.9 × 4 = 3.6. 
+D. False – Safe’s value of 6.5 is greater than Risky’s value of 3.6, so the greedy choice is Safe. 
+E. False – The recursive decomposition includes current reward plus discounted future value. 
+ 
+ 457 Rev:081020261230
+
+[ML2-D2G7Q2] 
+A portfolio policy currently chooses cash in a particular state, with estimated action value 1.2. Updated evaluation 
+estimates long at 2.0 and short at 0.4 for that same state. The analyst considers changing the policy to choose long there 
+while leaving its choices elsewhere unchanged. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Choosing long is a local policy-improvement step under the current estimates. 
+B. The proposed change is based on comparing action values available in the same state. 
+C. Policy improvement requires selecting the lowest-valued action to encourage exploration. 
+D. Repeated evaluation and greedy improvement can move a policy toward an optimal policy when the estimates and 
+assumptions are appropriate. 
+E. Once one state’s action is improved, optimality of the entire policy is guaranteed. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Long has greater estimated return than the action currently chosen. 
+B. False – The underlying claim is correct: The comparison holds the state ﬁxed and considers alternative actions. 
+C. True – The underlying claim is incorrect: Exploration and greedy policy improvement are distinct; improvement 
+ordinarily favors higher estimated value. 
+D. False – The underlying claim is correct: This is the intuition behind policy-iteration-style methods. 
+E. True – The underlying claim is incorrect: Other states may still use inferior actions, and the values may require 
+reevaluation after the change.
+
+[ML2-D2G7Q3] 
+A manager reviews a candidate trading policy and ﬁnds that it chooses the highest currently estimated Q-value in every 
+observed state. The manager declares it globally optimal, even though some state-action pairs were never evaluated and 
+the environment’s transition estimates are known to be biased. 
+ 
+A. Greediness with respect to incomplete or biased estimates does not by itself prove that the policy is optimal. 
+B. Missing state-action estimates can conceal actions with greater true expected return. 
+C. A policy is optimal whenever it is deterministic. 
+D. Bellman optimality equations remain satisﬁed regardless of whether the transition and reward quantities used in them 
+are correct. 
+ 
+ 458 Rev:081020261230 
+E. Demonstrating optimality requires no assumptions about the model, coverage, or accuracy of value estimates. 
+ 
+Answer Key: 
+ 
+A. True – The policy can be greedy relative to inaccurate values and still be suboptimal. 
+B. True – Unevaluated alternatives may outperform the selected actions. 
+C. False – Determinism describes action selection, not the quality of the selected actions. 
+D. False – Incorrect inputs can produce estimates that do not represent the true environment’s optimal values. 
+E. False – Claims of optimality depend on the validity and coverage of the information used to evaluate the policy. 
+ 
+  
+ 
+ 459 Rev:081020261230 
+Domain 3: Q-Learning Mechanics 
+Domain Summary 
+ Q-tables 
+ State-action values 
+ Temporal-difference updates 
+ Learning rate 
+ Discount factor 
+ Maximum future Q-value 
+ Off-policy learning 
+ Initialization 
+ Repeated visitation 
+ Convergence intuition 
+Topic Groups 
+G1: Q-Table Structure and Interpretation 
+ Rows as states and columns as actions 
+ Meaning of a Q-value 
+ Comparing actions within a state 
+ Extracting a policy from a Q-table 
+G2: Temporal-Difference Update 
+ Current estimate 
+ Observed reward 
+ Estimated future value 
+ Updating from one transition 
+ Difference between sample and estimate 
+G3: Learning Rate 
+ Weight placed on new experience 
+ High versus low learning rates 
+ Adaptation speed 
+ 
+ 460 Rev:081020261230 
+ Stability and forgetting 
+G4: Discount Factor in Q-Learning 
+ Effect on future rewards 
+ Short-sighted versus long-horizon behavior 
+ Interaction with delayed rewards 
+ Consequences for learned policies 
+G5: Maximum Future Q-Value 
+ Selecting the best estimated next action 
+ Bootstrapping 
+ Why the update uses a future estimate 
+ Overestimation risk conceptually 
+G6: Off-Policy Learning 
+ Learning the greedy target while behaving exploratorily 
+ Difference between behavior policy and target policy 
+ Why random actions can still improve the optimal policy estimate 
+ Contrast with on-policy intuition 
+G7: Initialization, Visitation, and Convergence 
+ Initial Q-values 
+ Need to visit state-action pairs 
+ Repeated updates 
+ Effects of unvisited states 
+ Conditions that support stable learning 
+G1: Q-Table Structure and Interpretation

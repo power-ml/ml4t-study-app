@@ -1,0 +1,575 @@
+Domain 7: Trading Frictions, Capacity, and Implementability
+
+[QF2-D7G1Q1] 
+A strategy buys 1,000 shares. The market quote immediately before the order is $49.95 bid and $50.05 ask, so the 
+midpoint is $50.00. The order executes immediately at $50.07, and the broker charges a $5 commission. 
+ 
+A. The quoted bid-ask spread is $0.10 per share. 
+B. Buying at the ask rather than at the midpoint creates a $50 spread-related cost for 1,000 shares before considering 
+additional slippage. 
+C. The $0.02 difference between the ask and the execution price represents $20 of additional slippage relative to the 
+displayed ask. 
+D. The commission is an implicit cost because it is not directly billed. 
+E. Relative to the pre-trade midpoint, the execution price and commission together cost $75. 
+ 
+Answer Key: 
+ 
+A. True – The quoted spread is $50.05 - $49.95 = $0.10 per share. 
+B. True – The ask is $0.05 above the midpoint, and $0.05 × 1,000 = $50. 
+C. True – The ﬁll is $0.02 above the displayed ask, producing $20 of additional execution cost. 
+D. False – A separately charged commission is an explicit cost. 
+E. True – Paying $0.07 above the midpoint costs $70, and the $5 commission brings the total to $75.
+
+[QF2-D7G1Q2] 
+A backtest assumes every trade executes at the daily closing midpoint and subtracts a known exchange fee. In live 
+trading, market orders cross the spread, some ﬁlls occur after the price moves, and an unﬁlled limit order causes the 
+strategy to miss a proﬁtable move. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Subtracting the exchange fee accounts for an explicit trading cost. ” 
+B. The following statement is incorrect: “Executing a market buy at the ask can impose an implicit cost even if the broker 
+charges no commission. ” 
+ 
+ 690 Rev:081020261230 
+C. The following statement is incorrect: “The adverse price movement between the decision and the ﬁll can contribute to 
+slippage. ” 
+D. The following statement is incorrect: “The missed proﬁt from the unﬁlled limit order can be treated as an opportunity 
+cost of the execution decision. ” 
+E. The following statement is incorrect: “Modeling the explicit exchange fee is sufficient to make the backtest's net return 
+fully realistic. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The exchange fee is a directly assessed charge. 
+B. False – The quoted statement is correct. Crossing from the midpoint to the ask incurs part of the bid-ask spread. 
+C. False – The quoted statement is correct. Slippage includes deterioration between the reference or expected price and 
+the actual ﬁll. 
+D. False – The quoted statement is correct. Failure to obtain the desired position may sacriﬁce gains that the trading 
+decision sought to capture. 
+E. True – The quoted statement is incorrect. Spreads, slippage, market impact, and opportunity costs can remain even 
+after explicit fees are included.
+
+[QF2-D7G1Q3] 
+At the moment a portfolio manager releases a buy order, the stock's midpoint is $100.00. The order's volume-weighted 
+average ﬁll is $100.18. By the time execution ends, the midpoint is $100.12. The price later falls back to $100.03 after the 
+order's pressure dissipates. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The $0.18 difference between the average ﬁll and the arrival midpoint is an 
+execution shortfall before explicit fees. ” 
+B. The following statement is incorrect: “The movement from $100.00 to $100.12 during execution is consistent with at 
+least some temporary or information-related price movement while the order was active. ” 
+C. The following statement is incorrect: “The later decline toward $100.03 is consistent with much of the execution-period 
+price pressure being temporary. ” 
+D. The following statement is incorrect: “Because the midpoint later fell, the trader necessarily could have purchased the 
+entire desired quantity at $100.03 at the original decision time. ” 
+E. The following statement is incorrect: “Comparing the ﬁll only with the ending midpoint would omit part of the cost 
+relative to the price available when the decision was made. ” 
+ 
+Answer Key: 
+ 
+ 
+ 691 Rev:081020261230 
+A. False – The quoted statement is correct. The ﬁll exceeded the arrival midpoint by $0.18 per share. 
+B. False – The quoted statement is correct. The contemporaneous midpoint rose while the buy order was being executed, 
+although the scenario alone does not prove the cause. 
+C. False – The quoted statement is correct. Reversal after completion is consistent with transient impact dissipating. 
+D. True – The quoted statement is incorrect. A later observed price does not establish that sufficient liquidity was 
+available at that price earlier. 
+E. False – The quoted statement is correct. The ending midpoint of $100.12 is already above the $100.00 decision-time 
+reference. 
+ 
+G2: Turnover and Cost Drag
+
+[QF2-D7G2Q1] 
+Two dollar-neutral strategies each manage $10 million. Strategy A turns over 20% of portfolio value per month and 
+Strategy B turns over 200% per month. Assume each dollar traded incurs a one-way cost of 10 basis points and that 
+turnover is measured as total dollar volume traded divided by portfolio value. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Strategy A trades approximately $2 million per month under the stated turnover 
+deﬁnition. ” 
+B. The following statement is incorrect: “Strategy B trades approximately $20 million per month. ” 
+C. The following statement is incorrect: “Strategy A's estimated monthly cost is $2,000. ” 
+D. The following statement is incorrect: “Strategy B's estimated monthly cost is $20,000. ” 
+E. The following statement is incorrect: “If both strategies have the same gross return, their net returns must also be 
+equal. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Twenty percent of $10 million is $2 million. 
+B. False – The quoted statement is correct. Two hundred percent of $10 million is $20 million. 
+C. False – The quoted statement is correct. Ten basis points is 0.001, and 0.001 × $2 million = $2,000. 
+D. False – The quoted statement is correct. Applying 0.001 to $20 million gives $20,000. 
+E. True – The quoted statement is incorrect. Strategy B's greater turnover creates greater cost drag under the stated 
+assumptions. 
+ 
+ 
+ 692 Rev:081020261230
+
+[QF2-D7G2Q2] 
+A daily signal forecasts an average gross gain of 8 basis points on each trade. Estimated round-trip trading cost is 10 basis 
+points. A researcher proposes trading only when the forecast exceeds 15 basis points, which reduces the number of 
+trades substantially. 
+ 
+A. An 8-basis-point expected gross edge is insufficient to cover a 10-basis-point expected round-trip cost. 
+B. Trading every signal could produce a negative expected net edge even though the expected gross edge is positive. 
+C. A 15-basis-point threshold can reduce turnover by suppressing weaker signals. 
+D. The threshold guarantees that every executed trade will be proﬁtable. 
+E. Raising a threshold involves a tradeoff because it may avoid costly weak trades but also skip some proﬁtable 
+opportunities. 
+ 
+Answer Key: 
+ 
+A. True – The expected net edge is 8 - 10 = -2 basis points before any other costs. 
+B. True – Positive gross expectancy does not imply positive expectancy after costs. 
+C. True – Fewer qualifying forecasts generally lead to fewer position changes. 
+D. False – A forecast above the threshold remains uncertain and can be wrong. 
+E. True – Selectivity can improve expected net quality while reducing participation in possible gains.
+
+[QF2-D7G2Q3] 
+A portfolio ranks stocks every hour, but the rankings usually change only slightly. Immediate full rebalancing produces 
+annual gross alpha of 9% and estimated trading costs of 11%. Rebalancing once per day produces gross alpha of 7% and 
+estimated costs of 3%. 
+ 
+A. The hourly strategy's estimated net alpha is -2% under the stated ﬁgures. 
+B. The daily strategy's estimated net alpha is 4%. 
+C. The hourly strategy is preferable because its gross alpha is higher. 
+D. A no-trade band around current holdings could reduce churn caused by small ranking changes. 
+E. Less frequent rebalancing can improve net performance even when it sacriﬁces some gross alpha. 
+ 
+Answer Key: 
+ 
+A. True – Net alpha is approximately 9% - 11% = -2%. 
+ 
+ 693 Rev:081020261230 
+B. True – Net alpha is approximately 7% - 3% = 4%. 
+C. False – Its higher gross alpha is more than offset by its larger estimated costs. 
+D. True – A no-trade region avoids trades whose expected beneﬁt is too small to justify their cost. 
+E. True – Here the 2-point reduction in gross alpha is accompanied by an 8-point reduction in costs. 
+ 
+G3: Liquidity and Tradability
+
+[QF2-D7G3Q1] 
+A strategy wants to buy $4 million of a stock whose average daily dollar volume is $8 million. Another candidate has 
+average daily dollar volume of $200 million. Both show the same historical signal strength and quoted percentage spread 
+at the time of analysis. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The desired trade equals 50% of the ﬁrst stock's average daily dollar volume. ” 
+B. The following statement is incorrect: “The desired trade equals 2% of the second stock's average daily dollar volume. ” 
+C. The following statement is incorrect: “Average daily volume alone guarantees the price at which either order will 
+execute. ” 
+D. The following statement is incorrect: “All else equal, the ﬁrst trade is more likely to strain available liquidity. ” 
+E. The following statement is incorrect: “Equal displayed percentage spreads imply equal market impact for the two $4 
+million orders. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. $4 million divided by $8 million is 50%. 
+B. False – The quoted statement is correct. $4 million divided by $200 million is 2%. 
+C. True – The quoted statement is incorrect. Volume is an aggregate measure and does not specify current depth, price 
+response, or intraday conditions. 
+D. False – The quoted statement is correct. The order represents a much larger fraction of ordinary trading activity in the 
+ﬁrst stock. 
+E. True – The quoted statement is incorrect. Impact also depends on depth, order size relative to liquidity, urgency, and 
+replenishment. 
+ 
+ 
+ 694 Rev:081020261230
+
+[QF2-D7G3Q2] 
+A thinly traded security displays a best offer for 500 shares at $20.10, followed by 1,000 shares at $20.30 and 2,000 shares 
+at $20.60. A trader submits a market order to buy 3,000 shares and no new sell orders arrive during execution. 
+ 
+A. Only 500 shares are available at the best displayed offer. 
+B. Under the stated book, the order must consume liquidity at more than one price level. 
+C. The volume-weighted average ﬁll is $20.10. 
+D. The limited displayed depth makes the effective purchase cost larger than the best quote alone suggests. 
+E. A small quoted spread at the top of the book would by itself prove that a 3,000-share order is highly liquid. 
+ 
+Answer Key: 
+ 
+A. True – The scenario states that the best offer contains 500 shares. 
+B. True – The desired size exceeds the quantity available at $20.10 and $20.30 combined. 
+C. False – Only the ﬁrst 500 shares ﬁll at $20.10; later shares execute at higher prices. 
+D. True – The buyer walks up the book and pays progressively higher offers. 
+E. False – Tradability of a larger order depends on depth beyond the best quote as well as the top-level spread.
+
+[QF2-D7G3Q3] 
+A portfolio normally exits positions within one day. During a market shock, spreads widen, displayed depth falls, and 
+many participants attempt to sell the same securities. The backtest estimated costs using average conditions from calm 
+periods. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The portfolio may take longer or cost more to exit during the shock. ” 
+B. The following statement is incorrect: “Widening spreads increase the cost of demanding immediate liquidity, all else 
+equal. ” 
+C. The following statement is incorrect: “Falling displayed depth can cause a ﬁxed-size sell order to reach lower bid 
+levels. ” 
+D. The following statement is incorrect: “Calm-period average costs necessarily provide a conservative estimate for 
+stressed execution. ” 
+E. The following statement is incorrect: “Liquidity risk can create losses beyond the securities' frictionless price changes. ” 
+ 
+Answer Key: 
+ 
+ 695 Rev:081020261230 
+ 
+A. False – The quoted statement is correct. Reduced liquidity forces a choice between slower execution and greater price 
+concessions. 
+B. False – The quoted statement is correct. An aggressive seller crosses a larger distance from the midpoint to the bid. 
+C. False – The quoted statement is correct. Less quantity near the best bid makes it more likely that the order walks down 
+the book. 
+D. True – The quoted statement is incorrect. Costs often rise in stress, so calm-period estimates may understate them. 
+E. False – The quoted statement is correct. Spreads, impact, delayed ﬁlls, and forced sales can add implementation 
+losses. 
+ 
+G4: Market Impact and Order Size
+
+[QF2-D7G4Q1] 
+A fund buys 10,000 shares of a stock on one day when total market volume is 1,000,000 shares. It later considers buying 
+100,000 shares on a day with the same expected market volume and similar market conditions. 
+ 
+A. The ﬁrst order's participation rate is 1%. 
+B. The proposed order's participation rate is 10%. 
+C. The proposed order is more likely to reveal demand and move prices than the smaller order, all else equal. 
+D. If market impact is nonlinear, increasing order size tenfold may increase total impact cost by more than tenfold. 
+E. Equal expected alpha per share guarantees equal net alpha per share at both order sizes. 
+ 
+Answer Key: 
+ 
+A. True – 10,000 divided by 1,000,000 is 1%. 
+B. True – 100,000 divided by 1,000,000 is 10%. 
+C. True – The larger fraction of market volume places greater pressure on available liquidity. 
+D. True – Convex or nonlinear impact can cause cost to grow faster than order size. 
+E. False – Larger execution size can increase impact per share and reduce net alpha.
+
+[QF2-D7G4Q2] 
+A manager must buy 200,000 shares. Executing immediately is expected to cost 45 basis points in spread and impact. 
+Splitting the order across the day is expected to reduce those costs to 20 basis points, but waiting creates a risk that the 
+price rises before completion. 
+ 
+ 696 Rev:081020261230 
+ 
+A. Splitting the order can reduce the rate at which it consumes available liquidity. 
+B. Slower execution eliminates all market impact. 
+C. The manager faces a tradeoff between immediate impact and the risk of adverse price movement while waiting. 
+D. If the alpha signal decays quickly, a slow schedule may lose some of the forecast's value. 
+E. The schedule with the lowest estimated spread and impact must always have the lowest total implementation 
+shortfall. 
+ 
+Answer Key: 
+ 
+A. True – Distributing trades gives the market more time to replenish liquidity. 
+B. False – Even a gradual order can cross spreads, move prices, or interact with limited depth. 
+C. True – Urgency increases immediate execution cost but reduces exposure to delay risk. 
+D. True – A position obtained after the opportunity fades may capture less return. 
+E. False – Total shortfall can also include delay, missed trades, and adverse market movement.
+
+[QF2-D7G4Q3] 
+A buy order pushes a stock from $30.00 to $30.40 while it executes. Ten minutes after completion the stock trades at 
+$30.12, and several days later it remains near $30.15, absent important public news. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The reversal from $30.40 to $30.12 is consistent with a temporary-impact 
+component. ” 
+B. The following statement is incorrect: “The price remaining above $30.00 is consistent with a smaller persistent 
+component, although this observation alone does not establish causality. ” 
+C. The following statement is incorrect: “Temporary impact refers to price pressure that tends to dissipate after the order 
+ends. ” 
+D. The following statement is incorrect: “Permanent impact must always equal the order's peak price movement. ” 
+E. The following statement is incorrect: “A backtest that assumes unlimited purchases at $30.00 could materially 
+overstate implementable performance. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Much of the execution-period increase reversed after buying pressure 
+stopped. 
+ 
+ 697 Rev:081020261230 
+B. False – The quoted statement is correct. A residual difference may be persistent, but other market movements could 
+also explain it. 
+C. False – The quoted statement is correct. Temporary impact is the portion associated with transient liquidity demand 
+or pressure. 
+D. True – The quoted statement is incorrect. Peak movement can contain temporary impact, unrelated price changes, 
+and noise. 
+E. False – The quoted statement is correct. The observed order moved through prices above the assumed frictionless 
+level. 
+ 
+G5: Capacity and Scaling
+
+[QF2-D7G5Q1] 
+A strategy manages $2 million and targets a set of short-lived opportunities that collectively support about $200,000 of 
+trades per day at modest impact. The sponsor proposes increasing capital to $100 million while keeping the same 
+securities, trading horizon, and signal rules. 
+ 
+A. Increasing capital does not create more underlying trading opportunities by itself. 
+B. Maintaining the same portfolio turnover at $100 million would require much greater daily dollar volume than at $2 
+million. 
+C. Larger orders may consume more market depth and reduce net return through impact. 
+D. Historical percentage returns at $2 million are guaranteed to remain unchanged at $100 million. 
+E. The strategy may have limited capacity even if its small-scale backtest is strong. 
+ 
+Answer Key: 
+ 
+A. True – Capital growth does not automatically expand the quantity or liquidity of attractive opportunities. 
+B. True – A ﬁxed turnover percentage applied to a much larger asset base produces proportionally more dollars traded. 
+C. True – Scaling can increase participation rates and execution costs. 
+D. False – Market impact, allocation limits, and alpha dilution can change performance with scale. 
+E. True – Capacity measures how much capital can be deployed before performance becomes unacceptable.
+
+[QF2-D7G5Q2] 
+A fund's gross alpha is estimated at 6% at $10 million, 5% at $50 million, and 3% at $200 million because it must accept 
+weaker signals and trade more aggressively. Estimated annual costs at those sizes are 1%, 2%, and 4%, respectively. 
+ 
+ 698 Rev:081020261230 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Estimated net alpha at $10 million is 5%. ” 
+B. The following statement is incorrect: “Estimated net alpha at $50 million is 3%. ” 
+C. The following statement is incorrect: “Estimated net alpha at $200 million is -1%. ” 
+D. The following statement is incorrect: “Gross alpha dilution and rising costs can both reduce scalability. ” 
+E. The following statement is incorrect: “The $200 million deployment is the most attractive solely because it produces 
+the largest gross dollar proﬁt before costs. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Six percent gross alpha minus 1% cost equals 5% net alpha. 
+B. False – The quoted statement is correct. Five percent minus 2% equals 3%. 
+C. False – The quoted statement is correct. Three percent minus 4% equals -1%. 
+D. False – The quoted statement is correct. Scaling both weakens the average opportunity and makes execution more 
+expensive here. 
+E. True – The quoted statement is incorrect. Capital allocation should consider net return, risk, alternatives, and whether 
+value is destroyed after costs.
+
+[QF2-D7G5Q3] 
+A small-cap strategy is nearing its capacity. The team considers adding large-cap securities, lengthening the holding 
+period, and lowering turnover. The new large-cap signals have lower gross expected returns but much deeper markets. 
+ 
+A. Expanding into deeper markets may increase deployable capacity. 
+B. Lower turnover can reduce the amount that must be traded for each dollar of capital. 
+C. A longer holding period may help capacity if it reduces trading frequency, although it may also change signal 
+effectiveness and risk. 
+D. Adding lower-alpha large-cap opportunities must reduce total net proﬁt at every capital level. 
+E. Capacity analysis concerns the relationship among capital, opportunity availability, liquidity, costs, and resulting 
+performance. 
+ 
+Answer Key: 
+ 
+A. True – Greater depth may accommodate larger trades with less impact. 
+ 
+ 699 Rev:081020261230 
+B. True – Less frequent portfolio replacement reduces trading demand relative to assets. 
+C. True – The change can ease implementation but also alters the economic strategy. 
+D. False – Lower gross alpha can still improve scalable net proﬁt if greater depth permits more capital and lower costs. 
+E. True – Capacity is not determined by backtested alpha or capital alone. 
+ 
+G6: Shorting, Borrowing, and Funding Constraints
+
+[QF2-D7G6Q1] 
+A strategy shorts a hard-to-borrow stock with a 12% expected annual gross return from the short position. The annualized 
+borrow fee is 9%, and other trading and ﬁnancing costs are estimated at 2%. Shares are available today but availability is 
+not guaranteed for the full holding period. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The estimated annual net return before taxes is approximately 1% if the expected 
+gross return and stated costs are realized. ” 
+B. The following statement is incorrect: “The borrow fee can consume most of the strategy's expected gross edge. ” 
+C. The following statement is incorrect: “Present borrow availability guarantees that the short can remain open until the 
+manager chooses to close it. ” 
+D. The following statement is incorrect: “A lender recall could force the strategy to cover earlier than planned. ” 
+E. The following statement is incorrect: “Ignoring borrow fees would overstate the short's expected net proﬁtability in this 
+case. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The estimate is 12% - 9% - 2% = 1%. 
+B. False – The quoted statement is correct. The 9% fee consumes three quarters of the 12% gross expected return. 
+C. True – The quoted statement is incorrect. Borrow can become unavailable or be recalled. 
+D. False – The quoted statement is correct. Recall risk can require repurchasing shares regardless of the signal's intended 
+horizon. 
+E. False – The quoted statement is correct. The omitted fee is economically large relative to the forecast edge.
+
+[QF2-D7G6Q2] 
+A leveraged long-short fund holds $150 million of long positions and $100 million of short positions against $50 million 
+of equity. Its broker raises margin requirements during a volatile period, while several short positions also rise sharply. 
+ 
+ 700 Rev:081020261230 
+ 
+A. The fund's gross exposure is $250 million. 
+B. The fund's net exposure is $50 million long. 
+C. The fund's gross exposure equals ﬁve times its $50 million equity. 
+D. Higher margin requirements can force position reductions even if the fund's long-run forecasts are unchanged. 
+E. A short position cannot lose more than its initial market value. 
+ 
+Answer Key: 
+ 
+A. True – Gross exposure adds the absolute long and short positions: $150 million + $100 million. 
+B. True – Net exposure subtracts shorts from longs: $150 million - $100 million. 
+C. True – $250 million divided by $50 million is 5. 
+D. True – The broker may require more collateral, creating a funding constraint or forced deleveraging. 
+E. False – A stock price can rise by more than 100%, giving a short theoretically unlimited loss potential.
+
+[QF2-D7G6Q3] 
+A backtest freely shorts every stock with a negative signal at the previous close. In practice, some stocks have no borrow, 
+some carry variable borrow fees, and a crowded short rises rapidly when other investors cover. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Stocks with no available borrow may be impossible to short at the desired time. ” 
+B. The following statement is incorrect: “Variable borrow fees can make realized net performance differ from a backtest 
+using a ﬁxed cost. ” 
+C. The following statement is incorrect: “Rapid covering by other short sellers can amplify upward price pressure in a 
+short squeeze. ” 
+D. The following statement is incorrect: “Short-sale implementability can be assumed from historical price data alone. ” 
+E. The following statement is incorrect: “A realistic backtest could restrict the eligible universe and model borrow costs, 
+availability, and forced-close risk. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. A negative forecast does not create lendable shares. 
+B. False – The quoted statement is correct. Actual fees can change over time and may rise when a security becomes 
+difficult to borrow. 
+ 
+ 701 Rev:081020261230 
+C. False – The quoted statement is correct. Purchases made to close shorts add demand and can intensify the price rise. 
+D. True – The quoted statement is incorrect. Price history generally does not establish borrow availability, fees, recalls, or 
+locate requirements. 
+E. False – The quoted statement is correct. Those assumptions better represent whether the theoretical short trades can 
+be implemented. 
+ 
+G7: Crowding and Implementation Risk
+
+[QF2-D7G7Q1] 
+Many funds use similar momentum signals and hold overlapping long and short positions. A volatility spike causes 
+several funds to reduce leverage at the same time. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Similar signals can produce correlated portfolios across funds. ” 
+B. The following statement is incorrect: “Simultaneous deleveraging can cause many funds to sell the same longs and 
+cover the same shorts. ” 
+C. The following statement is incorrect: “Correlated exits can worsen prices before every fund completes its trades. ” 
+D. The following statement is incorrect: “Crowding affects only expected return and cannot affect liquidity or drawdown. ” 
+E. The following statement is incorrect: “A strategy that is liquid under normal conditions may become harder to exit when 
+crowded investors act together. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Common inputs and rules can lead funds to hold similar positions. 
+B. False – The quoted statement is correct. Reducing gross exposure commonly requires selling long holdings and buying 
+back short holdings. 
+C. False – The quoted statement is correct. Shared urgent order ﬂow can consume available liquidity and create adverse 
+price movement. 
+D. True – The quoted statement is incorrect. Crowding can increase impact, liquidity risk, correlations, and losses during 
+unwinds. 
+E. False – The quoted statement is correct. Effective liquidity depends on how much competing demand for exit arrives 
+at the same time. 
+ 
+ 
+ 702 Rev:081020261230
+
+[QF2-D7G7Q2] 
+A backtest assumes trades execute at the next day's opening price. After launch, many competitors react to similar public 
+data before the open. Prices gap in the predicted direction, spreads widen, and the live fund receives ﬁlls after much of 
+the move has occurred. 
+ 
+A. The backtest's assumed opening ﬁll may be unavailable once many traders pursue the same signal. 
+B. The gap can represent alpha captured by faster participants rather than by the live fund. 
+C. Wider spreads can further reduce the fund's realized net return. 
+D. Public availability of the input guarantees equal implementation for all traders. 
+E. Live implementation shortfall can reveal that a statistically valid forecast is not fully monetizable by this trading 
+process. 
+ 
+Answer Key: 
+ 
+A. True – Competitive order ﬂow can move prices before or during the fund's execution. 
+B. True – A forecast can be correct while the implementer arrives too late to earn the predicted return. 
+C. True – Crossing a wider spread increases execution cost. 
+D. False – Speed, order handling, capacity, and market access affect realized ﬁlls. 
+E. True – Predictive information has value only to the extent that the strategy can trade on it at viable prices.
+
+[QF2-D7G7Q3] 
+A niche strategy performed well with $5 million when few investors knew it. After publication, multiple funds replicate the 
+rule, collectively deploy large capital, and trade the same securities around the same times. 
+ 
+A. Replication can increase competition for a limited set of opportunities. 
+B. Entry trades by multiple funds can move prices sooner and reduce the alpha remaining for later traders. 
+C. Crowding can reduce the amount of capital that each fund can deploy at acceptable cost. 
+D. If the historical rule was proﬁtable, increasing aggregate capital cannot change its future net proﬁtability. 
+E. Stress testing synchronized entries and exits can help assess implementation risk not visible in a frictionless backtest. 
+ 
+Answer Key: 
+ 
+A. True – More capital is pursuing the same signals and liquidity. 
+B. True – Competitive trading can accelerate price adjustment and erode realizable edge. 
+ 
+ 703 Rev:081020261230 
+C. True – Shared market depth and higher impact can lower strategy capacity. 
+D. False – Competition, impact, and earlier price adjustment can reduce or eliminate future net alpha. 
+E. True – Scenario analysis can reveal sensitivity to crowded order ﬂow and deteriorating liquidity. 
+ 
+  
+ 
+ 704 Rev:081020261230 
+Domain 8: Execution Algorithms and Order Book Analytics 
+Domain Summary 
+ Order scheduling 
+ Passive and aggressive execution 
+ Limit order placement 
+ Fill probability 
+ Adverse selection 
+ Market impact 
+ Order-book imbalance 
+ Arrival price 
+ VWAP 
+ TWAP 
+ Participation strategies 
+ Implementation shortfall 
+Topic Groups 
+G1: Execution Objectives and Benchmarks 
+ Arrival price 
+ VWAP 
+ TWAP 
+ Closing price 
+ Implementation shortfall 
+ Choosing the appropriate benchmark 
+G2: Aggressive vs. Passive Execution 
+ Marketable orders 
+ Limit orders 
+ Execution certainty 
+ Price improvement 
+ Waiting risk 
+ 
+ 705 Rev:081020261230 
+G3: Order Scheduling Over Time 
+ Trading faster or slower 
+ Execution horizon 
+ Front-loading and back-loading 
+ Timing risk 
+ Market-impact tradeoffs 
+G4: VWAP , TWAP , and Participation Strategies 
+ Volume-based scheduling 
+ Time-based scheduling 
+ Percentage-of-volume approaches 
+ When each benchmark may be appropriate 
+ Limitations under changing volume patterns 
+G5: Limit Order Placement and Fill Probability 
+ Distance from the best quote 
+ Queue position 
+ Probability of execution 
+ Partial ﬁlls 
+ Repricing decisions 
+G6: Order Book Imbalance and Short-Term Signals 
+ Bid and ask depth 
+ Imbalance measures 
+ Short-term price pressure 
+ Liquidity interpretation 
+ Risk of transient or manipulated signals 
+G7: Adverse Selection and Execution Quality 
+ Passive orders being ﬁlled when prices move against them 
+ Information leakage 
+ Toxic ﬂow 
+ Trade urgency 
+ 
+ 706 Rev:081020261230 
+ Balancing spread capture against selection risk 
+G1: Execution Objectives and Benchmarks

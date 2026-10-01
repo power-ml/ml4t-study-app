@@ -1,0 +1,528 @@
+Domain 8: Comparative Strategy Learning and Evaluation
+
+[ML2-D8G1Q1] 
+A research group compares two trading systems built from the same indicators. The decision-tree learner is trained on 
+rows labeled buy, hold, or sell using future returns. The Q-Learner instead steps through a market simulator, chooses 
+actions, and receives changes in portfolio value as rewards. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The decision tree learns a mapping from features to supplied target labels. 
+B. The Q-Learner can update action values from rewards observed after taking actions. 
+C. The two learners necessarily optimize the same objective merely because they use the same indicators. 
+D. Exploration can cause the Q-Learner to take an action that is not currently estimated to be best. 
+E. A conventional decision-tree classiﬁer must explore the simulator to ﬁt its labeled training rows. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Supervised tree training uses feature-target examples supplied in the dataset. 
+B. False – The underlying claim is correct: Q-Learning updates values using experience tuples that include actions and 
+subsequent rewards. 
+C. True – The underlying claim is incorrect: Labels and portfolio rewards may encode different objectives and costs. 
+D. False – The underlying claim is correct: An exploratory policy sometimes selects a non-greedy action to gather 
+experience. 
+E. True – The underlying claim is incorrect: A conventional classiﬁer ﬁts the ﬁxed labeled observations without action-
+driven exploration.
+
+[ML2-D8G1Q2] 
+A decision-tree strategy learner predicts that tomorrow's return will be positive, while a Q-Learner selects the action 
+LONG for the same market state. An analyst treats the two outputs as identical forecasts. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The tree's output may represent a return class or trading label, depending on its training target. 
+B. The Q-Learner's LONG action is necessarily a numerical prediction of tomorrow's return. 
+C. A policy action can be useful even when the learner does not explicitly forecast a return. 
+D. Interpreting both outputs requires knowing how labels, actions, and trades were deﬁned. 
+ 
+ 538 Rev:081020261230 
+E. If both systems ultimately hold the same position, their internal learning processes must have been identical. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: A supervised output takes its meaning from the target variable used in training. 
+B. True – The underlying claim is incorrect: LONG is an action or target-position choice, not necessarily a return estimate. 
+C. False – The underlying claim is correct: Direct policy learning may select useful actions without producing an explicit 
+forecast. 
+D. False – The underlying claim is correct: The semantic meaning of each output depends on the system design. 
+E. True – The underlying claim is incorrect: Different learners can produce the same position through different objectives 
+and training mechanisms.
+
+[ML2-D8G1Q3] 
+During training, a decision tree is rebuilt once from a completed labeled dataset. A Q-Learner processes the same 
+historical interval for many episodes, with its later actions inﬂuenced by Q-values learned in earlier episodes. 
+ 
+A. Rebuilding the tree from the same unchanged data can still produce a ﬁxed supervised model if its algorithm and 
+randomness are controlled. 
+B. The Q-Learner's experience distribution may change as its policy changes. 
+C. Multiple Q-Learning episodes guarantee convergence to the globally optimal trading policy. 
+D. The decision tree's split choices are driven directly by discounted future rewards received from a simulator. 
+E. Comparing the systems should document differences in training passes, stopping rules, and random seeds. 
+ 
+Answer Key: 
+ 
+A. True – Controlled deterministic training on unchanged rows can reproduce the same ﬁtted tree. 
+B. True – A changing behavior policy changes which state-action pairs the learner visits. 
+C. False – Repetition alone does not guarantee sufficient coverage, stationarity, or convergence. 
+D. False – Conventional supervised splits are chosen from labeled training data, not TD rewards. 
+E. True – These design choices affect reproducibility and the fairness of the comparison. 
+ 
+ 
+ 539 Rev:081020261230 
+G2: Direct Policy Learning vs. Predict-Then-Trade
+
+[ML2-D8G2Q1] 
+System P forecasts next-day return and then goes long only when the forecast exceeds a conﬁgurable threshold. System 
+D directly learns whether to be long, short, or in cash from portfolio rewards. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. System P separates the prediction model from the rule that converts predictions into positions. 
+B. Changing System P's threshold can change its trades without retraining its predictor. 
+C. System D must ﬁrst output a calibrated return forecast before selecting an action. 
+D. Direct policy learning can incorporate transaction-cost consequences through its reward design. 
+E. A lower forecast error for System P guarantees a higher net portfolio return than System D. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Forecasting and trade conversion are distinct stages in the predict-then-trade 
+design. 
+B. False – The underlying claim is correct: The execution rule can be modiﬁed while leaving the ﬁtted forecast model 
+unchanged. 
+C. True – The underlying claim is incorrect: A direct policy may select an action without an intermediate return forecast. 
+D. False – The underlying claim is correct: Net portfolio changes can expose the learner to the consequences of costs. 
+E. True – The underlying claim is incorrect: Forecast accuracy and realized trading utility are not equivalent objectives.
+
+[ML2-D8G2Q2] 
+A supervised model makes many small positive-return forecasts. Its trading rule acts on every positive forecast, 
+producing heavy turnover. A direct-policy learner trained with commissions remains in cash for many of the same 
+observations. 
+ 
+A. The forecast model may be statistically correct about direction yet fail to identify trades large enough to cover costs. 
+B. A no-trade region can be added to the predict-then-trade rule by requiring a forecast to exceed a threshold. 
+C. Remaining in cash proves that the direct-policy learner failed to learn anything. 
+D. The difference in behavior may arise because the direct-policy reward accounts for transaction costs. 
+E. Predict-then-trade architectures cannot include trading costs anywhere in their design. 
+ 
+ 
+ 540 Rev:081020261230 
+Answer Key: 
+ 
+A. True – Correctly signed but economically small moves can still be unproﬁtable after costs. 
+B. True – A threshold can prevent weak forecasts from triggering trades. 
+C. False – Cash can be the preferred action when expected opportunities do not justify costs or risk. 
+D. True – Cost-sensitive rewards can make inaction more valuable than marginal trades. 
+E. False – Costs can be reﬂected in labels, thresholds, optimization objectives, or execution rules.
+
+[ML2-D8G2Q3] 
+A team wants to compare direct policy learning with a predict-then-trade pipeline. It gives the direct learner current 
+holdings as an input, but the forecasting model sees only market indicators; its downstream trading rule is also prohibited 
+from consulting holdings. 
+ 
+A. The comparison isolates only the difference between direct policy learning and return prediction. 
+B. Current holdings can affect whether a buy or sell requires a costly position change. 
+C. Providing holdings to only one system is fair whenever both systems use the same market indicators. 
+D. A fairer predict-then-trade pipeline could allow its execution rule to consider current holdings. 
+E. Because holdings are not market data, they can never inﬂuence a trading decision. 
+ 
+Answer Key: 
+ 
+A. False – The systems also differ in access to portfolio-state information. 
+B. True – The same desired exposure can require different trades from different existing positions. 
+C. False – Equal market indicators do not compensate for unequal access to decision-relevant portfolio state. 
+D. True – A position-aware execution layer can make the information sets more comparable. 
+E. False – Holdings are agent state and often determine feasible or costly position changes. 
+ 
+G3: Labels, Rewards, and Learning Signals
+
+[ML2-D8G3Q1] 
+A supervised strategy labels each day BUY when the return over the next ﬁve days exceeds 1%, SELL when it is below -
+1%, and HOLD otherwise. An RL strategy instead receives daily changes in net portfolio value. 
+ 
+ 
+ 541 Rev:081020261230 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The supervised labels explicitly encode a ﬁve-day horizon and chosen thresholds. 
+B. The RL reward depends partly on the positions produced by the learner's actions. 
+C. Identical market features ensure that both systems receive identical learning signals. 
+D. Altering the supervised labeling thresholds can change the ﬁtted strategy without changing the features. 
+E. Daily rewards automatically assign all long-run consequences perfectly to the action that caused them. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The label construction embeds both the forecast horizon and cutoff values. 
+B. False – The underlying claim is correct: Portfolio change reﬂects how the selected holdings respond to subsequent 
+market movement and costs. 
+C. True – The underlying claim is incorrect: One system receives target labels while the other receives action-dependent 
+rewards. 
+D. False – The underlying claim is correct: Different targets can lead the same learner and features to a different ﬁtted 
+mapping. 
+E. True – The underlying claim is incorrect: Delayed effects create a credit-assignment problem that the learner must 
+approximate.
+
+[ML2-D8G3Q2] 
+A Q-Learner buys before a three-day rally. The ﬁrst day's net reward is slightly negative because of market impact, while 
+later rewards are positive as the position appreciates. A researcher labels the initial buy as a mistake using only its 
+immediate reward. 
+ 
+A. The immediate negative reward does not by itself establish that the action had negative long-term value. 
+B. A positive discount factor allows later reward estimates to inﬂuence the earlier state-action value. 
+C. Setting the discount factor to zero places greater weight on rewards occurring several steps later. 
+D. The example illustrates why temporal credit assignment matters in sequential trading. 
+E. The later appreciation would be assigned automatically and exclusively to the original buy, regardless of the update 
+rule. 
+ 
+Answer Key: 
+ 
+A. True – A costly entry can still lead to valuable future rewards. 
+ 
+ 542 Rev:081020261230 
+B. True – Bootstrapped future value can propagate expected later beneﬁts backward. 
+C. False – With zero discounting, only the immediate reward enters the target. 
+D. True – The value of an action can depend on consequences distributed across time. 
+E. False – Attribution depends on states, subsequent actions, discounting, and the learning algorithm.
+
+[ML2-D8G3Q3] 
+Two supervised learners use the same algorithm and features. Learner A is labeled by the sign of next-day return. Learner 
+B is labeled with the position that would have maximized a ﬁve-day net return after estimated costs. 
+ 
+A. The learners can produce different strategies because their target deﬁnitions differ. 
+B. Learner B's labels incorporate more trading assumptions than a simple next-day sign label. 
+C. Similar classiﬁcation accuracy across the two learners proves that their portfolio behavior will be similar. 
+D. Label construction is part of strategy design rather than a neutral preprocessing detail. 
+E. Using future outcomes to construct training labels always constitutes test-set leakage. 
+ 
+Answer Key: 
+ 
+A. True – A supervised model learns toward the speciﬁc targets it is given. 
+B. True – Its targets embed horizon, cost estimates, and an optimization criterion. 
+C. False – Accuracy is deﬁned against different targets and does not establish similar trades or returns. 
+D. True – Targets determine the behavior the learner is rewarded for reproducing. 
+E. False – Future outcomes may legitimately deﬁne training labels if train/test boundaries and timing are handled 
+correctly. 
+ 
+G4: Batch Learning vs. Interactive Learning
+
+[ML2-D8G4Q1] 
+A decision-tree learner receives a ﬁxed table containing one row per date. A Q-Learner replays the same historical prices, 
+but its action on each date changes its simulated holdings and therefore its later portfolio rewards. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The tree's training examples are ﬁxed before ﬁtting in this setup. 
+B. The Q-Learner's actions affect its portfolio trajectory even though they do not affect the historical market prices. 
+ 
+ 543 Rev:081020261230 
+C. Replaying historical data makes the market fully interactive because the learner's orders change the recorded future 
+prices. 
+D. The Q-Learner can have agent-environment interaction through holdings and rewards within a non-reactive market 
+replay. 
+E. A ﬁxed price history prevents the use of any reinforcement-learning update. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The supervised dataset is assembled independently of the model's ﬁtted 
+actions. 
+B. False – The underlying claim is correct: Trades alter inventory, cash, costs, and resulting portfolio value. 
+C. True – The underlying claim is incorrect: Standard historical replay does not let simulated orders rewrite recorded 
+market prices. 
+D. False – The underlying claim is correct: The simulated agent state and rewards can respond to actions even when the 
+price path is ﬁxed. 
+E. True – The underlying claim is incorrect: RL updates can still be computed from simulated state transitions and 
+rewards.
+
+[ML2-D8G4Q2] 
+A Q-Learner trains for 100 episodes on one historical period. Every episode begins with the same cash and no holdings, 
+but epsilon decays across episodes and the Q-table is retained. 
+ 
+A. The learner may select different action sequences across episodes despite seeing the same price path. 
+B. Retaining the Q-table allows knowledge from earlier episodes to inﬂuence later ones. 
+C. Resetting the portfolio at each episode necessarily erases the learned Q-values. 
+D. Decaying epsilon can shift behavior from broader exploration toward greater exploitation. 
+E. One hundred passes through a ﬁxed history create 100 statistically independent market samples. 
+ 
+Answer Key: 
+ 
+A. True – Exploration and evolving Q-values can change the selected actions. 
+B. True – The stored value estimates carry learning across episode boundaries. 
+C. False – Portfolio state and learned parameters can be reset or retained independently. 
+D. True – Lower epsilon generally reduces the probability of random action selection. 
+E. False – Repetition does not create new independent price histories. 
+ 
+ 544 Rev:081020261230
+
+[ML2-D8G4Q3] 
+A researcher calls a historical simulator “interactive” because the strategy chooses trades sequentially. Another 
+researcher objects that the simulator uses immutable prices and a ﬁxed impact formula unrelated to total order ﬂow. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The strategy can interact with a simulated portfolio while having no causal effect on the historical market path. 
+B. The term “interactive” should be qualiﬁed by describing which environment variables respond to actions. 
+C. Sequential decision-making alone proves that the simulator reproduces live market feedback. 
+D. A ﬁxed impact model can approximate a trading consequence without modeling a truly endogenous market response. 
+E. Results from the simulator require no caveats when applied to live deployment because both settings process time 
+sequentially. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Actions can change cash and holdings without changing recorded prices. 
+B. False – The underlying claim is correct: The scope of action-dependent feedback determines what interaction actually 
+means. 
+C. True – The underlying claim is incorrect: Live markets may react to orders in ways absent from historical replay. 
+D. False – The underlying claim is correct: A prescribed penalty can model cost while remaining independent of other 
+participants. 
+E. True – The underlying claim is incorrect: Limited market feedback and other simulation assumptions constrain external 
+validity. 
+ 
+G5: Shared Features and Fair Inputs
+
+[ML2-D8G5Q1] 
+A team compares a decision-tree strategy using momentum and Bollinger Band position with a Q-Learner using those 
+indicators plus volatility and current holdings. It attributes all performance differences to the learning algorithms. 
+ 
+A. The conclusion is confounded because the learners receive different inputs. 
+B. Volatility may provide the Q-Learner with predictive information unavailable to the tree. 
+C. Using identical feature names is sufficient for fairness even if they are calculated over different windows. 
+D. A controlled comparison could ﬁrst give both systems the same market indicators and timing conventions. 
+ 
+ 545 Rev:081020261230 
+E. Current holdings can be ignored when assessing input fairness because they are agent state rather than market data. 
+ 
+Answer Key: 
+ 
+A. True – Performance differences may result from information access as well as algorithm choice. 
+B. True – An additional feature can change the learner's ability to distinguish conditions. 
+C. False – Window lengths and timestamps can make nominally similar features materially different. 
+D. True – Aligning input data helps isolate the effect of the learning approach. 
+E. False – Holdings can affect valid and costly actions, so their availability must be controlled or transparently accounted 
+for.
+
+[ML2-D8G5Q2] 
+Both learners receive a column named momentum. For the supervised model it is calculated through today's close and 
+used to trade at the next day's open. For the RL model it includes the next day's close while selecting today's closing 
+trade. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The feature columns are not information-equivalent despite sharing a name. 
+B. The RL feature contains future information relative to its decision time. 
+C. A higher test return from the RL system would be sufficient evidence that its algorithm is superior. 
+D. Fairness requires aligning feature timestamps with when each trade decision is made. 
+E. Leakage is harmless if the same mathematical indicator formula is used. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Their data windows and decision timing differ. 
+B. False – The underlying claim is correct: The next close is unavailable when today's closing action must be chosen. 
+C. True – The underlying claim is incorrect: The leaked feature can inﬂate performance independently of algorithm quality. 
+D. False – The underlying claim is correct: Inputs must be available at the relevant decision time for both systems. 
+E. True – The underlying claim is incorrect: The formula does not remove leakage from unavailable timestamps. 
+ 
+ 
+ 546 Rev:081020261230
+
+[ML2-D8G5Q3] 
+A manual strategy, a tree learner, and a Q-Learner all use the same three normalized indicators. The manual strategy 
+applies thresholds selected after viewing the test-period chart, while both learners are ﬁnalized before the test period is 
+examined. 
+ 
+A. Shared indicators alone do not make this a fair out-of-sample comparison. 
+B. Choosing manual thresholds after inspecting test outcomes contaminates the manual strategy's evaluation. 
+C. The manual strategy should be designed using training-period information or prespeciﬁed rules. 
+D. Manual strategies cannot be evaluated out of sample under any circumstances. 
+E. Normalizing all indicators guarantees that no strategy has beneﬁted from future information. 
+ 
+Answer Key: 
+ 
+A. True – The manual strategy received indirect access to test outcomes during design. 
+B. True – Test-period inspection inﬂuenced the supposedly preexisting rule. 
+C. True – The test interval should remain unseen until the strategy design is ﬁxed. 
+D. False – A manual rule can be frozen and evaluated on unseen data like any other strategy. 
+E. False – Normalization can itself leak information if its parameters use future or test data. 
+ 
+G6: Fair Strategy Comparison
+
+[ML2-D8G6Q1] 
+A manual strategy, decision-tree strategy learner, and Q-Learner are being compared. The manual strategy is tested with 
+no transaction costs, while the two learned strategies include commissions and market impact. The team concludes that 
+the manual strategy is superior because it has the highest return. 
+ 
+A. The comparison is unfair because cost assumptions differ. 
+B. All strategies should use the same evaluation period. 
+C. All strategies should use the same starting portfolio value. 
+D. A higher raw return is sufficient to establish superiority even when test conditions differ. 
+E. Consistent benchmarks and metrics are necessary for a meaningful comparison. 
+ 
+Answer Key: 
+ 
+ 
+ 547 Rev:081020261230 
+A. True – Different cost assumptions distort the comparison. 
+B. True – The market environment should be held constant. 
+C. True – Starting capital affects comparability. 
+D. False – Unequal conditions undermine the conclusion. 
+E. True – Fair evaluation requires aligned assumptions.
+
+[ML2-D8G6Q2] 
+Strategy A begins with $100,000 and may use 2:1 leverage. Strategy B begins with $50,000 and may not borrow. The report 
+compares only their ending dollar proﬁts and calls the larger value the better strategy. 
+ 
+A. Ending dollar proﬁt is affected by starting capital and permitted exposure. 
+B. Matching capital and leverage constraints would improve comparability. 
+C. Percentage return alone would capture every relevant difference in risk. 
+D. Risk-adjusted metrics can supplement cumulative return when leverage or volatility differs. 
+E. The larger dollar proﬁt proves greater learning quality regardless of the constraints. 
+ 
+Answer Key: 
+ 
+A. True – Scale and allowable exposure inﬂuence the magnitude of proﬁt. 
+B. True – Common constraints help isolate strategy behavior. 
+C. False – Equal returns can coexist with very different volatility, drawdown, or tail risk. 
+D. True – Measures such as Sharpe ratio and drawdown provide additional information. 
+E. False – Unequal capital and leverage prevent that inference.
+
+[ML2-D8G6Q3] 
+Three strategies are evaluated over the same dates with the same costs and capital. The report compares Strategy A's 
+cumulative return, Strategy B's Sharpe ratio, and Strategy C's maximum drawdown, then ranks them ﬁrst through third 
+using those isolated values. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The strategies are not being ranked on a common performance criterion. 
+B. Each strategy should generally have the same set of reported metrics calculated under the same conventions. 
+ 
+ 548 Rev:081020261230 
+C. A benchmark such as buy-and-hold can provide context for all three strategies. 
+D. Common dates and costs guarantee that any ranking method will be meaningful. 
+E. One metric always provides enough information to establish universal strategy superiority. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Different dimensions are being used as though they formed one directly 
+comparable scale. 
+B. False – The underlying claim is correct: A common metric set enables like-for-like comparison. 
+C. False – The underlying claim is correct: A shared benchmark helps interpret whether performance adds value. 
+D. True – The underlying claim is incorrect: Fair inputs do not repair an incoherent ranking rule. 
+E. True – The underlying claim is incorrect: Strategy preference may depend on return, risk, drawdown, costs, and investor 
+objectives. 
+ 
+G7: Manual, Supervised, and RL Strategy Evaluation
+
+[ML2-D8G7Q1] 
+On the training period, the Q-Learner strongly outperforms both a tree learner and a manual strategy. On the unseen test 
+period, the Q-Learner underperforms buy-and-hold, while the tree and manual strategies earn smaller but positive 
+excess returns. 
+ 
+A. The Q-Learner's training result alone is insufficient evidence of generalization. 
+B. The reversal is consistent with possible overﬁtting to the training environment. 
+C. The manual strategy must be optimal because it remained proﬁtable out of sample. 
+D. The comparison should examine both in-sample and out-of-sample results under aligned assumptions. 
+E. Underperforming on one test period proves that reinforcement learning can never work for trading. 
+ 
+Answer Key: 
+ 
+A. True – In-sample performance may reﬂect adaptation to conditions already seen. 
+B. True – A large train-test performance gap is a warning sign for overﬁtting. 
+C. False – Positive performance does not establish optimality or robustness. 
+D. True – Both views help distinguish ﬁt from generalization. 
+E. False – One empirical result cannot establish a universal impossibility. 
+ 
+ 549 Rev:081020261230
+
+[ML2-D8G7Q2] 
+Across 20 independent test windows, a learned strategy beats a manual strategy in 11 windows, but the average 
+difference is very small and disappears after transaction costs. The team advertises the learner as economically superior. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Winning in 11 of 20 windows does not by itself establish a reliable advantage. 
+B. Economic signiﬁcance depends on the magnitude of net improvement, not only how often the learner wins. 
+C. Transaction costs are relevant when deciding whether the observed advantage is deployable. 
+D. Any positive average gross difference is automatically statistically signiﬁcant. 
+E. Statistical signiﬁcance, if present, would guarantee that the strategy is economically worthwhile. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The win count alone provides limited evidence about magnitude and 
+uncertainty. 
+B. False – The underlying claim is correct: A tiny edge that vanishes after costs may have little practical value. 
+C. False – The underlying claim is correct: Implementable performance is measured after relevant trading frictions. 
+D. True – The underlying claim is incorrect: Signiﬁcance depends on variability, dependence, sample design, and effect 
+size. 
+E. True – The underlying claim is incorrect: A precisely estimated effect can still be too small to matter economically.
+
+[ML2-D8G7Q3] 
+During one market regime, the manual strategy stays in cash, the supervised strategy goes long, and the Q-Learner goes 
+short. The next day's market return is negative, so an analyst concludes that the Q-Learner is categorically the best 
+design. 
+ 
+A. Disagreement among the strategies proves that at least two implementations contain software bugs. 
+B. The strategies may disagree because their objectives, horizons, learning signals, or state representations differ. 
+C. One correct directional decision is sufficient to rank the designs reliably. 
+D. Examining repeated out-of-sample outcomes and portfolio-level metrics would provide stronger evidence. 
+E. The manual strategy's cash position necessarily means that it forecasts a return of exactly zero. 
+ 
+ 550 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. False – Correctly implemented strategies can choose different actions because their designs differ. 
+B. True – Each of these choices can change the preferred action in the same observed market. 
+C. False – A single outcome is too limited and noisy to establish general superiority. 
+D. True – Repeated evaluation better characterizes return, risk, consistency, and costs. 
+E. False – Inaction can instead mean that the evidence does not cross the strategy's threshold for taking exposure. 
+ 
+  
+ 
+ 551 Rev:081020261230 
+Domain 9: Deep Learning and Neural-Network Foundations 
+Domain Summary 
+ Neurons, layers, weights, and biases 
+ Activations 
+ Forward propagation 
+ Loss functions 
+ Gradient descent 
+ Backpropagation 
+ Epochs and batches 
+ Capacity 
+ Overﬁtting 
+ Regularization 
+ Data and computational requirements 
+Topic Groups 
+G1: Neural-Network Structure 
+ Input, hidden, and output layers 
+ Weights and biases 
+ Connections between units 
+ Network depth and width 
+G2: Activations and Nonlinearity 
+ Role of activation functions 
+ Why stacked linear layers remain linear 
+ Saturation and gradient behavior conceptually 
+ Hidden representations 
+G3: Forward Propagation and Prediction 
+ Transforming inputs through layers 
+ Producing outputs 
+ Inference after training 
+ 
+ 552 Rev:081020261230 
+ Deterministic computation given ﬁxed parameters 
+G4: Loss Functions and Learning Objectives 
+ Comparing predictions with targets 
+ Regression versus classiﬁcation losses 
+ Objective alignment 
+ Why minimizing loss may not maximize trading performance 
+G5: Gradient Descent and Backpropagation 
+ Computing parameter updates 
+ Direction of improvement 
+ Learning rate 
+ Propagating error through layers 
+ Conceptual rather than derivation-focused understanding 
+G6: Epochs, Batches, and Training Dynamics 
+ Full-data passes 
+ Mini-batches 
+ Stochastic updates 
+ Training stability 
+ Computational tradeoffs 
+G7: Capacity, Overﬁtting, and Regularization 
+ Large networks ﬁtting complex patterns 
+ Data requirements 
+ Dropout, weight penalties, and early stopping conceptually 
+ Validation performance 
+ Deep learning versus classical models 
+G1: Neural-Network Structure

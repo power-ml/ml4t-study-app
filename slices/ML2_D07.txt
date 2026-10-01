@@ -1,0 +1,527 @@
+Domain 7: Reinforcement Learning for Trading
+
+[ML2-D7G1Q1] 
+A quantitative fund builds a daily Q-Learning strategy using discretized momentum, volatility, and Bollinger Band position. 
+A researcher proposes adding tomorrow's return because it is present in the completed historical dataset, while the 
+production trader notes that the value will not exist when a live action is selected. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+ 522 Rev:081020261230 
+ 
+A. The state used for a historical decision should contain only information available by that decision time. 
+B. Tomorrow's return would introduce look-ahead leakage if used to choose today's action. 
+C. Discretizing the indicators allows multiple continuous observations to share a ﬁnite state. 
+D. Any indicator calculated from historical prices is automatically safe, regardless of which timestamps enter the 
+calculation. 
+E. A useful state representation must preserve every raw market observation exactly. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: A deployable decision rule must operate on contemporaneously available 
+information. 
+B. False – The underlying claim is correct: The future return reveals part of the outcome the learner is intended to act 
+before observing. 
+C. False – The underlying claim is correct: Binning maps ranges of continuous values into a limited set of labels. 
+D. True – The underlying claim is incorrect: A historical calculation still leaks information if it includes prices unavailable 
+at the decision time. 
+E. True – The underlying claim is incorrect: A representation may intentionally compress observations while retaining 
+decision-relevant distinctions.
+
+[ML2-D7G1Q2] 
+A strategy learner assigns each day to one of 27 market states formed from three indicators with three bins each. During 
+review, the team discovers that two market conditions with identical bins can have different raw indicator values and that 
+some state combinations never occur in training. 
+ 
+A. With all combinations possible, three indicators with three bins each deﬁne 3^3 = 27 states. 
+B. Observations in the same discrete state are indistinguishable to a tabular learner unless other state information is 
+included. 
+C. An unvisited state may have poorly supported action values when encountered during deployment. 
+D. Sharing a state proves that the two observations have identical future-return distributions. 
+E. Adding more bins always reduces the amount of training experience needed per state. 
+ 
+Answer Key: 
+ 
+A. True – The Cartesian product contains 27 possible bin combinations. 
+ 
+ 523 Rev:081020261230 
+B. True – The Q-table indexes the shared state label rather than the underlying raw values. 
+C. True – The learner has little or no direct experience on which to base values for that state. 
+D. False – Binning asserts a modeling equivalence; it does not prove identical market dynamics. 
+E. False – More bins generally spread a ﬁxed history across more states and can increase sparsity.
+
+[ML2-D7G1Q3] 
+A research team normalizes each day's indicator using the mean and standard deviation calculated from the entire 2015–
+2025 dataset, then reports an out-of-sample test for 2024–2025. It also uses the test period to select the number of bins 
+that yields the highest test return. 
+ 
+A. Full-sample normalization leaks information from the reported test period into earlier feature values. 
+B. Selecting bin counts by test-period return turns the test period into part of the model-selection process. 
+C. Because the Q-Learner never directly receives future returns as a state feature, the evaluation remains 
+uncontaminated. 
+D. Repeatedly tuning on the same test period preserves that period as an unbiased estimate of ﬁnal generalization. 
+E. Fitting preprocessing on the entire dataset before splitting it would preserve temporal separation. 
+ 
+Answer Key: 
+ 
+A. True – The transformation parameters use observations that should have remained unseen during training. 
+B. True – Test performance is inﬂuencing a design choice and therefore is no longer purely evaluative. 
+C. False – Leakage can enter through preprocessing and selection even without an explicit future-return feature. 
+D. False – Repeated test-guided tuning adapts the system to that period and biases its reported performance. 
+E. False – Full-dataset preprocessing uses test-period distribution information before the evaluation begins. 
+ 
+G2: Mapping Actions into Trades or Positions
+
+[ML2-D7G2Q1] 
+A trading agent's action space is short, cash, or long, interpreted as target positions of -1,000, 0, or +1,000 shares. The 
+agent is currently short 1,000 shares when it selects long. 
+ 
+A. Reaching the long target requires buying 2,000 shares. 
+B. The selected action describes a desired position rather than necessarily describing the order size. 
+ 
+ 524 Rev:081020261230 
+C. Selecting short while already short 1,000 shares would require selling another 1,000 shares under this target-position 
+design. 
+D. A move from short to long has the same traded quantity as a move from cash to long. 
+E. Transaction costs can depend on the position change used to implement the target. 
+ 
+Answer Key: 
+ 
+A. True – Buying 2,000 shares moves inventory from -1,000 to +1,000. 
+B. True – The order is derived by subtracting current holdings from the target holdings. 
+C. False – Current and desired inventories are already equal, so the required position-changing order is zero. 
+D. False – Cash to long requires 1,000 shares, while short to long requires 2,000. 
+E. True – Commissions and impact typically arise from executed quantity, not merely the target label.
+
+[ML2-D7G2Q2] 
+Two implementation teams both expose actions named buy, sell, and hold. Team A interprets buy as purchasing 100 
+shares on every selection. Team B interprets buy as moving to a ﬁxed +100-share target. A persistent bullish state lasts 
+for four days. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Team A may accumulate 400 shares if buy is selected on all four days and no constraint intervenes. 
+B. Team B's ﬁrst buy may trade 100 shares, while later identical selections may trade zero shares once the target is 
+reached. 
+C. The same action label can create different portfolio dynamics under different execution mappings. 
+D. A hold action necessarily means a zero market position in both implementations. 
+E. Deﬁning actions alone is sufficient; the order-generation rule cannot affect learned returns. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: An incremental-order interpretation adds another 100 shares with each action. 
+B. False – The underlying claim is correct: A target-position interpretation requires no additional order after the portfolio 
+is already at +100. 
+C. False – The underlying claim is correct: Semantics determine position accumulation, turnover, constraints, and costs. 
+D. True – The underlying claim is incorrect: Holding ordinarily preserves the current position, which may be long or short. 
+ 
+ 525 Rev:081020261230 
+E. True – The underlying claim is incorrect: Execution determines holdings and costs and therefore changes the reward 
+sequence experienced by the learner.
+
+[ML2-D7G2Q3] 
+A fund permits positions of -500, 0, or +500 shares. Its simulator receives a desired target from the learner, computes the 
+necessary order from current holdings, and then checks leverage and liquidity limits before execution. 
+ 
+A. Current holdings are needed to translate a target position into an order quantity. 
+B. A risk-control layer may reject or clip an order even when the learner assigns that action the highest Q-value. 
+C. If an order is clipped, the resulting holdings may differ from the learner's requested target. 
+D. Target-position actions eliminate the need to model commissions and market impact. 
+E. A feasible action in one portfolio state must be feasible in every other portfolio state. 
+ 
+Answer Key: 
+ 
+A. True – Required trade quantity equals the desired inventory minus existing inventory. 
+B. True – Hard implementation constraints can override a proposed action. 
+C. True – Partial execution cannot always reach the original requested exposure. 
+D. False – Any nonzero order can still create implementation costs. 
+E. False – Feasibility can depend on current exposure, capital, liquidity, and other state-speciﬁc constraints. 
+ 
+G3: Holdings, Inventory, and Position Persistence
+
+[ML2-D7G3Q1] 
+A strategy's state includes market indicators but not current holdings. In the same bullish indicator state, the 
+economically appropriate decision is to buy when in cash, hold when already long, and cover when short. The Q-table 
+nevertheless has only one set of action values for that indicator state. 
+ 
+A. Omitting holdings aliases portfolio situations that may require different actions. 
+B. Including long, cash, or short status can permit separate action values for otherwise identical market indicators. 
+C. Holdings can be decision-relevant even though they are controlled by the agent rather than generated by the market. 
+D. Market indicators alone guarantee a Markov representation of the combined market-and-portfolio process. 
+E. Adding holdings to state guarantees optimal trading performance out of sample. 
+ 
+ 526 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. True – Distinct inventory conditions are collapsed into one table entry. 
+B. True – The combined market-position state can learn different preferences for each inventory context. 
+C. True – Existing inventory changes order size, costs, risk, and feasible decisions. 
+D. False – The consequences of an action may depend on omitted portfolio state. 
+E. False – A better representation does not guarantee sufficient data, suitable rewards, stable markets, or generalization.
+
+[ML2-D7G3Q2] 
+A daily learner enters a long position on Monday. On Tuesday and Wednesday it continues to select the long target while 
+the bullish state persists. Its simulator trades only the difference between current and desired holdings. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The position can persist across days without a new order on Tuesday or Wednesday. 
+B. Selecting the same long target while already long can represent maintaining exposure rather than repeatedly buying. 
+C. Portfolio value may change on Tuesday even if no trade occurs because the held asset's price can move. 
+D. No trade means the learner must receive a reward of zero for that day. 
+E. Position persistence makes current holdings irrelevant to later order generation. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Existing holdings carry forward unless a trade or forced liquidation changes 
+them. 
+B. False – The underlying claim is correct: Target and current positions match, so the required order is zero. 
+C. False – The underlying claim is correct: Mark-to-market gains or losses arise from price changes on existing inventory. 
+D. True – The underlying claim is incorrect: A held position can generate a positive or negative portfolio-value reward 
+without a transaction. 
+E. True – The underlying claim is incorrect: Holdings are precisely what determine whether a new target requires an order. 
+ 
+ 
+ 527 Rev:081020261230
+
+[ML2-D7G3Q3] 
+A risk manager compares two state encodings. One records only long, cash, or short; the other records exact position 
+size and remaining leverage capacity. The strategy can hold positions ranging from 100 to 10,000 shares, subject to a 
+capital limit. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The three-category encoding may combine positions with materially different risk and remaining capacity. 
+B. Exact inventory can distinguish whether an additional purchase would breach the capital limit. 
+C. A coarser holdings state may generalize more broadly but lose decision-relevant detail. 
+D. Recording exact position size can never increase state-space complexity. 
+E. Once holdings appear in any form, separate enforcement of hard limits is unnecessary. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: A small and a maximum-size long position share a label despite different 
+constraints and exposures. 
+B. False – The underlying claim is correct: Current size helps determine whether additional risk is feasible. 
+C. False – The underlying claim is correct: Compression trades speciﬁcity for broader sharing of experience. 
+D. True – The underlying claim is incorrect: Greater inventory granularity can create more distinct states. 
+E. True – The underlying claim is incorrect: Operational controls should still enforce constraints even when state 
+representation contains relevant information. 
+ 
+G4: Trading Rewards and Portfolio Value
+
+[ML2-D7G4Q1] 
+A learner buys shares at Monday's close and holds them through Thursday. Its reward is recorded only when a position is 
+closed, so it receives zero on Tuesday and Wednesday despite a substantial mark-to-market loss. The position is ﬁnally 
+sold on Thursday. 
+ 
+A. A realized-only reward delays feedback about changes in the value of an open position. 
+B. Daily change in total portfolio value could reﬂect unrealized gains and losses before Thursday. 
+C. Zero realized proﬁt on Tuesday proves that the portfolio had no economic loss that day. 
+D. Reward timing can affect how readily the learner associates actions with their consequences. 
+E. Mark-to-market reward must use future prices that were unavailable at the end of each rewarded interval. 
+ 
+ 528 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. True – No reward is recognized until the closing transaction under the stated rule. 
+B. True – Current prices can revalue open inventory each day. 
+C. False – An open position can lose value without realizing the loss through a sale. 
+D. True – Long delays can make credit assignment more difficult. 
+E. False – Reward for a completed interval can use the endpoint price observed at that time without looking beyond it.
+
+[ML2-D7G4Q2] 
+A fund starts a day with a portfolio value of $100,000. After price movements and all trades, but before subtracting a $50 
+commission, its value is $101,000. The commission is then charged. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The gross dollar change before commission is +$1,000. 
+B. The net ending portfolio value is $100,950. 
+C. The net dollar reward based on portfolio-value change is +$950. 
+D. The gross and net rewards are equal because commission does not affect market prices. 
+E. A reward of +$950 corresponds to a 9.5% one-day return on the starting portfolio. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The pre-cost value increased by $1,000 relative to $100,000. 
+B. False – The underlying claim is correct: Subtracting the $50 commission from $101,000 leaves $100,950. 
+C. False – The underlying claim is correct: Net value rose by $950 from the starting value. 
+D. True – The underlying claim is incorrect: Commission reduces portfolio value even if it does not move the quoted asset 
+price. 
+E. True – The underlying claim is incorrect: $950 divided by $100,000 is 0.95%, not 9.5%.
+
+[ML2-D7G4Q3] 
+A trading desk rewards its agent +1 every time it submits an order, regardless of whether the order earns money. The agent 
+learns to trade at nearly every step, while portfolio value declines after costs. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+ 529 Rev:081020261230 
+ 
+A. The learner may be maximizing the encoded activity reward while harming the desk's proﬁtability objective. 
+B. Rewarding order count creates an incentive for turnover. 
+C. A reward based on net portfolio-value change would more directly align learning with the stated economic objective. 
+D. Falling portfolio value proves that the agent failed to maximize the reward it was given. 
+E. The desk's verbal goal of proﬁtability automatically overrides the numerical reward during Q-updates. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The speciﬁed proxy values activity rather than economic performance. 
+B. False – The underlying claim is correct: Each additional order earns another positive signal. 
+C. False – The underlying claim is correct: Net value incorporates investment outcomes and implementation costs. 
+D. True – The underlying claim is incorrect: Frequent trading may successfully maximize the ﬂawed order-count reward. 
+E. True – The underlying claim is incorrect: The update uses the supplied numerical reward, not an unstated intention. 
+ 
+G5: Transaction Costs, Impact, and Turnover
+
+[ML2-D7G5Q1] 
+A Q-Learning trading strategy performs well when commissions and market impact are set to zero. Once realistic costs 
+are included, the learner still trades very frequently and net performance becomes negative. The portfolio manager 
+argues that the original reward should be kept because transaction costs are an execution issue, not a learning issue. 
+ 
+A. A reward based only on gross portfolio change can encourage excessive turnover. 
+B. Transaction costs can be incorporated into the reward signal. 
+C. If costs are excluded during training, the learned policy may be misaligned with net proﬁtability. 
+D. Execution costs cannot inﬂuence the optimal trading policy. 
+E. Adding trading penalties may change which actions the learner prefers. 
+ 
+Answer Key: 
+ 
+A. True – Gross rewards may make frequent small trades appear attractive. 
+B. True – Reward can reﬂect net change after implementation costs. 
+C. True – The learner may optimize the wrong objective. 
+D. False – Costs can make previously attractive trades unproﬁtable. 
+ 
+ 530 Rev:081020261230 
+E. True – Net reward changes the relative value of actions.
+
+[ML2-D7G5Q2] 
+A strategy alternates daily between +1,000 and -1,000 shares. The broker charges a $10 commission per order, and each 
+reversal also incurs market impact proportional to the 2,000-share change. A second strategy usually maintains its 
+position for several days. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Each direct reversal trades 2,000 shares rather than 1,000 shares. 
+B. With similar gross returns, the higher-turnover strategy can have lower net returns. 
+C. Both ﬁxed commissions and quantity-dependent impact can penalize frequent reversals. 
+D. Market impact affects only accounting presentation and cannot change execution economics. 
+E. Comparing strategies using gross returns alone is sufficient when their turnover differs materially. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Moving from +1,000 to -1,000 requires selling 2,000 shares. 
+B. False – The underlying claim is correct: Greater implementation costs can consume more of its gross performance. 
+C. False – The underlying claim is correct: Reversals create more orders and more traded volume. 
+D. True – The underlying claim is incorrect: Impact changes effective transaction prices and therefore realized portfolio 
+value. 
+E. True – The underlying claim is incorrect: Net performance is needed to evaluate economically implementable results.
+
+[ML2-D7G5Q3] 
+A learner was trained with zero costs and chooses a small expected-gain trade whenever an indicator crosses a 
+threshold. The team then retrains with realistic costs, and many marginal trades disappear from the learned policy. 
+ 
+A. Introducing costs can change action-value rankings. 
+B. A trade with positive expected gross value can have negative expected net value. 
+C. Reduced turnover after cost-aware training can be a rational policy response rather than evidence of failed learning. 
+D. A cost-aware learner must always choose cash, regardless of the strength of a signal. 
+E. The zero-cost and cost-aware environments necessarily have the same optimal policy. 
+ 
+ 
+ 531 Rev:081020261230 
+Answer Key: 
+ 
+A. True – Costs reduce the expected return of actions that require trading. 
+B. True – Implementation cost can exceed the trade's expected gross gain. 
+C. True – Avoiding uneconomic marginal trades aligns behavior with net reward. 
+D. False – Opportunities whose expected beneﬁt exceeds costs may still justify positions. 
+E. False – Altering rewards and transition consequences can alter which actions are optimal. 
+ 
+G6: Training, Testing, and Out-of-Sample Evaluation
+
+[ML2-D7G6Q1] 
+A team trains a Q-Learner on 2015–2021 data, freezes its Q-table and discretization thresholds, and evaluates the 
+resulting policy once on 2022–2023 data. No test-period observations are used to choose features or hyperparameters. 
+ 
+A. The chronological separation is consistent with an out-of-sample evaluation. 
+B. Freezing the learned policy prevents test-period rewards from updating the Q-table. 
+C. Applying training-derived thresholds unchanged avoids ﬁtting the preprocessing to the test distribution. 
+D. Good results on 2022–2023 prove the policy will remain proﬁtable in every future market regime. 
+E. The test is invalid merely because its observations occur later in calendar time than the training data. 
+ 
+Answer Key: 
+ 
+A. True – The evaluation uses a later period excluded from model construction. 
+B. True – With learning disabled, test outcomes assess rather than train the stored action values. 
+C. True – The test period does not inﬂuence how features are discretized. 
+D. False – One historical test cannot guarantee performance under all future conditions. 
+E. False – Forward chronological testing is appropriate for a strategy intended to act on future data.
+
+[ML2-D7G6Q2] 
+A researcher evaluates 50 combinations of state variables, epsilon decay, and transaction-cost penalties on the same 
+2022–2023 period, selects the combination with the highest return there, and reports that return as ﬁnal out-of-sample 
+performance. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+ 532 Rev:081020261230 
+ 
+A. The 2022–2023 period has inﬂuenced model selection. 
+B. The maximum reported return is vulnerable to selection bias from trying many conﬁgurations. 
+C. A later untouched holdout period would provide a cleaner ﬁnal evaluation of the selected conﬁguration. 
+D. Calling the period a test set prevents information leakage regardless of how often it guides tuning. 
+E. Because each conﬁguration was trained only on earlier data, choosing among them on test returns cannot overﬁt the 
+test period. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Test outcomes determine which design is retained. 
+B. False – The underlying claim is correct: Some conﬁguration may look best partly because of noise speciﬁc to that 
+period. 
+C. False – The underlying claim is correct: A fresh period not used for selection can assess the ﬁnalized process. 
+D. True – The underlying claim is incorrect: A dataset's role is determined by its use, not its label. 
+E. True – The underlying claim is incorrect: Repeated selection can adapt model-level choices to idiosyncrasies in the 
+test data.
+
+[ML2-D7G6Q3] 
+A fund compares a learner against a benchmark. During training, the learner's cumulative return is 40% versus 12% for 
+the benchmark; in a later frozen-policy test, the learner returns 3% versus 10% for the benchmark and trades much more 
+frequently. 
+ 
+A. Strong in-sample performance does not establish strong out-of-sample performance. 
+B. The reversal may indicate overﬁtting, regime sensitivity, or both. 
+C. Turnover and net-of-cost performance are relevant when interpreting the comparison. 
+D. The 40% training return should replace the weaker test result because it uses more favorable evidence. 
+E. Underperformance in one test period proves that reinforcement learning can never be useful for trading. 
+ 
+Answer Key: 
+ 
+A. True – Training results reﬂect data used to construct the policy. 
+B. True – The policy may have ﬁt historical patterns or encountered changed dynamics. 
+C. True – Frequent trading can materially reduce implementable results. 
+ 
+ 533 Rev:081020261230 
+D. False – Favorability is not a valid reason to discard genuinely out-of-sample evidence. 
+E. False – One strategy-period result does not establish a universal limitation of the method. 
+ 
+G7: Market Nonstationarity and Policy Stability
+
+[ML2-D7G7Q1] 
+A policy learned during a long low-volatility bull market is deployed during a high-volatility bear market. State frequencies, 
+returns following each state-action pair, and trading costs all differ from the training period. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The environment may be nonstationary relative to the learner's historical experience. 
+B. Previously learned Q-values can become stale when transition or reward behavior changes. 
+C. Monitoring state visitation and performance can help detect policy degradation. 
+D. Q-Learning guarantees that a frozen historical policy remains optimal after a regime change. 
+E. A policy's historical proﬁtability proves that the market's data-generating process is ﬁxed. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Relevant market dynamics and costs differ across the described regimes. 
+B. False – The underlying claim is correct: Values estimated under old relationships need not represent current expected 
+returns. 
+C. False – The underlying claim is correct: Shifts in inputs and outcomes can signal that historical assumptions no longer 
+hold. 
+D. True – The underlying claim is incorrect: A frozen policy does not adapt to changed dynamics. 
+E. True – The underlying claim is incorrect: Past success is compatible with a changing market process.
+
+[ML2-D7G7Q2] 
+A desk considers two responses to changing markets. Plan A retrains quarterly on a rolling historical window and deploys 
+only after validation. Plan B keeps learning online from live rewards with continuing exploration and immediately uses 
+each updated Q-table. 
+ 
+A. Rolling retraining can discard older observations while emphasizing more recent regimes. 
+B. Online adaptation may respond sooner but can change live behavior as new, noisy rewards arrive. 
+C. Continuing exploration in production can cause deliberately non-greedy trades with real ﬁnancial consequences. 
+ 
+ 534 Rev:081020261230 
+D. Either plan guarantees improvement because newer data are always more representative than older data. 
+E. Validation and risk controls are unnecessary for Plan B because its updates occur online. 
+ 
+Answer Key: 
+ 
+A. True – A rolling window changes the evidence used to estimate the policy. 
+B. True – Incremental updates improve responsiveness but may also introduce instability. 
+C. True – Exploratory actions can incur losses, costs, or constraint concerns in live trading. 
+D. False – Recent data can be noisy, temporary, or insufficient for reliable learning. 
+E. False – Online adaptation creates additional reasons to monitor and constrain behavior.
+
+[ML2-D7G7Q3] 
+A policy's monthly turnover and selected actions remain nearly unchanged for a year, but its net returns deteriorate 
+steadily. The manager concludes that the policy is stable and therefore the environment cannot have changed. 
+ 
+A. Stable action choices do not prove that the rewards resulting from those actions are stationary. 
+B. Return deterioration can occur even if the policy itself is unchanged. 
+C. Unchanged turnover proves that transaction costs and market impact are unchanged. 
+D. Policy stability alone establishes that retraining would improve performance. 
+E. Comparing recent and historical state-action outcomes is unnecessary when the policy's action choices are stable. 
+ 
+Answer Key: 
+ 
+A. True – The same behavior can produce different results when market relationships change. 
+B. True – A ﬁxed policy can lose effectiveness under new dynamics. 
+C. False – Liquidity, spreads, and impact can change even at the same trade frequency. 
+D. False – Retraining may help or harm; it must be assessed rather than assumed. 
+E. False – Outcome comparisons can reveal shifts in the reward or transition process even when chosen actions remain 
+stable. 
+ 
+  
+ 
+ 535 Rev:081020261230 
+Domain 8: Comparative Strategy Learning and Evaluation 
+Domain Summary 
+ Q-Learners versus supervised learners 
+ Policy learning versus prediction 
+ Rewards versus labels 
+ Interaction versus batch learning 
+ Shared features 
+ Fair comparison 
+ Benchmarks 
+ Manual strategies 
+ In-sample and out-of-sample evaluation 
+Topic Groups 
+G1: Q-Learner vs. Decision-Tree Strategy Learner 
+ 
+Sequential policy learning versus supervised prediction 
+Rewards versus target labels 
+Exploration versus ﬁxed training data 
+Differences in outputs and training process 
+G2: Direct Policy Learning vs. Predict-Then-Trade 
+ 
+Learning actions directly 
+Predicting returns and then applying a trading rule 
+Separation between forecast and execution 
+Advantages and limitations of each approach 
+G3: Labels, Rewards, and Learning Signals 
+ 
+Explicit target values in supervised learning 
+Delayed reward in RL 
+ 
+ 536 Rev:081020261230 
+Credit assignment 
+How the learning signal changes model behavior 
+G4: Batch Learning vs. Interactive Learning 
+ 
+Fixed historical dataset 
+Sequential interaction 
+Repeated passes through data 
+Whether historical market simulation is genuinely interactive 
+G5: Shared Features and Fair Inputs 
+ 
+Using identical indicators 
+Controlling information availability 
+Avoiding unfair feature advantages 
+Comparing learner behavior rather than data access 
+G6: Fair Strategy Comparison 
+ 
+Same trading period 
+Same starting capital 
+Same transaction costs 
+Same benchmark 
+Same performance metrics 
+G7: Manual, Supervised, and RL Strategy Evaluation 
+ 
+Manual strategy as a benchmark 
+Learner performance 
+In-sample versus out-of-sample comparison 
+Statistical and economic signiﬁcance 
+Interpreting disagreement among strategies 
+ 
+ 537 Rev:081020261230 
+G1: Q-Learner vs. Decision-Tree Strategy Learner

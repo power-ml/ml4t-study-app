@@ -1,0 +1,601 @@
+Domain 1: Financial Time Series and Market Data Behavior
+
+[QF2-D1G1Q1] 
+A multi-asset fund is comparing a $25 stock with a $500 stock. After both securities rise by $5 in one week, the portfolio 
+manager argues that they provided the same investment performance because their dollar price changes were identical. 
+The risk team must select a representation that supports meaningful comparisons across securities with different price 
+levels. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The $25 stock had the larger percentage return. ” 
+B. The following statement is incorrect: “The identical dollar changes imply identical investment performance for equal-
+dollar positions. ” 
+C. The following statement is incorrect: “Percentage returns are generally more comparable across securities than raw 
+dollar price changes. ” 
+D. The following statement is incorrect: “The higher price level of the $500 stock proves that it is riskier. ” 
+E. The following statement is incorrect: “Modeling price changes without accounting for starting price can distort cross-
+security comparisons. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. A $5 gain is 20% of $25 but only 1% of $500. 
+B. True – The quoted statement is incorrect. Equal-dollar positions earn according to percentage return, which differs 
+substantially here. 
+C. False – The quoted statement is correct. Returns express changes relative to the amount invested and reduce 
+dependence on arbitrary price scale. 
+D. True – The quoted statement is incorrect. A security's quoted price alone does not establish its economic risk. 
+E. False – The quoted statement is correct. The same dollar move has very different signiﬁcance at different starting 
+prices.
+
+[QF2-D1G1Q2] 
+A wealth manager is validating a two-day backtest. An asset rises 10% on day one and falls 10% on day two, and the client 
+assumes the changes cancel so that the investment ﬁnishes unchanged. The analyst is asked to explain how return 
+deﬁnitions and compounding affect the result. 
+ 
+A. The ﬁnal wealth from a $100 investment is $99 before costs. 
+B. The two simple returns sum to zero even though the compounded return is negative. 
+ 
+ 589 Rev:081020261230 
+C. Adding simple returns always gives the correct multi-period cumulative return. 
+D. Continuously compounded log returns are additive across adjacent periods when prices are positive. 
+E. Using log returns instead of simple returns would make the investor's actual ending wealth equal to $100. 
+ 
+Answer Key: 
+ 
+A. True – The path is $100 × 1.10 × 0.90 = $99. 
+B. True – The arithmetic sum is zero, while the compounded return is −1%. 
+C. False – Multi-period simple returns must generally be geometrically compounded. 
+D. True – Each log return is a log price difference, so adjacent-period differences telescope when summed. 
+E. False – Changing the return representation does not change the underlying investment outcome.
+
+[QF2-D1G1Q3] 
+A research team plots two stocks by dividing each price series by its own value on the ﬁrst day, giving both a starting value 
+of 1.0. The chief investment officer likes the visual comparison but wants to know what information the transformation 
+preserves and what it removes. The chart will be used to discuss cumulative performance, not to infer risk from price 
+levels. 
+ 
+A. A normalized value of 1.25 means the security is 25% above its own starting price. 
+B. Normalizing both series to 1.0 makes their future daily returns identical. 
+C. The transformation removes the difference in their initial quoted price levels. 
+D. A security ending at 1.30 outperformed one ending at 1.20 over the displayed interval, assuming both series use the 
+same dates and no distributions or other adjustments are omitted. 
+E. Normalization by itself makes a nonstationary price process stationary. 
+ 
+Answer Key: 
+ 
+A. True – The normalized value directly represents price relative to the chosen starting value. 
+B. False – Rescaling price levels does not alter or equalize subsequent percentage changes. 
+C. True – Both paths receive a common baseline, making relative growth easier to compare. 
+D. True – The corresponding cumulative gains are 30% and 20% under the stated assumptions. 
+E. False – Rescaling does not eliminate trends, structural breaks, or other sources of nonstationarity. 
+ 
+ 
+ 590 Rev:081020261230 
+G2: Temporal Dependence and Lagged Relationships
+
+[QF2-D1G2Q1] 
+A futures desk ﬁnds that daily returns have a sample lag-one autocorrelation of −0.18. The head trader immediately 
+proposes buying after every down day and selling after every up day, while the research lead warns that an estimated 
+historical relationship is not automatically a tradable edge. The team must consider both statistical uncertainty and 
+implementation costs. 
+ 
+A. A negative lag-one autocorrelation is consistent with short-horizon reversal in the sample. 
+B. The estimate proves that tomorrow's return will have the opposite sign from today's return. 
+C. Statistical uncertainty can be substantial even when the estimated autocorrelation is not zero. 
+D. Bid-ask effects or other market microstructure features can contribute to measured short-lag autocorrelation. 
+E. A statistically credible negative autocorrelation guarantees positive net strategy returns. 
+ 
+Answer Key: 
+ 
+A. True – Negative serial correlation means adjacent returns tended to move oppositely in the observed sample. 
+B. False – Autocorrelation describes an average relationship, not a deterministic outcome for each day. 
+C. True – The estimate must be evaluated relative to sampling variability and the number of observations. 
+D. True – Recorded transaction prices and trading mechanics can create apparent short-horizon dependence. 
+E. False – Forecast strength, turnover, spreads, slippage, and stability all affect realizable proﬁtability.
+
+[QF2-D1G2Q2] 
+An international equity team observes that moves in Market A appear to precede similar moves in Market B. Because 
+Market A closes before Market B, the researcher uses Market A's close-to-close return to predict Market B's subsequent 
+session. The portfolio manager asks whether the apparent lead-lag relationship is genuine and usable rather than an 
+artifact of timestamps. 
+ 
+A. Market closing times must be aligned before interpreting the lead-lag relationship. 
+B. Using information that was not yet available at the proposed trade time would create look-ahead bias. 
+C. A contemporaneous correlation alone establishes which market causes the other to move. 
+D. A stable lead-lag relationship could potentially support forecasting even if same-period correlation is imperfect. 
+E. Reversing the chronological order of the observations would leave all lagged interpretations unchanged. 
+ 
+ 
+ 591 Rev:081020261230 
+Answer Key: 
+ 
+A. True – Calendar labels can obscure the actual information sequence across different trading hours. 
+B. True – A backtest cannot allow a decision to use a market close that occurs after that decision. 
+C. False – Correlation does not establish direction, timing, or causality. 
+D. True – Predictive value depends on whether earlier observations contain information about later outcomes. 
+E. False – Lag direction is deﬁned by chronological order, so reversing it changes the relationship being tested.
+
+[QF2-D1G2Q3] 
+A machine-learning team randomly shuffles all daily observations before splitting them into training and test sets. The 
+lead data scientist says this is standard practice because the model needs independent examples; the risk officer is 
+concerned that the series contains persistent conditions and lagged features. The goal is to estimate how the model 
+would perform when deployed on future, unseen dates. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Random shuffling can allow observations from later market periods to inﬂuence 
+model selection for earlier test observations. ” 
+B. The following statement is incorrect: “A chronological split more closely resembles training on the past and deploying 
+into the future. ” 
+C. The following statement is incorrect: “If lagged features are present, observation order is irrelevant once the feature 
+table has been constructed. ” 
+D. The following statement is incorrect: “Nearby dates placed across training and test sets may share regime information 
+and make performance appear more stable than it is. ” 
+E. The following statement is incorrect: “A time-aware evaluation can still use multiple folds, provided each fold respects 
+the direction of time. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The training set can contain future regimes relative to dates assigned to the 
+test set. 
+B. False – The quoted statement is correct. This preserves the information ﬂow faced during actual deployment. 
+C. True – The quoted statement is incorrect. Ordering remains central to leakage control, temporal dependence, and the 
+meaning of a forecast. 
+D. False – The quoted statement is correct. Dependence among neighboring observations weakens the effective 
+separation between randomly mixed sets. 
+ 
+ 592 Rev:081020261230 
+E. False – The quoted statement is correct. Walk-forward or expanding-window schemes can provide repeated tests 
+without training on the future. 
+ 
+G3: Rolling Windows and Time-Varying Statistics
+
+[QF2-D1G3Q1] 
+A quant researcher compares a 20-day rolling volatility estimate with a 120-day estimate. The portfolio manager wants a 
+risk measure that reacts quickly to changing market conditions but is concerned about noise. The team will use the 
+estimate to adjust exposure during both ordinary and rapidly changing markets. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The 20-day estimate will usually react faster to recent volatility changes. ” 
+B. The following statement is incorrect: “The 120-day estimate will usually be more stable. ” 
+C. The following statement is incorrect: “A shorter rolling window is always superior for risk management. ” 
+D. The following statement is incorrect: “The choice of window creates a tradeoff between responsiveness and stability. ” 
+E. The following statement is incorrect: “Both estimates may become misleading after a structural regime change. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Shorter windows place more weight on recent observations. 
+B. False – The quoted statement is correct. Longer windows smooth short-term ﬂuctuations. 
+C. True – The quoted statement is incorrect. Faster reaction may come with greater estimation noise. 
+D. False – The quoted statement is correct. This is the central window-length tradeoff. 
+E. False – The quoted statement is correct. Historical estimates may fail when the underlying process changes.
+
+[QF2-D1G3Q2] 
+A risk-parity fund estimates the rolling correlation between equities and bonds. The 60-day estimate changes from −0.35 
+to +0.25 during a stressed market, but the chief risk officer cautions against treating either value as a permanent property 
+of the assets. Portfolio allocations must balance recent evidence with estimation uncertainty. 
+ 
+A. A positive recent rolling correlation indicates that the two assets tended to move together over that window. 
+B. The change in estimated correlation can alter the diversiﬁcation expected from holding both assets. 
+C. Once the rolling correlation becomes positive, the two assets are guaranteed to rise and fall together every day. 
+D. A longer window may react more slowly if the relationship between the assets changes abruptly. 
+ 
+ 593 Rev:081020261230 
+E. Selecting a window only because it produced the best historical portfolio result can introduce overﬁtting. 
+ 
+Answer Key: 
+ 
+A. True – Positive correlation reﬂects a tendency toward same-direction co-movement, not perfect agreement. 
+B. True – Higher correlation generally reduces the diversiﬁcation beneﬁt, all else equal. 
+C. False – A correlation of +0.25 is neither perfect nor deterministic. 
+D. True – Older observations remain in a longer estimate and can dilute recent changes. 
+E. True – Optimizing the lookback on realized performance can ﬁt sample-speciﬁc noise.
+
+[QF2-D1G3Q3] 
+A trading model buys when price falls more than two rolling standard deviations below its 30-day moving average. During 
+implementation, an analyst calculates each day's mean and standard deviation using a centered window containing 15 
+prior days and 15 future days. The head of research asks whether the backtest can represent a strategy that trades at 
+each day's close. 
+ 
+A. The centered calculation uses information unavailable at the historical decision time. 
+B. The resulting backtest is exposed to look-ahead bias. 
+C. Replacing the centered window with a trailing window would better match real-time availability. 
+D. A 30-observation rolling statistic is fully deﬁned from the ﬁrst observation without any initialization policy. 
+E. Shifting a correctly computed trailing signal to ensure it precedes the measured return may be necessary, depending 
+on the stated trading time. 
+ 
+Answer Key: 
+ 
+A. True – Future observations enter the statistic used for the current decision. 
+B. True – The strategy is evaluated with knowledge it could not have possessed live. 
+C. True – A trailing window can be computed from current and past observations only. 
+D. False – Early dates lack a complete window unless the implementation permits shorter warm-up windows or missing 
+values. 
+E. True – Feature and return timestamps must reﬂect whether the trade occurs before or after the price used in the signal. 
+ 
+ 
+ 594 Rev:081020261230 
+G4: Trend, Momentum, and Mean Reversion
+
+[QF2-D1G4Q1] 
+A commodity fund observes that contracts with positive returns over the past six months often continue to outperform 
+over the next month. The portfolio manager calls this momentum and wants to increase exposure, but the risk committee 
+notes that the behavior may depend on horizon and market regime. The fund also faces losses if trends reverse suddenly. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The observed pattern is consistent with return continuation at the tested 
+horizons. ” 
+B. The following statement is incorrect: “The result implies that every contract with a positive six-month return will gain in 
+the next month. ” 
+C. The following statement is incorrect: “A momentum strategy can suffer when established trends reverse sharply. ” 
+D. The following statement is incorrect: “Evidence of medium-horizon momentum rules out short-horizon mean reversion 
+in the same market. ” 
+E. The following statement is incorrect: “The relationship should be tested out of sample before being treated as stable 
+predictive structure. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Past winners continuing to outperform is the behavior momentum seeks to 
+exploit. 
+B. True – The quoted statement is incorrect. Momentum is a probabilistic tendency and does not determine each 
+outcome. 
+C. False – The quoted statement is correct. Reversals can rapidly turn positions based on past trends into losses. 
+D. True – The quoted statement is incorrect. Continuation and reversal can coexist at different horizons or under different 
+conditions. 
+E. False – The quoted statement is correct. Sample-speciﬁc trends can reﬂect noise, selection, or a temporary regime.
+
+[QF2-D1G4Q2] 
+A market-neutral desk trades a pair of historically related stocks when their price spread moves far from its rolling 
+average. The researcher expects the spread to return toward the average, while the portfolio manager worries that a 
+merger, product failure, or ﬁnancing event could permanently alter the relationship. The desk must distinguish temporary 
+divergence from a changed economic equilibrium. 
+ 
+A. The proposed trade relies on mean reversion in the spread rather than necessarily in each stock's price. 
+ 
+ 595 Rev:081020261230 
+B. A wide historical deviation guarantees that the spread will converge. 
+C. A structural change can cause the old rolling mean to become a poor estimate of the spread's current equilibrium. 
+D. Extending the lookback window always protects the strategy from structural breaks. 
+E. An economically grounded relationship between the securities can strengthen the case for testing the spread, but it 
+does not eliminate model risk. 
+ 
+Answer Key: 
+ 
+A. True – The signal concerns the relative relationship between the two stocks. 
+B. False – The spread may continue diverging or settle around a new level. 
+C. True – Historical observations may describe a relationship that no longer applies. 
+D. False – A longer window can retain obsolete data and delay recognition of a new regime. 
+E. True – Economic rationale helps distinguish a plausible mechanism from a purely mined pattern, but cannot assure 
+convergence.
+
+[QF2-D1G4Q3] 
+After a sudden 8% price jump on unusually high volume, two researchers recommend opposite trades. One interprets 
+the move as the beginning of a persistent trend; the other expects a temporary overreaction followed by reversal. The 
+investment committee asks what can reasonably be concluded from the price move alone while limiting exposure to an 
+incorrect interpretation. 
+ 
+A. The same observed move can support competing momentum and mean-reversion hypotheses. 
+B. Price history alone guarantees which mechanism generated the move. 
+C. Conditional evidence, such as the event type, liquidity, horizon, and prior regime, may help distinguish the hypotheses. 
+D. A strategy that works after average price moves must also work after large event-driven jumps. 
+E. Position limits or staged entry can reduce the consequence of committing too strongly to either uncertain 
+interpretation. 
+ 
+Answer Key: 
+ 
+A. True – Continuation and reversal models assign different meanings to the same initial move. 
+B. False – A price path does not uniquely identify its generating mechanism. 
+C. True – Context can affect whether a movement is likely to persist or reverse. 
+D. False – Event-driven observations may have different dynamics from ordinary moves. 
+ 
+ 596 Rev:081020261230 
+E. True – Risk controls can address uncertainty without claiming to resolve it. 
+ 
+G5: Stationarity and Nonstationarity
+
+[QF2-D1G5Q1] 
+A forecasting team ﬁts a model directly to the price level of an equity index that has trended upward for decades. It reports 
+an excellent in-sample ﬁt, and the sponsor assumes that the stable-looking residual plot proves the forecast will 
+generalize. The validation team is concerned that the apparent relationship may arise from common trends rather than 
+persistent predictive structure. 
+ 
+A. A trending price level may have a mean that changes through time. 
+B. High in-sample ﬁt between trending series can occur without a useful forecasting relationship. 
+C. Transforming prices into returns can sometimes produce a more stable series, but it does not guarantee stationarity. 
+D. A nonstationary input necessarily makes every possible trading strategy unproﬁtable. 
+E. Out-of-sample testing across different periods can expose dependence on a particular historical trend. 
+ 
+Answer Key: 
+ 
+A. True – A changing level is inconsistent with a constant unconditional mean. 
+B. True – Shared trends can create strong-looking but spurious ﬁts. 
+C. True – Return transformations often remove level trends, while variance, regimes, or other properties may still change. 
+D. False – Nonstationarity creates modeling challenges but does not determine strategy proﬁtability. 
+E. True – Performance that vanishes outside the ﬁtted period is evidence against a stable relationship.
+
+[QF2-D1G5Q2] 
+A credit strategy was calibrated during years of low interest rates and low default activity. After a policy shift, rates and 
+credit spreads move to persistently higher ranges, yet the portfolio manager continues using the original model 
+parameters because the training sample is much larger than the new sample. The risk officer asks how a structural break 
+should affect conﬁdence in the old estimates. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “A large historical sample can estimate an obsolete regime very precisely. ” 
+B. The following statement is incorrect: “More observations always compensate for a change in the data-generating 
+process. ” 
+ 
+ 597 Rev:081020261230 
+C. The following statement is incorrect: “A structural break can change the relevance of observations collected before 
+the break. ” 
+D. The following statement is incorrect: “Rolling or regime-aware estimation may adapt faster, but can introduce greater 
+estimation noise. ” 
+E. The following statement is incorrect: “Comparing parameter estimates before and after the suspected break can help 
+diagnose instability. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Low sampling error does not ensure that the estimated relationship still 
+applies. 
+B. True – The quoted statement is incorrect. Data from a different regime may be systematically misleading rather than 
+merely noisy. 
+C. False – The quoted statement is correct. The pre-break distribution or relationships may no longer describe current 
+conditions. 
+D. False – The quoted statement is correct. Focusing on newer or regime-matched observations trades sample size for 
+relevance. 
+E. False – The quoted statement is correct. Material changes in estimates provide evidence that a constant-parameter 
+assumption may be unsuitable.
+
+[QF2-D1G5Q3] 
+A long-short fund assumes that the mean and variance of its daily strategy returns are constant. A review ﬁnds that 
+average return declined after competitors adopted similar signals, while volatility rose after a market-structure change. 
+The chief investment officer wants a single historical Sharpe ratio for capital allocation but also wants an honest 
+assessment of current performance. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Pooling all periods into one estimate can conceal time variation in both return 
+and risk. ” 
+B. The following statement is incorrect: “If the full-sample average return is positive, the current expected return must 
+also be positive. ” 
+C. The following statement is incorrect: “Changes in competition can contribute to nonstationarity in an alpha strategy. ” 
+D. The following statement is incorrect: “Subperiod and rolling analyses can reveal instability that a full-sample statistic 
+hides. ” 
+E. The following statement is incorrect: “Detecting a change in sample statistics by itself identiﬁes the exact economic 
+cause of the change. ” 
+ 
+ 
+ 598 Rev:081020261230 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. A single summary blends observations generated under different conditions. 
+B. True – The quoted statement is incorrect. A favorable earlier regime can dominate the full-sample average even after 
+current performance deteriorates. 
+C. False – The quoted statement is correct. Replication and crowding can alter the payoff to a formerly effective signal. 
+D. False – The quoted statement is correct. Time-local estimates show whether performance is concentrated in particular 
+intervals. 
+E. True – The quoted statement is incorrect. Statistical change can ﬂag instability, but causal attribution requires 
+additional evidence. 
+ 
+G6: Volatility Clustering and Regime Behavior
+
+[QF2-D1G6Q1] 
+An options market maker notices that large absolute returns tend to occur near other large absolute returns, even though 
+the signs of successive returns are difficult to predict. The desk's risk limit currently assumes the same volatility every 
+day. The head of risk is deciding whether recent market turbulence should affect tomorrow's exposure. 
+ 
+A. The observation is consistent with volatility clustering. 
+B. Weak autocorrelation in signed returns rules out persistence in squared or absolute returns. 
+C. Volatility clustering can make a constant-volatility risk estimate slow to reﬂect changing conditions. 
+D. Predictability of return magnitude necessarily implies predictability of return direction. 
+E. Reducing exposure after volatility rises can be a risk-control response even without a directional forecast. 
+ 
+Answer Key: 
+ 
+A. True – High-magnitude and low-magnitude periods appearing in clusters are a hallmark of persistent volatility. 
+B. False – Dependence in volatility can exist even when signed returns have little serial correlation. 
+C. True – A single unconditional estimate can understate risk in turbulent periods and overstate it in calm ones. 
+D. False – Forecasting the size of a move is distinct from forecasting its sign. 
+E. True – Exposure can be scaled to risk independently of a bullish or bearish view. 
+ 
+ 
+ 599 Rev:081020261230
+
+[QF2-D1G6Q2] 
+A volatility-targeting fund increases leverage during a long calm period because measured volatility has fallen. A sudden 
+crisis then causes correlations and volatility to rise together, and the chief risk officer questions whether the fund's recent 
+estimates created hidden vulnerability. The fund must manage risk without assuming that the calm regime will continue 
+indeﬁnitely. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Low recent volatility can lead a volatility-targeting rule to take more exposure. ” 
+B. The following statement is incorrect: “If volatility were constant, a transition from a low-volatility state to a high-
+volatility state could not occur within that model. ” 
+C. The following statement is incorrect: “A sudden transition from a calm to a crisis regime can leave the fund 
+overexposed before its estimates catch up. ” 
+D. The following statement is incorrect: “Rising cross-asset correlations during stress can reduce diversiﬁcation at the 
+same time individual asset risk rises. ” 
+E. The following statement is incorrect: “Using a shorter volatility window eliminates all risk from abrupt regime 
+transitions. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Targeting a ﬁxed risk level commonly permits larger positions when estimated 
+volatility is low. 
+B. False – The quoted statement is correct. A constant-volatility model excludes changes in the volatility state as an 
+assumption, even though reality may violate it. 
+C. False – The quoted statement is correct. Backward-looking estimates may initially understate the new level of risk. 
+D. False – The quoted statement is correct. Simultaneous increases in volatility and correlation can compound portfolio 
+losses. 
+E. True – The quoted statement is incorrect. Faster adaptation still occurs after some evidence arrives and cannot 
+anticipate every discontinuous change.
+
+[QF2-D1G6Q3] 
+A systematic equity strategy performs well in steadily rising, low-volatility markets but loses during abrupt, high-volatility 
+reversals. The investment committee has been shown only full-period average performance, while the chief investment 
+officer wants to understand whether returns compensate the portfolio for regime-dependent risk. The research team 
+separates results into calm, stressed, trending, and reversing periods. 
+ 
+A. Full-period averages can conceal poor performance concentrated in a crisis regime. 
+B. Strong performance in the most common regime guarantees acceptable maximum drawdown. 
+ 
+ 600 Rev:081020261230 
+C. Regime-conditioned analysis can reveal that the strategy's behavior depends on market state. 
+D. Deﬁning regimes after seeing the strategy's losses can create selection and overﬁtting concerns. 
+E. A strategy that is sensitive to regimes must necessarily be discarded rather than combined with controls or 
+complementary strategies. 
+ 
+Answer Key: 
+ 
+A. True – Aggregation can obscure when and under what conditions losses occur. 
+B. False – Rare stressed periods can dominate drawdown despite good results during normal markets. 
+C. True – Segmenting performance can expose conditional strengths and vulnerabilities. 
+D. True – Post hoc boundaries may be chosen to tell a favorable story and require independent validation. 
+E. False – Exposure scaling, diversiﬁcation, hedging, or explicit regime handling may mitigate the sensitivity. 
+ 
+G7: Information Decay and Signal-to-Noise
+
+[QF2-D1G7Q1] 
+A news-based signal predicts returns most strongly during the ﬁrst 20 minutes after publication, but the portfolio is 
+rebalanced only at the next day's close. The research director argues that the signal is valid because the original event 
+study showed a statistically signiﬁcant forecast. The trading team must decide whether the information remains useful 
+by the time it can act. 
+ 
+A. A signal can be statistically valid at one horizon but unusable at a later execution time. 
+B. Delayed rebalancing can allow other market participants to incorporate the information ﬁrst. 
+C. Statistical signiﬁcance at 20 minutes guarantees positive next-day net returns. 
+D. Faster decay generally increases the importance of data, decision, and execution latency. 
+E. The appropriate return target should match the period over which the signal is expected to retain information. 
+ 
+Answer Key: 
+ 
+A. True – Predictive power is horizon-speciﬁc and may disappear before the trade occurs. 
+B. True – Competition and price adjustment can erode the opportunity. 
+C. False – Predictiveness need not persist to the next day or survive implementation costs. 
+D. True – Delay consumes a larger share of the useful life of a short-lived signal. 
+E. True – Horizon alignment is required to evaluate and use the forecast coherently. 
+ 
+ 601 Rev:081020261230
+
+[QF2-D1G7Q2] 
+A quant team tests 2,000 randomly generated indicators and promotes the one with the highest in-sample Sharpe ratio. 
+The selected indicator has no economic rationale, but its backtest looks much stronger than the ﬁrm's existing models. 
+The chief investment officer asks whether searching many alternatives changes how the result should be interpreted. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Testing many noisy candidates increases the chance that at least one will look 
+successful by luck. ” 
+B. The following statement is incorrect: “Selecting the best in-sample indicator leaves its reported performance 
+unbiased. ” 
+C. The following statement is incorrect: “A held-out test set can provide evidence about whether the selected pattern 
+generalizes. ” 
+D. The following statement is incorrect: “Repeatedly checking the same test set while revising the indicator can turn that 
+test set into part of the selection process. ” 
+E. The following statement is incorrect: “Lack of an economic rationale proves that the indicator has no predictive value. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Multiple testing creates extreme apparent winners even when candidates 
+contain no genuine signal. 
+B. True – The quoted statement is incorrect. Winner selection makes the reported in-sample estimate optimistically 
+biased. 
+C. False – The quoted statement is correct. Data excluded from selection offers a more credible assessment of unseen 
+performance. 
+D. False – The quoted statement is correct. Adaptive reuse leaks information from the test results into model 
+development. 
+E. True – The quoted statement is incorrect. Economic rationale affects plausibility and conﬁdence, but predictive value 
+is an empirical question.
+
+[QF2-D1G7Q3] 
+A low-turnover signal produces a small but consistent forecast across hundreds of securities. A competing high-
+frequency signal shows a larger gross forecast but decays within seconds and requires substantial trading. The portfolio 
+manager wants to choose solely by the magnitude of each signal's historical return prediction, while the head trader 
+emphasizes realizability. 
+ 
+ 
+ 602 Rev:081020261230 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “A larger gross forecast need not produce a larger net return. ” 
+B. The following statement is incorrect: “Signal decay and trading cost should be evaluated together when comparing the 
+opportunities. ” 
+C. The following statement is incorrect: “A persistent signal may remain useful with slower execution even if its 
+instantaneous forecast is smaller. ” 
+D. The following statement is incorrect: “High-frequency observations automatically provide independent evidence 
+because there are more rows of data. ” 
+E. The following statement is incorrect: “A weak signal observed repeatedly can still be valuable if it is sufficiently stable, 
+scalable, and inexpensive to implement. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Latency, turnover, spread, slippage, and impact can consume a large forecast. 
+B. False – The quoted statement is correct. The signal must survive long enough to be captured at an economically 
+acceptable cost. 
+C. False – The quoted statement is correct. A longer useful life can make implementation easier and less costly. 
+D. True – The quoted statement is incorrect. Nearby observations may be highly dependent, so row count can overstate 
+effective information. 
+E. False – The quoted statement is correct. Realizable value depends on repeatability and implementation as well as 
+forecast magnitude. 
+ 
+  
+ 
+ 603 Rev:081020261230 
+Domain 2: Technical Indicators and Signal Construction 
+Domain Summary 
+ Price- and volume-based indicators 
+ Moving averages 
+ Momentum 
+ Bollinger Bands 
+ Relative-strength-style indicators 
+ Normalization 
+ Lookback periods 
+ Thresholds 
+ Indicator lag 
+ Signal combination 
+ Redundancy 
+ Indicator versus strategy 
+Topic Groups 
+G1: Moving Averages and Trend Measures 
+ Simple and exponential moving averages 
+ Crossovers 
+ Smoothing 
+ Lag introduced by averaging 
+ Trend identiﬁcation 
+G2: Momentum and Rate-of-Change Indicators 
+ Recent price continuation 
+ Lookback choice 
+ Positive and negative momentum 
+ Sensitivity to extreme moves 
+ Momentum breakdowns 
+ 
+ 604 Rev:081020261230 
+G3: Bollinger Bands and Volatility-Based Indicators 
+ Rolling mean and standard deviation 
+ Relative position within a band 
+ Volatility expansion and contraction 
+ Threshold interpretation 
+ Mean-reversion assumptions 
+G4: Relative Strength and Oscillator-Style Indicators 
+ Overbought and oversold interpretations 
+ Bounded indicators 
+ Reversal signals 
+ Trend persistence 
+ Risks of treating thresholds mechanically 
+G5: Indicator Normalization and Comparability 
+ Scaling indicators across securities 
+ Ranking 
+ Z-scores 
+ Different price levels and volatilities 
+ Avoiding dominance by scale 
+G6: Lookback Windows, Lag, and Responsiveness 
+Short versus long windows 
+Noise sensitivity 
+Delayed reactions 
+Stability versus responsiveness 
+Parameter sensitivity 
+G7: Combining Indicators into Trading Signals 
+ Conﬁrmation across indicators 
+ Conﬂicting signals 
+ Redundant indicators 
+ Threshold-based actions 
+ 
+ 605 Rev:081020261230 
+ Why indicator quality does not guarantee strategy proﬁtability 
+G1: Moving Averages and Trend Measures

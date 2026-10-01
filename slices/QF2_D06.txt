@@ -1,0 +1,571 @@
+Domain 6: Strategy Evaluation and Performance Attribution
+
+[QF2-D6G1Q1] 
+A long-only U.S. equity strategy holds large-cap stocks and remains nearly fully invested. During the test period, it earns 
+12%, cash earns 3%, and a broad large-cap index earns 11%. The researcher reports only the comparison with cash. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Cash is a useful reference for the return available with little market exposure. ” 
+B. The following statement is incorrect: “The broad large-cap index is relevant because it resembles the strategy's 
+investment universe and market exposure. ” 
+C. The following statement is incorrect: “Beating cash by 9 percentage points proves that stock selection added 9 
+percentage points of value. ” 
+D. The following statement is incorrect: “Reporting only the weaker cash benchmark can make the strategy's relative 
+performance appear more impressive. ” 
+E. The following statement is incorrect: “The strategy's 1-percentage-point advantage over the index is automatically 
+statistically signiﬁcant. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Cash provides a reference for low-risk opportunity cost, although it does not 
+match the strategy's equity risk. 
+B. False – The quoted statement is correct. A comparable equity index helps separate general market gains from strategy-
+speciﬁc value. 
+C. True – The quoted statement is incorrect. Much of the return may result from ordinary equity-market exposure rather 
+than selection skill. 
+D. False – The quoted statement is correct. The strategy beats cash by 9 points but the comparable equity index by only 
+1 point. 
+E. True – The quoted statement is incorrect. Signiﬁcance depends on the variability, dependence, and number of relative-
+return observations.
+
+[QF2-D6G1Q2] 
+A researcher evaluates a learned trading policy against two alternatives: buying and holding the traded asset and a 
+transparent moving-average strategy with similar long/short permissions. All strategies begin with the same capital and 
+are evaluated over the same dates using the same cost assumptions. 
+ 
+ 
+ 674 Rev:081020261230 
+A. Buy-and-hold helps reveal whether the learned policy improves on passive exposure to the asset. 
+B. The moving-average strategy can reveal whether added model complexity improves on a simpler active rule. 
+C. Using identical dates and cost assumptions improves the fairness of the comparison. 
+D. If the learned policy beats buy-and-hold, comparing it with the manual strategy becomes unnecessary. 
+E. A benchmark should be chosen solely because it has the lowest return in the test period. 
+ 
+Answer Key: 
+ 
+A. True – Buy-and-hold is a natural passive alternative for the same asset. 
+B. True – A simple active benchmark tests whether learning adds value beyond an implementable rule. 
+C. True – Common evaluation conditions reduce differences caused by timing or accounting choices. 
+D. False – The learned policy may beat passive exposure yet fail to outperform a simpler active strategy. 
+E. False – Benchmark relevance should be determined by the decision problem, opportunity set, and risk, not realized 
+weakness.
+
+[QF2-D6G1Q3] 
+A market-neutral long-short strategy is compared only with the S&P 500. The strategy earns 7% with near-zero estimated 
+market beta while the index earns 5%. The risk-free rate is 3%. A reviewer proposes also comparing the strategy with cash 
+and a market-neutral factor benchmark. 
+ 
+A. The S&P 500 alone may be a poor risk match for a strategy designed to have near-zero market beta. 
+B. Cash is relevant because the strategy is intended to generate return without relying on broad market direction. 
+C. A market-neutral factor benchmark may help identify whether known factor exposures explain the return. 
+D. Because the strategy earned more than the index, its market neutrality caused the extra 2% return. 
+E. Multiple relevant benchmarks can provide more informative evaluation than a single convenient benchmark. 
+ 
+Answer Key: 
+ 
+A. True – The index carries substantial equity beta whereas the strategy is designed not to. 
+B. True – Cash provides a useful opportunity-cost reference for a low-beta strategy. 
+C. True – Matching factor exposures can distinguish novel performance from compensation for known systematic risks. 
+D. False – A return difference alone does not identify its cause or establish skill. 
+E. True – Different benchmarks can test passive opportunity cost, systematic exposure, and active implementation. 
+ 
+ 
+ 675 Rev:081020261230 
+G2: In-Sample vs. Out-of-Sample Evaluation
+
+[QF2-D6G2Q1] 
+A team uses 2015–2021 data to choose indicators, lookback periods, and trading thresholds. It freezes the resulting 
+strategy and evaluates it once on untouched 2022–2024 data. 
+ 
+A. The 2015–2021 period is in-sample because it inﬂuenced strategy design. 
+B. The untouched 2022–2024 period is out-of-sample for the frozen strategy. 
+C. Strong in-sample performance alone establishes that the strategy generalizes. 
+D. Freezing the design before examining the test results helps preserve the test's evidentiary value. 
+E. Out-of-sample performance can be worse because in-sample choices may have ﬁt noise or transient relationships. 
+ 
+Answer Key: 
+ 
+A. True – Data used for selection or tuning are part of the model-development sample. 
+B. True – Those observations did not inform the frozen speciﬁcation. 
+C. False – In-sample success may reﬂect overﬁtting and must be checked on unseen data. 
+D. True – It prevents test-period results from feeding back into the evaluated version. 
+E. True – Financial patterns can be noisy, unstable, or accidentally ﬁtted during development.
+
+[QF2-D6G2Q2] 
+A researcher tests 500 parameter combinations on 2018–2023 data and selects the one with the highest Sharpe ratio. 
+After seeing weak results on 2024 data, the researcher changes two parameters and reports the improved 2024 
+performance as out-of-sample. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Selecting the best of 500 variants creates strategy-selection bias risk. ” 
+B. The following statement is incorrect: “The selected strategy's in-sample Sharpe may overstate its expected future 
+Sharpe. ” 
+C. The following statement is incorrect: “Once 2024 results inﬂuence parameter changes, 2024 is no longer untouched 
+test data for the revised strategy. ” 
+D. The following statement is incorrect: “Labeling the revised strategy's 2024 performance out-of-sample restores the 
+independence of the evidence. ” 
+E. The following statement is incorrect: “A later untouched period or disciplined nested evaluation would be needed for 
+a cleaner test of the revision. ” 
+ 
+ 676 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Searching many alternatives increases the chance that one looks strong 
+because of noise. 
+B. False – The quoted statement is correct. The maximum observed result contains selection effects as well as any 
+genuine skill. 
+C. False – The quoted statement is correct. Feedback from 2024 makes those observations part of the development 
+process. 
+D. True – The quoted statement is incorrect. Terminology cannot undo information leakage from the test period. 
+E. False – The quoted statement is correct. A new holdout or a procedure separating selection from evaluation provides 
+less contaminated evidence.
+
+[QF2-D6G2Q3] 
+A trading model is retrained at the start of every calendar year using only data available through the prior year. Its return 
+is then recorded during the following year without changing the model until the next scheduled retraining. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “This design respects chronological availability if all features also use only 
+information known at each decision time. ” 
+B. The following statement is incorrect: “Each following-year segment acts as a forward test of the model ﬁtted before 
+that year began. ” 
+C. The following statement is incorrect: “Retraining necessarily makes all annual test returns statistically independent. ” 
+D. The following statement is incorrect: “Combining the annual forward segments can evaluate a realistic updating 
+process rather than one permanently ﬁxed model. ” 
+E. The following statement is incorrect: “Repeatedly redesigning the procedure after inspecting disappointing forward 
+segments would weaken the evaluation. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Both training and feature construction must avoid future information. 
+B. False – The quoted statement is correct. The model for that year is speciﬁed using earlier observations. 
+C. True – The quoted statement is incorrect. Overlapping exposures, persistent regimes, and serially correlated returns 
+can create dependence. 
+D. False – The quoted statement is correct. The evaluated object is the predeﬁned rolling retraining procedure. 
+E. False – The quoted statement is correct. Post-hoc changes introduce adaptation to purported test evidence. 
+ 
+ 677 Rev:081020261230 
+ 
+G3: Return, Volatility, and Drawdown
+
+[QF2-D6G3Q1] 
+Two strategies begin at $100. Strategy A ends at $130 and Strategy B ends at $125. A's annualized volatility is 28% and 
+maximum drawdown is 35%; B's volatility is 12% and maximum drawdown is 10%. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Strategy A's cumulative return is 30%. ” 
+B. The following statement is incorrect: “Strategy B's cumulative return is 25%. ” 
+C. The following statement is incorrect: “Strategy A is unambiguously superior because it has the higher ending value. ” 
+D. The following statement is incorrect: “Maximum drawdown captures a peak-to-trough loss that volatility alone may 
+not convey. ” 
+E. The following statement is incorrect: “Investors with different risk tolerances could reasonably prefer different 
+strategies. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The gain is ($130 - $100) / $100 = 30%. 
+B. False – The quoted statement is correct. The gain is ($125 - $100) / $100 = 25%. 
+C. True – The quoted statement is incorrect. A also has materially greater volatility and drawdown, so preference depends 
+on the objective and risk tolerance. 
+D. False – The quoted statement is correct. Drawdown measures the severity of a realized decline from a previous peak. 
+E. False – The quoted statement is correct. The tradeoff between return and loss experience is investor-dependent.
+
+[QF2-D6G3Q2] 
+A portfolio rises from $100 to $120, falls to $90, and later recovers to $108 by the end of the test. Ignore external cash 
+ﬂows. 
+ 
+A. The decline from $120 to $90 is a 25% drawdown. 
+B. The portfolio's ending cumulative return from $100 is 8%. 
+C. Ending above the initial $100 means the portfolio fully recovered from its $120 peak. 
+D. Returning from $90 to $120 would require a gain greater than 25%. 
+E. Maximum drawdown and cumulative return describe different aspects of the path. 
+ 
+ 678 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. True – ($90 - $120) / $120 = -25%. 
+B. True – ($108 - $100) / $100 = 8%. 
+C. False – At $108, the portfolio remains 10% below its prior $120 peak. 
+D. True – The required recovery is ($120 - $90) / $90 = 33.3%. 
+E. True – Cumulative return compares endpoints, while drawdown depends on intervening peaks and troughs.
+
+[QF2-D6G3Q3] 
+Strategy X and Strategy Y both earn 10% over a year. X produces small daily gains and losses with 8% annualized volatility. 
+Y is nearly ﬂat for most of the year, then gains sharply after several large losses; its annualized volatility is 24% and its 
+maximum drawdown is larger. 
+ 
+A. Equal annual returns imply equal return paths. 
+B. Volatility distinguishes the dispersion of their periodic returns. 
+C. Drawdown can distinguish the severity of their experienced losses from prior peaks. 
+D. Y's ﬁnal 10% return erases the relevance of its earlier drawdown. 
+E. Reporting return, volatility, and drawdown together gives a more complete comparison than reporting return alone. 
+ 
+Answer Key: 
+ 
+A. False – Many different sequences of returns can produce the same annual endpoint. 
+B. True – Y's periodic returns vary more strongly under the reported volatility estimates. 
+C. True – Maximum drawdown measures path-dependent peak-to-trough decline. 
+D. False – Drawdown matters for risk, investor experience, and the ability to remain invested. 
+E. True – The three measures describe reward, variability, and realized loss path. 
+ 
+G4: Risk-Adjusted Performance Metrics
+
+[QF2-D6G4Q1] 
+Assume a 2% annual risk-free rate. Strategy A earns 10% with 16% annualized volatility, while Strategy B earns 8% with 
+8% annualized volatility. Use the simple annual Sharpe ratio: (return minus risk-free rate) divided by volatility. 
+ 
+ 679 Rev:081020261230 
+ 
+A. Strategy A's Sharpe ratio is 0.50. 
+B. Strategy B's Sharpe ratio is 0.75. 
+C. Strategy A has the higher raw return but Strategy B has the higher Sharpe ratio. 
+D. The Sharpe ratio measures return per unit of total volatility above the risk-free rate under this calculation. 
+E. A higher Sharpe ratio guarantees a smaller maximum drawdown. 
+ 
+Answer Key: 
+ 
+A. True – (10% - 2%) / 16% = 0.50. 
+B. True – (8% - 2%) / 8% = 0.75. 
+C. True – The raw-return and risk-adjusted rankings differ. 
+D. True – Excess return is scaled by the standard deviation of returns. 
+E. False – Sharpe ratio and maximum drawdown measure different properties and need not rank strategies identically.
+
+[QF2-D6G4Q2] 
+Two strategies have the same average return and standard deviation. Strategy N has roughly symmetric ﬂuctuations. 
+Strategy P has frequent small losses but occasional large positive gains, creating substantial upside volatility. The analyst 
+compares Sharpe and Sortino ratios using the same target return. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Sharpe ratio penalizes both upside and downside deviations through total 
+standard deviation. ” 
+B. The following statement is incorrect: “Sortino ratio focuses its risk denominator on harmful deviations below the 
+target. ” 
+C. The following statement is incorrect: “Strategy P's large positive gains can increase its Sharpe denominator even 
+though they are not downside losses. ” 
+D. The following statement is incorrect: “The two metrics must rank the strategies identically because average return is 
+equal. ” 
+E. The following statement is incorrect: “Metric choice should reﬂect which notion of risk is relevant to the evaluation 
+objective. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Standard deviation treats deviations on both sides of the mean as variability. 
+ 
+ 680 Rev:081020261230 
+B. False – The quoted statement is correct. Sortino uses downside deviation relative to a target or required return. 
+C. False – The quoted statement is correct. Upside variation contributes to total variance and therefore the Sharpe 
+denominator. 
+D. True – The quoted statement is incorrect. Differences in downside versus total variability can cause metric rankings to 
+disagree. 
+E. False – The quoted statement is correct. A metric is informative only insofar as its reward and risk deﬁnitions match 
+the decision.
+
+[QF2-D6G4Q3] 
+An active fund is evaluated relative to its benchmark. Its average annual active return is 3%, and the annualized standard 
+deviation of active return is 6%. Separately, its total portfolio return is 9%, the risk-free rate is 3%, and total volatility is 
+12%. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The fund's information ratio is 0.50. ” 
+B. The following statement is incorrect: “The fund's Sharpe ratio under the stated ﬁgures is 0.50. ” 
+C. The following statement is incorrect: “Information ratio evaluates active return per unit of benchmark-relative risk. ” 
+D. The following statement is incorrect: “Sharpe and information ratios answer exactly the same question because both 
+equal 0.50 here. ” 
+E. The following statement is incorrect: “Changing the benchmark can change the measured active return and tracking 
+error. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Information ratio equals 3% / 6% = 0.50. 
+B. False – The quoted statement is correct. Sharpe ratio equals (9% - 3%) / 12% = 0.50. 
+C. False – The quoted statement is correct. Its denominator is tracking error, the variability of active returns. 
+D. True – The quoted statement is incorrect. Equal numerical values do not erase the difference between total and 
+benchmark-relative evaluation. 
+E. False – The quoted statement is correct. Both active return and its variability are deﬁned relative to the selected 
+benchmark. 
+ 
+ 
+ 681 Rev:081020261230 
+G5: Turnover and Trading Behavior
+
+[QF2-D6G5Q1] 
+Strategy H rebalances daily and replaces many positions, producing 800% annual turnover. Strategy L buys a diversiﬁed 
+portfolio and rebalances quarterly, producing 40% annual turnover. Their reported gross Sharpe ratios are equal, but 
+transaction costs have not yet been deducted. 
+ 
+A. Strategy H generally requires more trading per dollar of portfolio value. 
+B. Equal gross Sharpe ratios imply equal net Sharpe ratios after costs. 
+C. Strategy H is likely more sensitive to spreads, commissions, and market impact. 
+D. Turnover is informative about trading intensity but does not by itself reveal whether trades are proﬁtable. 
+E. Applying identical zero-cost assumptions can conceal an important implementation difference between the 
+strategies. 
+ 
+Answer Key: 
+ 
+A. True – Its holdings are changed much more extensively over the year. 
+B. False – Different trading costs can alter net returns and risk-adjusted performance. 
+C. True – More frequent or larger trading exposes more capital to trading frictions. 
+D. True – High turnover can accompany useful updating or unproductive churn. 
+E. True – Gross comparison omits a disadvantage that is likely much larger for the high-turnover rule.
+
+[QF2-D6G5Q2] 
+A noisy signal causes a strategy to buy a stock on Monday, sell it Tuesday, buy it Wednesday, and sell it Thursday, even 
+though the stock's underlying forecast changes only slightly. The team considers adding a no-trade band around the 
+current position. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The repeated reversals are evidence of short holding periods and possible 
+churn. ” 
+B. The following statement is incorrect: “A no-trade band can reduce transactions caused by small signal changes. ” 
+C. The following statement is incorrect: “Reducing turnover necessarily reduces portfolio risk in every market condition. ” 
+D. The following statement is incorrect: “Frequent reversals can consume gross alpha through repeated transaction 
+costs. ” 
+ 
+ 682 Rev:081020261230 
+E. The following statement is incorrect: “A useful evaluation should examine both trading behavior and resulting net 
+performance. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Positions are opened and closed repeatedly over a few days. 
+B. False – The quoted statement is correct. Small target changes can be ignored until their expected beneﬁt is meaningful. 
+C. True – The quoted statement is incorrect. Less frequent trading may leave exposures in place longer and does not 
+guarantee lower risk. 
+D. False – The quoted statement is correct. Each reversal may pay spreads, commissions, slippage, or impact. 
+E. False – The quoted statement is correct. Turnover diagnoses implementation demands, while net results show their 
+economic effect.
+
+[QF2-D6G5Q3] 
+A passive benchmark holds the same stocks all year. An active strategy trades monthly to keep the same average market 
+beta as the benchmark but attempts to exploit security-level forecasts. Before costs, it outperforms by 1.5%; estimated 
+trading costs are 2.0%. 
+ 
+A. Matching average market beta does not imply matching turnover. 
+B. The active strategy's estimated net return is 0.5 percentage points below the benchmark, all else equal. 
+C. Gross outperformance is sufficient to establish economic value to an investor. 
+D. Longer holding periods could reduce turnover, although they might also delay responses to changing forecasts. 
+E. Comparing active and passive strategies should include the costs required by their different trading behavior. 
+ 
+Answer Key: 
+ 
+A. True – Exposure level and trading intensity are distinct characteristics. 
+B. True – A 1.5% gross advantage minus 2.0% cost produces a -0.5% net active return. 
+C. False – The strategy underperforms after the stated implementation costs. 
+D. True – Holding-period choice creates a responsiveness-versus-cost tradeoff. 
+E. True – Net implementable performance is the economically relevant comparison. 
+ 
+ 
+ 683 Rev:081020261230 
+G6: Performance Attribution
+
+[QF2-D6G6Q1] 
+A strategy earns 14% while the risk-free rate is 2% and the market earns 10%. A regression estimates market beta at 1.5. 
+Using the simpliﬁed relation expected return from market exposure = risk-free rate + beta × (market return minus risk-free 
+rate), ignore estimation error. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The return associated with the strategy's estimated market exposure is 14%. ” 
+B. The following statement is incorrect: “The strategy's realized return equals the simpliﬁed beta-implied return in this 
+example. ” 
+C. The following statement is incorrect: “Its 4-percentage-point return advantage over the market proves positive alpha. ” 
+D. The following statement is incorrect: “High beta can produce a return above the market during a rising market without 
+security-selection skill. ” 
+E. The following statement is incorrect: “Attribution helps distinguish exposure-driven return from residual performance. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. 2% + 1.5 × (10% - 2%) = 14%. 
+B. False – The quoted statement is correct. The stated realized return is also 14%. 
+C. True – The quoted statement is incorrect. The extra market sensitivity fully explains the difference under the simpliﬁed 
+calculation. 
+D. False – The quoted statement is correct. Leveraged or high-beta exposure magniﬁes positive market excess return. 
+E. False – The quoted statement is correct. Raw return comparisons alone can confuse systematic risk with skill.
+
+[QF2-D6G6Q2] 
+An equity fund beats its benchmark by 3%. Attribution shows that 2.5% came from overweighting a technology sector 
+that outperformed, 1.0% came from selecting better stocks within sectors, and -0.5% came from poor market-timing 
+changes. Assume these components are additive for this exercise. 
+ 
+A. The stated components sum to the fund's 3% active return. 
+B. Sector allocation made the largest positive contribution. 
+C. Security selection contributed negatively. 
+D. Market timing reduced rather than increased performance. 
+E. The 3% active return alone reveals the same source information as the attribution breakdown. 
+ 
+ 684 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. True – 2.5% + 1.0% - 0.5% = 3.0%. 
+B. True – The 2.5% sector effect exceeds the other positive contribution. 
+C. False – Security selection added 1.0% under the stated attribution. 
+D. True – Its contribution is -0.5%. 
+E. False – Total active return does not identify whether allocation, selection, timing, or other effects generated it.
+
+[QF2-D6G6Q3] 
+A nominally market-neutral strategy has zero net dollar exposure, but it is long high-beta stocks and short low-beta 
+stocks. During a market rally it gains strongly. A factor regression later reports positive market beta and positive 
+momentum exposure, with little unexplained residual return. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Zero net dollar exposure guarantees zero market beta. ” 
+B. The following statement is incorrect: “Different betas on the long and short books can create systematic market 
+exposure. ” 
+C. The following statement is incorrect: “Momentum exposure may explain part of the strategy's performance if 
+momentum did well. ” 
+D. The following statement is incorrect: “Little residual return after factor adjustment weakens the claim that the gains 
+were unique alpha. ” 
+E. The following statement is incorrect: “Performance attribution can reveal exposures that are not obvious from net 
+capital invested. ” 
+ 
+Answer Key: 
+ 
+A. True – The quoted statement is incorrect. Dollar neutrality does not equal beta or factor neutrality. 
+B. False – The quoted statement is correct. Long high-beta and short low-beta positions can leave positive market 
+sensitivity. 
+C. False – The quoted statement is correct. Returns associated with a rewarded momentum factor are not necessarily 
+strategy-speciﬁc alpha. 
+D. False – The quoted statement is correct. Most performance is then accounted for by measured systematic exposures. 
+E. False – The quoted statement is correct. Position labels or net exposure can conceal economically meaningful factor 
+loadings. 
+ 
+ 685 Rev:081020261230 
+ 
+G7: Stability, Signiﬁcance, and Robustness
+
+[QF2-D6G7Q1] 
+A strategy earns 18% annually over a four-year test, but nearly all proﬁt comes from two trades during one crisis month. 
+It loses modestly in each of the other three calendar years. 
+ 
+A. The high average return may be economically dependent on a few extreme observations. 
+B. Removing or perturbing the two crisis trades is a useful sensitivity test. 
+C. Positive full-period performance guarantees stable performance across subperiods. 
+D. The strategy may be valuable if the crisis gains are repeatable, but the concentration requires investigation. 
+E. Reporting only the aggregate annualized return conceals important information about consistency. 
+ 
+Answer Key: 
+ 
+A. True – A small number of trades account for most of the result. 
+B. True – This reveals how fragile the conclusion is to those observations. 
+C. False – The strategy lost in most individual years under the stated scenario. 
+D. True – Concentration is not automatic disproof, but it changes the evidence needed to support the claim. 
+E. True – Subperiod and trade-level analysis reveals performance concentration hidden by the average.
+
+[QF2-D6G7Q2] 
+A strategy's mean monthly net return is positive, but a statistical test cannot reject a zero mean at conventional levels. 
+The strategy requires expensive infrastructure and produces only a very small expected dollar proﬁt at the available 
+capital. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The sample provides limited statistical evidence that the true mean return is 
+positive. ” 
+B. The following statement is incorrect: “Failure to reject zero proves that the true expected return is exactly zero. ” 
+C. The following statement is incorrect: “Even a statistically signiﬁcant return might lack economic signiﬁcance if proﬁts 
+do not cover implementation and opportunity costs. ” 
+D. The following statement is incorrect: “The small expected dollar proﬁt raises an economic-signiﬁcance concern 
+independent of the test statistic. ” 
+ 
+ 686 Rev:081020261230 
+E. The following statement is incorrect: “Statistical and economic signiﬁcance evaluate identical questions. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The evidence is not strong enough to reject the zero-mean null under the 
+chosen test. 
+B. True – The quoted statement is incorrect. Failure to reject may reﬂect low power, noise, dependence, or a truly small 
+effect; it does not prove equality. 
+C. False – The quoted statement is correct. Statistical detectability does not ensure that a strategy is worth implementing. 
+D. False – The quoted statement is correct. Economic signiﬁcance concerns usable value after real resource and capital 
+requirements. 
+E. True – The quoted statement is incorrect. One concerns evidence against a statistical null; the other concerns practical 
+magnitude and value.
+
+[QF2-D6G7Q3] 
+A strategy performs well in a bull market but poorly in a bear market and a high-volatility period. Its advantage disappears 
+when transaction costs are increased from an optimistic 2 basis points to a plausible 8 basis points, and small changes 
+to its lookback produce sharply different results. 
+ 
+A. The results indicate sensitivity to market regime. 
+B. The cost test suggests the strategy's economic conclusion is fragile to implementation assumptions. 
+C. Strong performance in one regime guarantees robustness if the full-period return remains positive. 
+D. Sharp changes from small lookback adjustments can indicate parameter instability or overﬁtting. 
+E. Robustness analysis should include plausible regimes, costs, and parameter perturbations rather than only the 
+preferred speciﬁcation. 
+ 
+Answer Key: 
+ 
+A. True – Performance differs materially across bull, bear, and high-volatility conditions. 
+B. True – The apparent advantage vanishes under a plausible alternative cost estimate. 
+C. False – Robustness requires examining dependence on conditions, not merely one aggregate endpoint. 
+D. True – A stable economic relation should not generally require an exceptionally precise arbitrary setting. 
+E. True – These checks test whether the ﬁnding survives reasonable changes in environment and assumptions. 
+ 
+  
+ 
+ 687 Rev:081020261230 
+Domain 7: Trading Frictions, Capacity, and Implementability 
+Domain Summary 
+ Commissions 
+ Spreads 
+ Slippage 
+ Market impact 
+ Turnover 
+ Borrow costs 
+ Liquidity 
+ Capacity 
+ Scaling capital 
+ Crowding 
+ Implementation shortfall 
+ Gross versus net return 
+Topic Groups 
+G1: Explicit and Implicit Trading Costs 
+ Commissions 
+ Fees 
+ Bid-ask spread 
+ Slippage 
+ Market impact 
+ Opportunity cost 
+G2: Turnover and Cost Drag 
+ Frequent trading 
+ Small expected edges 
+ Rebalancing frequency 
+ Thresholds 
+ Why gross alpha can disappear 
+ 
+ 688 Rev:081020261230 
+G3: Liquidity and Tradability 
+ Average daily volume 
+ Bid-ask depth 
+ Thinly traded securities 
+ Difficulty entering and exiting 
+ Liquidity risk during stress 
+G4: Market Impact and Order Size 
+ Larger orders moving prices 
+ Temporary and permanent impact 
+ Participation rate 
+ Splitting orders 
+ Nonlinear cost growth 
+G5: Capacity and Scaling 
+ Strategy performance at larger capital levels 
+ Limited opportunities 
+ Market depth 
+ Alpha dilution 
+ Why small strategies may not scale 
+G6: Shorting, Borrowing, and Funding Constraints 
+ Borrow availability 
+ Borrow fees 
+ Recall risk 
+ Margin 
+ Financing costs 
+ Short squeezes 
+G7: Crowding and Implementation Risk 
+ Similar strategies holding similar positions 
+ Forced unwinds 
+ Correlated exits 
+ 
+ 689 Rev:081020261230 
+ Capacity reduction 
+ Backtest assumptions failing in live markets 
+G1: Explicit and Implicit Trading Costs

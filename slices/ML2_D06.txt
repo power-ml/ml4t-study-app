@@ -1,0 +1,539 @@
+Domain 6: State Representation, Discretization, and Reward Design
+
+[ML2-D6G1Q1] 
+A quant team is designing the state for an intraday Q-Learner that chooses among long, cash, and short positions. The 
+portfolio manager wants to include momentum, volatility, the current position, a randomly generated identiﬁer for each 
+observation, and tomorrow's closing return; the production system must make decisions before tomorrow's return is 
+known. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+ 506 Rev:081020261230 
+ 
+A. Momentum and volatility may be useful state features if they contain information relevant to future rewards or action 
+choices. 
+B. The current position may matter because the effect and cost of an action depend on existing holdings. 
+C. Tomorrow's closing return is a valid production-state feature because it is available in the historical training ﬁle. 
+D. A random observation identiﬁer is useful merely because it makes every historical state unique. 
+E. Feature availability at decision time is a necessary consideration when deﬁning the state. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Relevant market conditions can help distinguish situations that warrant 
+different decisions. 
+B. False – The underlying claim is correct: Holdings affect feasible trades, transaction costs, and the meaning of an 
+action. 
+C. True – The underlying claim is incorrect: A value known only in the future creates look-ahead leakage and cannot be 
+supplied during live decisions. 
+D. True – The underlying claim is incorrect: Uniqueness without decision-relevant information prevents useful 
+generalization and expands the state space. 
+E. False – The underlying claim is correct: A deployable state can use only information observable when the action is 
+selected.
+
+[ML2-D6G1Q2] 
+A risk committee reviews a daily trading agent whose state contains only a short-term price oscillator. The chief risk 
+officer asks whether the team should add current volatility and time remaining before a mandatory end-of-day 
+liquidation, because identical oscillator readings have produced different preferred trades under those conditions. 
+ 
+A. Volatility can be relevant if it changes the distribution of outcomes associated with an action. 
+B. Time remaining can be relevant when the agent faces a deadline-dependent liquidation constraint. 
+C. A feature should be excluded whenever it is not itself a technical indicator. 
+D. Adding a relevant feature can separate observations that previously shared one state. 
+E. Adding every available feature is guaranteed to improve the learned policy. 
+ 
+Answer Key: 
+ 
+A. True – Different risk conditions can change action values even when the oscillator is unchanged. 
+ 
+ 507 Rev:081020261230 
+B. True – The consequences of entering or holding a position can depend on the remaining horizon. 
+C. False – State variables may describe the environment, constraints, or agent status rather than market indicators alone. 
+D. True – The expanded representation can distinguish decision-relevant contexts. 
+E. False – Irrelevant or overly speciﬁc features can increase sparsity and hinder learning.
+
+[ML2-D6G1Q3] 
+A portfolio manager proposes adding 40 features to a Q-Learner because each feature improved a separate univariate 
+correlation statistic in the training sample. The quant lead warns that the data history is limited, several features are 
+redundant, and the tabular learner discretizes every selected feature. 
+ 
+A. A univariate historical correlation guarantees that a feature improves sequential action selection out of sample. 
+B. Redundant features can enlarge the encoded state space without adding a useful distinction. 
+C. With ﬁxed data, adding many discretized features can increase sparse visitation. 
+D. State selection should maximize the number of inputs regardless of sample size. 
+E. Removing an irrelevant feature necessarily destroys the Markov property. 
+ 
+Answer Key: 
+ 
+A. False – In-sample marginal association does not guarantee incremental or policy-relevant value out of sample. 
+B. True – Multiple encodings of similar information can multiply states while contributing little new information. 
+C. True – More feature combinations divide the available experience among more states. 
+D. False – The representation should balance decision-relevant information against complexity and available evidence. 
+E. False – The Markov property is lost only if omitted information is needed to characterize decision-relevant dynamics, 
+not whenever any feature is removed. 
+ 
+G2: Continuous-to-Discrete State Mapping
+
+[ML2-D6G2Q1] 
+A trading desk converts a continuous momentum value into three states: values below -1 are low, values from -1 through 
+1 are middle, and values above 1 are high. The head trader asks how observations of -0.9 and 0.9 can receive the same 
+state even though their raw values differ. 
+ 
+A. Discretization maps multiple continuous observations to one ﬁnite state label. 
+B. Under the stated mapping, both -0.9 and 0.9 belong to the middle bin. 
+ 
+ 508 Rev:081020261230 
+C. The mapping preserves the exact distance between every pair of raw momentum values. 
+D. Moving a threshold can change the discrete state assigned to an unchanged observation. 
+E. Three bins guarantee that every economically distinct market condition receives a different state. 
+ 
+Answer Key: 
+ 
+A. True – Binning intentionally groups ranges of continuous values. 
+B. True – Both values fall within the inclusive interval from -1 through 1. 
+C. False – Values within a bin become indistinguishable in the discrete representation. 
+D. True – State membership depends on the chosen boundary locations. 
+E. False – Economically important differences may still be combined within a bin.
+
+[ML2-D6G2Q2] 
+A global asset manager uses ﬁxed volatility thresholds learned from a calm training period. During a high-volatility 
+deployment period, almost every observation falls into the highest bin, so the research director considers percentile-rank 
+bins recalculated from an appropriate reference window. 
+ 
+A. Fixed thresholds can produce highly imbalanced state frequencies after a distribution shift. 
+B. Rank-based bins can distribute reference observations more evenly across bins. 
+C. Rank-based discretization makes the economic meaning of a bin permanently identical across all windows. 
+D. Recomputing thresholds with future deployment data would create look-ahead bias in a historical evaluation. 
+E. Balanced bin counts alone prove that the state representation supports an optimal policy. 
+ 
+Answer Key: 
+ 
+A. True – A shifted distribution can concentrate observations on one side of boundaries chosen in another regime. 
+B. True – Quantile-based boundaries are designed to allocate the reference sample across ranked groups. 
+C. False – The raw value represented by a percentile can change as the reference distribution changes. 
+D. True – Historical decisions must not use distribution information unavailable at their decision times. 
+E. False – Frequency balance does not establish that the bins preserve all decision-relevant information. 
+ 
+ 
+ 509 Rev:081020261230
+
+[ML2-D6G2Q3] 
+A robotics team discretizes distance to an obstacle into near, medium, and far. The project lead is concerned that 
+readings just below and just above the near boundary cause the controller to alternate actions even though sensor noise, 
+rather than a meaningful environmental change, explains the difference. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Hard thresholds can make nearly identical continuous observations map to different states. 
+B. Sensor noise near a boundary can cause frequent state switching. 
+C. Wider bins or hysteresis may reduce sensitivity to small boundary-crossing noise. 
+D. Discretization eliminates all measurement noise from the decision process. 
+E. Two observations assigned to different bins must have materially different optimal actions. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: A small change can cross a categorical boundary. 
+B. False – The underlying claim is correct: Repeated noisy crossings can alternate the encoded state. 
+C. False – The underlying claim is correct: Either approach can stabilize state assignment, though it may also reduce 
+responsiveness. 
+D. True – The underlying claim is incorrect: Binning changes the representation but does not guarantee that noisy values 
+are assigned appropriately. 
+E. True – The underlying claim is incorrect: Different labels do not prove that the underlying decision should differ. 
+ 
+G3: Granularity and State-Space Size
+
+[ML2-D6G3Q1] 
+A tabular strategy learner uses four continuous indicators. The quant researcher proposes increasing each indicator from 
+5 bins to 10 bins while keeping the same training history, and the portfolio manager asks about the effect on the state 
+table. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. With all combinations represented, 5 bins per indicator yield 5^4 = 625 market states. 
+B. With 10 bins per indicator, the number of market states becomes 10^4 = 10,000. 
+C. Doubling the bins for every one of four indicators merely doubles the total number of states. 
+D. The ﬁner representation can distinguish more conditions but may leave fewer visits per state. 
+ 
+ 510 Rev:081020261230 
+E. A larger state table automatically supplies the additional observations needed to estimate its Q-values reliably. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The Cartesian product contains 625 combinations. 
+B. False – The underlying claim is correct: Ten choices for each of four dimensions produce 10,000 combinations. 
+C. True – The underlying claim is incorrect: The state count grows by 2^4 = 16, not by a factor of two. 
+D. False – The underlying claim is correct: Greater speciﬁcity divides a ﬁxed experience history among more possible 
+states. 
+E. True – The underlying claim is incorrect: Allocating more entries does not generate additional experience.
+
+[ML2-D6G3Q2] 
+A navigation learner with very coarse bins reaches the goal consistently but takes inefficient routes because it cannot 
+distinguish two corridor positions that require opposite turns. The engineering manager considers reﬁning only the 
+location dimension associated with that ambiguity. 
+ 
+A. The coarse representation may generalize across observations that should require different actions. 
+B. Selectively reﬁning a decision-relevant dimension can resolve some ambiguity without multiplying every dimension's 
+bins. 
+C. Finer bins are guaranteed to improve deployment performance regardless of exploration coverage. 
+D. More granular states can require additional experience before their action values stabilize. 
+E. Coarse discretization always uses more memory than ﬁne discretization. 
+ 
+Answer Key: 
+ 
+A. True – Combining the two positions prevents the table from storing distinct action values for them. 
+B. True – Targeted reﬁnement can add the needed distinction with less state-space growth than reﬁning all inputs. 
+C. False – Insufficient visits can make ﬁner estimates unreliable. 
+D. True – Experience is spread over more state-action entries. 
+E. False – Coarser representations generally contain fewer states and require less table memory. 
+ 
+ 
+ 511 Rev:081020261230
+
+[ML2-D6G3Q3] 
+A trading agent has 50,000 possible discrete states and three actions, but its training run visits only 2,000 states. The 
+head of model validation asks what can be concluded about the unvisited portion of the Q-table. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Most possible states received no direct experience during the run. 
+B. Tabular Q-values for unvisited state-action pairs cannot have been empirically updated from those pairs' transitions. 
+C. Initial Q-values for unvisited pairs necessarily equal their true optimal values. 
+D. More exploration or a representation that generalizes across observations may improve coverage. 
+E. The existence of many unvisited states proves that every one of the 50,000 combinations is reachable in deployment. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Only 2,000 of the 50,000 encoded states were observed. 
+B. False – The underlying claim is correct: A direct update requires encountering the relevant state and choosing the 
+action. 
+C. True – The underlying claim is incorrect: Initialization is an assumption and need not match optimal values. 
+D. False – The underlying claim is correct: Either broader experience or shared function approximation can address 
+limitations of a sparse table. 
+E. True – The underlying claim is incorrect: Some combinatorial states may be impossible or irrelevant. 
+ 
+G4: State Aliasing and Missing Information
+
+[ML2-D6G4Q1] 
+A warehouse robot observes only its current aisle number. At aisle 7, turning left is safe when the robot arrived from the 
+north but causes a collision when it arrived from the south; the operations manager asks why the learner keeps assigning 
+one value to the action. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The representation aliases two decision-relevant situations into the same observed state. 
+B. If direction of arrival predicts the transition, adding it to the state may resolve the ambiguity. 
+C. A tabular policy can choose different actions for the two cases while they retain exactly the same state label and no 
+other memory. 
+D. The current aisle alone may fail to provide a Markov representation for the learner. 
+ 
+ 512 Rev:081020261230 
+E. Increasing the learning rate guarantees that the missing directional information becomes observable. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The same encoded state hides contexts with different action consequences. 
+B. False – The underlying claim is correct: Direction can separate the cases if it contains the needed history. 
+C. True – The underlying claim is incorrect: A memoryless table associates the same action values and policy with the 
+same state label. 
+D. False – The underlying claim is correct: Relevant transition information depends on history not captured by the state. 
+E. True – The underlying claim is incorrect: A parameter change cannot supply an omitted variable.
+
+[ML2-D6G4Q2] 
+A trading agent's state includes the current price and momentum but omits whether an earnings announcement is 
+scheduled before the next decision. The risk officer observes that the same encoded state has ordinary next-day risk on 
+most days and event-driven risk on announcement days. 
+ 
+A. The omitted event status can cause state aliasing if it changes action outcomes. 
+B. Adding an observable announcement ﬂag may make the represented transition and reward behavior more consistent 
+within each state. 
+C. Identical current prices imply identical future reward distributions regardless of omitted context. 
+D. The state can be inadequate even if every included feature is measured accurately. 
+E. A larger Q-table using the same incomplete state variables necessarily ﬁxes the missing-information problem. 
+ 
+Answer Key: 
+ 
+A. True – Event and non-event conditions may be decision-relevant but currently share a state. 
+B. True – The ﬂag can separate regimes with different risk and reward dynamics. 
+C. False – Other conditions can alter the distribution of future outcomes. 
+D. True – Accurate measurements do not compensate for a relevant omitted variable. 
+E. False – More entries derived from unchanged inputs cannot distinguish contexts those inputs do not encode. 
+ 
+ 
+ 513 Rev:081020261230
+
+[ML2-D6G4Q3] 
+A partially observable maintenance system cannot directly measure machine wear. The project lead proposes adding a 
+rolling summary of recent vibration readings to the state because the current reading alone produces inconsistent failure 
+probabilities. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. A history summary can provide information about a hidden condition that the current observation misses. 
+B. Adding recent history can help approximate a Markov state when dynamics otherwise depend on the past. 
+C. Any rolling summary is guaranteed to capture all hidden information needed for optimal control. 
+D. If two histories produce the same summary, relevant aliasing can still remain. 
+E. The Markov property requires that the state contain the complete raw history in every possible problem. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Recent patterns may reveal accumulated wear better than one measurement. 
+B. False – The underlying claim is correct: An appropriate summary can encode past information relevant to future 
+outcomes. 
+C. True – The underlying claim is incorrect: A lossy or poorly chosen summary may omit important distinctions. 
+D. False – The underlying claim is correct: Compression can still combine histories with different consequences. 
+E. True – The underlying claim is incorrect: A sufficient compact statistic can be Markov without retaining every raw 
+observation. 
+ 
+G5: Position and Holdings as State
+
+[ML2-D6G5Q1] 
+A strategy learner uses technical indicators to deﬁne market states but does not include the current portfolio position. 
+The head trader notices that the learner sometimes issues repeated buy actions even when the portfolio is already at its 
+maximum long position. 
+ 
+A. The same market indicators can require different actions depending on current holdings. 
+B. Omitting holdings can create state aliasing. 
+C. Repeated buy actions are always harmless if the desired position is already long. 
+D. Including position status can help the learner distinguish between entering and maintaining a position. 
+E. Position information can be part of the state even though it is not a market indicator. 
+ 
+ 514 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. True – Action desirability depends partly on current inventory. 
+B. True – Distinct portfolio conditions are mapped to the same state. 
+C. False – Repeated actions may create invalid, redundant, or costly trades. 
+D. True – Position-aware states support more appropriate action selection. 
+E. True – State variables may include agent-speciﬁc information.
+
+[ML2-D6G5Q2] 
+A learner chooses target positions of short, cash, or long. With the same bullish market signal, buying is appropriate from 
+cash, holding may be appropriate when already long, and buying from short may require a larger trade that crosses 
+through cash; the execution manager wants these cases represented explicitly. 
+ 
+A. Market indicators alone may be insufficient to distinguish the three decision contexts. 
+B. Encoding current target position can allow different Q-values for the same signal-position combinations. 
+C. Moving from short to long can produce different transaction costs than remaining long. 
+D. Holdings should be excluded because they are controlled by the agent rather than observed from the market. 
+E. Adding position to state guarantees the learner will never overtrade. 
+ 
+Answer Key: 
+ 
+A. True – The action needed to reach or maintain an exposure depends on starting inventory. 
+B. True – Each combined state can learn its own action values. 
+C. True – Reversing exposure generally requires more traded units than maintaining it. 
+D. False – Agent-speciﬁc variables are valid state components when they affect consequences or choices. 
+E. False – Representation helps, but the policy, reward, exploration, and implementation can still generate excess trades.
+
+[ML2-D6G5Q3] 
+A leveraged portfolio agent has the same directional position label, long, for both 10% and 100% allocations. The chief 
+risk officer notes that an additional buy is feasible in the ﬁrst case but violates the exposure limit in the second. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+ 515 Rev:081020261230 
+ 
+A. A three-valued long/cash/short encoding may alias materially different inventory levels. 
+B. Including position magnitude or remaining capacity can help distinguish feasible actions. 
+C. The same long label proves that additional buying has the same risk in both cases. 
+D. A state representation should include constraint-relevant information when it changes available actions or outcomes. 
+E. Action validation is unnecessary once any form of holdings is included in the state. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The coarse label hides exposure differences relevant to the decision. 
+B. False – The underlying claim is correct: Either feature can reveal whether additional risk capacity remains. 
+C. True – The underlying claim is incorrect: The 100% allocation is at the stated limit while the 10% allocation is not. 
+D. False – The underlying claim is correct: A useful state must distinguish conditions that alter the decision problem. 
+E. True – The underlying claim is incorrect: Implementation should still enforce hard constraints even if the learner is 
+position-aware. 
+ 
+G6: Reward Deﬁnition
+
+[ML2-D6G6Q1] 
+A daily strategy learner receives reward only when it closes a position and realizes a gain or loss. The portfolio manager 
+ﬁnds that a position can accumulate a large unrealized loss for several days while the agent receives zero reward and 
+asks whether daily change in total portfolio value would provide a better learning signal. 
+ 
+A. A realized-only reward can delay feedback while a position remains open. 
+B. Daily change in portfolio value can reﬂect both realized and unrealized gains and losses. 
+C. A zero realized reward proves that the portfolio's economic value did not change that day. 
+D. A denser value-change reward may improve temporal feedback if it is calculated without future information. 
+E. Mark-to-market reward automatically eliminates all risk-taking incentives. 
+ 
+Answer Key: 
+ 
+A. True – No gain or loss is recognized by that reward until a closing transaction occurs. 
+B. True – Marking current holdings to market captures changes in their value as well as closed trades. 
+C. False – Open positions can gain or lose value without realization. 
+ 
+ 516 Rev:081020261230 
+D. True – More immediate feedback can better connect actions with ensuing portfolio changes. 
+E. False – The learner can still prefer risky actions if expected reward favors them and risk is not otherwise represented.
+
+[ML2-D6G6Q2] 
+A brokerage trains an agent to maximize gross trading proﬁt but deploys it in an account that pays commissions and 
+market-impact costs. The head of trading reports that the learned strategy makes many small gross-proﬁt trades that lose 
+money after costs. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Gross proﬁt is misaligned with the brokerage's net-value objective when costs are economically material. 
+B. A reward based on net portfolio-value change can incorporate transaction costs. 
+C. The policy can rationally exploit trades that look proﬁtable under the speciﬁed reward even if they lose money under 
+the true objective. 
+D. Transaction costs matter only during evaluation and should never appear in training rewards. 
+E. Maximizing gross reward guarantees maximization of net reward when trade counts differ across policies. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The optimized quantity omits an important component of actual performance. 
+B. False – The underlying claim is correct: Deducting costs when trades occur aligns the signal more closely with realized 
+economics. 
+C. False – The underlying claim is correct: The learner optimizes the reward it is given, not an unstated business objective. 
+D. True – The underlying claim is incorrect: Including realistic costs during learning can be essential to selecting a viable 
+policy. 
+E. True – The underlying claim is incorrect: Policies with higher turnover may incur enough cost to reverse their ranking.
+
+[ML2-D6G6Q3] 
+A fund's stated objective is long-run risk-adjusted growth, but its RL agent receives only the next day's raw dollar proﬁt as 
+reward. The investment committee asks whether this one-step signal fully speciﬁes the objective. 
+ 
+A. Immediate dollar proﬁt may fail to penalize paths with unacceptable drawdowns or volatility. 
+B. The scale of dollar rewards can depend on portfolio size, complicating comparisons across episodes with different 
+capital. 
+ 
+ 517 Rev:081020261230 
+C. Summing immediate rewards can represent a longer-run objective only to the extent that the reward deﬁnition and 
+discounting align with that objective. 
+D. Because Q-Learning uses cumulative reward, any arbitrary immediate reward automatically produces the desired risk-
+adjusted policy. 
+E. Reward design is unrelated to what behavior the learner optimizes. 
+ 
+Answer Key: 
+ 
+A. True – Equal proﬁts can be achieved with materially different risk paths. 
+B. True – Larger portfolios can generate larger dollar changes without better percentage performance. 
+C. True – The return objective is induced by the sequence of deﬁned rewards and their weighting. 
+D. False – Cumulative optimization cannot recover omitted risk preferences automatically. 
+E. False – Reward is the numerical objective that directs policy learning. 
+ 
+G7: Reward Shaping and Unintended Incentives
+
+[ML2-D6G7Q1] 
+A trading team adds a ﬁxed penalty for every transaction to discourage turnover. The portfolio manager wants lower costs 
+but worries that a very large penalty will cause the learner to stay in cash even when attractive opportunities arise. 
+ 
+A. A per-trade penalty can make otherwise equal high-turnover behavior less attractive. 
+B. If the penalty greatly exceeds plausible trading gains, inactivity can become the reward-maximizing policy. 
+C. The penalty should be calibrated to the economic cost or policy objective it is intended to represent. 
+D. Adding any nonzero turnover penalty guarantees higher net returns out of sample. 
+E. Reward shaping cannot change the optimal policy under any circumstances. 
+ 
+Answer Key: 
+ 
+A. True – Each transaction reduces shaped return and therefore discourages frequent trading. 
+B. True – Avoiding all trades also avoids the oversized penalty. 
+C. True – Calibration helps prevent the shaping term from overwhelming the true objective. 
+D. False – Lower turnover does not guarantee better market decisions or future performance. 
+E. False – An arbitrary shaping term can alter action rankings and the learned optimum. 
+ 
+ 
+ 518 Rev:081020261230
+
+[ML2-D6G7Q2] 
+A delivery robot receives +1 for every meter moved toward a destination and -100 only if it collides. The safety lead 
+discovers that the robot repeatedly moves forward and backward near the goal, collecting new +1 rewards on each 
+forward movement without completing the delivery. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The robot is exploiting the speciﬁed reward rather than accomplishing the intended task. 
+B. The behavior is an example of an unintended incentive or conceptual reward hacking. 
+C. Rewarding net progress or successful completion could reduce the proﬁtable back-and-forth loop. 
+D. The observed behavior proves that the reinforcement-learning algorithm failed to maximize reward. 
+E. A stakeholder's intended objective automatically overrides the numerical reward during learning. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The cycle earns shaped reward while avoiding the unstated completion 
+objective. 
+B. False – The underlying claim is correct: The learner ﬁnds a loophole in the proxy reward. 
+C. False – The underlying claim is correct: A reward tied to net improvement or completion removes or reduces repeated 
+credit for the same progress. 
+D. True – The underlying claim is incorrect: The behavior may be effective reward maximization under a ﬂawed 
+speciﬁcation. 
+E. True – The underlying claim is incorrect: The learner responds to encoded feedback, not an unexpressed intention.
+
+[ML2-D6G7Q3] 
+A risk manager adds a large bonus whenever a trading agent ends a day with no open position, hoping to reduce overnight 
+exposure. Backtests show the agent liquidates proﬁtable positions just before the close and immediately reopens them 
+the next morning, increasing costs and sometimes worsening risk-adjusted returns. 
+ 
+A. The liquidation pattern may be a rational response to the terminal ﬂat-position bonus. 
+B. The bonus necessarily improves the fund's true risk-adjusted objective because it reduces one measured exposure. 
+C. Reopening costs illustrate that a locally appealing shaping term can create undesirable system-level behavior. 
+D. Increasing the bonus without changing anything else is guaranteed to eliminate the morning re-entry behavior. 
+E. Evaluating only whether the agent ends ﬂat is sufficient to validate the complete reward design. 
+ 
+ 519 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. True – The agent receives the encoded bonus by closing even when that conﬂicts with broader economics. 
+B. False – Costs, lost opportunities, and other risks can offset the reduction in overnight exposure. 
+C. True – Optimizing the proxy can harm the broader objective through downstream consequences. 
+D. False – A larger bonus further favors liquidation but does not remove the incentive to reopen later. 
+E. False – Validation must examine total returns, costs, risk, and unintended behaviors, not merely the shaped metric. 
+ 
+  
+ 
+ 520 Rev:081020261230 
+Domain 7: Reinforcement Learning for Trading 
+Domain Summary 
+ Trading states 
+ Actions and target positions 
+ Holdings 
+ Market impact 
+ Transaction costs 
+ Reward timing 
+ Turnover 
+ Training and testing periods 
+ Policy stability 
+ Nonstationary markets 
+Topic Groups 
+G1: Mapping Market Data into States 
+ Indicators and market observations 
+ State construction 
+ Discretized market conditions 
+ Avoiding future information 
+G2: Mapping Actions into Trades or Positions 
+ Buy, sell, and hold actions 
+ Target positions 
+ Difference between an action and an order 
+ Position changes versus repeated signals 
+G3: Holdings, Inventory, and Position Persistence 
+ Current position affecting valid actions 
+ Maintaining positions over time 
+ Avoiding redundant trades 
+ Long, short, and cash states 
+ 
+ 521 Rev:081020261230 
+G4: Trading Rewards and Portfolio Value 
+ Daily return 
+ Change in portfolio value 
+ Realized and unrealized proﬁt 
+ Delayed reward 
+ Risk of rewarding activity rather than proﬁtability 
+G5: Transaction Costs, Impact, and Turnover 
+ Commissions 
+ Market impact 
+ Frequent trading penalties 
+ Gross versus net reward 
+ Policy changes when costs are introduced 
+G6: Training, Testing, and Out-of-Sample Evaluation 
+ Learning on one period 
+ Freezing or applying the policy on another 
+ Avoiding contamination 
+ Comparing in-sample and out-of-sample behavior 
+G7: Market Nonstationarity and Policy Stability 
+ Changing market regimes 
+ Historical policies becoming stale 
+ Retraining 
+ Continued adaptation 
+ Limits of assuming a ﬁxed environment 
+G1: Mapping Market Data into States

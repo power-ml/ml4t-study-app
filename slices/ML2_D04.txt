@@ -1,0 +1,490 @@
+Domain 4: Exploration, Exploitation, and Learning Dynamics
+
+[ML2-D4G1Q1] 
+A trading agent currently estimates that going long has the highest value in a particular market state, while cash and short 
+have been tried only a few times. The team must decide whether the agent should always choose long during training. 
+ 
+A. Choosing long because it has the highest current estimate is exploitation. 
+B. Trying cash or short can provide information that changes the value estimates. 
+C. The currently highest estimated action is guaranteed to have the highest true expected return. 
+D. Always exploiting can preserve errors caused by limited early experience. 
+ 
+ 476 Rev:081020261230 
+E. Exploration is valuable only when all action values are already known exactly. 
+ 
+Answer Key: 
+ 
+A. True – Exploitation selects the action currently believed to be best. 
+B. True – Trying less-sampled actions produces evidence about their outcomes. 
+C. False – Estimates can be inaccurate because of sparse or noisy experience. 
+D. True – Without further trials, an underestimated action may never be corrected. 
+E. False – Exploration is most useful when action values remain uncertain.
+
+[ML2-D4G1Q2] 
+A delivery robot can take a familiar route that usually earns a reward of 8 or test a new route whose reward is uncertain. 
+Testing the new route may reduce today's reward but could identify a better route for future deliveries. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Taking the familiar route is an example of exploitation. 
+B. Testing the new route can have an information-gathering beneﬁt beyond its immediate reward. 
+C. A lower reward on the ﬁrst trial proves that the new route should never be tried again. 
+D. The value of exploration can increase when information will inﬂuence many future decisions. 
+E. Exploration eliminates the possibility of poor short-term outcomes. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The robot uses the option currently known to work well. 
+B. False – The underlying claim is correct: The trial supplies evidence useful for later choices. 
+C. True – The underlying claim is incorrect: One noisy outcome may not represent the route's expected performance. 
+D. False – The underlying claim is correct: Information is more useful when it can improve many later actions. 
+E. True – The underlying claim is incorrect: Trying uncertain actions can sacriﬁce immediate performance.
+
+[ML2-D4G1Q3] 
+A Q-Learner continues selecting random actions on 90% of decisions even after extensive training in a stable simulator. 
+Its Q-values change little, but its realized reward remains volatile. 
+ 
+ 477 Rev:081020261230 
+ 
+A. The learner is emphasizing exploration over exploitation. 
+B. Frequent random actions can reduce realized performance even when the Q-table is accurate. 
+C. A stable Q-table implies that every random action is optimal. 
+D. Increasing the exploration rate to 100% would make the behavior greedy. 
+E. The observed volatility proves that the environment itself is nonstationary. 
+ 
+Answer Key: 
+ 
+A. True – A 90% random-action rate strongly favors exploration. 
+B. True – Random selection can choose actions below the greedy maximum. 
+C. False – Stable estimates do not make all actions equally good. 
+D. False – A 100% exploration rate would make every selection random under this policy. 
+E. False – Random behavior alone can cause volatile reward in a stationary environment. 
+ 
+G2: Epsilon-Greedy Action Selection
+
+[ML2-D4G2Q1] 
+An epsilon-greedy agent has three available actions and uses ε = 0.20. On an exploratory decision, its implementation 
+samples uniformly from all three actions, including the greedy action. 
+ 
+A. The exploratory branch is entered on 20% of decisions in expectation. 
+B. The greedy branch is entered on 80% of decisions in expectation. 
+C. The greedy action can still be selected from the exploratory branch. 
+D. Each nongreedy action is selected with probability 20% overall. 
+E. The total probability of selecting the greedy action is exactly 80%. 
+ 
+Answer Key: 
+ 
+A. True – Epsilon is the probability of using the exploratory branch. 
+B. True – The complementary probability is 1 - 0.20 = 0.80. 
+C. True – Uniform sampling from all actions includes the greedy action. 
+D. False – Each action receives 0.20/3 probability from exploration, not 20%. 
+ 
+ 478 Rev:081020261230 
+E. False – The greedy action receives 80% from exploitation plus 0.20/3 from exploration.
+
+[ML2-D4G2Q2] 
+A navigation agent has four actions and uses ε = 0.40. Its code selects the greedy action with probability 1 - ε; otherwise, 
+it samples uniformly only among the three nongreedy actions. 
+ 
+A. The greedy action is selected with probability 0.60. 
+B. Each nongreedy action is selected with probability 0.40/3. 
+C. Raising epsilon would increase the probability assigned to each nongreedy action under this implementation. 
+D. Epsilon is the probability that every action receives individually. 
+E. The action-selection rule is deterministic because the Q-table itself is ﬁxed. 
+ 
+Answer Key: 
+ 
+A. True – Only the 0.60 greedy branch can select the greedy action in this implementation. 
+B. True – The 0.40 exploration probability is divided among three actions. 
+C. True – With the same action set, a larger exploratory branch gives each nongreedy action more probability. 
+D. False – Epsilon is the branch probability, not the probability of each action. 
+E. False – Random branch selection and sampling make behavior stochastic.
+
+[ML2-D4G2Q3] 
+Two actions tie for the maximum Q-value. An epsilon-greedy implementation ﬁrst breaks greedy ties uniformly and, with 
+probability ε, instead samples uniformly from all available actions. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Either tied action can be selected by the greedy branch. 
+B. Tie-breaking changes which actions count as value-maximizing. 
+C. A nongreedy action can be selected only through the exploratory branch. 
+D. Setting ε = 0 removes exploratory selection but can still leave randomness from tie-breaking. 
+E. Setting ε = 1 guarantees selection of a nongreedy action. 
+ 
+ 
+ 479 Rev:081020261230 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Uniform tie-breaking gives each maximizing action a chance. 
+B. True – The underlying claim is incorrect: Tie-breaking chooses among maximizers; it does not change their values. 
+C. False – The underlying claim is correct: The greedy branch selects only maximizing actions. 
+D. False – The underlying claim is correct: Random tie-breaking can remain even with no exploratory branch. 
+E. True – The underlying claim is incorrect: Uniform exploration over all actions can select a greedy action too. 
+ 
+G3: Exploration Decay
+
+[ML2-D4G3Q1] 
+A trading Q-Learner starts with an exploration rate of 0.9 and decays it by multiplying by 0.5 after each episode. After only 
+a few episodes, the learned policy stops changing. The quant lead interprets this as proof that the strategy has converged 
+to the optimal policy. 
+ 
+A. Rapid exploration decay can leave many state-action pairs poorly explored. 
+B. A stable policy is sufficient proof of optimality. 
+C. Early lucky outcomes can be reinforced when exploration disappears too quickly. 
+D. Slower decay may improve state-action coverage. 
+E. Some exploration during training can reveal actions that initially looked inferior. 
+ 
+Answer Key: 
+ 
+A. True – Exploration may vanish before sufficient coverage is achieved. 
+B. False – Stability can reﬂect premature convergence. 
+C. True – Early randomness can shape the policy disproportionately. 
+D. True – More gradual decay allows broader experience. 
+E. True – Exploration can correct inaccurate early estimates.
+
+[ML2-D4G3Q2] 
+An agent begins with ε = 0.80 and multiplies epsilon by 0.90 after every episode, with no minimum ﬂoor. A reviewer 
+compares its early and late training behavior. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+ 480 Rev:081020261230 
+ 
+A. Epsilon decreases geometrically under this schedule. 
+B. After n decay steps, epsilon is 0.80(0.90)^n. 
+C. The probability of entering the exploratory branch declines as training proceeds. 
+D. Epsilon reaches exactly zero after a ﬁnite number of decay steps. 
+E. This schedule guarantees adequate state-action coverage regardless of episode length. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Repeated multiplication by a constant below one creates geometric decay. 
+B. False – The underlying claim is correct: Each decay step contributes one factor of 0.90. 
+C. False – The underlying claim is correct: A smaller epsilon means less frequent exploratory branching. 
+D. True – The underlying claim is incorrect: Multiplication by 0.90 approaches zero but does not equal zero in exact 
+arithmetic. 
+E. True – The underlying claim is incorrect: Coverage depends on the environment, visitation, training duration, and decay 
+speed.
+
+[ML2-D4G3Q3] 
+A team changes its decay schedule to ε_t = max(0.05, 0.95^t). Training continues for many episodes in a simulator with 
+noisy rewards. 
+ 
+A. The schedule preserves a residual exploration probability of at least 0.05. 
+B. Once 0.95^t falls below 0.05, epsilon remains at 0.05. 
+C. Residual exploration can continue generating new samples after the policy appears stable. 
+D. The ﬂoor guarantees that all state-action pairs are visited equally often. 
+E. The ﬂoor makes exploitation impossible late in training. 
+ 
+Answer Key: 
+ 
+A. True – The maximum operation prevents epsilon from dropping below 0.05. 
+B. True – The ﬂoor becomes the larger of the two terms at that point. 
+C. True – A nonzero exploratory branch can keep testing actions. 
+D. False – Reachability and state visitation still determine which pairs are sampled. 
+E. False – With epsilon 0.05, most decisions still use the greedy branch. 
+ 
+ 481 Rev:081020261230 
+ 
+G4: State-Action Coverage
+
+[ML2-D4G4Q1] 
+A trading learner has 100 discrete states and three actions, but its training data contain visits to only 40 states. Within 
+many visited states, the learner selected only one action. 
+ 
+A. The Q-table contains 300 possible state-action entries. 
+B. Entries for unvisited state-action pairs lack direct experience from this training run. 
+C. Accurate estimates for one action do not automatically establish the values of untried actions in the same state. 
+D. Visiting 40% of the states proves that 40% of all state-action pairs were visited. 
+E. A greedy policy extracted from the table must be optimal in unvisited states. 
+ 
+Answer Key: 
+ 
+A. True – There are 100 × 3 = 300 possible pairs. 
+B. True – No observed transition directly updated those pairs. 
+C. True – Each action can produce different rewards and successors. 
+D. False – Action coverage within visited states may be much lower or higher than that proportion. 
+E. False – Values in unvisited states can reﬂect initialization rather than learned evidence.
+
+[ML2-D4G4Q2] 
+A maze contains a high-reward region reachable only after the agent ﬁrst takes an action that appears costly. The current 
+policy avoids that action, so the region is never visited during later training. 
+ 
+A. Poor action coverage can also cause poor state coverage. 
+B. The absence of visits to the high-reward region proves that the region is unreachable. 
+C. Exploration of the initially costly action could expose new downstream states. 
+D. The learned policy can look stable while missing the better region. 
+E. Increasing exploitation alone guarantees discovery of the unseen region. 
+ 
+Answer Key: 
+ 
+ 
+ 482 Rev:081020261230 
+A. True – Actions determine which successor states can be reached. 
+B. False – The behavior policy, rather than the environment, may prevent visits. 
+C. True – Trying the avoided action can reveal its later consequences. 
+D. True – Repeating the current behavior may produce stable but incomplete experience. 
+E. False – More exploitation repeats the action that already avoids the region.
+
+[ML2-D4G4Q3] 
+A team reports that every state-action pair in its ﬁnite training environment was visited at least once. Rewards and 
+transitions are stochastic. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The report establishes that each pair has at least one direct sample. 
+B. One visit per pair guarantees an accurate expected value for every action. 
+C. Repeated visits can help estimate variability across outcomes. 
+D. Rare but important outcomes may be missed despite nominal coverage. 
+E. Once every pair has been visited, learning rates and sample counts no longer matter. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: At least one observation exists for every pair. 
+B. True – The underlying claim is incorrect: A single stochastic sample can be unrepresentative. 
+C. False – The underlying claim is correct: Additional observations reveal different possible rewards and transitions. 
+D. False – The underlying claim is correct: One or a few trials may not encounter low-probability outcomes. 
+E. True – The underlying claim is incorrect: Update weighting and repeated evidence continue to affect estimate quality. 
+ 
+G5: Premature Convergence and Local Behavior
+
+[ML2-D4G5Q1] 
+Early in training, a trading agent earns several unusually large rewards from going long. Epsilon then falls nearly to zero, 
+and the agent keeps choosing long even though a larger test would show that cash has a higher expected return in that 
+state. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+ 
+ 483 Rev:081020261230 
+A. The early rewards can cause an overly optimistic estimate for long. 
+B. Rapidly declining exploration can prevent the cash estimate from being corrected. 
+C. Repeated selection of long can reinforce locally stable behavior. 
+D. The policy's stability demonstrates that long has the highest true expected return. 
+E. Premature convergence requires the Q-values to stop changing numerically forever. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Lucky samples can temporarily inﬂate an action estimate. 
+B. False – The underlying claim is correct: Few later cash trials leave its estimate poorly informed. 
+C. False – The underlying claim is correct: Exploiting the early winner repeatedly can make the policy appear settled. 
+D. True – The underlying claim is incorrect: Stable behavior can arise from biased or incomplete experience. 
+E. True – The underlying claim is incorrect: The term can apply when behavior settles too early even if estimates still 
+ﬂuctuate slightly.
+
+[ML2-D4G5Q2] 
+Five Q-Learners use different random seeds but otherwise identical settings. Four settle on Policy A, while one discovers 
+Policy B and earns higher evaluation reward. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The result suggests that early random experience may affect the learned policy. 
+B. Agreement among four runs proves Policy A is globally optimal. 
+C. Multiple seeds can help reveal sensitivity to training randomness. 
+D. Policy B's stronger evaluation performance is evidence worth investigating. 
+E. Selecting the most common policy always avoids premature convergence. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Different random trajectories can lead to different learned behavior. 
+B. True – The underlying claim is incorrect: Frequency across a small set of runs is not proof of global optimality. 
+C. False – The underlying claim is correct: Variation across runs exposes dependence on initialization and exploration. 
+D. False – The underlying claim is correct: Better held-out results may indicate that most runs settled too early. 
+ 
+ 484 Rev:081020261230 
+E. True – The underlying claim is incorrect: Most runs can converge to the same suboptimal behavior.
+
+[ML2-D4G5Q3] 
+A learner's reward curve becomes ﬂat after 20 episodes. The team considers ending training immediately because no 
+improvement occurred in the last ﬁve episodes. 
+ 
+A. A ﬂat short-term reward curve can be consistent with a stable policy. 
+B. The curve alone proves that no better policy exists. 
+C. Temporarily increasing exploration could test whether alternatives were overlooked. 
+D. Evaluation across seeds can distinguish some robust patterns from seed-speciﬁc outcomes. 
+E. Longer training is guaranteed to discover the global optimum. 
+ 
+Answer Key: 
+ 
+A. True – Repeated behavior can yield a plateau. 
+B. False – A plateau can reﬂect insufficient exploration rather than optimality. 
+C. True – Additional exploration may ﬁnd actions the current policy rarely tries. 
+D. True – Independent runs reveal whether the plateau recurs consistently. 
+E. False – Extra time without suitable exploration or assumptions provides no guarantee. 
+ 
+G6: Training vs. Deployment Behavior
+
+[ML2-D4G6Q1] 
+A trading strategy was trained with ε = 0.20. During live evaluation in a ﬁxed historical test period, the team keeps the 
+same random exploration and obtains different trades each time it reruns the evaluation. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Exploratory action selection can make evaluation results vary across runs. 
+B. Greedy deployment can improve reproducibility when Q-values and tie-breaking are ﬁxed. 
+C. Random live actions may select positions the learner currently estimates as inferior. 
+D. Training with exploration requires deployment with exactly the same epsilon. 
+E. A single exploratory evaluation is sufficient to characterize the deployed policy's deterministic performance. 
+ 
+ 
+ 485 Rev:081020261230 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Random branch decisions can change the action sequence. 
+B. False – The underlying claim is correct: Removing exploration removes one source of behavioral randomness. 
+C. False – The underlying claim is correct: Exploration can choose nongreedy actions by design. 
+D. True – The underlying claim is incorrect: Behavior used to gather training experience need not be the ﬁnal execution 
+policy. 
+E. True – The underlying claim is incorrect: One stochastic trajectory need not represent greedy or average behavior.
+
+[ML2-D4G6Q2] 
+A warehouse robot explores during simulator training but is switched to a greedy policy when deployed near workers. 
+Engineers retain logging and periodically retrain it offline. 
+ 
+A. Exploration during training can improve knowledge of alternative actions. 
+B. Greedy deployment selects the currently highest-valued action in each encountered state. 
+C. Separating training behavior from deployment behavior can be appropriate when random live actions are costly. 
+D. Greedy deployment guarantees that the robot will never make a poor decision. 
+E. Offline retraining makes deployment logs irrelevant. 
+ 
+Answer Key: 
+ 
+A. True – Exploration supplies experience beyond the current greedy path. 
+B. True – That is the deﬁning action rule for a greedy policy. 
+C. True – Safety or cost can justify limiting random actions in production. 
+D. False – Learned values and state representations can still be wrong. 
+E. False – Logs can reveal drift, rare states, and failures useful for retraining.
+
+[ML2-D4G6Q3] 
+A deployed agent uses ε = 0 but produces different actions on repeated runs from the same recorded state. The team 
+claims that setting epsilon to zero guarantees fully deterministic output. 
+ 
+A. Zero epsilon removes randomness from the exploratory branch. 
+B. Random tie-breaking among equal maximum Q-values can still produce different actions. 
+ 
+ 486 Rev:081020261230 
+C. Zero epsilon guarantees identical behavior even if the Q-table changes through online updates. 
+D. Zero epsilon prevents stochastic environment transitions from producing different future states. 
+E. Reproducibility depends only on epsilon and never on implementation details or random seeds. 
+ 
+Answer Key: 
+ 
+A. True – The policy no longer enters epsilon-driven exploration. 
+B. True – A separate stochastic tie-breaking rule may remain active. 
+C. False – Updating the values can change which action is greedy. 
+D. False – Action selection does not control the environment's transition randomness. 
+E. False – Tie handling, updates, numerical details, and environment randomness can also matter. 
+ 
+G7: Nonstationary and Stochastic Environments
+
+[ML2-D4G7Q1] 
+A trading agent learns during a low-volatility market regime. Months later, transaction costs rise and the reward 
+distribution for frequent trading changes, but the deployed Q-table remains frozen. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The environment is nonstationary from the agent's perspective because reward patterns changed. 
+B. A policy that was effective under the earlier costs can degrade under the new costs. 
+C. Monitoring post-deployment performance can help detect this change. 
+D. A frozen policy automatically adapts because its past Q-values were learned from experience. 
+E. Nonstationarity means that every individual reward must be unique. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The mapping from behavior to reward is no longer stable over time. 
+B. False – The underlying claim is correct: Actions such as frequent trading may now have different net values. 
+C. False – The underlying claim is correct: Performance shifts can signal that training assumptions no longer hold. 
+D. True – The underlying claim is incorrect: Frozen estimates do not update in response to new observations. 
+E. True – The underlying claim is incorrect: Nonstationarity concerns changing distributions or dynamics, not uniqueness 
+of samples. 
+ 
+ 
+ 487 Rev:081020261230
+
+[ML2-D4G7Q2] 
+In a stationary simulator, the same state-action pair sometimes produces reward 5 and sometimes reward -1 because 
+outcomes are probabilistic. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Different outcomes from the same pair can occur in a stochastic environment. 
+B. The differing rewards alone prove that the environment is nonstationary. 
+C. Repeated samples can help estimate the pair's expected return. 
+D. A deterministic model that stores only the latest outcome may poorly represent this variability. 
+E. Stochasticity makes learning an expected value conceptually impossible. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Probabilistic rewards can vary even when their distribution is stable. 
+B. True – The underlying claim is incorrect: A stationary distribution can still generate different samples. 
+C. False – The underlying claim is correct: Averaging information across experience helps estimate expectations. 
+D. False – The underlying claim is correct: A last-sample representation discards the outcome distribution. 
+E. True – The underlying claim is incorrect: Expected values are speciﬁcally deﬁned over variable outcomes.
+
+[ML2-D4G7Q3] 
+A recommendation agent continues learning online with a small residual exploration rate because user preferences 
+change over time. Its designers are evaluating the tradeoffs of this choice. 
+ 
+A. Continued exploration can help the agent discover that a previously weak action has become valuable. 
+B. Online updates can adapt estimates using newer experience. 
+C. Residual exploration may impose short-term cost by occasionally selecting a currently inferior action. 
+D. A nonzero epsilon guarantees immediate detection of every environmental change. 
+E. In a changing environment, old observations always remain equally representative of current behavior. 
+ 
+Answer Key: 
+ 
+A. True – Retesting alternatives can reveal changes in their value. 
+B. True – Continued learning allows new outcomes to inﬂuence the estimates. 
+ 
+ 488 Rev:081020261230 
+C. True – Information gathering can reduce immediate reward. 
+D. False – Detection depends on visitation, change size, noise, and update dynamics. 
+E. False – Distribution shifts can make older data less relevant to current conditions. 
+  
+ 
+ 489 Rev:081020261230 
+ 
+Domain 5: Dyna and Model-Based Reinforcement Learning 
+Domain Summary 
+ Direct experience 
+ Learned transition and reward models 
+ Planning updates 
+ Simulated experience 
+ Sample efficiency 
+ Dyna iterations 
+ Model ﬁdelity 
+ Deterministic and stochastic models 
+ Model error 
+Topic Groups 
+G1: Direct vs. Simulated Experience 
+ Real environment transitions 
+ Hallucinated or planned transitions 
+ Learning from both sources 
+ Difference between acting and planning 
+G2: Transition Model Learning 
+ Predicting next states 
+ Storing observed transitions 
+ Deterministic versus probabilistic models 
+ Effects of inaccurate transition models 
+G3: Reward Model Learning 
+ Estimating rewards associated with transitions 
+ Reusing observed rewards 
+ Reward uncertainty 
+ 
+ 490 Rev:081020261230 
+ Model bias 
+G4: Dyna Planning Updates 
+ Additional Q-updates from model-generated experience 
+ Number of planning steps 
+ Replaying past state-action pairs 
+ Accelerating value propagation 
+G5: Sample Efficiency 
+ Learning more from limited real experience 
+ Beneﬁts when environment interaction is costly 
+ Tradeoff between planning and direct observation 
+ Why Dyna can learn faster 
+G6: Model Error and Planning Bias 
+ Incorrect models generating incorrect experience 
+ Compounding model errors 
+ Planning amplifying bad assumptions 
+ When more Dyna updates can hurt 
+G7: Dyna in Deterministic and Stochastic Environments 
+ Simple memorized models 
+ Need to represent multiple outcomes 
+ Repeated sampling 
+ Limitations of oversimpliﬁed environment models 
+G1: Direct vs. Simulated Experience

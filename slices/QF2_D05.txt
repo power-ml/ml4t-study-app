@@ -1,0 +1,580 @@
+Domain 5: Advanced Portfolio Construction
+
+[QF2-D5G1Q1] 
+A researcher produces one-month excess-return forecasts of +2% for Stock A, -1% for Stock B, and 0% for Stock C. The 
+proposed unconstrained rule maps each forecast linearly to a target position, with positive forecasts creating long 
+positions and negative forecasts creating short positions. 
+ 
+A. Under the stated rule, Stock A receives a long target position. 
+B. Under the stated rule, Stock B receives a short target position. 
+C. Stock C must receive the largest position because its forecast has the least directional risk. 
+D. Before any rescaling or constraints, Stock A's target position magnitude is twice Stock B's. 
+E. The forecasts alone guarantee that the resulting trades will earn positive realized returns. 
+ 
+Answer Key: 
+ 
+A. True – A positive forecast maps to a long position under the stated rule. 
+B. True – A negative forecast maps to a short position under the stated rule. 
+C. False – A zero forecast maps to a zero target under this linear rule, not the largest position. 
+D. True – Linear sizing makes magnitudes proportional to the absolute forecasts: 2% versus 1%. 
+E. False – Forecasts are uncertain estimates; realized returns can differ in sign and magnitude.
+
+[QF2-D5G1Q2] 
+A long-only fund converts cross-sectional return scores into portfolio weights. It increases weights above the benchmark 
+for the highest-scored stocks, reduces weights for the lowest-scored stocks, and requires all ﬁnal holdings to remain 
+nonnegative. One low-scored stock has a 4% benchmark weight. 
+ 
+A. A negative active view on the stock can be expressed by holding less than its 4% benchmark weight. 
+B. The fund must short the stock to express any negative active view. 
+C. A zero ﬁnal holding would represent a -4% active weight relative to the benchmark. 
+D. The same forecast can map to different ﬁnal weights when portfolio constraints differ. 
+E. A lower portfolio weight always means the model forecasts a negative absolute return for that stock. 
+ 
+Answer Key: 
+ 
+ 
+ 657 Rev:081020261230 
+A. True – An underweight relative to 4% expresses a negative benchmark-relative view. 
+B. False – A long-only portfolio can express the view through an underweight without a negative holding. 
+C. True – Active weight equals portfolio weight minus benchmark weight, so 0% minus 4% is -4%. 
+D. True – Long-only, sector, leverage, and other constraints affect how forecasts become positions. 
+E. False – The stock may simply have a less attractive forecast than competing assets or the benchmark allocation.
+
+[QF2-D5G1Q3] 
+A trading team compares two forecast-to-position mappings. Rule L is linear, so doubling a signal doubles its raw target. 
+Rule S takes only the sign of each signal and assigns every positive signal the same long target and every negative signal 
+the same short target. Both rules are later normalized to the same gross exposure. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Rule L preserves information about relative signal magnitude in its raw targets. ” 
+B. The following statement is incorrect: “Rule S distinguishes a +0.1 signal from a +2.0 signal through different raw long 
+sizes. ” 
+C. The following statement is incorrect: “Normalizing gross exposure can change position magnitudes without changing 
+their directions. ” 
+D. The following statement is incorrect: “If signal magnitude is poorly calibrated, a sign-based rule may be less sensitive 
+to extreme numerical scores. ” 
+E. The following statement is incorrect: “Equal gross exposure guarantees that the two portfolios have equal risk. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Linear mapping assigns larger raw positions to larger-magnitude signals. 
+B. True – The quoted statement is incorrect. Rule S assigns the same raw long target to all positive signals. 
+C. False – The quoted statement is correct. A common positive scaling factor changes sizes while preserving signs. 
+D. False – The quoted statement is correct. Ignoring magnitude prevents one extreme score from receiving a 
+proportionally extreme target. 
+E. True – The quoted statement is incorrect. Portfolio risk also depends on asset volatilities, correlations, and the 
+distribution of weights. 
+ 
+ 
+ 658 Rev:081020261230 
+G2: Position Sizing and Conviction
+
+[QF2-D5G2Q1] 
+Two stocks have identical expected excess returns of 6%, but Stock H has forecast volatility of 30% while Stock L has 
+forecast volatility of 15%. A manager sizes positions using expected excess return divided by forecast variance and 
+assumes the stocks are otherwise independent. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The rule considers both expected return and risk when sizing the positions. ” 
+B. The following statement is incorrect: “Stock L receives a larger position than Stock H under the stated rule. ” 
+C. The following statement is incorrect: “Equal expected returns require equal portfolio weights under every reasonable 
+construction method. ” 
+D. The following statement is incorrect: “A stronger raw forecast need not receive a larger weight if it also carries 
+substantially greater risk. ” 
+E. The following statement is incorrect: “The stated sizing rule eliminates estimation error in both expected returns and 
+volatilities. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Expected return divided by variance is explicitly a risk-adjusted mapping. 
+B. False – The quoted statement is correct. With equal expected returns, the asset with lower variance receives the larger 
+raw weight. 
+C. True – The quoted statement is incorrect. Risk, covariance, conﬁdence, costs, and constraints can justify different 
+weights. 
+D. False – The quoted statement is correct. Portfolio sizing can trade expected reward against risk rather than rank assets 
+by return alone. 
+E. True – The quoted statement is incorrect. The inputs remain estimates and can be wrong even when used in a formal 
+rule.
+
+[QF2-D5G2Q2] 
+A model forecasts +4% for both Stocks A and B. The research team assigns 80% conﬁdence to A's forecast and 40% 
+conﬁdence to B's forecast, then scales each raw position by the assigned conﬁdence while holding all other inputs equal. 
+ 
+A. Stock A receives twice Stock B's raw position under the stated conﬁdence scaling. 
+B. Conﬁdence scaling can distinguish forecasts with equal point estimates but different perceived reliability. 
+C. Lowering B's conﬁdence necessarily changes B's forecasted return from +4% to a negative value. 
+ 
+ 659 Rev:081020261230 
+D. Subjective conﬁdence estimates can themselves introduce model or judgment risk. 
+E. An 80% conﬁdence score guarantees that A's realized return will be positive 80% of the time. 
+ 
+Answer Key: 
+ 
+A. True – Equal forecasts multiplied by 0.8 and 0.4 produce a two-to-one position ratio. 
+B. True – The mapping adjusts the strength of implementation based on forecast reliability. 
+C. False – Conﬁdence scaling changes position size, not necessarily the sign of the point forecast. 
+D. True – Poorly calibrated conﬁdence can cause systematic over- or undersizing. 
+E. False – A conﬁdence scale is not automatically a calibrated probability of a positive realized return.
+
+[QF2-D5G2Q3] 
+An optimizer assigns 35% of capital to one stock because its estimated return is slightly higher than all others. The 
+mandate imposes a 10% position cap, and the manager is concerned that small forecast errors could otherwise create 
+excessive concentration. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The cap makes the 35% unconstrained solution infeasible. ” 
+B. The following statement is incorrect: “Applying the cap can force capital toward other holdings or cash, depending on 
+the remaining rules. ” 
+C. The following statement is incorrect: “A position cap can reduce damage from an extreme weight caused by estimation 
+error. ” 
+D. The following statement is incorrect: “The cap guarantees the highest possible expected return under the 
+unconstrained model. ” 
+E. The following statement is incorrect: “Concentration limits can trade some model-implied return for diversiﬁcation and 
+robustness. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. A 35% allocation violates a maximum position size of 10%. 
+B. False – The quoted statement is correct. The displaced allocation must be reassigned consistently with the portfolio's 
+other constraints. 
+C. False – The quoted statement is correct. A cap limits exposure when a noisy input would otherwise dominate the 
+portfolio. 
+ 
+ 660 Rev:081020261230 
+D. True – The quoted statement is incorrect. Constraining the unconstrained optimum can reduce its model-implied 
+expected return. 
+E. False – The quoted statement is correct. The restriction sacriﬁces some forecast utilization to control concentration 
+risk. 
+ 
+G3: Active vs. Benchmark-Relative Weights
+
+[QF2-D5G3Q1] 
+A benchmark assigns 5% to Stock A, 3% to Stock B, and 0% to Stock C. An active long-only portfolio assigns 8%, 1%, and 
+2%, respectively. The remaining portfolio holdings are not shown. 
+ 
+A. Stock A has a +3% active weight. 
+B. Stock B has a -2% active weight even though the portfolio still owns it. 
+C. Stock C has a +2% active weight relative to the benchmark. 
+D. An underweight requires the portfolio holding itself to be negative. 
+E. Active weights are computed by subtracting benchmark weights from portfolio weights. 
+ 
+Answer Key: 
+ 
+A. True – The active weight is 8% minus 5%, or +3%. 
+B. True – The holding is positive, but 1% is two percentage points below its 3% benchmark weight. 
+C. True – A 2% holding against a 0% benchmark position creates a +2% active weight. 
+D. False – A long-only fund can underweight a benchmark constituent while retaining a positive holding. 
+E. True – This difference deﬁnes the portfolio's benchmark-relative allocation for each asset.
+
+[QF2-D5G3Q2] 
+Portfolio X holds every benchmark stock near its benchmark weight. Portfolio Y is long-only and fully invested but 
+excludes many benchmark stocks while concentrating in a smaller subset. Both portfolios have the same expected total 
+return according to the manager's model. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Portfolio Y is likely to have higher active share than Portfolio X. ” 
+B. The following statement is incorrect: “Equal expected total returns imply equal active share. ” 
+ 
+ 661 Rev:081020261230 
+C. The following statement is incorrect: “Portfolio Y can have large negative active weights in excluded benchmark 
+securities without shorting them. ” 
+D. The following statement is incorrect: “Greater active share automatically guarantees better benchmark-relative 
+performance. ” 
+E. The following statement is incorrect: “Tracking error depends on active weights and the covariance structure, not active 
+share alone. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Larger deviations from benchmark weights generally produce higher active 
+share. 
+B. True – The quoted statement is incorrect. Expected return and active share measure different portfolio properties. 
+C. False – The quoted statement is correct. A zero holding creates an underweight equal to the negative of the positive 
+benchmark weight. 
+D. True – The quoted statement is incorrect. Larger benchmark deviations can lead to either outperformance or 
+underperformance. 
+E. False – The quoted statement is correct. The risk of active positions depends on how their returns vary and covary.
+
+[QF2-D5G3Q3] 
+A benchmark-neutral long-short strategy holds +$120 million of long active positions and -$120 million of short active 
+positions. A separate long-only benchmarked fund expresses negative views primarily through underweights. The teams 
+compare how their portfolios use capital and risk. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The long-short strategy has zero net dollar exposure from the positions 
+described. ” 
+B. The following statement is incorrect: “Its gross exposure is $240 million. ” 
+C. The following statement is incorrect: “Zero net exposure implies zero market, factor, and idiosyncratic risk. ” 
+D. The following statement is incorrect: “The long-only fund can express a negative relative view without taking a negative 
+dollar holding. ” 
+E. The following statement is incorrect: “Comparing the two strategies solely by net exposure can conceal meaningful 
+differences in gross exposure and risk. ” 
+ 
+Answer Key: 
+ 
+ 
+ 662 Rev:081020261230 
+A. False – The quoted statement is correct. The +$120 million long exposure and -$120 million short exposure sum to zero 
+net exposure. 
+B. False – The quoted statement is correct. Gross exposure adds absolute long and short exposures: $120 million plus 
+$120 million. 
+C. True – The quoted statement is incorrect. Long and short holdings can retain substantial basis, factor, covariance, and 
+security-speciﬁc risk. 
+D. False – The quoted statement is correct. Holding less than the benchmark weight creates an active underweight. 
+E. False – The quoted statement is correct. Netting can hide the amount and composition of positions on both sides of 
+the book. 
+ 
+G4: Risk-Aware Portfolio Construction
+
+[QF2-D5G4Q1] 
+Two proposed assets each have 20% annualized volatility. Assets A and B have a correlation of +0.90, while Assets A and 
+C have a correlation of -0.20. The optimizer is considering equal-weight two-asset portfolios and assumes expected 
+returns are equal. 
+ 
+A. The A-C portfolio should have lower volatility than the A-B portfolio under the stated estimates. 
+B. Equal individual volatilities imply equal portfolio volatility regardless of correlation. 
+C. Covariance determines whether combining positions provides substantial diversiﬁcation. 
+D. Adding B to A may add less diversiﬁcation than adding C to A. 
+E. A negative estimated correlation guarantees that A and C will offset perfectly in every future period. 
+ 
+Answer Key: 
+ 
+A. True – Lower correlation reduces the covariance term and therefore the equal-weight portfolio variance. 
+B. False – Portfolio volatility depends on both individual variances and cross-asset covariance. 
+C. True – Diversiﬁcation arises from imperfect co-movement among positions. 
+D. True – B closely resembles A's risk behavior, whereas C is estimated to move more independently. 
+E. False – Estimated correlation is uncertain and does not dictate every realized return pair. 
+ 
+ 
+ 663 Rev:081020261230
+
+[QF2-D5G4Q2] 
+A four-stock portfolio has equal dollar weights. Three stocks are relatively stable and weakly correlated, but the fourth is 
+highly volatile and strongly correlated with one of the others. The manager claims equal capital weights mean all four 
+stocks contribute equally to portfolio risk. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Equal dollar weights do not necessarily create equal risk contributions. ” 
+B. The following statement is incorrect: “The high-volatility stock may contribute more portfolio risk than its 25% capital 
+weight suggests. ” 
+C. The following statement is incorrect: “Marginal risk contribution depends on a position's weight and covariance with 
+the portfolio. ” 
+D. The following statement is incorrect: “Reducing the high-volatility holding can lower portfolio risk even if the number 
+of holdings remains four. ” 
+E. The following statement is incorrect: “Portfolio risk is always the weighted average of individual asset volatilities. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Risk contribution also depends on volatility and covariance. 
+B. False – The quoted statement is correct. Its own volatility and co-movement can make its marginal contribution 
+disproportionately large. 
+C. False – The quoted statement is correct. The relevant quantity reﬂects how a small weight change alters total portfolio 
+risk. 
+D. False – The quoted statement is correct. Risk depends on position sizes and relationships, not only the count of 
+securities. 
+E. True – The quoted statement is incorrect. Covariance terms mean portfolio volatility is generally not a simple weighted 
+average.
+
+[QF2-D5G4Q3] 
+A multi-strategy fund allocates equal risk budgets to momentum, value, and carry sleeves. Momentum and carry 
+currently hold different securities but have become strongly positively correlated, while value remains weakly correlated 
+with both. The fund evaluates the combined portfolio rather than each sleeve in isolation. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Different security holdings do not guarantee independent strategy risks. ” 
+B. The following statement is incorrect: “Stronger momentum-carry correlation can reduce the diversiﬁcation beneﬁt of 
+combining those sleeves. ” 
+ 
+ 664 Rev:081020261230 
+C. The following statement is incorrect: “Equal standalone volatility automatically produces equal contributions to total 
+portfolio risk. ” 
+D. The following statement is incorrect: “Portfolio-level analysis can reveal common exposures that are not obvious from 
+separate sleeve reports. ” 
+E. The following statement is incorrect: “Rebalancing risk budgets may be reasonable when correlations or volatilities 
+change materially. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Strategies can share market, sector, style, or macroeconomic exposures 
+through different instruments. 
+B. False – The quoted statement is correct. Positive co-movement increases their combined covariance contribution. 
+C. True – The quoted statement is incorrect. Total risk contribution also depends on weights and correlation with the rest 
+of the portfolio. 
+D. False – The quoted statement is correct. Aggregation exposes how sleeves interact and whether their risks overlap. 
+E. False – The quoted statement is correct. A previously balanced allocation can become unbalanced when the risk 
+estimates change. 
+ 
+G5: Constraints and Implementability
+
+[QF2-D5G5Q1] 
+An unconstrained optimizer proposes 180% long exposure and 80% short exposure, for 260% gross exposure and 100% 
+net exposure. The investment mandate limits gross exposure to 150% and prohibits any single position above 8% of 
+capital. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The proposed portfolio violates the gross-exposure limit. ” 
+B. The following statement is incorrect: “The net exposure of 100% is sufficient by itself to establish compliance with the 
+gross limit. ” 
+C. The following statement is incorrect: “The optimizer must alter the portfolio before it can satisfy the mandate.” 
+D. The following statement is incorrect: “A leverage constraint can reduce the degree to which forecasts are expressed. ” 
+E. The following statement is incorrect: “The 8% position cap is automatically satisﬁed because total net exposure equals 
+100%. ” 
+ 
+Answer Key: 
+ 
+ 
+ 665 Rev:081020261230 
+A. False – The quoted statement is correct. Gross exposure of 260% exceeds the allowed 150%. 
+B. True – The quoted statement is incorrect. Gross exposure sums absolute positions and can be high even when long 
+and short positions net substantially. 
+C. False – The quoted statement is correct. At minimum, gross exposure must be reduced, and individual weights must 
+also be checked. 
+D. False – The quoted statement is correct. Limiting total position magnitude may require scaling or dropping forecast-
+driven trades. 
+E. True – The quoted statement is incorrect. Aggregate net exposure gives no assurance about the size of any individual 
+holding.
+
+[QF2-D5G5Q2] 
+A model strongly favors technology stocks and disfavors utilities. Its unconstrained portfolio places 55% in technology, 
+although the mandate permits no sector to differ from its benchmark weight by more than 10 percentage points. Several 
+favored technology stocks are also difficult to trade in the desired size. 
+ 
+A. The sector constraint may prevent the optimizer from taking every favored technology position at its unconstrained 
+size. 
+B. Liquidity constraints can limit a position even when its expected return is attractive. 
+C. Sector limits are irrelevant when individual stock forecasts were generated independently. 
+D. Constraints can cause the ﬁnal portfolio to differ materially from a simple ranking of forecasts. 
+E. If constraints reduce the backtest return, removing them is always appropriate for live trading. 
+ 
+Answer Key: 
+ 
+A. True – The portfolio must keep technology within the permitted benchmark-relative range. 
+B. True – A theoretically attractive allocation may be costly or impossible to execute at scale. 
+C. False – Independent forecasts can still aggregate into a concentrated common sector exposure. 
+D. True – Feasibility rules affect which signals can be expressed and by how much. 
+E. False – Constraints may reﬂect real mandates, risk limits, market capacity, or legal requirements.
+
+[QF2-D5G5Q3] 
+A small-cap strategy wants to buy 12% of one company's average daily trading volume every day for two weeks. Its policy 
+limits participation to 5% of average daily volume and total portfolio turnover to 20% per month. The optimizer originally 
+ignored both restrictions. 
+ 
+ 666 Rev:081020261230 
+ 
+A. The proposed daily trade violates the participation-rate limit. 
+B. Breaking one large order into several intraday orders necessarily makes the 12% daily participation compliant. 
+C. A liquidity-aware optimizer may build the desired position more slowly or choose a smaller target. 
+D. The monthly turnover constraint should be checked across the portfolio, not only for this one security. 
+E. Ignoring implementability can make simulated portfolio results more optimistic than live results. 
+ 
+Answer Key: 
+ 
+A. True – Twelve percent of daily volume exceeds the stated 5% maximum. 
+B. False – Splitting orders does not change their combined share of the day's volume. 
+C. True – Slower execution or reduced size can keep trading within liquidity limits. 
+D. True – Turnover is an aggregate consequence of buys and sells throughout the portfolio. 
+E. True – A backtest can assume trades, prices, and position changes that cannot be achieved in practice. 
+ 
+G6: Forecast Uncertainty and Robustness
+
+[QF2-D5G6Q1] 
+An optimizer uses estimated expected returns that differ by only a few basis points. A small revision to one stock's 
+forecast changes its recommended weight from 2% to 28%, even though the stock's risk estimate is almost unchanged. 
+The team suspects the solution is overly sensitive to noisy return inputs. 
+ 
+A. Large weight changes from small input changes are evidence of sensitivity that merits investigation. 
+B. Expected-return estimates are often noisy enough that their precise ordering should not always be treated as certain. 
+C. Shrinking forecasts toward a common mean can reduce extreme allocations driven by small estimated differences. 
+D. The 28% recommendation proves that the revised forecast is correct. 
+E. Position caps or regularization can improve stability at the cost of departing from the unconstrained point-estimate 
+optimum. 
+ 
+Answer Key: 
+ 
+A. True – Instability under modest perturbations signals dependence on uncertain estimates. 
+B. True – Expected returns are difficult to estimate precisely and may contain substantial sampling error. 
+C. True – Shrinkage reduces cross-sectional dispersion and therefore weakens extreme forecast distinctions. 
+ 
+ 667 Rev:081020261230 
+D. False – An optimizer transforms inputs; it does not validate their accuracy. 
+E. True – Robustness controls deliberately trade some in-sample optimality for less fragile weights.
+
+[QF2-D5G6Q2] 
+A researcher estimates returns from a short sample. The unconstrained optimizer recommends a highly leveraged long 
+position in Asset A and a highly leveraged short position in Asset B because their estimated returns differ substantially. 
+Bootstrap samples often reverse the forecasts' ordering. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Frequent ordering reversals suggest the relative-return estimate is uncertain. ” 
+B. The following statement is incorrect: “Extreme opposing weights can amplify the consequences of forecast error. ” 
+C. The following statement is incorrect: “Sensitivity analysis can evaluate whether the portfolio remains reasonable under 
+plausible alternative inputs. ” 
+D. The following statement is incorrect: “Leverage makes estimation uncertainty irrelevant because gains and losses 
+scale symmetrically. ” 
+E. The following statement is incorrect: “A robust process might reduce both positions rather than fully trust one noisy 
+point estimate. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The resampled data do not support a stable ranking between the two assets. 
+B. False – The quoted statement is correct. Large long and short positions magnify losses if the forecast ordering is wrong. 
+C. False – The quoted statement is correct. Perturbing returns, risks, and correlations tests the stability of the allocation. 
+D. True – The quoted statement is incorrect. Leverage magniﬁes the portfolio effect of errors rather than eliminating 
+uncertainty. 
+E. False – The quoted statement is correct. Scaling back is one way to account for low conﬁdence in the estimated spread.
+
+[QF2-D5G6Q3] 
+Two allocation methods are tested across rolling out-of-sample periods. Method E repeatedly chooses extreme corner 
+solutions and has the highest in-sample expected return. Method R uses shrinkage and weight penalties, producing less 
+extreme allocations and slightly lower in-sample expected return but more stable out-of-sample performance. 
+ 
+A. Method E's higher in-sample objective value does not guarantee superior realized performance. 
+B. Method R sacriﬁces some reliance on point estimates in exchange for greater allocation stability. 
+ 
+ 668 Rev:081020261230 
+C. Stable weights can reduce turnover caused solely by small forecast ﬂuctuations. 
+D. Robustness means the portfolio must hold equal weights in every asset. 
+E. Out-of-sample evidence is relevant when comparing whether the methods generalize beyond their ﬁtted samples. 
+ 
+Answer Key: 
+ 
+A. True – The optimized objective is conditional on estimated inputs that may not persist. 
+B. True – Shrinkage and penalties temper extreme responses to uncertain estimates. 
+C. True – Smaller target changes generally require fewer trades when forecasts move modestly. 
+D. False – Many unequal-weight portfolios can be robust; equal weighting is only one possible approach. 
+E. True – Performance on later data helps reveal whether apparent optimization beneﬁts survive estimation error. 
+ 
+G7: Optimization with Costs and Turnover
+
+[QF2-D5G7Q1] 
+A portfolio optimizer recommends a major rebalance because forecasted returns changed slightly. The proposed trades 
+would incur substantial transaction costs, while the expected improvement in portfolio return is small. 
+ 
+A. A cost-aware optimizer may choose not to trade. 
+B. Existing holdings should be ignored because optimization concerns only future returns. 
+C. Rebalancing penalties can reduce unnecessary turnover. 
+D. The mathematically optimal frictionless portfolio may be economically inferior after costs. 
+E. Trading thresholds can prevent small forecast changes from triggering large trades. 
+ 
+Answer Key: 
+ 
+A. True – The expected beneﬁt may not exceed implementation cost. 
+B. False – Current holdings determine how much trading is required. 
+C. True – Turnover penalties discourage low-value rebalancing. 
+D. True – Frictionless optimality does not imply net optimality. 
+E. True – Thresholds help avoid uneconomic trades. 
+ 
+ 
+ 669 Rev:081020261230
+
+[QF2-D5G7Q2] 
+A fund currently holds 4% in Stock A. Its new frictionless target is 4.3%, but buying the additional 0.3% would cross a wide 
+spread and incur market impact. A cost-aware model estimates that the expected incremental beneﬁt is smaller than 
+the cost. 
+ 
+A. Retaining the 4% holding can be optimal under the cost-aware objective. 
+B. The existing position matters because costs depend on the trade from current to target holdings. 
+C. Any nonzero difference between current and frictionless target weights should trigger a trade. 
+D. A no-trade region can allow small forecast changes without immediate rebalancing. 
+E. If trading costs later decline enough, moving closer to the frictionless target may become worthwhile. 
+ 
+Answer Key: 
+ 
+A. True – Not trading preserves more expected net value when the incremental cost exceeds the beneﬁt. 
+B. True – A target weight alone does not reveal the turnover required to reach it. 
+C. False – Small improvements may be uneconomic after spreads, impact, taxes, or other costs. 
+D. True – Threshold policies avoid repeatedly trading on immaterial target changes. 
+E. True – Lower costs can change the net comparison between trading and holding.
+
+[QF2-D5G7Q3] 
+A daily strategy alternates between full long and full short positions when a noisy forecast moves slightly above or below 
+zero. The frictionless backtest shows attractive gross returns, but live implementation suffers high turnover and costs. 
+The team considers a stronger signal threshold and a penalty proportional to traded dollars. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Forecast noise near zero can cause repeated position reversals. ” 
+B. The following statement is incorrect: “A stronger entry or reversal threshold can reduce trading triggered by weak 
+signals. ” 
+C. The following statement is incorrect: “A turnover penalty makes trades more attractive by increasing their objective 
+value. ” 
+D. The following statement is incorrect: “Gross backtest performance can overstate net performance when frequent 
+trading is costly. ” 
+E. The following statement is incorrect: “A cost-aware rule should compare expected improvement with implementation 
+cost rather than minimize turnover at any price. ” 
+ 
+ 
+ 670 Rev:081020261230 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Small sign changes can ﬂip the target when the rule has no buffer. 
+B. False – The quoted statement is correct. Requiring stronger evidence creates a no-trade range around weak forecasts. 
+C. True – The quoted statement is incorrect. The penalty lowers the objective value of trade-intensive portfolio changes. 
+D. False – The quoted statement is correct. Spreads, commissions, slippage, and impact consume returns from frequent 
+reversals. 
+E. False – The quoted statement is correct. Some high-value trades remain worthwhile; the goal is net portfolio value, not 
+zero trading. 
+ 
+  
+ 
+ 671 Rev:081020261230 
+Domain 6: Strategy Evaluation and Performance Attribution 
+Domain Summary 
+ Manual, learned, and benchmark strategies 
+ In-sample and out-of-sample testing 
+ Return 
+ Volatility 
+ Sharpe ratio 
+ Drawdown 
+ Turnover 
+ Alpha and beta 
+ Attribution 
+ Stability 
+ Statistical and economic signiﬁcance 
+Topic Groups 
+G1: Benchmark Selection 
+ Market index 
+ Cash 
+ Buy-and-hold 
+ Manual strategy 
+ Appropriate benchmark matching 
+ Why weak benchmarks exaggerate performance 
+G2: In-Sample vs. Out-of-Sample Evaluation 
+ Training and testing periods 
+ Strategy selection bias 
+ Parameter tuning 
+ Forward testing 
+ Generalization of ﬁnancial performance 
+ 
+ 672 Rev:081020261230 
+G3: Return, Volatility, and Drawdown 
+ Cumulative return 
+ Standard deviation 
+ Maximum drawdown 
+ Recovery 
+ Comparing different risk proﬁles 
+G4: Risk-Adjusted Performance Metrics 
+ Sharpe ratio 
+ Sortino ratio 
+ Information ratio 
+ Metric selection 
+ When metrics disagree 
+G5: Turnover and Trading Behavior 
+ Frequency of trades 
+ Holding periods 
+ Churn 
+ Impact on cost and risk 
+ Comparing active and passive strategies 
+G6: Performance Attribution 
+ Market exposure 
+ Security selection 
+ Timing 
+ Sector or factor effects 
+ Alpha, beta, and residual return 
+G7: Stability, Signiﬁcance, and Robustness 
+ Performance across subperiods 
+ Sensitivity to assumptions 
+ Statistical versus economic signiﬁcance 
+ Dependence on a few extreme trades 
+ 
+ 673 Rev:081020261230 
+ Consistency across market regimes 
+G1: Benchmark Selection

@@ -1,0 +1,496 @@
+Domain 5: Dyna and Model-Based Reinforcement Learning
+
+[ML2-D5G1Q1] 
+A warehouse robot takes action a in physical state s, observes reward 2 and next state s' , updates its Q-table, stores the 
+transition in a learned model, and then samples stored state-action pairs for planning. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The observed transition from the physical robot is direct experience. 
+ 
+ 491 Rev:081020261230 
+B. A transition later produced by the learned model is simulated experience. 
+C. Planning requires the robot to execute every sampled action in the warehouse again. 
+D. Both direct and simulated transitions can be used in Q-learning updates. 
+E. A model-generated transition is necessarily a new observation of the real environment. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The robot actually interacted with the environment to obtain the transition. 
+B. False – The underlying claim is correct: The model generates an experience without another physical interaction. 
+C. True – The underlying claim is incorrect: Planning updates occur internally and do not require executing the sampled 
+action again. 
+D. False – The underlying claim is correct: Dyna applies the same value-update logic to both sources of experience. 
+E. True – The underlying claim is incorrect: It is a prediction based on prior observations, not a fresh environmental 
+observation.
+
+[ML2-D5G1Q2] 
+A trading agent processes one newly observed market transition and then performs 50 planning updates before the next 
+market observation arrives. 
+ 
+A. The agent has received one new transition from direct experience. 
+B. The 50 planning transitions are derived from its learned model. 
+C. The planning updates create 50 additional independent observations of the real market. 
+D. Acting changes or samples the external environment, whereas planning reasons with an internal model. 
+E. The agent cannot revise Q-values during planning because no new market tick has arrived. 
+ 
+Answer Key: 
+ 
+A. True – Only the actual market transition is new direct experience. 
+B. True – Dyna planning generates transitions from the learned model. 
+C. False – Model samples are not independent real-world observations. 
+D. True – Acting and planning differ in where their transitions originate. 
+E. False – Planning is speciﬁcally used to perform additional value updates between real observations. 
+ 
+ 
+ 492 Rev:081020261230
+
+[ML2-D5G1Q3] 
+Two agents observe the same sequence of real transitions. Agent X performs only direct Q-learning updates, while Agent 
+Y also performs Dyna planning with a learned model. 
+ 
+A. Both agents require a transition model before they can update from each real transition. 
+B. Agent Y can update state-action pairs that were not selected on the current real step if they exist in its model. 
+C. Agent Y is guaranteed to learn a better policy regardless of model accuracy. 
+D. Agent X is model-free in the sense that it need not learn transitions for planning. 
+E. Agent Y's simulated experiences make further direct observations unnecessary in every environment. 
+ 
+Answer Key: 
+ 
+A. False – Direct Q-learning can update from an observed transition without learning an explicit model. 
+B. True – Planning can revisit other previously modeled state-action pairs. 
+C. False – Inaccurate modeling or poor planning choices can degrade learning. 
+D. True – Direct Q-learning can learn action values without an explicit transition model. 
+E. False – Real observations remain necessary to build, correct, and refresh the model. 
+ 
+G2: Transition Model Learning
+
+[ML2-D5G2Q1] 
+In a deterministic maze, action right from state 12 has always led to state 13. A Dyna agent stores T(12, right) = 13 after 
+observing the transition. 
+ 
+A. The stored value is a prediction of the next state for that state-action pair. 
+B. A single stored next state can represent this transition well if the environment is truly deterministic and stationary. 
+C. The transition model alone speciﬁes the reward received on entering state 13. 
+D. If a wall later blocks the route, the old stored transition can become inaccurate. 
+E. Replaying the stored transition proves that the physical route is still open. 
+ 
+Answer Key: 
+ 
+A. True – A transition model maps a state-action pair to a next-state outcome or distribution. 
+ 
+ 493 Rev:081020261230 
+B. True – One outcome is sufficient when that outcome is stable and deterministic. 
+C. False – Reward information must be represented separately unless it is explicitly included in the model. 
+D. True – An environmental change can invalidate the learned mapping. 
+E. False – Planning repeats a model prediction and does not verify current physical conditions.
+
+[ML2-D5G2Q2] 
+At a congested intersection, taking the same action from the same state leads to state A 70% of the time and state B 30% 
+of the time. One model stores only the most recently observed next state; another estimates both probabilities. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The intersection is stochastic with respect to this state-action pair. 
+B. The last-observation model can alternate between predicting A and predicting B as new samples arrive. 
+C. The probabilistic model can represent both outcomes and their relative frequencies. 
+D. Storing the most recent outcome is equivalent to storing the true 70/30 distribution. 
+E. A probabilistic model guarantees exact probabilities after one observation. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The same state-action pair has multiple possible next states. 
+B. False – The underlying claim is correct: Its prediction is overwritten when a different outcome is observed. 
+C. False – The underlying claim is correct: A distributional representation can retain multiple outcomes. 
+D. True – The underlying claim is incorrect: A single outcome discards the transition probabilities. 
+E. True – The underlying claim is incorrect: Reliable probability estimates generally require repeated evidence.
+
+[ML2-D5G2Q3] 
+A newly initialized Dyna agent has observed transitions for only 20 of 500 possible state-action pairs. Its planning code 
+selects uniformly from all 500 pairs and invents an unobserved pair's next state as state 0. 
+ 
+A. The transition model is grounded in direct evidence for every pair selected during planning. 
+B. Inventing state 0 for unobserved pairs can introduce model bias. 
+C. Restricting planning to observed pairs would avoid fabricating transitions for wholly unseen pairs. 
+ 
+ 494 Rev:081020261230 
+D. Uniform sampling across all 500 pairs guarantees that planning is accurate. 
+E. Additional direct exploration can expand the set of empirically supported transitions. 
+ 
+Answer Key: 
+ 
+A. False – Most pairs have never been observed. 
+B. True – The arbitrary default may not match the environment's dynamics. 
+C. True – Sampling only modeled observations prevents this speciﬁc unsupported assumption. 
+D. False – Sampling coverage does not establish model correctness. 
+E. True – New interactions can provide transition evidence for additional pairs. 
+ 
+G3: Reward Model Learning
+
+[ML2-D5G3Q1] 
+A Dyna agent observes (s, a, r = -3, s') and stores both the next state and reward. During planning, it later samples (s, a) 
+from its model. 
+ 
+A. The reward model can supply -3 for a simulated replay of this observed transition. 
+B. The planning update can use the modeled reward in its TD target. 
+C. Storing a reward estimate makes a transition model unnecessary for bootstrapping. 
+D. If rewards later change, repeatedly reusing -3 can bias the learned value. 
+E. A modeled reward obtained during planning is a fresh payment from the external environment. 
+ 
+Answer Key: 
+ 
+A. True – The stored reward can be reused when generating simulated experience. 
+B. True – A Q-learning target includes immediate reward plus discounted next-state value. 
+C. False – The next state is still needed for the usual bootstrapped portion of the target. 
+D. True – A stale reward model can reinforce values appropriate to an earlier setting. 
+E. False – It is an internal estimate, not a new external outcome. 
+ 
+ 
+ 495 Rev:081020261230
+
+[ML2-D5G3Q2] 
+The same state-action transition produces reward 10 on half the visits and reward 0 on half. One agent's reward model 
+stores the last reward; another maintains an estimated mean. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The expected immediate reward is 5 if the two outcomes are equally likely. 
+B. A last-reward model will always return the expected reward of 5. 
+C. A mean estimator can approach 5 as it receives many representative samples. 
+D. Reward variability can matter even when the transition's next state is deterministic. 
+E. Observing reward 10 once proves that future rewards will always be 10. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: 0.5(10) + 0.5(0) = 5. 
+B. True – The underlying claim is incorrect: It returns either the last observed 10 or 0, not necessarily the expectation. 
+C. False – The underlying claim is correct: Repeated representative observations can improve the mean estimate. 
+D. False – The underlying claim is correct: Rewards and transitions may have different sources of uncertainty. 
+E. True – The underlying claim is incorrect: One sample does not remove the stated reward stochasticity.
+
+[ML2-D5G3Q3] 
+A trading simulator initially omits transaction costs from its reward model. The agent then performs many Dyna updates 
+and learns to trade frequently. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The modeled rewards may systematically overstate the value of frequent trading. 
+B. Planning can propagate the omitted-cost bias through the Q-table. 
+C. More planning steps necessarily correct the missing transaction costs without new information. 
+D. Adding transaction costs to the reward deﬁnition can change the preferred policy. 
+E. An accurate transition model guarantees an accurate reward model. 
+ 
+Answer Key: 
+ 
+ 
+ 496 Rev:081020261230 
+A. False – The underlying claim is correct: Omitting costs makes affected trades appear more proﬁtable than they are. 
+B. False – The underlying claim is correct: Repeated simulated updates reinforce the biased rewards. 
+C. True – The underlying claim is incorrect: Repetition cannot supply a component absent from the model. 
+D. False – The underlying claim is correct: Net rewards determine action values and can alter action rankings. 
+E. True – The underlying claim is incorrect: Transition and reward predictions can differ in accuracy. 
+ 
+G4: Dyna Planning Updates
+
+[ML2-D5G4Q1] 
+After each real transition, a Dyna-Q agent performs one ordinary Q-learning update, updates its model, and then 
+conducts dyna = 20 planning steps. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The agent performs 20 additional model-based Q-updates per real step. 
+B. Each planning step may sample a previously observed state-action pair from the model. 
+C. Setting dyna = 0 removes the direct Q-learning update. 
+D. Increasing dyna increases computation between real interactions. 
+E. Every planning update must use the state-action pair from the immediately preceding real transition. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The Dyna parameter speciﬁes the number of planning updates here. 
+B. False – The underlying claim is correct: Planning commonly replays modeled experience from prior observations. 
+C. True – The underlying claim is incorrect: It eliminates planning but leaves the direct update intact. 
+D. False – The underlying claim is correct: More simulated updates require additional processing. 
+E. True – The underlying claim is incorrect: Planning can sample other pairs retained in the model.
+
+[ML2-D5G4Q2] 
+In a chain of states, the agent discovers a terminal reward at the far end. Planning repeatedly samples transitions along 
+the chain after that discovery. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+ 
+ 497 Rev:081020261230 
+A. Planning can propagate information about the terminal reward toward earlier states without traversing the physical 
+chain each time. 
+B. Replaying a predecessor transition can update its value using the improved value of its successor. 
+C. The beneﬁt depends in part on whether relevant transitions are selected for planning. 
+D. One planning update must make every upstream Q-value exactly optimal. 
+E. Planning removes all effects of the learning rate and discount factor. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Simulated backups can carry the new value information backward through 
+modeled links. 
+B. False – The underlying claim is correct: Bootstrapping uses the successor's current action-value estimates. 
+C. False – The underlying claim is correct: Unhelpful sampling may delay propagation to important pairs. 
+D. True – The underlying claim is incorrect: Multiple backups may be needed, and estimates or models may still be 
+imperfect. 
+E. True – The underlying claim is incorrect: Planning updates still use the Q-learning parameters.
+
+[ML2-D5G4Q3] 
+An implementation chooses 100 planning pairs uniformly from a model containing 10,000 observed state-action pairs. 
+Most pairs are unrelated to a recently discovered reward change. 
+ 
+A. Uniform planning may spend many updates on pairs not immediately relevant to the changed reward. 
+B. Prioritizing pairs with large prediction errors could focus computation on surprising changes. 
+C. Raising the number of uniformly sampled updates can increase the chance of revisiting relevant pairs. 
+D. Uniform sampling guarantees that every one of the 10,000 pairs is selected in 100 draws. 
+E. Planning order can never affect how quickly value information spreads. 
+ 
+Answer Key: 
+ 
+A. True – Most of the model does not directly carry the new information. 
+B. True – Prioritized planning can allocate updates to transitions with substantial value changes. 
+C. True – More draws provide more opportunities, though not a guarantee. 
+D. False – Sampling with replacement can miss most pairs and repeat others. 
+E. False – Updating useful predecessors earlier can accelerate propagation. 
+ 
+ 498 Rev:081020261230 
+ 
+G5: Sample Efficiency
+
+[ML2-D5G5Q1] 
+Two robots receive the same 200 costly physical interactions. One uses direct Q-learning only; the other learns a 
+reasonably accurate model and performs planning updates between interactions. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The Dyna robot can extract multiple value updates from information collected during those 200 interactions. 
+B. Dyna can improve sample efficiency by reducing the number of real interactions needed for a given learning target. 
+C. Planning makes computation free as well as environment interaction free. 
+D. The beneﬁt is especially relevant when physical trials are slow, risky, or expensive. 
+E. A learned model guarantees the Dyna robot will outperform the direct learner on every run. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Stored observations can support repeated simulated updates. 
+B. False – The underlying claim is correct: Reusing experience may achieve useful values with fewer external samples. 
+C. True – The underlying claim is incorrect: Planning saves environmental interaction but consumes computation. 
+D. False – The underlying claim is correct: Reusing scarce experience is valuable when new samples are costly. 
+E. True – The underlying claim is incorrect: Outcomes depend on model ﬁdelity, sampling, parameters, and randomness.
+
+[ML2-D5G5Q2] 
+A simulator is extremely cheap to query, but ﬁtting and sampling the Dyna model is computationally expensive and 
+inaccurate. The team assumes model-based planning must still be the most efficient choice. 
+ 
+A. Sample efficiency and computational efficiency are distinct concepts. 
+B. Cheap direct simulation can reduce the practical advantage of learning a separate model. 
+C. An inaccurate learned model can offset gains from reusing experience. 
+D. Dyna is always preferable whenever any model can be ﬁtted. 
+E. More simulated updates are equivalent to more independent real observations. 
+ 
+Answer Key: 
+ 
+ 499 Rev:081020261230 
+ 
+A. True – A method may conserve environment samples while using more computation. 
+B. True – Direct experience may be plentiful when the environment itself is inexpensive to sample. 
+C. True – Biased planning can produce poor value updates. 
+D. False – Costs and model quality determine whether planning is worthwhile. 
+E. False – Model samples reuse learned assumptions rather than add independent evidence.
+
+[ML2-D5G5Q3] 
+A clinical decision simulator permits only a small number of carefully reviewed interactions. A Dyna agent learns from 
+those interactions and performs internal planning, but several rare outcomes have never appeared. 
+ 
+A. Planning creates additional reviewed interactions with the external simulator. 
+B. The absence of rare outcomes means the learned model is guaranteed to assign them their correct probabilities. 
+C. Planning cannot create reliable evidence about outcomes missing from both the data and prior model assumptions. 
+D. Targeted collection of additional real observations may be more useful than unlimited replay of an incomplete model. 
+E. Sample efficiency means the agent no longer needs to consider model uncertainty. 
+ 
+Answer Key: 
+ 
+A. False – Planning reuses an internal model and does not create new external interactions. 
+B. False – Unseen outcomes may be omitted or badly estimated. 
+C. True – Simulation cannot infer unsupported facts merely through repetition. 
+D. True – New evidence can correct gaps that replay alone preserves. 
+E. False – Model uncertainty remains important precisely when direct samples are scarce. 
+ 
+G6: Model Error and Planning Bias
+
+[ML2-D5G6Q1] 
+A Dyna agent learns a transition model from only a few observations and then performs thousands of planning updates 
+using that model. The environment is stochastic, but the learned model stores only the most recently observed next state 
+for each state-action pair. 
+ 
+A. The model may misrepresent the environment’s true transition distribution. 
+ 
+ 500 Rev:081020261230 
+B. More planning updates always improve the policy. 
+C. Planning can amplify model error. 
+D. A probabilistic transition model may better represent the environment. 
+E. Direct experience remains useful even when Dyna planning is used. 
+ 
+Answer Key: 
+ 
+A. True – A last-observation model can collapse stochastic outcomes into one deterministic outcome. 
+B. False – Repeated planning on a bad model can hurt. 
+C. True – Simulated experience repeatedly reinforces model bias. 
+D. True – Multiple possible outcomes can be represented explicitly. 
+E. True – Real observations are still needed to update both the value function and the model.
+
+[ML2-D5G6Q2] 
+A delivery environment changes overnight when a bridge closes. The Dyna agent's old model still predicts that crossing 
+the bridge leads quickly to the destination, and the agent performs extensive planning before obtaining new direct 
+experience. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The stored transition model is stale after the closure. 
+B. Planning with the stale model can preserve or strengthen the obsolete route's value. 
+C. More planning necessarily reveals the bridge closure even without new observations. 
+D. New direct experience can provide evidence needed to revise the model. 
+E. Model-based planning makes an agent immune to nonstationarity. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The environment's transition dynamics no longer match the stored mapping. 
+B. False – The underlying claim is correct: Simulated successes can repeatedly reinforce the old route. 
+C. True – The underlying claim is incorrect: The unchanged model contains no information about the closure. 
+D. False – The underlying claim is correct: Interaction can expose the changed transition and support correction. 
+E. True – The underlying claim is incorrect: A model can become inaccurate when dynamics change. 
+ 
+ 501 Rev:081020261230
+
+[ML2-D5G6Q3] 
+A trading model underestimates the probability of a large loss for a leveraged action. With one planning step per real 
+transition, the action looks slightly attractive; with 10,000 planning steps, its estimated value becomes strongly positive. 
+ 
+A. Increasing planning can amplify systematic optimism in the model. 
+B. The stronger positive estimate proves that the action's true expected return is positive. 
+C. Reducing planning may limit ampliﬁcation but does not correct the underlying model error. 
+D. Collecting representative tail-loss observations could improve the model. 
+E. Model bias disappears automatically as the same biased transition is replayed more often. 
+ 
+Answer Key: 
+ 
+A. True – Repetition can give disproportionate inﬂuence to an optimistic model. 
+B. False – Conﬁdence within the model does not validate its real-world accuracy. 
+C. True – Fewer replays reduce repetition without supplying correct missing information. 
+D. True – Better direct evidence can revise the underestimated risk. 
+E. False – Replaying biased data reinforces rather than removes the bias. 
+ 
+G7: Dyna in Deterministic and Stochastic Environments
+
+[ML2-D5G7Q1] 
+In a deterministic gridworld, every observed state-action pair always produces the same next state and reward. The 
+environment remains unchanged during training. 
+ 
+A. A table storing one next state and one reward per observed pair can represent the observed dynamics exactly. 
+B. Planning can replay those stored transitions without sampling an outcome distribution. 
+C. The model is necessarily correct for state-action pairs the agent has never visited. 
+D. Direct exploration is still needed to discover transitions absent from the model. 
+E. Determinism guarantees that every policy is optimal. 
+ 
+Answer Key: 
+ 
+ 
+ 502 Rev:081020261230 
+A. True – A single stable outcome is sufficient for each observed deterministic pair. 
+B. True – There is no modeled outcome uncertainty to sample for those pairs. 
+C. False – Determinism does not reveal unobserved mappings. 
+D. True – Interaction supplies information about previously unseen pairs. 
+E. False – Deterministic environments can still contain good and bad actions.
+
+[ML2-D5G7Q2] 
+In a stochastic market model, action hold from state s leads to up, ﬂat, or down states with probabilities 0.5, 0.2, and 0.3. 
+The learned model tracks counts for all three outcomes. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Normalized outcome counts can estimate a categorical transition distribution. 
+B. Planning can sample different next states for the same state-action pair on different updates. 
+C. More representative direct observations can improve the estimated probabilities. 
+D. Because the environment is stochastic, a deterministic last-outcome model represents the full distribution exactly. 
+E. One simulated sample must equal the expected next state of the distribution. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Empirical frequencies provide probability estimates. 
+B. False – The underlying claim is correct: Distributional sampling permits multiple modeled outcomes. 
+C. False – The underlying claim is correct: Additional representative evidence can reduce estimation error. 
+D. True – The underlying claim is incorrect: Retaining one outcome discards other possibilities and their probabilities. 
+E. True – The underlying claim is incorrect: An individual draw is an outcome, not necessarily a distributional expectation.
+
+[ML2-D5G7Q3] 
+A stochastic navigation environment has a 1% chance that an action causes a severe penalty. The agent's ﬁrst 50 
+observations contain no penalty, so its model records only the common safe outcome and performs extensive planning. 
+ 
+A. The missing penalty outcome proves its true probability is zero. 
+B. Planning from the current model will reproduce the omission unless the model introduces or learns the rare outcome. 
+ 
+ 503 Rev:081020261230 
+C. Repeated safe simulated transitions can make the action appear less risky than it is. 
+D. Additional real samples may eventually reveal the rare penalty. 
+E. Increasing planning updates alone guarantees discovery of an outcome absent from the model. 
+ 
+Answer Key: 
+ 
+A. False – A rare event can be absent from a modest sample even when its probability is nonzero. 
+B. True – A model cannot sample an outcome it does not represent. 
+C. True – The simulated experience reﬂects the model's incomplete risk estimate. 
+D. True – More direct trials create additional opportunities to observe the event. 
+E. False – Replaying the same incomplete model adds no missing outcome. 
+ 
+  
+ 
+ 504 Rev:081020261230 
+Domain 6: State Representation, Discretization, and Reward Design 
+Domain Summary 
+ Continuous and discrete states 
+ Binning 
+ State-space size 
+ Feature selection 
+ State aliasing 
+ Sparse states 
+ Holdings and position information 
+ Reward deﬁnition 
+ Reward shaping 
+ Transaction costs 
+ Unintended incentives 
+Topic Groups 
+G1: State Feature Selection 
+ Choosing informative variables 
+ Excluding irrelevant inputs 
+ Including variables needed for future decisions 
+ Trading indicators and environmental features 
+G2: Continuous-to-Discrete State Mapping 
+ Binning continuous values 
+ Rank-based and threshold-based discretization 
+ Loss of information 
+ Converting observations into ﬁnite states 
+G3: Granularity and State-Space Size 
+ Too few versus too many bins 
+ Generalization versus speciﬁcity 
+ Computational and memory costs 
+ 
+ 505 Rev:081020261230 
+ Sparse visitation 
+G4: State Aliasing and Missing Information 
+ Different situations mapped to the same state 
+ Inability to distinguish important conditions 
+ Non-Markov state representations 
+ Hidden dependence on prior history 
+G5: Position and Holdings as State 
+ Current inventory 
+ Long, short, or cash status 
+ Same market signal requiring different actions based on holdings 
+ Avoiding unnecessary repeated trades 
+G6: Reward Deﬁnition 
+ Immediate reward versus change in portfolio value 
+ Realized versus unrealized gains 
+ Delayed outcomes 
+ Aligning reward with the true objective 
+G7: Reward Shaping and Unintended Incentives 
+ Adding penalties or bonuses 
+ Transaction-cost penalties 
+ Turnover control 
+ Learners exploiting poorly speciﬁed rewards 
+ Reward hacking conceptually 
+G1: State Feature Selection

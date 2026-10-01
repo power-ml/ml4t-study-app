@@ -1,0 +1,601 @@
+Domain 2: Technical Indicators and Signal Construction
+
+[QF2-D2G1Q1] 
+An equity portfolio manager compares a 10-day simple moving average with a 100-day simple moving average for a trend 
+overlay. She wants the overlay to react promptly when markets turn but does not want the portfolio to trade on every 
+short-lived ﬂuctuation. The quant team must explain the implications of the two windows before selecting one. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The 10-day average will generally respond faster to a new price movement than 
+the 100-day average. ” 
+B. The following statement is incorrect: “The 100-day average will generally smooth more short-term price variation. ” 
+C. The following statement is incorrect: “A shorter moving average eliminates lag because it uses more recent data. ” 
+D. The following statement is incorrect: “Increasing responsiveness can also increase sensitivity to noise and trading 
+turnover. ” 
+E. The following statement is incorrect: “The 100-day average must produce a more proﬁtable strategy because it is more 
+stable. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Fewer historical observations allow recent prices to affect the average more 
+quickly. 
+B. False – The quoted statement is correct. The longer window spreads the inﬂuence of short-term movements across 
+more observations. 
+C. True – The quoted statement is incorrect. A shorter window can reduce lag, but any backward-looking average still 
+reacts after prices change. 
+D. False – The quoted statement is correct. Faster indicators may cross thresholds more often in response to temporary 
+ﬂuctuations. 
+E. True – The quoted statement is incorrect. Indicator stability alone does not determine forecasts, positions, costs, or 
+strategy proﬁtability.
+
+[QF2-D2G1Q2] 
+A futures desk is choosing between a 20-day simple moving average and a 20-day exponential moving average. The head 
+trader wants recent price changes to matter more, while the risk officer wants to understand whether the exponential 
+calculation changes the indicator's economic meaning or guarantees a superior signal. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+ 606 Rev:081020261230 
+ 
+A. The following statement is incorrect: “A conventional exponential moving average assigns greater weight to more 
+recent observations. ” 
+B. The following statement is incorrect: “A 20-day simple moving average assigns equal weight to all prices currently 
+inside its window. ” 
+C. The following statement is incorrect: “The exponential moving average can react differently from the simple moving 
+average even when both use the same nominal window length. ” 
+D. The following statement is incorrect: “Exponential weighting guarantees that crossover signals occur before the 
+underlying price begins to move. ” 
+E. The following statement is incorrect: “Neither averaging method, by itself, establishes that a detected trend will 
+continue. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Exponential weighting makes the contribution of observations decline with 
+age. 
+B. False – The quoted statement is correct. Each observation inside a simple moving average receives the same 
+arithmetic weight. 
+C. False – The quoted statement is correct. Their different weighting schemes produce different sensitivity and effective 
+memory. 
+D. True – The quoted statement is incorrect. Both measures are computed from observed prices and cannot reliably 
+anticipate a move merely because of the weighting rule. 
+E. False – The quoted statement is correct. A moving average summarizes past prices; continuation is an additional 
+empirical assumption.
+
+[QF2-D2G1Q3] 
+A family office buys an index when its 20-day moving average crosses above its 80-day moving average and sells when 
+the relationship reverses. After a strong trending backtest, the investment committee asks whether the crossover itself 
+proves that the rule is predictive and suitable for live deployment under a strict turnover budget. 
+ 
+A. The fast average crossing above the slow average is commonly interpreted as evidence of strengthening recent price 
+behavior relative to the longer history. 
+B. The crossover can occur only if the current price is above both moving averages. 
+C. Repeated crossovers in a range-bound market can create frequent losing trades or whipsaws. 
+D. Transaction costs can make a grossly proﬁtable crossover strategy unproﬁtable on a net basis. 
+E. The crossover indicator must be translated into explicit position, sizing, and execution rules before it becomes a 
+complete strategy. 
+ 
+ 607 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. True – The shorter average becoming larger indicates that more recent prices are stronger on average than the longer-
+window history. 
+B. False – A crossover concerns two averages; the current price need not be above both at the crossing time. 
+C. True – Small reversals around the averages can repeatedly trigger opposing trades without a sustained trend. 
+D. True – Turnover, spreads, slippage, and impact can consume the apparent gross edge. 
+E. True – An indicator value does not alone specify holdings, risk exposure, or how trades are implemented. 
+ 
+G2: Momentum and Rate-of-Change Indicators
+
+[QF2-D2G2Q1] 
+A long-short equity team deﬁnes 20-day momentum as the current price divided by the price 20 trading days earlier, 
+minus one. A stock moved from $50 to $55 over the lookback, and the portfolio manager wants to buy it solely because 
+its measured momentum is positive. The risk lead asks the team to separate the calculation from the continuation 
+assumption. 
+ 
+A. The stock's 20-day momentum under the stated deﬁnition is 10%. 
+B. Positive measured momentum means the price rose over the selected lookback. 
+C. Positive momentum guarantees a positive return over the next 20 days. 
+D. Changing the lookback could change the sign of the measured momentum. 
+E. A trading rule still needs to specify how positive momentum maps to a position. 
+ 
+Answer Key: 
+ 
+A. True – The rate of change is $55/$50 − 1 = 0.10, or 10%. 
+B. True – A current price above the comparison price produces a positive value under this deﬁnition. 
+C. False – Continuation is a probabilistic hypothesis, not a consequence of the historical calculation. 
+D. True – A different starting date and price can produce a different magnitude or sign. 
+E. True – The indicator does not specify entry thresholds, sizing, holding period, or exit rules. 
+ 
+ 
+ 608 Rev:081020261230
+
+[QF2-D2G2Q2] 
+A commodity fund ranks contracts by three-month momentum. One contract was nearly ﬂat for most of the period but 
+jumped 18% on the ﬁrst day of the window, while another rose gradually throughout the period and achieved the same 
+total return. The chief investment officer asks whether the endpoint-based indicator distinguishes these paths and how 
+the result may change as the window rolls. 
+ 
+A. An endpoint rate-of-change measure can assign the two contracts the same momentum despite their different paths. 
+B. When the 18% jump leaves the lookback window, the ﬁrst contract's measured momentum may change sharply even 
+if its current price barely moves. 
+C. Equal endpoint momentum proves that the two contracts have equal volatility and drawdown risk. 
+D. A single extreme move can materially inﬂuence a lookback-based momentum measure. 
+E. The gradual path guarantees that its future momentum will be more persistent. 
+ 
+Answer Key: 
+ 
+A. True – A simple endpoint comparison uses the beginning and ending prices, not the path between them. 
+B. True – Rolling-window indicators can shift when an inﬂuential old observation drops out. 
+C. False – Identical cumulative changes can be produced by paths with very different risks. 
+D. True – A large move can dominate the cumulative return measured over the window. 
+E. False – A smoother historical path may affect conﬁdence, but it cannot guarantee future continuation.
+
+[QF2-D2G2Q3] 
+A momentum fund performed well during a long, orderly equity advance but suffered when a sudden policy 
+announcement reversed market leadership. The portfolio manager argues that the strategy should retain all positions 
+because the securities still have the highest trailing momentum scores. The risk committee is evaluating how quickly a 
+backward-looking signal can recognize a momentum breakdown. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “A security can retain positive trailing momentum after its price has begun to 
+reverse. ” 
+B. The following statement is incorrect: “Longer lookbacks can delay recognition that the previous trend has broken. ” 
+C. The following statement is incorrect: “Shortening the lookback always improves the strategy because it detects 
+reversals faster. ” 
+D. The following statement is incorrect: “A market shock can cause recent winners to become losers before their trailing 
+rankings fully adjust. ” 
+ 
+ 609 Rev:081020261230 
+E. The following statement is incorrect: “Stop, sizing, diversiﬁcation, or complementary-signal rules can affect losses 
+even though they do not alter the original momentum calculation. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Earlier gains can keep the window's cumulative return positive during the 
+initial reversal. 
+B. False – The quoted statement is correct. More historical trend data remains embedded in a longer-window statistic. 
+C. True – The quoted statement is incorrect. Faster detection is traded against greater noise sensitivity, turnover, and false 
+reversals. 
+D. False – The quoted statement is correct. Momentum is backward-looking, so abrupt changes can outpace its 
+adjustment. 
+E. False – The quoted statement is correct. Portfolio and risk controls govern exposure and realized outcomes separately 
+from indicator construction. 
+ 
+G3: Bollinger Bands and Volatility-Based Indicators
+
+[QF2-D2G3Q1] 
+An asset manager constructs Bollinger Bands using a 20-day moving average plus or minus two rolling standard 
+deviations. Today the rolling mean is $100, the rolling standard deviation is $4, and the asset closes at $109. The portfolio 
+manager wants to short immediately because the close is above the upper band, while the quant researcher warns that 
+the interpretation depends on the strategy hypothesis. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Under the stated calculation, the upper band is $108. ” 
+B. The following statement is incorrect: “The close is $1 above the upper band. ” 
+C. The following statement is incorrect: “Closing above the upper band mathematically guarantees that the next price 
+change will be negative. ” 
+D. The following statement is incorrect: “A mean-reversion strategy may interpret the observation differently from a 
+breakout strategy. ” 
+E. The following statement is incorrect: “The band calculation combines a location estimate with a time-varying 
+dispersion estimate. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The upper band is $100 + 2($4) = $108. 
+ 
+ 610 Rev:081020261230 
+B. False – The quoted statement is correct. The $109 close exceeds the calculated upper band by $1. 
+C. True – The quoted statement is incorrect. The threshold describes the current relative position and does not determine 
+the next return. 
+D. False – The quoted statement is correct. One strategy may expect reversal while another treats the same move as 
+evidence of trend continuation. 
+E. False – The quoted statement is correct. The moving average represents recent central tendency and the rolling 
+standard deviation represents recent variability.
+
+[QF2-D2G3Q2] 
+A volatility-monitoring dashboard shows that the distance between an asset's upper and lower Bollinger Bands doubled 
+during a market shock. The chief risk officer asks whether this widening necessarily means the asset's expected return 
+increased and whether comparisons with the prior quiet period remain straightforward. 
+ 
+A. With the multiplier held ﬁxed, wider bands are consistent with a larger rolling standard deviation. 
+B. Band widening can occur even if the rolling mean changes very little. 
+C. Wider bands alone prove that the asset's expected return is higher. 
+D. A price move of the same dollar size may be less extreme relative to the bands during a high-volatility period. 
+E. Because volatility estimates are backward-looking, the bands can adjust after the shock has already begun. 
+ 
+Answer Key: 
+ 
+A. True – The distance from the mean is the ﬁxed multiplier times rolling volatility. 
+B. True – Dispersion can rise without a comparable shift in the average price. 
+C. False – The band width estimates recent variability, not expected return by itself. 
+D. True – Larger estimated dispersion makes a ﬁxed move smaller in standardized terms. 
+E. True – The rolling inputs incorporate realized observations and therefore react with some delay.
+
+[QF2-D2G3Q3] 
+A pension fund tests a rule that buys whenever price touches the lower Bollinger Band and exits at the moving average. 
+The rule performed well in a range-bound sample, but the investment committee is concerned about prolonged declines 
+and the use of the same historical data to select the band multiplier and lookback. 
+ 
+A. Buying at the lower band embeds an assumption that sufficiently low relative prices tend to revert upward. 
+ 
+ 611 Rev:081020261230 
+B. In a persistent downtrend, price can repeatedly touch or follow the lower band without quickly returning to the prior 
+mean. 
+C. A two-standard-deviation band implies that breaches are impossible under a normal distribution. 
+D. Choosing parameters for the best in-sample result can overﬁt noise. 
+E. A successful band indicator backtest removes the need to model transaction costs and position sizing. 
+ 
+Answer Key: 
+ 
+A. True – The proposed entry treats an extreme relative position as a reversal opportunity. 
+B. True – The mean and bands can move downward while the adverse trend continues. 
+C. False – Even under an ideal normal model, observations beyond two standard deviations remain possible; ﬁnancial 
+returns also need not be normal. 
+D. True – Searching parameter combinations can select a chance historical ﬁt that does not generalize. 
+E. False – Net performance and risk depend on how the signal becomes trades and positions. 
+ 
+G4: Relative Strength and Oscillator-Style Indicators
+
+[QF2-D2G4Q1] 
+A trading desk uses a bounded oscillator ranging from 0 to 100, labeling readings above 70 as overbought and readings 
+below 30 as oversold. A client believes those labels mean the desk can short every reading above 70 and buy every 
+reading below 30 with near certainty. The portfolio manager asks the research team to clarify what the thresholds do and 
+do not imply. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “A bounded oscillator can remain above 70 while a strong upward trend persists. ” 
+B. The following statement is incorrect: “The term overbought guarantees that the next return will be negative. ” 
+C. The following statement is incorrect: “Thresholds convert a continuous indicator into categories or potential actions 
+chosen by the strategy designer. ” 
+D. The following statement is incorrect: “The usefulness of 70 and 30 should be evaluated for the asset, horizon, and 
+implementation being considered. ” 
+E. The following statement is incorrect: “The indicator's bounded scale by itself establishes that the underlying asset's 
+losses are bounded. ” 
+ 
+Answer Key: 
+ 
+ 
+ 612 Rev:081020261230 
+A. False – The quoted statement is correct. Persistent gains can keep a recent-strength measure elevated for an extended 
+period. 
+B. True – The quoted statement is incorrect. The label is an interpretation of past relative strength, not a deterministic 
+reversal forecast. 
+C. False – The quoted statement is correct. The numerical cutoffs are decision rules layered onto the indicator. 
+D. False – The quoted statement is correct. A conventional threshold need not work equally well across markets, regimes, 
+or horizons. 
+E. True – The quoted statement is incorrect. Bounds on an indicator do not impose corresponding bounds on the asset's 
+return or strategy loss.
+
+[QF2-D2G4Q2] 
+A currency strategy uses a relative-strength-style oscillator to identify reversals. During a sustained appreciation, the 
+oscillator repeatedly enters the overbought region, and each early short position loses money. The head trader considers 
+requiring the oscillator to fall back below the threshold before entering, rather than acting on the ﬁrst crossing above it. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Requiring a move back below the threshold seeks evidence that recent strength 
+has started to weaken. ” 
+B. The following statement is incorrect: “The conﬁrmation rule may enter later than a rule that shorts immediately upon 
+entering the overbought region. ” 
+C. The following statement is incorrect: “Waiting for conﬁrmation eliminates all false reversal signals. ” 
+D. The following statement is incorrect: “Persistent trends are a risk for strategies that interpret oscillator extremes 
+mechanically as immediate reversals. ” 
+E. The following statement is incorrect: “A later entry can change both the opportunity captured and the risk incurred. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The exit from the extreme region indicates a change in the oscillator's direction 
+or magnitude. 
+B. False – The quoted statement is correct. Conﬁrmation necessarily waits for an additional indicator event. 
+C. True – The quoted statement is incorrect. The oscillator can reverse brieﬂy and then resume the prior trend. 
+D. False – The quoted statement is correct. Extreme readings may reﬂect genuine trend strength rather than imminent 
+exhaustion. 
+E. False – The quoted statement is correct. Delay can avoid some premature trades but may also surrender part of a 
+genuine reversal. 
+ 
+ 
+ 613 Rev:081020261230
+
+[QF2-D2G4Q3] 
+An equity quant observes that a stock makes a new price high while its oscillator remains below its previous peak. She 
+calls this a bearish divergence and recommends a full short position. The chief risk officer asks whether the divergence 
+is a complete strategy and whether the conclusion follows mechanically from the two observations. 
+ 
+A. The divergence indicates that the oscillator measured less recent strength at the new price high than at the earlier high. 
+B. The divergence guarantees that price has already begun a sustained decline. 
+C. Different oscillator lookbacks can produce different divergence patterns. 
+D. Entry timing, sizing, exit rules, and costs remain necessary even if the divergence has predictive information. 
+E. Evaluating many divergence deﬁnitions on the same sample can increase data-mining risk. 
+ 
+Answer Key: 
+ 
+A. True – The price and oscillator failed to conﬁrm one another under the stated comparison. 
+B. False – Divergence is a possible warning signal, not proof of a particular future path. 
+C. True – The lookback determines which gains and losses contribute to the oscillator. 
+D. True – An observation must still be converted into an implementable, risk-controlled strategy. 
+E. True – Selecting the best historical formulation from many alternatives can capitalize on noise. 
+ 
+G5: Indicator Normalization and Comparability
+
+[QF2-D2G5Q1] 
+A cross-sectional strategy compares a $20 stock that gained $2 with a $400 stock that gained $8. The analyst ranks 
+securities by raw dollar price change and concludes that the second stock has four times as much momentum. The 
+portfolio manager wants a measure that is comparable across different quoted price levels. 
+ 
+A. The $20 stock gained 10%, while the $400 stock gained 2%. 
+B. Ranking by raw dollar change can favor high-priced securities even when their percentage performance is weaker. 
+C. Dividing each dollar change by its starting price creates a percentage rate-of-change measure. 
+D. Normalizing the price changes guarantees that the resulting momentum strategy earns positive returns. 
+E. Under percentage return, the $20 stock ranks above the $400 stock in this example. 
+ 
+Answer Key: 
+ 
+ 
+ 614 Rev:081020261230 
+A. True – The returns are $2/$20 = 10% and $8/$400 = 2%. 
+B. True – A larger price base can generate a larger dollar move from a smaller proportional change. 
+C. True – Scaling by starting price expresses the change relative to the initial level. 
+D. False – Comparability improves measurement but does not establish predictiveness or proﬁtability. 
+E. True – Its 10% change exceeds the other stock's 2% change.
+
+[QF2-D2G5Q2] 
+A global macro fund compares a signal across markets with very different historical volatilities. One market has a raw 
+signal of 4 with a historical mean of 1 and standard deviation of 1.5; another has a raw signal of 8 with a mean of 6 and 
+standard deviation of 0.5. The risk team proposes z-scores so the portfolio does not allocate solely according to raw 
+scale. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The ﬁrst market's z-score is 2. ” 
+B. The following statement is incorrect: “The second market's z-score is 4. ” 
+C. The following statement is incorrect: “The second market is more unusual relative to its own historical distribution 
+despite the ﬁrst market's lower raw value. ” 
+D. The following statement is incorrect: “Z-scoring removes all effects of nonstationarity and regime change. ” 
+E. The following statement is incorrect: “A z-score depends on the mean and standard-deviation estimates used for 
+normalization. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Its standardized value is (4 − 1)/1.5 = 2. 
+B. False – The quoted statement is correct. Its standardized value is (8 − 6)/0.5 = 4. 
+C. False – The quoted statement is correct. Four estimated standard deviations from the mean is more extreme than two 
+under this scaling. 
+D. True – The quoted statement is incorrect. Historical normalization can itself become misleading when the distribution 
+changes. 
+E. False – The quoted statement is correct. Different estimation windows or samples can change both inputs and 
+therefore the score. 
+ 
+ 
+ 615 Rev:081020261230
+
+[QF2-D2G5Q3] 
+An equity market-neutral fund converts each day's continuous alpha indicator into cross-sectional percentile ranks 
+before selecting the top and bottom deciles. The chief investment officer likes the robustness of ranks but asks what 
+information is lost and whether ranks solve every comparability problem. 
+ 
+A. Ranking reduces the direct inﬂuence of an extreme indicator magnitude on the ordering beyond its position as the 
+largest or smallest value. 
+B. Ranks preserve the exact numerical distance between every pair of raw signals. 
+C. Two days can have identical rank ordering even when the spreads between raw signal values differ greatly. 
+D. Cross-sectional ranking can support comparison when securities' raw indicator scales differ, but it may discard useful 
+magnitude information. 
+E. Ranking guarantees that the top-decile securities have positive expected returns. 
+ 
+Answer Key: 
+ 
+A. True – Once ordered, an extreme value receives the top rank regardless of how far it lies above the next value. 
+B. False – Ranking preserves order, not the original numerical spacing. 
+C. True – Many sets of magnitudes can generate the same ordering. 
+D. True – Rank transformation improves scale robustness at the cost of cardinal information. 
+E. False – A high relative indicator value is not proof of positive predictive value. 
+ 
+G6: Lookback Windows, Lag, and Responsiveness
+
+[QF2-D2G6Q1] 
+A systematic fund tests 5-day and 60-day versions of the same price indicator. The 5-day version turns positive 
+immediately after a short rally but reverses several times during the month; the 60-day version changes only after the rally 
+has persisted. The investment committee must choose between early reaction and signal stability. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The 5-day version places greater emphasis on the most recent observations. ” 
+B. The following statement is incorrect: “The 60-day version is likely to react later to an abrupt and lasting change. ” 
+C. The following statement is incorrect: “The extra reversals in the 5-day signal may increase turnover. ” 
+D. The following statement is incorrect: “The 60-day indicator cannot generate false signals because it is smoother. ” 
+E. The following statement is incorrect: “Window selection creates a tradeoff rather than a universally best horizon. ” 
+ 
+ 616 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Recent data constitute a larger share of the shorter window. 
+B. False – The quoted statement is correct. Older observations dilute the initial effect of the new condition. 
+C. False – The quoted statement is correct. More frequent changes in the desired position generally require more trading. 
+D. True – The quoted statement is incorrect. Smoothing can reduce noise but cannot ensure that every detected trend 
+persists. 
+E. False – The quoted statement is correct. The appropriate balance depends on signal horizon, noise, costs, and 
+objectives.
+
+[QF2-D2G6Q2] 
+A risk-controlled strategy estimates a rolling indicator with a 120-day window. Following a sudden regime change, the 
+indicator remains close to its prior level for several weeks, even though recent observations look very different. The chief 
+risk officer asks whether the slow adjustment is a software error or a consequence of construction. 
+ 
+A. The window still contains many observations from the prior regime. 
+B. The delayed reaction can be an intended consequence of smoothing rather than an implementation bug. 
+C. Shortening the window would generally make old-regime observations leave the calculation sooner. 
+D. A shorter window would guarantee an accurate estimate of the new regime. 
+E. Comparing multiple horizons can help reveal disagreement between recent and longer-term conditions. 
+ 
+Answer Key: 
+ 
+A. True – A rolling 120-day calculation replaces old data only as the window advances. 
+B. True – Stability is obtained partly by limiting the inﬂuence of a small number of recent points. 
+C. True – Fewer observations means the prior sample is displaced more rapidly. 
+D. False – A short post-change sample may be noisy or unrepresentative of the new state. 
+E. True – Divergence across horizons can identify a transition even though it does not resolve its ultimate duration.
+
+[QF2-D2G6Q3] 
+A quant researcher tests every lookback from 2 through 250 trading days and reports that 37 days produced the highest 
+in-sample Sharpe ratio. The portfolio manager wants to deploy that exact parameter, while model governance requires 
+evidence that performance is not an isolated historical accident. 
+ 
+ 617 Rev:081020261230 
+ 
+A. Searching many lookbacks increases the chance that one parameter appears strong due to noise. 
+B. A broad region of similar performance around 37 days may provide more conﬁdence than a single sharp optimum, all 
+else equal. 
+C. Out-of-sample evaluation is unnecessary because every lookback uses the same indicator formula. 
+D. Transaction costs can vary with lookback because shorter-horizon versions may change positions more frequently. 
+E. The economically appropriate lookback should relate to the hypothesized lifetime of the information being measured. 
+ 
+Answer Key: 
+ 
+A. True – Parameter search creates multiple-comparison and selection effects. 
+B. True – Local robustness suggests the result is less dependent on one precisely ﬁtted value. 
+C. False – Parameter selection can overﬁt even when the underlying formula is unchanged. 
+D. True – More responsive signals commonly create greater turnover and implementation expense. 
+E. True – The measurement horizon should be coherent with the mechanism and forecast horizon of the signal. 
+ 
+G7: Combining Indicators into Trading Signals
+
+[QF2-D2G7Q1] 
+A trading team combines momentum, moving-average crossover, and a price-to-moving-average ratio into one strategy. 
+The head trader assumes that using three indicators provides three independent sources of information. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The indicators may be highly correlated because they are all derived from price 
+trends. ” 
+B. The following statement is incorrect: “Combining redundant indicators necessarily increases diversiﬁcation. ” 
+C. The following statement is incorrect: “Conﬂicting indicators require a rule for how the ﬁnal trading signal is formed. ” 
+D. The following statement is incorrect: “A useful indicator can still produce an unproﬁtable strategy after costs. ” 
+E. The following statement is incorrect: “Indicator count alone does not determine information diversity. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. All three may capture similar trend information. 
+B. True – The quoted statement is incorrect. Redundancy provides limited incremental information. 
+ 
+ 618 Rev:081020261230 
+C. False – The quoted statement is correct. The strategy must specify how signals interact. 
+D. False – The quoted statement is correct. Trading costs and implementation can eliminate the edge. 
+E. False – The quoted statement is correct. Independence matters more than raw indicator count.
+
+[QF2-D2G7Q2] 
+An asset manager combines a momentum signal and a mean-reversion oscillator. Momentum recommends a long 
+position, while the oscillator labels the asset overbought and recommends a short. The portfolio manager asks the quant 
+team to resolve the conﬂict while keeping the strategy transparent enough for model governance. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The conﬂict can arise because the indicators encode different hypotheses about 
+continuation and reversal. ” 
+B. The following statement is incorrect: “Averaging the two raw values is meaningful without checking their scales or 
+directions. ” 
+C. The following statement is incorrect: “A decision rule could require agreement, assign weights, or allow one indicator 
+to ﬁlter the other. ” 
+D. The following statement is incorrect: “Requiring conﬁrmation may reduce the number of trades and can also cause 
+the strategy to miss opportunities seen by only one indicator. ” 
+E. The following statement is incorrect: “Transparency about conﬂict resolution is part of specifying the strategy rather 
+than merely documenting the indicators. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. One signal extrapolates strength while the other treats an extreme as a 
+possible reversal. 
+B. True – The quoted statement is incorrect. Unaligned scales, signs, and economic meanings can make a raw average 
+arbitrary. 
+C. False – The quoted statement is correct. These are distinct, testable ways to map multiple inputs into one desired 
+position. 
+D. False – The quoted statement is correct. Greater selectivity trades opportunity breadth for stronger agreement. 
+E. False – The quoted statement is correct. A deployable system must deﬁne how every relevant signal state becomes an 
+action. 
+ 
+ 
+ 619 Rev:081020261230
+
+[QF2-D2G7Q3] 
+A proprietary desk builds a composite score from a normalized trend signal, a volume-conﬁrmation signal, and a volatility 
+ﬁlter. The backtest shows attractive gross returns, but the strategy trades aggressively whenever the score crosses zero. 
+The chief operating officer asks whether indicator quality alone is enough to approve deployment under capacity and 
+cost constraints. 
+ 
+A. Normalizing component signals can prevent one component from dominating solely because of numerical scale. 
+B. A volume signal may add information distinct from price trend, but its incremental value must be tested rather than 
+assumed. 
+C. Frequent movement around the zero threshold can create high turnover even when the composite score changes only 
+slightly. 
+D. Strong gross returns guarantee that spreads, slippage, and market impact will be economically unimportant. 
+E. Position sizing, execution rules, risk limits, and net-of-cost validation are required to turn the composite indicator into 
+an implementable strategy. 
+ 
+Answer Key: 
+ 
+A. True – Scale alignment makes weights more interpretable and avoids accidental numerical dominance. 
+B. True – Different data sources can be complementary, but correlation and incremental forecasting evidence determine 
+whether they are. 
+C. True – Small sign changes can repeatedly reverse the prescribed trade when the rule uses a hard zero cutoff. 
+D. False – Aggressive trading and limited liquidity can materially reduce or eliminate gross performance. 
+E. True – A predictive score is only one component of the complete investment and execution process. 
+ 
+  
+ 
+ 620 Rev:081020261230 
+Domain 3: Alpha Research and Formulaic Signals 
+Domain Summary 
+ Predictive signals 
+ Cross-sectional and time-series alphas 
+ Ranking 
+ Normalization 
+ Signal strength 
+ Signal decay 
+ Turnover 
+ Combining weak signals 
+ Correlated alphas 
+ Crowding 
+ Economic rationale 
+ Gross versus realizable alpha 
+Topic Groups 
+G1: Deﬁning and Interpreting Alpha Signals 
+ Alpha as a forecast or ranking signal 
+ Expected direction and magnitude 
+ Distinguishing signal from realized return 
+ Active return interpretation 
+ Signal conﬁdence 
+G2: Time-Series vs. Cross-Sectional Signals 
+ Predicting one asset through time 
+ Ranking assets at the same point in time 
+ Relative versus absolute forecasts 
+ Different portfolio uses 
+ Different benchmarking needs 
+ 
+ 621 Rev:081020261230 
+G3: Ranking, Scaling, and Signal Transformation 
+ Percentile ranks 
+ Z-scores 
+ Winsorization 
+ Neutralization 
+ Mapping raw scores into comparable signals 
+G4: Formulaic Alpha Construction 
+ Combining price, volume, and volatility inputs 
+ Arithmetic and functional forms 
+ Nonlinear transformations 
+ Parameter choices 
+ Avoiding meaningless complexity 
+G5: Signal Decay and Holding Period 
+ How quickly predictive value fades 
+ Entry and exit timing 
+ Holding-period alignment 
+ Stale signals 
+ Relationship between decay and turnover 
+G6: Combining Multiple Alpha Signals 
+ Ensemble-style signal combination 
+ Diversiﬁcation among alphas 
+ Correlated signals 
+ Weighting stronger and weaker signals 
+ Diminishing beneﬁt from redundant alphas 
+G7: Crowding, Replication, and Realizable Alpha 
+ Popular signals being competed away 
+ Capacity constraints 
+ Shared positioning 
+ Gross versus net alpha 
+ 
+ 622 Rev:081020261230 
+ Economic intuition versus data-mined patterns 
+G1: Deﬁning and Interpreting Alpha Signals

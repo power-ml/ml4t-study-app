@@ -1,0 +1,519 @@
+Domain 9: Deep Learning and Neural-Network Foundations
+
+[ML2-D9G1Q1] 
+A neural network forecasts next-day return from three inputs: momentum, volatility, and volume change. It has one 
+hidden layer with four units and one scalar output. Every hidden unit receives all three inputs. 
+ 
+ 553 Rev:081020261230 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The three market indicators constitute the network's input layer. 
+B. Each hidden unit can learn a different weighted combination of the same three inputs. 
+C. The scalar output necessarily represents a buy-or-sell class rather than a numerical return. 
+D. Bias terms allow units to shift their responses independently of the current input values. 
+E. Having four hidden units means the network has four hidden layers. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The input layer supplies the three predictor values to the network. 
+B. False – The underlying claim is correct: Separate incoming weights let hidden units respond differently to the same 
+features. 
+C. True – The underlying claim is incorrect: A scalar output can represent a continuous return, depending on the task and 
+output design. 
+D. False – The underlying claim is correct: A bias is an additive trainable parameter that shifts a unit's pre-activation value. 
+E. True – The underlying claim is incorrect: Width counts units within a layer; this network still has only one hidden layer.
+
+[ML2-D9G1Q2] 
+Two networks use the same ﬁve indicators. Network A has one hidden layer with 20 units. Network B has four hidden 
+layers with ﬁve units each. A student claims that the networks have identical structures because each contains 20 hidden 
+units in total. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Network B is deeper than Network A. 
+B. Equal totals of hidden units imply equal numbers of trainable parameters. 
+C. Network A is wider at its hidden layer than any individual hidden layer in Network B. 
+D. Connections across several layers can organize transformations differently from one broad hidden layer. 
+E. Depth and width are interchangeable descriptions whenever their product is equal. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Network B contains more successive hidden layers. 
+ 
+ 554 Rev:081020261230 
+B. True – The underlying claim is incorrect: Parameter counts also depend on how adjacent layers are connected and on 
+their dimensions. 
+C. False – The underlying claim is correct: A 20-unit layer is wider than each ﬁve-unit layer in Network B. 
+D. False – The underlying claim is correct: Successive layers compose transformations rather than placing every hidden 
+unit at one stage. 
+E. True – The underlying claim is incorrect: Depth and width describe different structural properties and are not made 
+equivalent by a shared product.
+
+[ML2-D9G1Q3] 
+A team adds several new hidden units to a dense network but freezes every connection entering those units at zero and 
+also ﬁxes their biases at zero. The network's original parameters and activation functions remain unchanged. 
+ 
+A. Merely adding the inactive units guarantees that the network will produce different predictions. 
+B. If the added units always emit zero and contribute nothing downstream, the original network function can remain 
+unchanged. 
+C. Trainable connections are what allow a unit to adapt its inﬂuence during learning. 
+D. A hidden unit's output can depend on both incoming weights and its bias. 
+E. Every neuron in a neural network must connect directly to the original input features. 
+ 
+Answer Key: 
+ 
+A. False – Structurally present but inactive units need not alter the computed function. 
+B. True – Zero contribution from the added path preserves the original computation. 
+C. True – Learning modiﬁes trainable parameters to change how signals affect later units. 
+D. True – The pre-activation commonly combines a weighted input sum with a bias. 
+E. False – Units in deeper layers normally receive outputs from preceding layers rather than direct raw inputs. 
+ 
+G2: Activations and Nonlinearity
+
+[ML2-D9G2Q1] 
+A researcher builds a network with three fully connected hidden layers but places no nonlinear activation between them. 
+Each layer computes only a weighted sum plus a bias. The researcher expects depth alone to create highly nonlinear 
+decision boundaries. 
+ 
+ 
+ 555 Rev:081020261230 
+A. Composing these affine layers still produces an affine transformation overall. 
+B. Adding more such layers automatically introduces nonlinear behavior. 
+C. Nonlinear activations allow stacked layers to represent relationships unavailable to a single affine map. 
+D. The biases by themselves make the composition nonlinear. 
+E. The network may have many parameters while remaining limited to an affine input-output function. 
+ 
+Answer Key: 
+ 
+A. True – A composition of affine transformations can be rewritten as one affine transformation. 
+B. False – Depth without a nonlinearity does not escape the affine function class. 
+C. True – Nonlinear activations prevent the composition from collapsing into one affine map. 
+D. False – Biases shift affine transformations but do not make them nonlinear. 
+E. True – Redundant parameterization does not necessarily increase the representable function class.
+
+[ML2-D9G2Q2] 
+A hidden layer uses sigmoid activations. For many training observations, its pre-activation values are extremely positive 
+or extremely negative, placing the units near the ﬂat ends of the sigmoid curve. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Those units are operating in saturated regions of the activation function. 
+B. A ﬂat activation region can produce small local derivatives and weak gradients for earlier parameters. 
+C. Saturation guarantees that the network has found the global minimum of its loss. 
+D. Rescaling inputs or changing initialization may alter how often units begin in saturated regions. 
+E. Sigmoid saturation makes forward propagation mathematically impossible. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Extreme inputs place sigmoid outputs close to their limiting values. 
+B. False – The underlying claim is correct: Small activation derivatives can attenuate gradients propagated backward. 
+C. True – The underlying claim is incorrect: Saturation describes activation behavior, not proof of optimization success. 
+D. False – The underlying claim is correct: Input scale and initial weights inﬂuence the pre-activation magnitudes. 
+ 
+ 556 Rev:081020261230 
+E. True – The underlying claim is incorrect: The forward computation still works; the primary concern is reduced gradient 
+ﬂow during training.
+
+[ML2-D9G2Q3] 
+After training, analysts inspect two hidden units. One tends to activate during high-momentum, low-volatility 
+observations; the other responds to high-volatility observations regardless of momentum. 
+ 
+A. Hidden units can encode learned combinations of the original features. 
+B. The observed responses prove that the units were manually programmed with those exact ﬁnancial meanings. 
+C. Different hidden units may develop different internal representations. 
+D. A hidden representation must always correspond to a named human-designed indicator. 
+E. Activation patterns by themselves establish the causal economic meaning of each hidden unit. 
+ 
+Answer Key: 
+ 
+A. True – Learned weights and nonlinearities can create feature combinations useful to the task. 
+B. False – The patterns may emerge from training without an explicit human-assigned meaning. 
+C. True – Different parameters let units respond to distinct regions or combinations of inputs. 
+D. False – Internal features need not align cleanly with human-deﬁned concepts. 
+E. False – Observed associations do not by themselves establish a deﬁnitive causal or economic interpretation. 
+ 
+G3: Forward Propagation and Prediction
+
+[ML2-D9G3Q1] 
+A trained network receives a standardized indicator vector. The ﬁrst hidden layer computes weighted sums and 
+activations, the second hidden layer processes those outputs, and the output layer produces a return forecast. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Forward propagation moves information from the inputs through successive layers to the output. 
+B. The second hidden layer receives the original target label as an input during ordinary inference. 
+C. The output depends on the learned parameters and the supplied indicator values. 
+D. Backpropagation is required every time the trained model produces a forecast. 
+E. Standardization performed during training should be applied consistently to deployment inputs. 
+ 
+ 557 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The described sequence is the forward computation. 
+B. True – The underlying claim is incorrect: Targets are used to evaluate training predictions, not as ordinary inference 
+inputs. 
+C. False – The underlying claim is correct: Fixed weights, biases, activations, and the current input determine the output. 
+D. True – The underlying claim is incorrect: Inference needs a forward pass; backpropagation is used for gradient-based 
+learning. 
+E. False – The underlying claim is correct: The deployed model expects features represented in the same way as its 
+training inputs.
+
+[ML2-D9G3Q2] 
+A model is placed in evaluation mode with ﬁxed parameters. The same input vector is submitted twice, and all evaluation-
+time operations are deterministic. No parameters are updated between submissions. 
+ 
+A. The two forward passes should produce the same output. 
+B. Fixed parameters mean that the output is independent of the input vector. 
+C. Changing one input may change activations in several downstream units. 
+D. Deterministic inference requires the network to contain only one layer. 
+E. If dropout is disabled for evaluation, it will not randomly remove different units on the two passes. 
+ 
+Answer Key: 
+ 
+A. True – Identical inputs and deterministic ﬁxed computations yield identical outputs. 
+B. False – Parameters are ﬁxed, but the output remains a function of the supplied input. 
+C. True – A changed input can propagate through multiple connected layers. 
+D. False – Multilayer networks can also perform deterministic inference. 
+E. True – Evaluation mode ordinarily uses the learned full-network behavior rather than random dropout masks.
+
+[ML2-D9G3Q3] 
+A binary classiﬁer outputs a score of 0.70 for an observation. The trading system enters a position only when the score 
+exceeds a threshold. The team changes the threshold from 0.50 to 0.80 without retraining the network. 
+ 
+ 558 Rev:081020261230 
+ 
+A. The model's forward-pass score can remain 0.70 after the threshold changes. 
+B. With a strict exceeds-threshold rule, the observation triggers a trade at 0.50 but not at 0.80. 
+C. Changing the downstream decision threshold necessarily changes the network's learned weights. 
+D. The output score and the rule converting it into a trade are conceptually distinct. 
+E. A score of 0.70 proves that the realized market outcome has a 70% frequency in every regime. 
+ 
+Answer Key: 
+ 
+A. True – The threshold can be part of the decision rule rather than the neural computation. 
+B. True – The same score lies above 0.50 and below 0.80. 
+C. False – A post-model threshold may be changed without updating model parameters. 
+D. True – Prediction and action conversion can be separate system components. 
+E. False – Such an interpretation requires valid calibration and does not guarantee stability across regimes. 
+ 
+G4: Loss Functions and Learning Objectives
+
+[ML2-D9G4Q1] 
+A neural network is trained to minimize mean squared error when forecasting next-day returns. The model’s validation 
+loss improves, but the resulting trading strategy has lower Sharpe ratio and worse drawdown than a simpler benchmark. 
+The data scientist argues that the neural network is still necessarily better because its prediction loss is lower. 
+ 
+A. Lower prediction loss does not guarantee better trading performance. 
+B. The loss function may be misaligned with the strategy objective. 
+C. Trading metrics can worsen even when forecast error improves. 
+D. Mean squared error directly optimizes Sharpe ratio. 
+E. Strategy evaluation should include economic as well as statistical metrics. 
+ 
+Answer Key: 
+ 
+A. True – Prediction quality and trading utility are not identical. 
+B. True – The training objective may not reﬂect portfolio outcomes. 
+C. True – Small forecast improvements may not translate into better positions. 
+D. False – MSE is not a Sharpe-ratio objective. 
+ 
+ 559 Rev:081020261230 
+E. True – Deployment decisions should consider both.
+
+[ML2-D9G4Q2] 
+One team trains a network to predict a continuous next-day return. Another trains a network to classify whether that 
+return will be positive. They use identical inputs but different output layers and losses. 
+ 
+A. The ﬁrst task is naturally framed as regression. 
+B. The second task can use a classiﬁcation loss that compares predicted class probabilities with direction labels. 
+C. Identical inputs require both models to use the same learning objective. 
+D. A direction classiﬁer is directly penalized for the exact magnitude of every return unless the objective explicitly includes 
+magnitude. 
+E. Selecting a loss requires considering what the target and output represent. 
+ 
+Answer Key: 
+ 
+A. True – A continuous numerical return is a regression target. 
+B. True – A probability-based classiﬁcation output can be trained against categorical direction labels. 
+C. False – The target deﬁnition, not merely the features, determines the appropriate objective. 
+D. False – Ordinary direction labels discard exact return magnitude. 
+E. True – The loss must be compatible with the semantics and form of the prediction task.
+
+[ML2-D9G4Q3] 
+A return-forecasting network minimizes unweighted mean squared error across days. A few high-volatility days contain 
+very large errors, while most quiet days have small errors. The team wants to understand what the objective emphasizes. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Squaring errors can cause large misses to contribute disproportionately to the loss. 
+B. Unweighted mean squared error automatically gives every market regime an equal total inﬂuence. 
+C. Changing to a differently weighted loss may change which observations most affect training. 
+D. A lower MSE guarantees lower maximum drawdown for a strategy built from the forecasts. 
+E. The team should examine whether the statistical loss reﬂects the consequences relevant to its trading use. 
+ 
+Answer Key: 
+ 
+ 560 Rev:081020261230 
+ 
+A. False – The underlying claim is correct: Squaring magniﬁes the contribution of observations with large absolute errors. 
+B. True – The underlying claim is incorrect: Regimes with more observations or larger errors can exert greater aggregate 
+inﬂuence. 
+C. False – The underlying claim is correct: Weights alter the contribution of observations or groups to the objective. 
+D. True – The underlying claim is incorrect: Forecast loss and portfolio drawdown are different quantities. 
+E. False – The underlying claim is correct: Objective alignment matters when predictions feed an economic decision 
+system. 
+ 
+G5: Gradient Descent and Backpropagation
+
+[ML2-D9G5Q1] 
+During training, a network computes a mini-batch loss and the gradient of that loss with respect to each trainable 
+parameter. The optimizer then applies a standard gradient-descent update. 
+ 
+A. The gradient indicates the local direction of greatest increase in loss. 
+B. Standard gradient descent moves parameters in the negative-gradient direction. 
+C. A zero gradient at one parameter proves that the entire network is globally optimal. 
+D. The learning rate scales the size of the parameter update. 
+E. The gradient is computed only for the output layer because hidden-layer parameters cannot affect loss. 
+ 
+Answer Key: 
+ 
+A. True – The gradient points in the direction of steepest local increase under the usual Euclidean interpretation. 
+B. True – Subtracting a scaled gradient seeks to reduce the loss locally. 
+C. False – One zero component does not characterize all parameters or establish global optimality. 
+D. True – The learning rate multiplies the gradient in the update rule. 
+E. False – Hidden parameters affect downstream activations and therefore can inﬂuence the loss.
+
+[ML2-D9G5Q2] 
+A deep network makes a prediction, compares it with the target, and then uses backpropagation to calculate gradients 
+for parameters in all layers. 
+ 
+ 
+ 561 Rev:081020261230 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Backpropagation applies the chain rule through the network's computational graph. 
+B. Gradients for an early layer depend on how that layer inﬂuences later computations and the loss. 
+C. Backpropagation changes weights before any forward computation is performed. 
+D. Backpropagation by itself chooses the training labels for the model. 
+E. Once gradients are available, an optimizer can use them to update parameters. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Backpropagation efficiently combines local derivatives using the chain rule. 
+B. False – The underlying claim is correct: Credit or blame is transmitted through downstream dependencies. 
+C. True – The underlying claim is incorrect: A forward pass ﬁrst produces the activations and loss needed for the backward 
+computation. 
+D. True – The underlying claim is incorrect: Targets are supplied by the problem and dataset design, not selected by 
+backpropagation. 
+E. False – The underlying claim is correct: Gradient-based optimizers convert the calculated derivatives into parameter 
+updates.
+
+[ML2-D9G5Q3] 
+Two otherwise identical training runs use learning rates of 0.0001 and 10.0. The high-rate run's loss oscillates and 
+sometimes grows dramatically, while the low-rate run improves very slowly. 
+ 
+A. An excessively large learning rate can overshoot useful parameter regions. 
+B. A very small learning rate can require many updates to make substantial progress. 
+C. The observed behavior proves that 0.0001 is the globally optimal learning rate for every dataset. 
+D. Increasing the learning rate always reduces the ﬁnal validation loss. 
+E. The two observed training curves alone establish which learning rate will produce the best validation performance. 
+ 
+Answer Key: 
+ 
+A. True – Large steps may repeatedly jump across or away from lower-loss regions. 
+B. True – Small steps can make optimization stable but slow. 
+C. False – Appropriate rates depend on the model, data, optimizer, and training conditions. 
+ 
+ 562 Rev:081020261230 
+D. False – Larger steps can destabilize training or converge to a worse solution. 
+E. False – Training behavior is relevant, but validation evidence is still needed to compare generalization. 
+ 
+G6: Epochs, Batches, and Training Dynamics
+
+[ML2-D9G6Q1] 
+A training set contains 10,000 observations. The team trains with mini-batches of 100 observations and processes every 
+observation once before starting the next epoch. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. One epoch is one complete pass through the 10,000 training observations. 
+B. Ignoring any unusual sampling scheme, the epoch contains 100 mini-batches. 
+C. The optimizer can update parameters after each mini-batch rather than only once per epoch. 
+D. A batch size of 100 means the network has 100 hidden units. 
+E. Completing one epoch guarantees that training and validation losses are equal. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: An epoch denotes a full pass through the training dataset. 
+B. False – The underlying claim is correct: Dividing 10,000 observations by 100 observations per batch yields 100 batches. 
+C. False – The underlying claim is correct: Mini-batch training normally applies an update for each batch. 
+D. True – The underlying claim is incorrect: Batch size concerns observations processed per update, not network width. 
+E. True – The underlying claim is incorrect: Training and validation losses may differ after any number of epochs.
+
+[ML2-D9G6Q2] 
+A researcher compares full-batch gradient descent with mini-batch training. Full-batch training computes each update 
+from the entire dataset; mini-batch training uses a subset for each update. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. A mini-batch gradient can vary depending on which observations are sampled. 
+B. Full-batch updates use all training observations when computing each gradient. 
+C. Mini-batch training permits only one parameter update per full pass through the data. 
+ 
+ 563 Rev:081020261230 
+D. Full-batch training eliminates all possible sources of optimization difficulty and guarantees a global optimum. 
+E. Mini-batch size creates a tradeoff involving gradient noise, memory use, and computational efficiency. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Different subsets can yield different estimates of the full-data gradient. 
+B. False – The underlying claim is correct: That is the deﬁning characteristic of a full-batch update. 
+C. True – The underlying claim is incorrect: Mini-batch training normally permits several updates during one epoch. 
+D. True – The underlying claim is incorrect: A full-data gradient does not make a nonconvex problem globally solvable. 
+E. False – The underlying claim is correct: Batch choice affects statistical variability and hardware/resource behavior.
+
+[ML2-D9G6Q3] 
+A network is trained for 200 epochs. Training loss declines throughout, but validation loss reaches its minimum near 
+epoch 40 and then rises. The team automatically deploys the parameters from epoch 200 because they received the 
+most updates. 
+ 
+A. The divergence after epoch 40 is consistent with overﬁtting. 
+B. More epochs necessarily improve performance on unseen data. 
+C. A validation-based checkpoint near the minimum validation loss may generalize better than the ﬁnal checkpoint. 
+D. Training loss alone is sufficient to choose the deployment epoch. 
+E. Monitoring both training and validation curves can reveal changing generalization during training. 
+ 
+Answer Key: 
+ 
+A. True – Improving ﬁt to training data alongside worsening validation results is a classic warning pattern. 
+B. False – Continued optimization can reduce training loss while harming generalization. 
+C. True – The validation minimum provides evidence for selecting an earlier checkpoint. 
+D. False – Training loss does not measure performance on unseen observations. 
+E. True – Comparing the curves helps distinguish optimization progress from validation deterioration. 
+ 
+ 
+ 564 Rev:081020261230 
+G7: Capacity, Overﬁtting, and Regularization
+
+[ML2-D9G7Q1] 
+A very large neural network nearly memorizes a small training dataset of market observations. It achieves almost zero 
+training error but performs poorly on a later test period. A smaller tree-based model performs moderately well on both 
+periods. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The neural network's result is consistent with excessive capacity relative to the available data. 
+B. Near-zero training error proves that the learned relationship will persist out of sample. 
+C. The test result matters when assessing whether the network generalized. 
+D. A deep model is necessarily preferable to a classical model whenever its training loss is lower. 
+E. More expressive models can ﬁt genuine structure but can also ﬁt noise. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: A high-capacity model can memorize limited training observations. 
+B. True – The underlying claim is incorrect: Strong in-sample ﬁt does not establish stability on unseen data. 
+C. False – The underlying claim is correct: Generalization must be evaluated outside the observations used to ﬁt the 
+model. 
+D. True – The underlying claim is incorrect: Model choice should consider validation, test performance, complexity, cost, 
+and the task. 
+E. False – The underlying claim is correct: Capacity supports complex functions without distinguishing signal from 
+sample-speciﬁc noise by itself.
+
+[ML2-D9G7Q2] 
+A team considers dropout, an L2 weight penalty, and early stopping for a network whose validation performance degrades 
+while training loss continues to improve. 
+ 
+A. Dropout can reduce reliance on particular units during training by randomly omitting some activations. 
+B. An L2 penalty can discourage very large parameter values by adding a weight-dependent term to the objective. 
+C. Early stopping can select a checkpoint before validation performance deteriorates further. 
+D. These methods guarantee positive trading returns in every out-of-sample period. 
+E. Regularization is intended to increase training-set memorization without regard to unseen data. 
+ 
+ 565 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. True – Random omission encourages the network not to depend exclusively on speciﬁc activation paths. 
+B. True – L2 regularization penalizes parameter magnitude in the training objective. 
+C. True – Validation monitoring can halt or select training before later overﬁtting. 
+D. False – Regularization may improve generalization but cannot guarantee market proﬁtability. 
+E. False – Its purpose is generally to control effective complexity and improve generalization.
+
+[ML2-D9G7Q3] 
+A ﬁrm has 2,000 labeled observations and limited computing resources. It proposes a massive deep network because 
+deep learning is popular, without comparing simpler baselines or estimating data and training requirements. 
+ 
+A. Popularity alone establishes that the massive network is the best model for this dataset. 
+B. The amount and quality of available data can constrain the beneﬁt of a high-capacity network. 
+C. Training and tuning a large network may require more computation than ﬁtting a small classical model. 
+D. Comparing against simpler baselines can reveal whether added complexity provides meaningful out-of-sample value. 
+E. Neural networks can never be used when fewer than one million observations are available. 
+ 
+Answer Key: 
+ 
+A. False – Model suitability must be established empirically for the task and data. 
+B. True – High capacity without sufficient representative data can increase overﬁtting risk. 
+C. True – Larger networks commonly entail greater training and hyperparameter-search costs. 
+D. True – Baselines provide evidence about whether complexity produces an actual improvement. 
+E. False – There is no universal minimum sample count; suitability depends on the problem, architecture, and evidence. 
+ 
+  
+ 
+ 566 Rev:081020261230 
+Domain 10: Sequential, Generative, and Responsible AI 
+Domain Summary 
+ Sequential ﬁnancial data 
+ CNNs for time-series patterns 
+ Recurrent and sequence-aware models 
+ Attention and transformers 
+ Generative AI 
+ LLMs and ﬁnancial text 
+ Hallucination 
+ Human oversight 
+ Bias 
+ Explainability 
+ Responsible deployment 
+Topic Groups 
+G1: Time-Series and Sequential Modeling 
+ Temporal dependence 
+ Order of observations 
+ Lagged information 
+ Difference from independent tabular samples 
+ Forecasting future values 
+G2: Convolutional Models for Financial Sequences 
+ Local pattern detection 
+ Sliding ﬁlters 
+ Short-term motifs 
+ Parameter sharing 
+ Limits of local receptive ﬁelds 
+G3: Recurrent and Memory-Based Models 
+ Hidden state 
+ 
+ 567 Rev:081020261230 
+ Carrying information through time 
+ Short- and long-term dependencies 
+ Sequence order 
+ Training difficulties conceptually 
+G4: Attention and Transformers 
+ Selective focus on relevant observations 
+ Long-range dependencies 
+ Parallel processing 
+ Positional information 
+ Comparison with recurrent approaches 
+G5: Generative AI and Large Language Models 
+ Generating text and summaries 
+ Extracting information from unstructured data 
+ Research assistance 
+ Difference between generation and prediction 
+ Limits in quantitative decision-making 
+G6: Hallucination, Veriﬁcation, and Human Oversight 
+ Plausible but unsupported outputs 
+ Source veriﬁcation 
+ Human-in-the-loop review 
+ Reliability in high-stakes ﬁnancial use 
+ Automation risk 
+G7: Bias, Explainability, and Responsible Deployment 
+ Bias in training data 
+ Unequal or unintended outcomes 
+ Model opacity 
+ Accountability 
+ Governance and monitoring 
+ Appropriate use in investment workﬂows 
+ 
+ 568 Rev:081020261230 
+G1: Time-Series and Sequential Modeling

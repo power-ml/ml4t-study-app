@@ -16,8 +16,8 @@ overrides=set(json.load(open(os.path.join(APP,'overrides.json'))).get('content_p
 # independent positional parse of the source slices
 src={}
 for f in glob.glob(os.path.join(ROOT,'slices','*.txt')):
-    for b in re.split(r'(?=\[(?:ML|QF)-D\d+G\d+Q\d+\])', open(f).read()):
-        m=re.search(r'\[((?:ML|QF)-D\d+G\d+Q\d+)\]',b)
+    for b in re.split(r'(?=\[(?:ML|QF)2?-D\d+G\d+Q\d+\])', open(f).read()):
+        m=re.search(r'\[((?:ML|QF)2?-D\d+G\d+Q\d+)\]',b)
         if not m or 'Answer Key' not in b: continue
         key=b[b.find('Answer Key'):]
         vv={km.group(1):km.group(2) for km in re.finditer(r'(?m)^\s*([A-E])\.\s*(True|False)\b',key)}

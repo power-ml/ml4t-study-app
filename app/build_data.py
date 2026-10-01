@@ -28,13 +28,32 @@ WEEKS={('ML','01'):[1,3],('ML','02'):[1,2],('ML','03'):[1,3],('ML','04'):[3],('M
  ('ML','06'):[4],('ML','07'):[4],('ML','08'):[3,4],('ML','09'):[4,5],('ML','10'):[4,5],
  ('QF','01'):[1,2],('QF','02'):[2],('QF','03'):[2,3],('QF','04'):[3],('QF','05'):[5],
  ('QF','06'):[6],('QF','07'):[6,7],('QF','08'):[8],('QF','09'):[8],('QF','10'):[7,8]}
+# Exam 2 = Part 2 (course weeks 9-16; Exam 2 is week 16). RL + deep learning (ML) / advanced quant + options (QF).
+DOMNAMES_E2={
+ ('ML','01'):'Reinforcement Learning Problem Framing',('ML','02'):'Markov Decision Processes, Policies & Values',
+ ('ML','03'):'Q-Learning Mechanics',('ML','04'):'Exploration, Exploitation & Learning Dynamics',
+ ('ML','05'):'Dyna & Model-Based Reinforcement Learning',('ML','06'):'State Representation, Discretization & Reward Design',
+ ('ML','07'):'Reinforcement Learning for Trading',('ML','08'):'Comparative Strategy Learning & Evaluation',
+ ('ML','09'):'Deep Learning & Neural-Network Foundations',('ML','10'):'Sequential, Generative & Responsible AI',
+ ('QF','01'):'Financial Time Series & Market Data Behavior',('QF','02'):'Technical Indicators & Signal Construction',
+ ('QF','03'):'Alpha Research & Formulaic Signals',('QF','04'):'Fundamental Law of Active Portfolio Management',
+ ('QF','05'):'Advanced Portfolio Construction',('QF','06'):'Strategy Evaluation & Performance Attribution',
+ ('QF','07'):'Trading Frictions, Capacity & Implementability',('QF','08'):'Execution Algorithms & Order Book Analytics',
+ ('QF','09'):'Options & Derivative Payoffs',('QF','10'):'AI-Enabled Investment Processes & Decision Support'}
+WEEKS_E2={('ML','01'):[11],('ML','02'):[11],('ML','03'):[11],('ML','04'):[11],('ML','05'):[11],
+ ('ML','06'):[11],('ML','07'):[11,12],('ML','08'):[12,14],('ML','09'):[12],('ML','10'):[12,14],
+ ('QF','01'):[9],('QF','02'):[9],('QF','03'):[9],('QF','04'):[10],('QF','05'):[10],
+ ('QF','06'):[14],('QF','07'):[10,13],('QF','08'):[13],('QF','09'):[15],('QF','10'):[13,14]}
+def dom_name(exam,part,num): return (DOMNAMES_E2 if exam==2 else DOMNAMES)[(part,num)]
+def dom_weeks(exam,part,num): return (WEEKS_E2 if exam==2 else WEEKS)[(part,num)]
 def norm(s): return re.sub(r'[^a-z0-9 ]',' ',(s or '').lower())
 def sim(a,b): return difflib.SequenceMatcher(None,norm(a),norm(b)).ratio()
 def md_section(md, header):
     m=re.search(r'(?m)^##\s+'+re.escape(header)+r'\s*\n(.*?)(?=\n##\s|\Z)', md, re.S)
     return m.group(1).strip() if m else ''
-def find_md(part,num):
-    g=glob.glob(os.path.join(ROOT,'study_notes',part,f'Domain_{num}_*.md')); return open(g[0]).read() if g else ''
+def find_md(exam,part,num):
+    sub=os.path.join('study_notes_exam2',part) if exam==2 else os.path.join('study_notes',part)
+    g=glob.glob(os.path.join(ROOT,sub,f'Domain_{num}_*.md')); return open(g[0]).read() if g else ''
 
 def parse_md_questions(md):
     """From a domain study-note md, return {qid: {'why':{L:text}, 'ref':str}} using the
@@ -42,7 +61,7 @@ def parse_md_questions(md):
     surface the EXPANDED explanations in the app. Verdict column is ignored (authoritative
     verdicts come from the source pool); only the 'Why' text and Reference are taken."""
     out={}
-    for m in re.finditer(r'###\s*\[((?:ML|QF)-D\d+G\d+Q\d+)\](.*?)(?=\n###\s|\n##\s|\Z)', md, re.S):
+    for m in re.finditer(r'###\s*\[((?:ML|QF)2?-D\d+G\d+Q\d+)\](.*?)(?=\n###\s|\n##\s|\Z)', md, re.S):
         qid=m.group(1); body=m.group(2); why={}
         # first cell may be bare "A" or "A. <choice text>"; ignore verdict col; take Why col
         for row in re.finditer(r'(?m)^\|\s*([A-E])[.\)]?[^|]*\|[^|]*\|\s*(.*?)\s*\|\s*$', body):
@@ -81,17 +100,23 @@ OVR=json.load(open(os.path.join(HERE,'overrides.json'))).get('content_paired',{}
 WITHDRAWN={'ML-D1G2Q8','ML-D2G4Q5','ML-D3G1Q4','ML-D3G3Q6','ML-D5G5Q4','ML-D6G4Q6','ML-D6G5Q5','ML-D6G5Q6','QF-D8G4Q1'}
 questions=[]; domains=[]; suspects=[]; overridden=[]; seen_sig={}; expanded_full=0
 for f in sorted(glob.glob(os.path.join(ROOT,'slices','*.txt'))):
-    base=os.path.basename(f); part='ML' if base.startswith('ML_') else 'QF'
-    num=re.search(r'_D(\d\d)',base).group(1); md=find_md(part,num); mdq=parse_md_questions(md)
-    domains.append({'part':part,'num':num,'name':DOMNAMES[(part,num)],
-        'weeks':WEEKS[(part,num)],'weekMax':max(WEEKS[(part,num)]),
+    base=os.path.basename(f); part='ML' if base.startswith(('ML_','ML2_')) else 'QF'
+    exam=2 if base.startswith(('ML2_','QF2_')) else 1
+    num=re.search(r'_D(\d\d)',base).group(1); md=find_md(exam,part,num); mdq=parse_md_questions(md)
+    domains.append({'exam':exam,'part':part,'num':num,'name':dom_name(exam,part,num),
+        'weeks':dom_weeks(exam,part,num),'weekMax':max(dom_weeks(exam,part,num)),
         'cheatsheet':md_section(md,'Domain cheat-sheet'),'traps':md_section(md,'Common traps'),
         'references':md_section(md,'References (domain-level)')})
-    for b in re.split(r'(?=\[(?:ML|QF)-D\d+G\d+Q\d+\])', open(f).read()):
-        mm=re.search(r'\[((?:ML|QF)-D(\d+)G(\d+)Q(\d+))\]',b)
+    for b in re.split(r'(?=\[(?:ML|QF)2?-D\d+G\d+Q\d+\])', open(f).read()):
+        mm=re.search(r'\[((?:ML|QF)2?-D(\d+)G(\d+)Q(\d+))\]',b)
         if not mm or 'Answer Key' not in b: continue
         qid=mm.group(1); grp='G'+mm.group(3)
-        inverted=('True = incorrect' in b or 'True=incorrect' in b)
+        # Inverted polarity ("mark True if the statement is WRONG"). Exam 1 signals it in the answer-key
+        # header ("True = incorrect"); Exam 2 signals it only in the body. Scope the body test to the text
+        # BETWEEN "True when/if" and "False" so a normal question that merely says "False if incorrect" isn't flagged.
+        _bm=re.search(r'mark\s+(?:each\s+statement\s+)?True\s+(?:when|if)\s+(.*?)\s+(?:and\s+)?False\b',b,re.I|re.S)
+        inverted=('True = incorrect' in b or 'True=incorrect' in b
+                  or bool(_bm and re.search(r'\b(incorrect|wrong|inaccurate|false)\b',_bm.group(1),re.I)))
         ks=b.find('Answer Key'); head=b[b.find(']')+1:ks]; key=b[ks:]
         scen=re.sub(r'\s+',' ',re.split(r'(?m)^\s*A\.\s',head)[0]).strip()
         stmts={}
@@ -113,8 +138,8 @@ for f in sorted(glob.glob(os.path.join(ROOT,'slices','*.txt'))):
                 if L not in keymap: continue
                 v,rat=keymap[L]
                 choices.append({'L':L,'text':stmts[L],'verdict':v,'accurate':(v=='True')^inverted,'why':rat})
-        q={'id':qid,'part':part,'domain':num,'domainName':DOMNAMES[(part,num)],'group':grp,
-           'weeks':WEEKS[(part,num)],'weekMax':max(WEEKS[(part,num)]),
+        q={'id':qid,'exam':exam,'part':part,'domain':num,'domainName':dom_name(exam,part,num),'group':grp,
+           'weeks':dom_weeks(exam,part,num),'weekMax':max(dom_weeks(exam,part,num)),
            'polarity':'inverted' if inverted else 'normal','scenario':scen,'choices':choices}
         if qid in OVR:
             q['flag']='source-key letters were mislabeled — corrected & verified vs PDF'
@@ -149,7 +174,9 @@ for p in sorted(glob.glob(os.path.join(ROOT,'references','*','*.md'))):
     reffiles.append({'book':book,'title':title,'file':os.path.relpath(p,ROOT),'md':txt,'doms':doms})
 for d in domains:
     key=(d['part'],int(d['num']))
-    d['bookNotes']=[{'book':r['book'],'title':r['title'],'file':r['file'],'md':r['md']} for r in reffiles if key in r['doms']]
+    # references/ currently holds Exam-1 recommended chapters only; don't attach them to Exam-2 domains
+    # (same (part,num) key would otherwise leak Exam-1 notes onto Exam-2). Exam-2 refs: distill later.
+    d['bookNotes']=[] if d.get('exam')==2 else [{'book':r['book'],'title':r['title'],'file':r['file'],'md':r['md']} for r in reffiles if key in r['doms']]
 print('reference files:',len(reffiles),'| domains with book notes:',sum(1 for d in domains if d.get('bookNotes')))
 
 heur={'absolute_false_pct':74,'negation_inacc_pct':69,'accurate_base_pct':58,

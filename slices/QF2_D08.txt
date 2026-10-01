@@ -1,0 +1,567 @@
+Domain 8: Execution Algorithms and Order Book Analytics
+
+[QF2-D8G1Q1] 
+A portfolio manager decides at 10:00 a.m. to buy 20,000 shares when the midpoint is $40.00. The average execution price 
+is $40.12, commissions are $200, and the stock closes at $40.30. Ignore any later portfolio proﬁt when measuring 
+execution cost. 
+ 
+A. The arrival price is $40.00 under the stated reference. 
+B. The price shortfall relative to arrival is $2,400 before commissions. 
+C. Including commissions, the implementation shortfall on the completed purchase is $2,600. 
+D. Because the closing price exceeds the average ﬁll, the execution had negative implementation shortfall. 
+E. The closing price can be useful for a different evaluation question, but it does not replace the decision-time benchmark 
+when measuring the cost of implementing this decision. 
+ 
+Answer Key: 
+ 
+A. True – The midpoint when the manager released the decision is the stated arrival reference. 
+B. True – The buyer paid $0.12 above arrival on 20,000 shares, or $2,400. 
+C. True – Adding the $200 commission to the $2,400 price shortfall gives $2,600. 
+D. False – Subsequent appreciation does not undo the cost paid relative to the arrival price. 
+E. True – Benchmark choice should match the objective; arrival price measures execution after the investment decision.
+
+[QF2-D8G1Q2] 
+A pension fund receives cash throughout the day and wants its purchase price to resemble the average price paid by the 
+market's trading volume. A trader reports an average ﬁll of $25.06. Market VWAP was $25.10, equal-interval TWAP was 
+$25.04, and the closing price was $25.30. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “VWAP is the benchmark most directly aligned with the fund's stated objective. ” 
+B. The following statement is incorrect: “The ﬁll beat VWAP by $0.04 per share for this buy order. ” 
+C. The following statement is incorrect: “The same ﬁll underperformed TWAP by $0.02 per share for this buy order. ” 
+D. The following statement is incorrect: “Beating VWAP proves that every individual child order received favorable 
+execution. ” 
+ 
+ 707 Rev:081020261230 
+E. The following statement is incorrect: “Whether $25.06 is judged favorable can depend on the chosen benchmark. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The objective explicitly targets the market's volume-weighted average price. 
+B. False – The quoted statement is correct. A buyer prefers a lower price, and $25.06 is $0.04 below $25.10. 
+C. False – The quoted statement is correct. The buyer paid $0.02 more than the $25.04 TWAP . 
+D. True – The quoted statement is incorrect. Favorable aggregate performance can coexist with poorly executed individual 
+child orders. 
+E. False – The quoted statement is correct. The ﬁll beats VWAP but trails TWAP , illustrating benchmark dependence.
+
+[QF2-D8G1Q3] 
+A fund must own 100,000 shares by today's close because its mandate is effective at the closing valuation. The trader 
+buys 70,000 shares at an average of $60.10, leaves 30,000 shares unﬁlled, and the stock closes at $60.50. The arrival 
+midpoint was $60.00. 
+ 
+A. A closing-price benchmark may be relevant because the mandate speciﬁcally targets end-of-day ownership and 
+valuation. 
+B. Relative to the close, the completed shares were purchased $0.40 per share below the benchmark. 
+C. The unﬁlled 30,000 shares create no execution concern because no trade occurred. 
+D. An implementation-shortfall analysis can include the opportunity cost associated with the unexecuted quantity. 
+E. Evaluating only the 70,000 completed shares can make execution quality look better than evaluating the full 100,000-
+share decision. 
+ 
+Answer Key: 
+ 
+A. True – The benchmark is connected to the mandate's speciﬁed closing objective. 
+B. True – The average completed ﬁll of $60.10 is $0.40 below the $60.50 close. 
+C. False – Failure to acquire the required quantity exposes the fund to missed-price-movement and mandate risk. 
+D. True – Implementation shortfall can account for the cost of shares that were intended but not executed. 
+E. True – Excluding the unﬁlled quantity ignores an important consequence of the execution strategy. 
+ 
+ 
+ 708 Rev:081020261230 
+G2: Aggressive vs. Passive Execution
+
+[QF2-D8G2Q1] 
+A stock is quoted at $19.98 bid and $20.02 ask. A trader who urgently needs to buy may either submit a marketable order 
+or post a limit buy at $19.98. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “A marketable buy is likely to trade against displayed sell liquidity near the ask. ” 
+B. The following statement is incorrect: “Posting at $19.98 can avoid immediately crossing the quoted spread. ” 
+C. The following statement is incorrect: “The passive limit order is guaranteed to ﬁll because it is posted at the best bid. ” 
+D. The following statement is incorrect: “The marketable order generally offers greater immediate execution certainty 
+than the passive order. ” 
+E. The following statement is incorrect: “If the price rises while the passive order waits, the trader may face waiting or 
+opportunity cost. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. An aggressive buyer consumes available ask-side liquidity. 
+B. False – The quoted statement is correct. A bid-side limit order waits rather than immediately paying the ask. 
+C. True – The quoted statement is incorrect. Other orders may be ahead in the queue, and sellers may never trade at the 
+bid. 
+D. False – The quoted statement is correct. Crossing the spread normally raises the chance of immediate execution, 
+subject to available depth. 
+E. False – The quoted statement is correct. The desired position may become more expensive or remain unﬁlled while 
+the trader waits.
+
+[QF2-D8G2Q2] 
+A trader posts a buy limit at $50.00 while the best bid and ask are $50.00 and $50.04. Half the order ﬁlls. News then 
+arrives, the quote moves to $50.20 bid and $50.24 ask, and the remaining order never ﬁlls. 
+ 
+A. The ﬁlled portion avoided paying the original $50.04 ask. 
+B. The ﬁll at $50.00 necessarily demonstrates superior execution for the entire investment decision. 
+C. The unﬁlled portion experienced opportunity cost if the trader still wanted the shares after the price rose. 
+D. Replacing the remainder with a marketable order at the new quote would increase execution urgency but likely require 
+paying a higher price. 
+ 
+ 709 Rev:081020261230 
+E. Partial-ﬁll risk is one difference between passive execution and an immediately marketable order. 
+ 
+Answer Key: 
+ 
+A. True – The passive ﬁll occurred $0.04 below the original ask. 
+B. False – The remaining quantity was missed as the market moved higher, so the complete decision may still have 
+performed poorly. 
+C. True – The trader lost the chance to acquire that quantity near the original price. 
+D. True – Aggressively completing after the price move trades price concession for execution certainty. 
+E. True – Passive orders may execute incompletely when insufficient opposing ﬂow reaches them.
+
+[QF2-D8G2Q3] 
+Two traders must sell the same stock. Trader A must liquidate within one minute to meet a risk limit. Trader B has until 
+the end of the week and believes patient buyers will arrive. Both face a $30.00 bid and $30.06 ask. 
+ 
+A. Trader A has a stronger reason to use aggressive execution than Trader B. 
+B. A marketable sell would normally interact with liquidity near the $30.00 bid. 
+C. Posting a sell limit at $30.06 may earn a better price than immediately hitting the bid if it ﬁlls. 
+D. Trader B's longer horizon eliminates all risk from using a passive order. 
+E. The appropriate aggressive-passive choice depends partly on urgency and the cost of non-execution, not only on the 
+quoted spread. 
+ 
+Answer Key: 
+ 
+A. True – The imminent risk deadline makes execution certainty especially valuable. 
+B. True – An aggressive seller crosses to the bid side of the book. 
+C. True – A ﬁll at the ask would be $0.06 better than an immediate sale at the displayed bid. 
+D. False – Prices can move, queues can persist, and the order may still fail to ﬁll. 
+E. True – Execution design balances price, certainty, urgency, and market risk. 
+ 
+ 
+ 710 Rev:081020261230 
+G3: Order Scheduling Over Time
+
+[QF2-D8G3Q1] 
+A trader must buy 500,000 shares. Plan Fast completes the order in 30 minutes with high participation. Plan Slow spreads 
+it across six hours with smaller child orders. The stock's price is uncertain during the day. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Plan Fast generally reduces the time during which the unexecuted order is 
+exposed to price movement. ” 
+B. The following statement is incorrect: “Plan Fast can create more market impact by demanding liquidity more rapidly. ” 
+C. The following statement is incorrect: “Plan Slow necessarily has lower total execution cost in every market condition. ” 
+D. The following statement is incorrect: “Plan Slow generally leaves more timing risk because a larger quantity remains 
+unexecuted for longer. ” 
+E. The following statement is incorrect: “Selecting an execution horizon involves a tradeoff between impact and exposure 
+to market movement. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Completing sooner reduces the duration of exposure on the remaining shares. 
+B. False – The quoted statement is correct. Concentrated demand can consume book depth and move prices. 
+C. True – The quoted statement is incorrect. Adverse price movement during the longer horizon can outweigh any impact 
+savings. 
+D. False – The quoted statement is correct. More of the order remains sensitive to changing prices for a longer period. 
+E. False – The quoted statement is correct. Faster trading can raise impact while slower trading can raise timing and non-
+completion risk.
+
+[QF2-D8G3Q2] 
+A trader expects an important announcement at noon and must ﬁnish a buy order by 3:00 p.m. Schedule A executes 70% 
+before noon. Schedule B executes 30% before noon and 70% afterward. 
+ 
+A. Schedule A is front-loaded relative to Schedule B. 
+B. Schedule A reduces the quantity still exposed to the noon announcement. 
+C. Schedule A guarantees a lower average purchase price. 
+D. If pre-noon liquidity is thin, Schedule A may produce more impact before the announcement. 
+ 
+ 711 Rev:081020261230 
+E. Schedule B may be attractive if the trader expects liquidity to improve after noon and accepts greater announcement 
+risk. 
+ 
+Answer Key: 
+ 
+A. True – It allocates a larger fraction of the order to earlier periods. 
+B. True – Only 30% remains after the 70% pre-noon execution. 
+C. False – Front-loading changes exposures but does not determine the direction of prices or total cost. 
+D. True – Concentrating more buying in a thin period can increase price pressure. 
+E. True – Back-loading can exploit expected later liquidity at the cost of leaving more shares exposed to news.
+
+[QF2-D8G3Q3] 
+A sell algorithm originally planned to execute evenly over four hours. After one hour, volatility rises sharply, displayed 
+depth falls, and the risk manager says the position must be reduced promptly. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Continuing the original schedule without reassessment ignores new information 
+relevant to execution risk. ” 
+B. The following statement is incorrect: “Lower displayed depth can increase the impact of aggressive selling. ” 
+C. The following statement is incorrect: “Increased urgency can justify accelerating despite higher expected impact. ” 
+D. The following statement is incorrect: “Slowing the schedule always reduces implementation shortfall when volatility 
+rises. ” 
+E. The following statement is incorrect: “A dynamic schedule may adjust child-order size and aggressiveness as liquidity, 
+volatility, and urgency change. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The market state and the cost of delay have materially changed. 
+B. False – The quoted statement is correct. Less available liquidity means the same sell quantity may move through more 
+price levels. 
+C. False – The quoted statement is correct. Satisfying the risk constraint may be worth the additional execution cost. 
+D. True – The quoted statement is incorrect. Delay can be costly when prices move adversely or a risk deadline 
+approaches. 
+E. False – The quoted statement is correct. Adaptive execution responds to conditions rather than treating the initial plan 
+as immutable. 
+ 
+ 712 Rev:081020261230 
+ 
+G4: VWAP , TWAP , and Participation Strategies
+
+[QF2-D8G4Q1] 
+A stock normally trades 10%, 15%, 20%, 20%, 20%, and 15% of its daily volume in six equal intervals. A VWAP algorithm 
+uses those forecast percentages, while a TWAP algorithm assigns one-sixth of the parent order to each interval. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The VWAP schedule allocates more shares to intervals expected to have greater 
+market volume. ” 
+B. The following statement is incorrect: “The TWAP schedule allocates equal shares to equal time intervals. ” 
+C. The following statement is incorrect: “The two schedules must produce the same child-order sizes because they have 
+the same total quantity. ” 
+D. The following statement is incorrect: “If the volume forecast is accurate, the VWAP schedule can keep its trading 
+pattern closer to the market's volume distribution. ” 
+E. The following statement is incorrect: “TWAP requires an accurate forecast of the market's intraday volume curve by 
+deﬁnition. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Its allocations follow the forecast 10/15/20/20/20/15 percent volume curve. 
+B. False – The quoted statement is correct. One-sixth is assigned to every equal-duration interval. 
+C. True – The quoted statement is incorrect. Their allocations differ whenever the expected volume percentages are not 
+uniform. 
+D. False – The quoted statement is correct. Matching forecast volume proportions aligns execution with where trading is 
+expected to occur. 
+E. True – The quoted statement is incorrect. A basic TWAP schedule is time-based and does not require a volume curve.
+
+[QF2-D8G4Q2] 
+A percentage-of-volume algorithm is instructed to buy 10% of observed market volume. During three successive 
+intervals, total market volume is 100,000, 300,000, and 50,000 shares. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The algorithm would target 10,000 shares in the ﬁrst interval under the simpliﬁed 
+rule. ” 
+ 
+ 713 Rev:081020261230 
+B. The following statement is incorrect: “It would target 30,000 shares in the second interval. ” 
+C. The following statement is incorrect: “It would target 5,000 shares in the third interval. ” 
+D. The following statement is incorrect: “A ﬁxed 10% participation rate guarantees completion of a parent order by a 
+speciﬁed clock time. ” 
+E. The following statement is incorrect: “When market volume unexpectedly falls, a participation strategy may trade fewer 
+shares than planned and risk incomplete execution. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Ten percent of 100,000 is 10,000 shares. 
+B. False – The quoted statement is correct. Ten percent of 300,000 is 30,000 shares. 
+C. False – The quoted statement is correct. Ten percent of 50,000 is 5,000 shares. 
+D. True – The quoted statement is incorrect. Completion depends on realized market volume and the size of the parent 
+order. 
+E. False – The quoted statement is correct. A volume-linked schedule slows automatically when observed volume 
+declines.
+
+[QF2-D8G4Q3] 
+A VWAP algorithm forecasts heavy trading near the close. An unexpected morning index rebalance instead produces 
+enormous early volume, while afternoon volume is unusually low. The algorithm does not update its forecast. 
+ 
+A. The static schedule may trade too little during the unexpectedly liquid morning. 
+B. It may be forced to trade too aggressively later if it still must complete the order. 
+C. Historical volume curves are guaranteed to remain accurate on event days. 
+D. Updating the schedule using realized volume can improve alignment with the day's actual volume pattern. 
+E. TWAP and percentage-of-volume algorithms would necessarily produce identical trades under this scenario. 
+ 
+Answer Key: 
+ 
+A. True – The algorithm expected volume later and therefore may underallocate to the actual early surge. 
+B. True – Low later liquidity combined with a completion requirement can force concentrated trading. 
+C. False – Events can materially change the intraday shape of market volume. 
+D. True – Adaptation can respond to forecast error as the trading day unfolds. 
+E. False – One is tied to time and the other to realized volume, so their schedules can differ substantially. 
+ 
+ 714 Rev:081020261230 
+ 
+G5: Limit Order Placement and Fill Probability
+
+[QF2-D8G5Q1] 
+A stock is quoted at $70.00 bid and $70.05 ask. A trader considers three buy limits: $70.00, $69.95, and $69.80. Assume 
+all else is equal and none is marketable when submitted. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The $70.00 order is closest to the current ask. ” 
+B. The following statement is incorrect: “The $69.80 order generally requires a larger downward price movement or deeper 
+sell ﬂow to execute. ” 
+C. The following statement is incorrect: “The $69.80 order normally has a higher immediate ﬁll probability than the $70.00 
+order solely because it offers a lower purchase price. ” 
+D. The following statement is incorrect: “A lower bid can provide a better purchase price if ﬁlled while also increasing non-
+execution risk. ” 
+E. The following statement is incorrect: “Placement decisions trade off price improvement against ﬁll probability. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. It is at the best bid and only $0.05 below the ask. 
+B. False – The quoted statement is correct. Sell orders must reach substantially below the current best bid for that order 
+to trade. 
+C. True – The quoted statement is incorrect. Moving farther from the market generally lowers, rather than raises, near-
+term ﬁll probability. 
+D. False – The quoted statement is correct. The more favorable price is conditional on obtaining a ﬁll. 
+E. False – The quoted statement is correct. Passive traders cannot evaluate price without also considering whether 
+execution will occur.
+
+[QF2-D8G5Q2] 
+Two investors each post a 5,000-share buy at the best bid of $15.00. Investor A enters when 2,000 shares are already 
+ahead at that price. Investor B enters later, after another 20,000 shares have joined the queue ahead. Assume price-time 
+priority. 
+ 
+A. Investor A has a better queue position than Investor B. 
+ 
+ 715 Rev:081020261230 
+B. If only 10,000 shares sell into the $15.00 bid and no cancellations occur, Investor A can ﬁll completely while Investor 
+B receives no ﬁll. 
+C. Equal limit prices imply equal ﬁll probabilities regardless of entry time. 
+D. Cancellations by orders ahead of Investor B could improve Investor B's queue position. 
+E. Displayed depth at a price does not by itself reveal how much of a newly entered order will ﬁll. 
+ 
+Answer Key: 
+ 
+A. True – Investor A joined after 2,000 shares, whereas Investor B has substantially more size ahead. 
+B. True – The ﬁrst 2,000 shares and A's 5,000 can trade within the 10,000-share ﬂow, leaving too little to reach B after the 
+intervening queue. 
+C. False – Time priority and quantity ahead materially affect execution probability. 
+D. True – Removing earlier orders reduces the volume that must trade before B is reached. 
+E. True – Future opposing ﬂow, cancellations, priority rules, and queue position also matter.
+
+[QF2-D8G5Q3] 
+A trader needs to buy 12,000 shares. A passive order ﬁlls 4,000 shares, then the market moves upward. The trader can 
+leave the remaining 8,000 shares at the old price, reprice to the new best bid, or cross the spread. 
+ 
+A. The current order has produced a partial ﬁll. 
+B. Leaving the remainder at the old price may preserve a favorable limit but reduce the chance of timely completion. 
+C. Repricing to the new best bid can improve competitiveness but may forfeit the old queue position. 
+D. Crossing the spread can increase completion probability but may worsen the purchase price. 
+E. Because 4,000 shares ﬁlled, the best decision for the remainder can be determined without considering urgency or 
+subsequent market movement. 
+ 
+Answer Key: 
+ 
+A. True – Only one-third of the 12,000-share parent order has executed. 
+B. True – A stale lower bid is cheaper if reached but farther from the new market. 
+C. True – Canceling and entering at a different price typically creates a new queue position. 
+D. True – Aggressiveness exchanges price concession for greater execution certainty. 
+E. False – The appropriate choice depends on the cost of delay, ﬁll probability, price risk, and objectives. 
+ 
+ 
+ 716 Rev:081020261230 
+G6: Order Book Imbalance and Short-Term Signals
+
+[QF2-D8G6Q1] 
+At the best quotes, a stock shows 80,000 shares bid and 20,000 shares offered. Deﬁne imbalance as (bid depth - ask 
+depth) / (bid depth + ask depth). 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The stated imbalance equals 0.60. ” 
+B. The following statement is incorrect: “The positive imbalance indicates more displayed depth at the best bid than at 
+the best ask. ” 
+C. The following statement is incorrect: “Under some market conditions, this imbalance can be interpreted as short-term 
+upward price pressure. ” 
+D. The following statement is incorrect: “The imbalance guarantees that the next price change will be upward. ” 
+E. The following statement is incorrect: “The measure describes displayed liquidity at a moment and can change quickly 
+as orders arrive or cancel. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. (80,000 - 20,000) / (80,000 + 20,000) = 60,000 / 100,000 = 0.60. 
+B. False – The quoted statement is correct. Bid-side displayed quantity is four times ask-side displayed quantity. 
+C. False – The quoted statement is correct. Relatively scarce ask liquidity or strong bid support may be associated with 
+short-horizon upward pressure. 
+D. True – The quoted statement is incorrect. New orders, cancellations, hidden liquidity, and trades can reverse the 
+apparent signal. 
+E. False – The quoted statement is correct. A book snapshot is transient rather than a permanent statement of supply 
+and demand.
+
+[QF2-D8G6Q2] 
+Stock X has 100,000 shares displayed at the best bid and 25,000 at the best ask, but both quantities are routinely 
+canceled within milliseconds. Stock Y shows only 20,000 bid and 20,000 ask, and those quotes usually remain available 
+and absorb trades. 
+ 
+A. Stock X has a more positive snapshot imbalance than Stock Y . 
+B. The larger displayed bid in Stock X necessarily represents more reliable executable liquidity. 
+C. Cancellation behavior is relevant when interpreting order-book depth. 
+ 
+ 717 Rev:081020261230 
+D. Stock Y's balanced book implies that its price cannot move. 
+E. Persistence and realized ﬁlls can provide information that a single depth snapshot omits. 
+ 
+Answer Key: 
+ 
+A. True – X's best-level imbalance is positive, while Y's is zero under the usual normalized measure. 
+B. False – Rapid cancellation can make displayed size unavailable when traders attempt to interact with it. 
+C. True – Fleeting quotes may overstate dependable liquidity or directional interest. 
+D. False – Balanced displayed depth does not prevent trades, new information, or later order changes from moving price. 
+E. True – Time-series behavior helps distinguish stable liquidity from transient display.
+
+[QF2-D8G6Q3] 
+A researcher builds a strategy that buys whenever best-level bid depth exceeds ask depth by 5:1. In historical snapshots 
+the rule appears proﬁtable. In live trading, large bid orders sometimes vanish just before sell orders arrive, and liquidity 
+exists at price levels beyond the best quotes. 
+ 
+A. Using only the best level ignores depth elsewhere in the book. 
+B. Vanishing displayed bids can cause the historical signal to overstate genuine buying support. 
+C. A participant could potentially create a misleading imbalance by displaying and canceling large orders, although the 
+snapshot alone does not prove manipulation. 
+D. Backtest proﬁtability proves the imbalance signal will remain reliable after costs and latency. 
+E. Testing multiple depth levels, quote persistence, latency, and execution costs could improve the evaluation. 
+ 
+Answer Key: 
+ 
+A. True – Liquidity at deeper price levels can affect both price pressure and execution. 
+B. True – Canceled size cannot absorb the incoming selling that the strategy expected it to resist. 
+C. True – Transient orders can distort the measure, but intent cannot be inferred conclusively from one observation. 
+D. False – Live performance can differ because of delay, changing behavior, false signals, and trading frictions. 
+E. True – These tests address important omissions in a snapshot-only frictionless analysis. 
+ 
+ 
+ 718 Rev:081020261230 
+G7: Adverse Selection and Execution Quality
+
+[QF2-D8G7Q1] 
+A market maker repeatedly posts a buy at the best bid. The order tends to ﬁll immediately before negative news-driven 
+trades push the stock lower, but often remains unﬁlled when the price rises. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “This ﬁll pattern is consistent with adverse selection. ” 
+B. The following statement is incorrect: “Receiving a passive ﬁll always means the trader earned the full spread as proﬁt. ” 
+C. The following statement is incorrect: “Informed or better-timed sellers may be choosing to trade against the bid when 
+the posted price is favorable to them. ” 
+D. The following statement is incorrect: “The market maker should evaluate price movement after ﬁlls, not merely the 
+fraction of orders ﬁlled. ” 
+E. The following statement is incorrect: “A high ﬁll rate can coexist with poor execution quality if ﬁlls are concentrated 
+before adverse price moves. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The order is disproportionately executed when subsequent information makes 
+the purchase unattractive. 
+B. True – The quoted statement is incorrect. Post-ﬁll adverse movement can exceed any spread captured by passive 
+execution. 
+C. False – The quoted statement is correct. Counterparties may trade when they possess information or urgency that 
+makes the quote stale. 
+D. False – The quoted statement is correct. Markouts after execution help reveal whether ﬁlls were followed by 
+unfavorable price changes. 
+E. False – The quoted statement is correct. Fill quantity alone does not measure the economic quality of those ﬁlls.
+
+[QF2-D8G7Q2] 
+A fund must quietly buy a large position over two days. After it repeatedly submits similarly sized child orders at 
+predictable times, other traders begin buying ahead of it, and ask prices rise before later child orders arrive. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The repeated pattern may leak information about the fund's remaining demand. ” 
+B. The following statement is incorrect: “Other traders buying ahead can increase the fund's later execution cost. ” 
+ 
+ 719 Rev:081020261230 
+C. The following statement is incorrect: “Randomizing timing or size may reduce predictability, although it cannot 
+guarantee secrecy. ” 
+D. The following statement is incorrect: “Splitting a parent order into child orders automatically prevents information 
+leakage. ” 
+E. The following statement is incorrect: “Execution quality depends partly on how the algorithm reveals its intentions to 
+the market. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Predictable child orders can allow observers to infer a persistent parent order. 
+B. False – The quoted statement is correct. Anticipatory buying can move offers higher before the fund completes. 
+C. False – The quoted statement is correct. Less regular behavior may make inference harder but cannot eliminate all 
+signals from trading. 
+D. True – The quoted statement is incorrect. A detectable sequence of child orders can reveal the parent order precisely 
+because it is split predictably. 
+E. False – The quoted statement is correct. Information footprint can affect impact, adverse selection, and realized price.
+
+[QF2-D8G7Q3] 
+A trader compares two ways to complete an urgent buy. A passive order may save 4 cents relative to crossing the spread 
+if ﬁlled, but historical ﬁlled passive orders are followed by an average 7-cent price decline over the next minute. An 
+aggressive order generally completes immediately at the ask. 
+ 
+A. The passive order's quoted 4-cent price improvement is not sufficient by itself to establish better economic execution. 
+B. The negative post-ﬁll markout is evidence consistent with adverse selection against the passive buyer. 
+C. Under the stated averages, the 7-cent adverse movement is larger than the 4-cent initial price improvement. 
+D. The aggressive order has no execution cost because it completes immediately. 
+E. Greater urgency can shift the balance toward aggressive execution even when passive orders sometimes receive better 
+quoted prices. 
+ 
+Answer Key: 
+ 
+A. True – Execution quality includes what tends to happen after ﬁlls and whether the full order completes. 
+B. True – Passive buys appear to execute before prices move unfavorably for the buyer. 
+C. True – The average unfavorable move exceeds the initial improvement by 3 cents. 
+D. False – Crossing the spread, market impact, and adverse price movement can still impose costs. 
+ 
+ 720 Rev:081020261230 
+E. True – When delay or non-execution is expensive, certainty may outweigh possible spread capture. 
+ 
+  
+ 
+ 721 Rev:081020261230 
+Domain 9: Options and Derivative Payoffs 
+Domain Summary 
+ Calls and puts 
+ Long and short positions 
+ Strike 
+ Expiration 
+ Premium 
+ Moneyness 
+ Intrinsic and time value 
+ Payoff versus proﬁt 
+ Breakeven 
+ Hedging 
+ Speculation 
+ Nonlinear exposure 
+Topic Groups 
+G1: Call Option Payoffs 
+ Right to buy 
+ Long-call payoff 
+ Short-call obligation 
+ Strike and expiration 
+ Maximum loss and upside 
+G2: Put Option Payoffs 
+ Right to sell 
+ Long-put payoff 
+ Short-put obligation 
+ Downside protection 
+ Maximum gain and loss 
+ 
+ 722 Rev:081020261230 
+G3: Premium, Payoff, Proﬁt, and Breakeven 
+ Upfront premium 
+ Expiration payoff 
+ Net proﬁt 
+ Breakeven price 
+ Why positive payoff does not always imply proﬁt 
+G4: Moneyness and Intrinsic Value 
+ In the money 
+ At the money 
+ Out of the money 
+ Intrinsic value 
+ Relationship between stock price and strike 
+G5: Time Value and Volatility Intuition 
+ Time remaining 
+ Uncertainty 
+ Why options can have value without intrinsic value 
+ Volatility increasing option value conceptually 
+ Time decay 
+G6: Hedging with Options 
+ Protective puts 
+ Covered calls 
+ Downside insurance 
+ Capping upside 
+ Cost of protection 
+G7: Nonlinear and Asymmetric Payoffs 
+ Limited versus unlimited risk 
+ Convexity intuition 
+ Asymmetric outcomes 
+ Comparing stock and option exposures 
+ 
+ 723 Rev:081020261230 
+ Why options are not equivalent to leveraged stock positions 
+G1: Call Option Payoffs

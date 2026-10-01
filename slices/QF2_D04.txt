@@ -1,0 +1,596 @@
+Domain 4: Fundamental Law of Active Portfolio Management
+
+[QF2-D4G1Q1] 
+A researcher assigns daily forecasts to 200 stocks and later compares those forecasts with the stocks' realized 
+benchmark-relative returns over the stated horizon. Across many dates, the correlation is +0.06. The investment 
+committee is deciding how to interpret this information coefficient (IC). 
+ 
+A. A positive IC indicates that higher forecasts have tended to be associated with higher subsequent active returns. 
+B. An IC of +0.06 means that every positively forecasted stock earned a positive active return. 
+C. A small positive IC can be economically useful when it is stable and applied across many sufficiently independent 
+opportunities. 
+D. The IC alone establishes the strategy's net proﬁtability after trading costs. 
+E. Sampling uncertainty should be considered before concluding that the observed IC represents persistent skill. 
+ 
+Answer Key: 
+ 
+A. True – A positive forecast-outcome correlation indicates correct ordering on average, not certainty for every asset. 
+B. False – Correlation summarizes a statistical relationship across observations and permits many individual forecast 
+errors. 
+C. True – The Fundamental Law shows how modest skill can matter when repeatable across effective breadth. 
+D. False – IC measures forecast quality, whereas net results also depend on portfolio construction, risk, turnover, and 
+costs. 
+E. True – An estimated correlation can differ from the underlying relationship because of ﬁnite-sample noise and 
+dependence.
+
+[QF2-D4G1Q2] 
+Two analysts test return forecasts on the same universe and horizon. Analyst A reports an IC of +0.04 based on 20 
+independent observations, while Analyst B reports an IC of +0.03 based on 5,000 reasonably independent observations 
+collected across several market regimes. Management wants to select the more credible forecasting process solely from 
+these point estimates. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Analyst A has the larger observed IC. ” 
+B. The following statement is incorrect: “The larger point estimate automatically makes Analyst A's forecasting process 
+more statistically reliable. ” 
+ 
+ 640 Rev:081020261230 
+C. The following statement is incorrect: “Analyst B's much larger effective sample can permit a more precise estimate of 
+a small IC. ” 
+D. The following statement is incorrect: “Regime coverage is relevant because forecast skill may vary through time. ” 
+E. The following statement is incorrect: “The two IC estimates can be compared safely without conﬁrming that forecasts 
+and outcomes use the same deﬁnitions and horizons. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Numerically, +0.04 exceeds +0.03. 
+B. True – The quoted statement is incorrect. Reliability depends on sampling uncertainty, dependence, stability, and 
+design, not only the point estimate. 
+C. False – The quoted statement is correct. Other things equal, more independent evidence reduces uncertainty around 
+an estimated correlation. 
+D. False – The quoted statement is correct. A result conﬁned to one market environment may not persist in another. 
+E. True – The quoted statement is incorrect. IC comparisons require consistent forecast targets, horizons, universes, and 
+measurement methods.
+
+[QF2-D4G1Q3] 
+A futures model has produced an IC near -0.05 for twelve months: contracts receiving the highest bullish forecasts have 
+generally underperformed those receiving the lowest forecasts. A trader proposes reversing every signal, while the model-
+risk team investigates whether the data labels or execution timing were accidentally inverted. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “A persistently negative IC indicates that the forecasts have been directionally 
+wrong on average under the current measurement. ” 
+B. The following statement is incorrect: “Multiplying all forecasts by -1 would reverse the sign of their correlation with the 
+same outcomes. ” 
+C. The following statement is incorrect: “A negative IC necessarily proves that the model contains no information. ” 
+D. The following statement is incorrect: “Before deploying a reversed strategy, the team should investigate data, timing, 
+stability, and economic rationale. ” 
+E. The following statement is incorrect: “An IC near zero would indicate little linear association between the measured 
+forecasts and outcomes, but would not by itself prove the absence of every possible nonlinear relationship. ” 
+ 
+Answer Key: 
+ 
+ 
+ 641 Rev:081020261230 
+A. False – The quoted statement is correct. Negative correlation means larger forecasts have tended to accompany worse 
+outcomes. 
+B. False – The quoted statement is correct. Negating one variable reverses the sign of its correlation with the other. 
+C. True – The quoted statement is incorrect. Consistently negative forecasts can contain information, although their 
+direction, measurement, or implementation may be wrong. 
+D. False – The quoted statement is correct. A sign reversal observed in historical data may reﬂect a genuine inverse signal, 
+an error, or an unstable coincidence. 
+E. False – The quoted statement is correct. Zero correlation rules out neither all nonlinear dependence nor every 
+conditional forecasting relationship. 
+ 
+G2: Information Ratio
+
+[QF2-D4G2Q1] 
+An active equity fund earned an average annual benchmark-relative return of 4% with annualized tracking error of 8%. A 
+second fund earned 3% active return with tracking error of 3%. Assume the ﬁgures are measured consistently and ignore 
+estimation uncertainty for this comparison. 
+ 
+A. The ﬁrst fund's information ratio is 0.50. 
+B. The second fund's information ratio is 1.00. 
+C. The ﬁrst fund has the higher information ratio because it has the higher active return. 
+D. Information ratio evaluates active return per unit of active risk. 
+E. A higher information ratio does not necessarily mean a higher total dollar proﬁt for every investor. 
+ 
+Answer Key: 
+ 
+A. True – Its information ratio is 4% divided by 8%, or 0.50. 
+B. True – Its information ratio is 3% divided by 3%, or 1.00. 
+C. False – The second fund earns more active return per unit of tracking error despite its lower active return. 
+D. True – The numerator and denominator are deﬁned relative to a benchmark. 
+E. True – Dollar proﬁt also depends on capital, leverage, fees, total exposures, and the realized investment period. 
+ 
+ 
+ 642 Rev:081020261230
+
+[QF2-D4G2Q2] 
+A long-only manager reports a high Sharpe ratio because both the benchmark and the portfolio rose strongly. However, 
+the portfolio stayed close to the benchmark and delivered inconsistent benchmark-relative returns. The client asks why 
+the manager's Sharpe ratio and information ratio tell different stories. 
+ 
+A. Sharpe ratio commonly evaluates excess total return relative to total-return volatility. 
+B. Information ratio evaluates active return relative to tracking error. 
+C. A portfolio can have a high Sharpe ratio but a low information ratio when market exposure performs well but active 
+decisions add little consistently. 
+D. Sharpe ratio and information ratio must be identical whenever the same monthly returns are used. 
+E. The benchmark selected for active-return measurement can affect the manager's information ratio. 
+ 
+Answer Key: 
+ 
+A. True – Sharpe ratio generally uses return above a risk-free rate and the volatility of that excess return. 
+B. True – Both components of the information ratio are benchmark-relative. 
+C. True – Strong passive market performance can support total results without demonstrating active-management skill. 
+D. False – The ratios use different reference returns and risk measures. 
+E. True – Active returns and tracking error depend on the benchmark against which they are computed.
+
+[QF2-D4G2Q3] 
+Two managers each report a historical information ratio of 0.8. Manager X achieved it over ten years using a diversiﬁed 
+portfolio, while Manager Y achieved it during one favorable year with a concentrated sector bet. An allocator is 
+considering whether the managers should be treated as equally dependable. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Equal historical information ratios imply equal historical active return per unit of 
+measured active risk over their respective samples. ” 
+B. The following statement is incorrect: “Equal point estimates guarantee equal future skill. ” 
+C. The following statement is incorrect: “Manager Y's shorter sample creates greater concern about estimation 
+uncertainty. ” 
+D. The following statement is incorrect: “Concentrated factor exposure may make an information ratio less representative 
+of repeatable security-selection skill. ” 
+E. The following statement is incorrect: “A proper comparison can consider sample length, benchmark suitability, 
+exposure stability, costs, and market regimes in addition to the reported ratio. ” 
+ 
+ 643 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The reported ratio has the same numerical interpretation within each stated 
+sample. 
+B. True – The quoted statement is incorrect. Historical estimates are noisy and may not persist. 
+C. False – The quoted statement is correct. A one-year result supplies less evidence about stability than a long record, all 
+else equal. 
+D. False – The quoted statement is correct. One rewarded sector exposure can dominate measured active performance 
+without being broadly repeatable. 
+E. False – The quoted statement is correct. The point estimate alone omits important evidence about how the outcome 
+was produced. 
+ 
+G3: Breadth and Number of Opportunities
+
+[QF2-D4G3Q1] 
+A strategy expands from forecasting 50 stocks once per month to forecasting the same 50 stocks every trading day. The 
+researcher claims breadth has increased by approximately 21 times because the model now makes about 21 times as 
+many monthly forecasts. The stocks and daily forecast errors are strongly correlated through time. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Raw forecast count and effective breadth are not necessarily the same. ” 
+B. The following statement is incorrect: “Strong dependence among daily decisions can make the increase in effective 
+breadth much smaller than 21 times. ” 
+C. The following statement is incorrect: “Trading more frequently always creates an independent new opportunity. ” 
+D. The following statement is incorrect: “Breadth concerns the number of sufficiently independent opportunities to apply 
+forecast skill. ” 
+E. The following statement is incorrect: “More frequent rebalancing can increase turnover even when it adds little 
+effective breadth. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Nominal decisions can repeat the same underlying information or exposure. 
+B. False – The quoted statement is correct. Correlated decisions contribute less independent diversiﬁcation than 
+unrelated decisions. 
+ 
+ 644 Rev:081020261230 
+C. True – The quoted statement is incorrect. Independence depends on the information and outcomes, not merely the 
+decision timestamp. 
+D. False – The quoted statement is correct. The simpliﬁed Fundamental Law relies on distinct opportunities for skill to 
+compound. 
+E. False – The quoted statement is correct. Repeatedly changing positions can add trades and costs without 
+proportionate new information.
+
+[QF2-D4G3Q2] 
+A quantitative manager applies one forecasting model to 1,000 equities, while a discretionary manager makes 20 sector-
+neutral stock selections each year. The quant manager states that the portfolio must have 50 times the breadth because 
+it covers 50 times as many securities. 
+ 
+A. Covering more assets can create greater potential breadth. 
+B. The number of securities alone is sufficient to establish effective breadth. 
+C. If the 1,000 equity forecasts mainly express the same market or sector view, their effective breadth can be far below 
+1,000. 
+D. The discretionary manager's 20 selections could also have low effective breadth if several are versions of the same 
+economic bet. 
+E. Breadth can come from opportunities across assets, time, or both, provided the decisions are sufficiently 
+independent. 
+ 
+Answer Key: 
+ 
+A. True – A broader universe offers more places in which a forecasting process might be applied. 
+B. False – Dependence and constraints determine how many distinct bets the portfolio actually contains. 
+C. True – Common-factor exposure links outcomes and reduces independent opportunity count. 
+D. True – A small nominal set can contain even fewer economically distinct decisions. 
+E. True – Neither cross-sectional nor temporal breadth is automatically excluded from the concept.
+
+[QF2-D4G3Q3] 
+A market-making model has modest forecast skill but can evaluate many liquid instruments repeatedly. A niche 
+distressed-debt analyst has stronger skill but can identify only a few suitable investments each year. The ﬁrm's strategy 
+committee is comparing how breadth affects scalability. 
+ 
+ 
+ 645 Rev:081020261230 
+A. The market-making model may build useful risk-adjusted performance from weak skill applied repeatedly across many 
+effective opportunities. 
+B. The distressed-debt analyst's greater skill guarantees a higher information ratio regardless of breadth. 
+C. Limited opportunity count can constrain how widely specialized expertise can be deployed. 
+D. Automation can increase the number of decisions a process can evaluate, but it does not guarantee that those 
+decisions are independent or proﬁtable. 
+E. Adding opportunities with no forecast skill must increase information ratio under the Fundamental Law. 
+ 
+Answer Key: 
+ 
+A. True – The law describes how breadth can amplify consistent positive skill. 
+B. False – Information ratio depends on both skill and effective breadth under the simpliﬁed relationship. 
+C. True – Expertise cannot be scaled into opportunities that do not exist or cannot absorb capital. 
+D. True – Automation supplies capacity to process decisions, while skill, independence, and implementation remain 
+separate requirements. 
+E. False – With zero IC, the simpliﬁed law predicts zero information ratio regardless of breadth. 
+ 
+G4: The Fundamental Law Relationship
+
+[QF2-D4G4Q1] 
+Under the simpliﬁed Fundamental Law, a strategy has an information coefficient of 0.05 and breadth of 100 independent 
+opportunities per year. Assume forecasts are translated efficiently into positions and all simplifying assumptions hold. 
+ 
+A. The predicted information ratio is (0.05\sqrt{100}=0.50). 
+B. If IC doubles to 0.10 while breadth remains 100, the predicted information ratio doubles to 1.00. 
+C. If breadth doubles from 100 to 200 while IC remains 0.05, the predicted information ratio doubles. 
+D. Increasing breadth from 100 to 400 while holding IC constant doubles the predicted information ratio. 
+E. The relationship implies a linear effect of IC and a square-root effect of breadth. 
+ 
+Answer Key: 
+ 
+A. True – The square root of 100 is 10, so the predicted IR is 0.05 times 10. 
+B. True – Holding breadth ﬁxed, IR changes proportionally with IC. 
+C. False – Doubling breadth multiplies IR by (\sqrt{2}), not by 2. 
+ 
+ 646 Rev:081020261230 
+D. True – Quadrupling breadth doubles its square root and therefore doubles predicted IR. 
+E. True – That is the mathematical structure of (IR=IC\sqrt{BR}).
+
+[QF2-D4G4Q2] 
+Strategy A has an IC of 0.04 and breadth of 400. Strategy B has an IC of 0.08 and breadth of 25. The portfolio team uses 
+the simpliﬁed Fundamental Law to compare their predicted information ratios before considering costs and dependence. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Strategy A has a predicted information ratio of 0.80. ” 
+B. The following statement is incorrect: “Strategy B has a predicted information ratio of 0.40. ” 
+C. The following statement is incorrect: “Strategy B's IC is twice Strategy A's IC. ” 
+D. The following statement is incorrect: “Strategy B's stronger forecast skill is enough to overcome its lower breadth in 
+this calculation. ” 
+E. The following statement is incorrect: “This comparison alone proves Strategy A will deliver the higher realized net 
+information ratio. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. (0.04\sqrt{400}=0.04(20)=0.80). 
+B. False – The quoted statement is correct. (0.08\sqrt{25}=0.08(5)=0.40). 
+C. False – The quoted statement is correct. The skill measure increases from 0.04 to 0.08. 
+D. True – The quoted statement is incorrect. Its predicted IR remains lower because its breadth is much smaller. 
+E. True – The quoted statement is incorrect. The calculation omits estimation error, dependence, constraints, costs, 
+capacity, and changes through time.
+
+[QF2-D4G4Q3] 
+A research director wants to double a strategy's predicted information ratio without changing its IC. The current effective 
+breadth is 64. Another team instead proposes a 50% improvement in IC while holding breadth constant. 
+ 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Doubling predicted information ratio through breadth alone requires breadth to 
+increase from 64 to 256 under the simpliﬁed law. ” 
+B. The following statement is incorrect: “Increasing breadth from 64 to 128 would double predicted information ratio. ” 
+ 
+ 647 Rev:081020261230 
+C. The following statement is incorrect: “A 50% increase in IC would produce a 50% increase in predicted information 
+ratio if breadth is unchanged. ” 
+D. The following statement is incorrect: “The law suggests that improving IC can have a stronger proportional payoff than 
+an equal proportional increase in breadth. ” 
+E. The following statement is incorrect: “The equation guarantees that management can create the required independent 
+opportunities at no cost. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Doubling the square-root term requires quadrupling breadth. 
+B. True – The quoted statement is incorrect. Doubling breadth increases IR only by (\sqrt{2}). 
+C. False – The quoted statement is correct. IR is linear in IC when breadth is ﬁxed. 
+D. False – The quoted statement is correct. A proportional IC change passes through fully, while breadth enters through 
+a square root. 
+E. True – The quoted statement is incorrect. The equation describes a relationship under assumptions; it does not make 
+skill, independence, capacity, or implementation free. 
+ 
+G5: Effective Breadth and Dependence
+
+[QF2-D4G5Q1] 
+A global equity portfolio holds 300 stocks, but most active risk comes from overweighting technology stocks and 
+underweighting ﬁnancial stocks. Individual stock positions within each sector tend to move together. The manager labels 
+every holding an independent active decision. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Three hundred holdings do not necessarily represent breadth of 300. ” 
+B. The following statement is incorrect: “A dominant sector trade can link many positions through one common factor 
+exposure. ” 
+C. The following statement is incorrect: “Correlated active returns reduce the diversiﬁcation beneﬁt expected from 
+treating every position as independent. ” 
+D. The following statement is incorrect: “Holding stocks in different companies guarantees independent outcomes. ” 
+E. The following statement is incorrect: “Factor-exposure and correlation analysis can help estimate whether nominal 
+breadth overstates effective breadth. ” 
+ 
+Answer Key: 
+ 
+ 
+ 648 Rev:081020261230 
+A. False – The quoted statement is correct. Position count is not the same as the count of economically distinct bets. 
+B. False – The quoted statement is correct. Many security weights can jointly express one sector view. 
+C. False – The quoted statement is correct. Dependence means less unique information is added by each additional 
+position. 
+D. True – The quoted statement is incorrect. Separate issuers can still share sector, market, macroeconomic, or supply-
+chain exposures. 
+E. False – The quoted statement is correct. These diagnostics reveal shared drivers that simple counts overlook.
+
+[QF2-D4G5Q2] 
+A researcher creates ten signals from the same one-month price trend by changing the lookback from 19 to 28 days. The 
+signals have correlations above 0.95 and usually select the same positions. The researcher claims ten times the breadth 
+because ten formulas vote on every trade. 
+ 
+A. Highly correlated transformations of the same input may be repeated versions of one underlying bet. 
+B. Ten signal columns necessarily create ten independent opportunities. 
+C. Treating all ten as independent would likely overstate effective breadth. 
+D. Combining the signals can still change forecast scaling or robustness even if it adds little new breadth. 
+E. Distinct formula names are sufficient evidence of independent information. 
+ 
+Answer Key: 
+ 
+A. True – Minor parameter variations can preserve nearly the same economic exposure. 
+B. False – Independence must be supported by distinct information and outcome relationships. 
+C. True – Near-duplicate signals do not provide the diversiﬁcation assumed by a raw count of ten. 
+D. True – Averaging similar estimates can smooth noise without converting them into ten independent bets. 
+E. False – Labels do not determine statistical or economic dependence.
+
+[QF2-D4G5Q3] 
+A multi-asset fund trades equities, corporate bonds, commodities, and currencies. During normal periods, the strategies 
+appear weakly correlated, but during liquidity crises they all lose when investors reduce risk. The risk committee 
+evaluates whether historical average correlations fully capture effective breadth. 
+ 
+A. Trading different asset classes can provide potential diversiﬁcation but does not guarantee independence. 
+B. Correlations that rise during stress can make effective breadth state-dependent. 
+ 
+ 649 Rev:081020261230 
+C. A breadth estimate based only on calm periods may overstate diversiﬁcation when it is most needed. 
+D. If average historical correlation is zero, the opportunities must be independent in every market regime. 
+E. Scenario and conditional-correlation analysis can complement a single full-sample correlation estimate. 
+ 
+Answer Key: 
+ 
+A. True – Different labels can conceal common sensitivity to liquidity, growth, inﬂation, or risk appetite. 
+B. True – Dependence can change with the market environment. 
+C. True – Calm-period estimates may miss joint losses that emerge in crises. 
+D. False – Positive and negative regime-speciﬁc relationships can average to zero, and zero correlation does not establish 
+full independence. 
+E. True – Conditional analysis examines dependence that an unconditional average can obscure. 
+ 
+G6: Skill vs. Scale Tradeoffs
+
+[QF2-D4G6Q1] 
+A concentrated manager thoroughly researches ten companies and estimates an IC of 0.15, while a broad systematic 
+strategy estimates an IC of 0.03 across 1,000 effective opportunities. Assume the simpliﬁed Fundamental Law applies 
+and the breadth ﬁgures are comparable. 
+ 
+A. The concentrated manager's predicted information ratio is approximately (0.15\sqrt{10}), or 0.47. 
+B. The systematic strategy's predicted information ratio is approximately (0.03\sqrt{1000}), or 0.95. 
+C. The manager with the higher IC must have the higher predicted information ratio. 
+D. Broad application of weaker skill can outperform concentrated stronger skill on the simpliﬁed risk-adjusted metric. 
+E. The calculation establishes that the systematic strategy is superior for every investor and capital level. 
+ 
+Answer Key: 
+ 
+A. True – (\sqrt{10}) is about 3.16, giving an IR near 0.47. 
+B. True – (\sqrt{1000}) is about 31.62, giving an IR near 0.95. 
+C. False – Breadth also affects predicted information ratio. 
+D. True – Sufficient independent breadth can compensate for lower per-decision forecast skill. 
+E. False – Investor objectives, costs, capacity, drawdowns, estimation error, and constraints are not resolved by this 
+calculation. 
+ 
+ 650 Rev:081020261230
+
+[QF2-D4G6Q2] 
+A credit specialist considers expanding from familiar domestic issuers into hundreds of foreign and lower-quality bonds. 
+Coverage would rise sharply, but the available data are poorer and the specialist's estimated IC falls as the universe 
+expands. The ﬁrm is deciding whether more breadth will improve the strategy. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Added breadth can be offset by reduced forecast skill. ” 
+B. The following statement is incorrect: “If breadth rises fourfold while IC falls by half, the simpliﬁed predicted information 
+ratio remains unchanged. ” 
+C. The following statement is incorrect: “Any increase in the number of securities must improve predicted information 
+ratio. ” 
+D. The following statement is incorrect: “Expansion can introduce new operational, liquidity, and model risks not 
+summarized by the Fundamental Law. ” 
+E. The following statement is incorrect: “The optimal scalable universe may stop before the maximum possible universe 
+if marginal opportunities are low quality or highly dependent. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The law contains both IC and the square root of breadth. 
+B. False – The quoted statement is correct. Halving IC and doubling (\sqrt{BR}) have offsetting effects. 
+C. True – The quoted statement is incorrect. Nominal security count may not raise effective breadth, and IC can 
+deteriorate. 
+D. False – The quoted statement is correct. Data quality, trading, governance, and market structure affect realized 
+performance. 
+E. False – The quoted statement is correct. Additional coverage can have diminishing or negative net value.
+
+[QF2-D4G6Q3] 
+A ﬁrm automates a discretionary signal so it can screen 20,000 instruments every hour. The original analysts used the 
+signal only in a small liquid-equity universe where they could review context manually. Executives assume automation 
+preserves IC while creating enormous breadth. 
+ 
+A. Automation can reduce the cost and time needed to evaluate many candidate opportunities. 
+B. The original IC is guaranteed to transfer unchanged to new instruments and higher decision frequency. 
+C. New assets may differ in liquidity, market structure, data quality, and signal mechanism. 
+ 
+ 651 Rev:081020261230 
+D. Hourly rescreening of slowly changing information may create many nominal decisions without comparable effective 
+breadth. 
+E. A staged validation across universes and horizons is more informative than mechanically extrapolating the original 
+estimates. 
+ 
+Answer Key: 
+ 
+A. True – Computation can make broad and frequent evaluation operationally feasible. 
+B. False – Skill can change when the population, horizon, or implementation changes. 
+C. True – These differences can affect both forecasts and realizable returns. 
+D. True – Repeated decisions based on nearly unchanged information are likely dependent. 
+E. True – Out-of-sample testing can assess whether skill and independence survive the expansion. 
+ 
+G7: Limitations and Practical Violations
+
+[QF2-D4G7Q1] 
+A backtest applies (IR=IC\sqrt{BR}) using an IC of 0.05 and breadth of 400, predicting an information ratio of 1.0. Live 
+trading produces only 0.4 after spreads, commissions, market impact, and portfolio constraints. The research team 
+investigates the gap. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The simpliﬁed law can describe gross forecasting potential without fully 
+capturing implementation costs. ” 
+B. The following statement is incorrect: “Trading costs can reduce active return and therefore realized information ratio. ” 
+C. The following statement is incorrect: “Portfolio constraints can prevent forecasts from being translated into the 
+positions assumed by the simple calculation. ” 
+D. The following statement is incorrect: “The live result proves the mathematical equation was evaluated incorrectly. ” 
+E. The following statement is incorrect: “Comparing predicted and realized performance should include turnover, cost, 
+constraint, and dependence diagnostics. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The basic expression abstracts from several frictions between forecasts and 
+net performance. 
+B. False – The quoted statement is correct. Costs directly consume the return earned from the active decisions. 
+ 
+ 652 Rev:081020261230 
+C. False – The quoted statement is correct. Limits on leverage, shorting, concentration, or turnover can reduce forecast 
+utilization. 
+D. True – The quoted statement is incorrect. A correct calculation under unrealistic assumptions can still differ from live 
+results. 
+E. False – The quoted statement is correct. These checks can identify which assumptions failed in implementation.
+
+[QF2-D4G7Q2] 
+A model's full-sample IC is +0.04, but the IC was +0.10 in the ﬁrst half of the sample and -0.02 in the second half. The 
+strategy has also become popular, and recent trades face greater crowding. Management proposes using the full-sample 
+IC unchanged in future projections. 
+ 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The full-sample average can conceal deterioration or a regime shift in forecast 
+skill. ” 
+B. The following statement is incorrect: “A negative recent IC is irrelevant as long as the full-sample IC is positive. ” 
+C. The following statement is incorrect: “Time-varying IC weakens projections that assume stable forecast skill. ” 
+D. The following statement is incorrect: “Crowding can reduce future returns or increase costs even if the historical signal 
+relationship was genuine. ” 
+E. The following statement is incorrect: “Rolling, regime-speciﬁc, and out-of-sample IC estimates can provide useful 
+evidence about stability. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Averaging combines periods with materially different forecast behavior. 
+B. True – The quoted statement is incorrect. Recent inverse performance is directly relevant to whether the model remains 
+useful. 
+C. False – The quoted statement is correct. The Fundamental Law's input should not be treated as constant without 
+evidence. 
+D. False – The quoted statement is correct. Competitors can accelerate price adjustment and consume available 
+liquidity. 
+E. False – The quoted statement is correct. These analyses test whether skill persists rather than relying only on one 
+pooled estimate. 
+ 
+ 
+ 653 Rev:081020261230
+
+[QF2-D4G7Q3] 
+A small-cap strategy reports 500 annual decisions, but the positions are correlated, turnover is high, and the fund plans 
+to deploy ten times more capital. The backtest assumes unlimited liquidity and uses the raw decision count as breadth. 
+The investment committee reviews the predicted information ratio before approving the expansion. 
+ 
+A. Using 500 as breadth may overstate effective breadth when the positions are correlated. 
+B. High turnover can make transaction costs material to net active return. 
+C. Increasing capital can raise market impact and reduce capacity-adjusted performance. 
+D. Unlimited backtest liquidity is a conservative assumption for a large small-cap strategy. 
+E. A practical forecast should adjust for dependence, costs, capacity, and possible instability rather than treating the 
+simpliﬁed-law estimate as guaranteed. 
+ 
+Answer Key: 
+ 
+A. True – Correlated decisions contribute fewer independent bets than their raw count suggests. 
+B. True – Frequent trading repeatedly incurs spreads, commissions, slippage, and impact. 
+C. True – Larger orders consume more available liquidity and may move prices adversely. 
+D. False – Unlimited liquidity is optimistic because it removes a constraint that can materially harm live execution. 
+E. True – These violations commonly cause attainable information ratio to fall below the simpliﬁed projection. 
+ 
+  
+ 
+ 654 Rev:081020261230 
+Domain 5: Advanced Portfolio Construction 
+Domain Summary 
+ Forecasts to portfolio weights 
+ Active positions 
+ Expected return and covariance 
+ Constraints 
+ Position sizing 
+ Forecast conﬁdence 
+ Leverage 
+ Shorting 
+ Turnover 
+ Estimation error 
+ Robust allocation 
+Topic Groups 
+G1: Translating Forecasts into Positions 
+ Positive and negative forecasts 
+ Signal magnitude 
+ Position direction 
+ Target weights 
+ Forecast-to-position mappings 
+G2: Position Sizing and Conviction 
+ Stronger forecasts receiving larger weights 
+ Conﬁdence scaling 
+ Risk-adjusted sizing 
+ Position caps 
+ Avoiding excessive concentration 
+G3: Active vs. Benchmark-Relative Weights 
+ Benchmark holdings 
+ 
+ 655 Rev:081020261230 
+ Overweights and underweights 
+ Active share 
+ Tracking error 
+ Long-only versus long-short construction 
+G4: Risk-Aware Portfolio Construction 
+ Covariance among positions 
+ Marginal risk contribution 
+ Diversiﬁcation among signals 
+ Portfolio-level versus asset-level risk 
+ Risk budgeting 
+G5: Constraints and Implementability 
+ Leverage limits 
+ Short-sale limits 
+ Sector limits 
+ Liquidity constraints 
+ Turnover constraints 
+ Position-size restrictions 
+G6: Forecast Uncertainty and Robustness 
+ Noisy expected returns 
+ Shrinkage intuition 
+ Stable versus extreme weights 
+ Sensitivity analysis 
+ Avoiding overreaction to weak forecasts 
+G7: Optimization with Costs and Turnover 
+ Rebalancing penalties 
+ Trading thresholds 
+ Cost-aware portfolio updates 
+ Existing holdings 
+ When not trading is optimal 
+ 
+ 656 Rev:081020261230 
+G1: Translating Forecasts into Positions

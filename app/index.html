@@ -55,7 +55,7 @@ a{color:var(--blue)}
 </head>
 <body>
 <header>
-  <h1>ML4T Exam 1 — Study</h1>
+  <h1>ML4T Exam Prep</h1>
   <nav id="nav"></nav>
   <span class="mut small" id="stat"></span>
 </header>
@@ -114,15 +114,26 @@ let route='study';
 const nav=document.getElementById('nav');
 [['study','Study'],['quiz','Quiz / Mock'],['notes','My Notes'],['progress','Readiness'],['tips','Heuristics']].forEach(([k,l])=>{
   const b=$(`<button data-k="${k}">${l}</button>`);b.onclick=()=>{route=k;store.ui=store.ui||{};store.ui.route=k;save();render();};nav.append(b);});
-document.getElementById('stat').textContent=`${D.counts.questions} Qs · ${D.counts.ML} ML · ${D.counts.QF} QF · ${D.heuristics.inverted_total} inverted`;
-const wsel=$(`<label class="small mut" style="margin-left:auto">📅 Studied thru week <select id="weeksel">${[1,2,3,4,5,6,7,8].map(w=>`<option value="${w}">${w}</option>`).join('')}</select></label>`);
-document.querySelector('header').append(wsel);
+// ---- Exam 1 / Exam 2 scope (persisted in store.ui.exam) ----
+function curExam(){return (store.ui&&store.ui.exam)||1;}
+const EQ=()=>D.questions.filter(q=>(q.exam||1)===curExam());   // questions in the selected exam
+const ED=()=>D.domains.filter(d=>(d.exam||1)===curExam());     // domains in the selected exam
+const examCount=()=>EQ().length;
+const examQidSet=()=>new Set(EQ().map(q=>q.id));
+function setStat(){const qs=EQ(),ml=qs.filter(q=>q.part==='ML').length,inv=qs.filter(q=>q.polarity==='inverted').length;
+  document.getElementById('stat').textContent=`Exam ${curExam()} · ${qs.length} Qs · ${ml} ML · ${qs.length-ml} QF · ${inv} inverted`+(SERVER?' · notes→file ✅':' · notes→browser (serve.py to save to file)');}
+const examSel=$(`<label class="small mut" style="margin-left:16px">🎓 <select id="examsel"><option value="1">Exam 1</option><option value="2">Exam 2</option></select></label>`);
+document.querySelector('header').append(examSel);
+const WKS={1:[1,2,3,4,5,6,7,8],2:[9,10,11,12,13,14,15,16]};
+document.querySelector('header').append($(`<label class="small mut" style="margin-left:12px">📅 Studied thru week <select id="weeksel"></select></label>`));
 document.querySelector('header').append($(`<span id="savestat" class="small mut" style="margin-left:8px">✓ saved</span>`));
-const studiedWk=()=>store.week||8;
+const studiedWk=()=>curExam()===2?(store.week2||16):(store.week||8);
 const notYet=(x)=>x.weekMax>studiedWk();
+function syncWeekSel(){const ws=document.getElementById('weeksel');if(!ws)return;const cur=studiedWk();
+  ws.innerHTML=WKS[curExam()].map(w=>`<option value="${w}"${w===cur?' selected':''}>${w}</option>`).join('');}
 const today=()=>new Date().toISOString().slice(0,10);
 const revCount=()=>{const v=Object.values(store.reviewed||{});return{total:v.length,today:v.filter(d=>d===today()).length};};
-function domReviewStats(){const m={};D.questions.forEach(q=>{const k=q.part+q.domain;(m[k]=m[k]||{reviewed:0,total:0,part:q.part,domain:q.domain,name:q.domainName});m[k].total++;if(store.reviewed&&store.reviewed[q.id])m[k].reviewed++;});return m;}
+function domReviewStats(){const m={};EQ().forEach(q=>{const k=q.part+q.domain;(m[k]=m[k]||{reviewed:0,total:0,part:q.part,domain:q.domain,name:q.domainName});m[k].total++;if(store.reviewed&&store.reviewed[q.id])m[k].reviewed++;});return m;}
 // remember position by the LAST QUESTION YOU ACTED ON (note/checkbox/reveal) — no scroll listener (that fought the scrollbar)
 function noteAnchor(qid){ if(qid){store.ui=store.ui||{};store.ui.anchor=qid;} }
 // low-frequency safety net: every 3 min, if you're on Study and the top-visible question changed, remember it (no per-scroll work)
@@ -131,7 +142,7 @@ window.addEventListener('resize',()=>{const h=document.querySelector('header');c
 
 function attempt(id){return store.attempts[id];}
 function domAcc(){ // per-domain accuracy from attempts
-  const m={};D.questions.forEach(q=>{const a=attempt(q.id);if(!a)return;const key=q.part+q.domain;
+  const m={};EQ().forEach(q=>{const a=attempt(q.id);if(!a)return;const key=q.part+q.domain;
     m[key]=m[key]||{c:0,t:0,name:q.part+' D'+q.domain+' '+q.domainName};
     a.forEach((sel,i)=>{if(sel===null)return;m[key].t++;if((sel==='T')===(q.choices[i].verdict==='True'))m[key].c++;});});
   return m;}
@@ -156,7 +167,7 @@ function choiceRow(q,i,mode,sel){
 function noteBox(id){const v=store.notes[id]||'';return `<div class="notebox"><div class="small mut">📝 Note</div><textarea data-note="${id}" placeholder="Your note for ${id}…">${v}</textarea></div>`;}
 function bindNotes(el){el.querySelectorAll('textarea[data-note]').forEach(t=>t.oninput=()=>{const id=t.dataset.note;if(t.value.trim())store.notes[id]=t.value;else delete store.notes[id];noteAnchor(id);save();});}
 
-function deepDive(part,dom){const d=D.domains.find(x=>x.part===part&&x.num===dom);if(!d)return'';
+function deepDive(part,dom){const d=D.domains.find(x=>x.part===part&&x.num===dom&&(x.exam||1)===curExam());if(!d)return'';
   const notes=(d.bookNotes||[]).map(n=>`<details class="deep" style="margin-left:12px"><summary>📖 ${n.book} — ${n.title} <span class="small mut">(${n.file})</span></summary><div class="md">${md(n.md)}</div></details>`).join('');
   const notesHdr=(d.bookNotes||[]).length?`<h3>Book notes (${d.bookNotes.length})</h3>${notes}`:'<h3>Book notes</h3><div class="small mut">None mapped to this domain yet.</div>';
   return `<details class="deep"><summary>📚 Deep dive — concepts, traps, references &amp; book notes for ${part} Domain ${+dom}: ${d.name}</summary>
@@ -179,22 +190,24 @@ function studyView(){
   bar.append('Part:',partSel,'Domain:',domSel,q,hideRev,flagOnly,hideWd,revTog,revStat);v.append(bar);revLabel();
   bar.style.position='sticky';bar.style.zIndex='9';bar.style.background='var(--panel)';bar.style.boxShadow='0 3px 8px rgba(0,0,0,.18)';bar.style.marginTop='0';
   const stickTop=()=>{const h=document.querySelector('header');bar.style.top=((h?h.offsetHeight:52)-1)+'px';};stickTop();setTimeout(stickTop,50);
-  function updateRevStats(){const c=revCount();const t=(store.reviewLog||{})[today()]||0;const f=Object.keys(store.flagged||{}).length;
+  function updateRevStats(){const t=(store.reviewLog||{})[today()]||0;const eq=EQ();const eset=new Set(eq.map(q=>q.id));
+    const total=Object.keys(store.reviewed||{}).filter(id=>eset.has(id)).length;
+    const f=Object.keys(store.flagged||{}).filter(id=>eset.has(id)).length;
     let dseg='';const dv=domSel.value;
-    if(dv){const [dp,dn]=dv.split('|');const dq=D.questions.filter(x=>(x.part+'|'+x.domain)===dv);const dr=dq.filter(x=>store.reviewed&&store.reviewed[x.id]).length;dseg=`📂 ${dp} D${+dn}: ${dr}/${dq.length} reviewed · `;}
-    revStat.textContent=`${dseg}✅ ${t} today · ${c.total}/${D.counts.questions} reviewed · 🚩 ${f} flagged`;}
+    if(dv){const [dp,dn]=dv.split('|');const dq=eq.filter(x=>(x.part+'|'+x.domain)===dv);const dr=dq.filter(x=>store.reviewed&&store.reviewed[x.id]).length;dseg=`📂 ${dp} D${+dn}: ${dr}/${dq.length} reviewed · `;}
+    revStat.textContent=`${dseg}✅ ${t} today · ${total}/${eq.length} reviewed · 🚩 ${f} flagged`;}
   function fillDom(){const p=partSel.value;domSel.innerHTML='<option value="">All domains</option>'+
-    D.domains.filter(d=>!p||d.part===p).map(d=>`<option value="${d.part}|${d.num}">${d.part} D${+d.num} ${d.name}</option>`).join('');}
+    ED().filter(d=>!p||d.part===p).map(d=>`<option value="${d.part}|${d.num}">${d.part} D${+d.num} ${d.name}</option>`).join('');}
   fillDom();
   const list=$(`<div id="list"></div>`);v.append(list);
   function draw(){const p=partSel.value,d=domSel.value,s=q.value.toLowerCase();const hr=hideRev.querySelector('input').checked;const fo=flagOnly.querySelector('input').checked;const hw=hideWd.querySelector('input').checked;
-    const qs=D.questions.filter(x=>(!p||x.part===p)&&(!d||(x.part+'|'+x.domain)===d)&&(!s||JSON.stringify(x).toLowerCase().includes(s))&&(!hr||!store.reviewed[x.id])&&(!fo||store.flagged[x.id])&&(!hw||!x.withdrawn));
-    const wdHidden=hw?D.questions.filter(x=>x.withdrawn&&(!p||x.part===p)&&(!d||(x.part+'|'+x.domain)===d)).length:0;
+    const qs=EQ().filter(x=>(!p||x.part===p)&&(!d||(x.part+'|'+x.domain)===d)&&(!s||JSON.stringify(x).toLowerCase().includes(s))&&(!hr||!store.reviewed[x.id])&&(!fo||store.flagged[x.id])&&(!hw||!x.withdrawn));
+    const wdHidden=hw?EQ().filter(x=>x.withdrawn&&(!p||x.part===p)&&(!d||(x.part+'|'+x.domain)===d)).length:0;
     list.innerHTML=`<div class="small mut" style="margin:8px 0">${qs.length} questions${hr?' · unreviewed only':''}${fo?' · flagged only':''}${wdHidden?` · 🚫 ${wdHidden} withdrawn hidden`:''}</div>`;
     let lastDom='';
     qs.forEach(x=>{const dk=x.part+x.domain;
       if(dk!==lastDom){const ny=notYet(x);
-        const dq=D.questions.filter(z=>z.part===x.part&&z.domain===x.domain);const rv=dq.filter(z=>store.reviewed&&store.reviewed[z.id]).length;
+        const dq=EQ().filter(z=>z.part===x.part&&z.domain===x.domain);const rv=dq.filter(z=>store.reviewed&&store.reviewed[z.id]).length;
         list.append($(`<div class="card" style="background:var(--panel2)${ny?';opacity:.55':''}"><b>${x.part} Domain ${+x.domain}: ${x.domainName}</b> <span class="pill">📅 wk ${x.weeks.join('/')}</span> <span class="pill">✅ ${rv}/${dq.length} reviewed</span>${ny?'<span class="pill inv">⏳ not yet covered (studying thru wk '+studiedWk()+')</span>':''}${deepDive(x.part,x.domain)}</div>`));lastDom=dk;}
       const inv=x.polarity==='inverted'?`<span class="pill inv">INVERTED: True = statement is WRONG</span>`:'';
       const fb=x.flag?`<div class="pill inv" style="display:block;margin:6px 0">⚠ ${x.flag}</div>`:'';
@@ -250,9 +263,9 @@ function quizView(){
   cfg.querySelector('#qstart').onclick=()=>{
     const mode=cfg.querySelector('#qmode').value,n=+cfg.querySelector('#qn').value,part=cfg.querySelector('#qpart').value;
     const cov=cfg.querySelector('#qcov').checked;
-    let pool=D.questions.filter(q=>!q.withdrawn&&(!part||q.part===part)&&(!cov||q.weekMax<=studiedWk()));
+    let pool=EQ().filter(q=>!q.withdrawn&&(!part||q.part===part)&&(!cov||q.weekMax<=studiedWk()));
     let qs=[];
-    if(mode==='exam'){const byd={};D.questions.forEach(q=>{if(q.withdrawn)return;(byd[q.part+q.domain]=byd[q.part+q.domain]||[]).push(q);});
+    if(mode==='exam'){const byd={};EQ().forEach(q=>{if(q.withdrawn)return;(byd[q.part+q.domain]=byd[q.part+q.domain]||[]).push(q);});
       Object.values(byd).forEach(arr=>{shuffle(arr);qs.push(arr[0],arr[1]);});shuffle(qs);}
     else if(mode==='trap'){pool=pool.filter(q=>q.polarity==='inverted'||q.choices.some(c=>ABS.test(c.text)||NEG.test(c.text)));shuffle(pool);qs=pool.slice(0,n);}
     else if(mode==='flagged'){pool=pool.filter(q=>store.flagged&&store.flagged[q.id]);shuffle(pool);qs=pool.slice(0,n);}
@@ -309,24 +322,24 @@ function notesView(){const v=document.getElementById('view');const ids=Object.ke
       <div class="q-scenario small mut">${q?q.scenario.slice(0,160)+'…':''}</div>
       <div class="notebox">${md(store.notes[id])}</div></div>`));});
 }
-function progressView(){const v=document.getElementById('view');const m=domAcc();
+function progressView(){const v=document.getElementById('view');const m=domAcc();const eset=examQidSet();const nQ=examCount();
   const rl=store.reviewLog||{}; const rdays=Object.keys(rl).filter(d=>rl[d]>0).sort().reverse();
-  const rlActions=Object.values(rl).reduce((a,b)=>a+b,0); const rlDistinct=Object.keys(store.reviewed||{}).length;
+  const rlActions=Object.values(rl).reduce((a,b)=>a+b,0); const rlDistinct=Object.keys(store.reviewed||{}).filter(id=>eset.has(id)).length;
   const rlRows=rdays.length?rdays.slice(0,14).map(d=>`<div>${d==today()?'<b>'+d+' (today)</b>':d}: <b>${rl[d]}</b> reviewed</div>`).join(''):'<div class="mut">No reviews logged yet — tick "reviewed" on questions in Study.</div>';
-  const reviewCard=`<div class="card"><h3 style="margin-top:0">📈 Daily review log</h3><div class="small mut">${rlDistinct}/${D.counts.questions} distinct questions reviewed · ${rlActions} total review actions</div><div style="margin-top:6px">${rlRows}</div></div>`;
+  const reviewCard=`<div class="card"><h3 style="margin-top:0">📈 Daily review log <span class="small mut">(Exam ${curExam()})</span></h3><div class="small mut">${rlDistinct}/${nQ} distinct questions reviewed · ${rlActions} total review actions (all exams)</div><div style="margin-top:6px">${rlRows}</div></div>`;
   const drs=domReviewStats();
   const drRows=Object.values(drs).sort((a,b)=>(a.reviewed/a.total)-(b.reviewed/b.total)).map(d=>{const pct=Math.round(d.reviewed/d.total*100);const col=pct>=100?'var(--green)':pct>0?'var(--blue)':'var(--line)';return `<div style="margin:5px 0"><div class="small">${d.part} D${+d.domain} ${d.name} — <b>${d.reviewed}/${d.total}</b> (${pct}%)</div><div style="background:var(--panel2);border-radius:6px;height:8px;margin-top:2px"><div style="width:${pct}%;height:8px;border-radius:6px;background:${col}"></div></div></div>`;}).join('');
   const domReviewCard=`<div class="card"><h3 style="margin-top:0">📚 Review coverage by domain <span class="small mut">— least-reviewed first; prioritize the top</span></h3><div style="margin-top:8px">${drRows}</div></div>`;
   const rag=p=>p>=.85?'g':p>=.7?'a':'r';
-  const seen=Object.keys(store.attempts).length;
+  const seen=Object.keys(store.attempts).filter(id=>eset.has(id)).length;
   const glyph={g:'🟢',a:'🟡',r:'🔴'};
-  const cells=D.domains.map(d=>{const e=m[d.part+d.num];const p=e?e.c/e.t:null;const cl=p===null?'u':rag(p);
+  const cells=ED().map(d=>{const e=m[d.part+d.num];const p=e?e.c/e.t:null;const cl=p===null?'u':rag(p);
     const gl=p===null?'⚪':glyph[cl];
     return `<div class="d ${cl}"><b>${gl} ${d.part} D${+d.num}</b><br>${d.name}<br>${p===null?'not attempted':Math.round(p*100)+'% ('+e.c+'/'+e.t+')'}</div>`;}).join('');
   const attempted=Object.values(m);const overall=attempted.length?Math.round(attempted.reduce((s,e)=>s+e.c,0)/attempted.reduce((s,e)=>s+e.t,0)*100):0;
   const weak=Object.entries(m).map(([k,e])=>({k,p:e.c/e.t})).filter(x=>x.p<.7).sort((a,b)=>a.p-b.p);
-  v.innerHTML=`<div class="card"><div class="kpi">${overall}%</div><div class="mut">overall accuracy · ${seen}/${D.counts.questions} questions attempted</div>
-    <div style="margin-top:8px"><b>Readiness call:</b> ${overall>=85&&seen>D.counts.questions*0.6?'On track ✅':overall>=70?'Getting there — close the red domains 🟡':'Keep drilling, esp. red domains 🔴'}</div>
+  v.innerHTML=`<div class="card"><div class="kpi">${overall}%</div><div class="mut">Exam ${curExam()} · overall accuracy · ${seen}/${nQ} questions attempted</div>
+    <div style="margin-top:8px"><b>Readiness call:</b> ${overall>=85&&seen>nQ*0.6?'On track ✅':overall>=70?'Getting there — close the red domains 🟡':'Keep drilling, esp. red domains 🔴'}</div>
     ${weak.length?'<div style="margin-top:6px"><b>Weakest domains:</b> '+weak.slice(0,5).map(w=>w.k.replace(/(ML|QF)(\d+)/,'$1 D$2')+' '+Math.round(w.p*100)+'%').join(', ')+'</div>':''}</div>
     ${domReviewCard}
     <div class="card"><h3 style="margin-top:0">Domain readiness heatmap <span class="small mut">(quiz accuracy)</span></h3><div class="heat">${cells}</div></div>
@@ -348,6 +361,8 @@ function tipsView(){const h=D.heuristics;const v=document.getElementById('view')
   </ul></div>`;
 }
 function render(){document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.k===route));
+  const es=document.getElementById('examsel'); if(es)es.value=curExam();
+  syncWeekSel(); setStat();
   ({study:studyView,quiz:quizView,notes:notesView,progress:progressView,tips:tipsView})[route]();}
 loadState().then(()=>{
   if(!store.week)store.week=8;
@@ -355,9 +370,10 @@ loadState().then(()=>{
   store.reviewLog=store.reviewLog||{};
   store.flagged=store.flagged||{};
   store.ui=store.ui||{}; route=store.ui.route||'study';
+  const es=document.getElementById('examsel');
+  if(es){es.value=curExam(); es.onchange=()=>{store.ui.exam=+es.value;save();render();};}
   const ws=document.getElementById('weeksel');
-  if(ws){ws.value=store.week; ws.onchange=()=>{store.week=+ws.value;save();render();};}
-  document.getElementById('stat').textContent+= SERVER?' · notes→file ✅':' · notes→browser (open via serve.py to save to file)';
+  if(ws){ws.onchange=()=>{if(curExam()===2)store.week2=+ws.value;else store.week=+ws.value;save();render();};}
   render();
 });
 </script>

@@ -1,0 +1,553 @@
+Domain 9: Options and Derivative Payoffs
+
+[QF2-D9G1Q1] 
+An investor buys one European call with a $50 strike. At expiration, the stock closes at $62. For this question, consider 
+the option's expiration payoff before subtracting the premium. 
+ 
+A. The call gives its holder the right, but not the obligation, to buy the stock for $50 at expiration. 
+B. The call's payoff is $12 per share. 
+C. If the contract represents 100 shares, its total payoff is $1,200. 
+D. The holder would rationally leave the call unexercised at expiration. 
+E. The writer of the call has a $12-per-share payoff obligation to the holder. 
+ 
+Answer Key: 
+ 
+A. True – A call grants the holder the right to buy at the strike price. 
+B. True – The expiration payoff is max($62 − $50, 0) = $12 per share. 
+C. True – A $12 per-share payoff on 100 shares equals $1,200. 
+D. False – Exercising allows the holder to acquire for $50 an asset worth $62. 
+E. True – The short call's expiration payoff is the negative of the long call's payoff, before considering the premium.
+
+[QF2-D9G1Q2] 
+A trader buys a call with a $75 strike. At expiration, the stock closes at $68. Ignore the premium until speciﬁcally 
+discussing proﬁt. 
+ 
+A. The call's expiration payoff is zero. 
+B. Exercising would require paying $75 for stock worth only $68. 
+C. The holder is obligated to exercise because the call was purchased earlier. 
+D. The long call's loss before considering the premium is $7 per share. 
+E. If the trader paid a premium, the trader can still have a loss even though the expiration payoff cannot be negative. 
+ 
+Answer Key: 
+ 
+ 
+ 724 Rev:081020261230 
+A. True – The payoff is max($68 − $75, 0) = $0. 
+B. True – Exercise would be economically inferior to purchasing the stock for $68 in the market. 
+C. False – A call provides a right, not an obligation, to its holder. 
+D. False – The option payoff is ﬂoored at zero; the $7 difference is not a negative payoff to the holder. 
+E. True – An option that expires worthless loses the premium paid, absent any earlier offsetting sale.
+
+[QF2-D9G1Q3] 
+A dealer writes an uncovered European call with a $40 strike. Consider expiration payoffs before the premium. Compare 
+stock prices of $30, $40, $55, and increasingly large values. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “At stock prices of $30 and $40, the short call has zero expiration payoff 
+obligation. ” 
+B. The following statement is incorrect: “At a stock price of $55, the writer owes $15 per share to the call holder. ” 
+C. The following statement is incorrect: “Once the stock exceeds $40, each additional $1 rise increases the writer's payoff 
+obligation by $1 per share. ” 
+D. The following statement is incorrect: “The writer's maximum expiration payoff loss is limited to the $40 strike. ” 
+E. The following statement is incorrect: “The long call's upside and the uncovered short call's loss can grow without a 
+ﬁxed upper bound as the stock price rises. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. A call has no positive exercise value when the stock is at or below its strike. 
+B. False – The quoted statement is correct. The holder's payoff, and therefore the writer's obligation, is $55 − $40 = $15. 
+C. False – The quoted statement is correct. Above the strike, the call payoff rises dollar for dollar with the stock at 
+expiration. 
+D. True – The quoted statement is incorrect. A stock price has no ﬁxed theoretical ceiling, so the uncovered writer's loss 
+is not capped at the strike. 
+E. False – The quoted statement is correct. The long and short expiration payoffs are opposite sides of an exposure that 
+keeps growing above the strike. 
+ 
+ 
+ 725 Rev:081020261230 
+G2: Put Option Payoffs
+
+[QF2-D9G2Q1] 
+An investor buys a European put with a $90 strike. At expiration, the stock closes at $72. Consider payoff before 
+subtracting the premium. 
+ 
+A. The put gives the holder the right to sell the stock for $90 at expiration. 
+B. The put's expiration payoff is $18 per share. 
+C. A 100-share contract has an expiration payoff of $1,800. 
+D. The put is worthless at expiration because the stock price is below the strike. 
+E. The short put writer bears the obligation corresponding to the holder's exercise right. 
+ 
+Answer Key: 
+ 
+A. True – A put grants its holder the right to sell at the strike. 
+B. True – The payoff is max($90 − $72, 0) = $18 per share. 
+C. True – The contract payoff is $18 × 100 = $1,800. 
+D. False – A put has positive intrinsic payoff when the stock is below the strike. 
+E. True – If exercised, the writer must take the opposite side and buy at the strike under the contract.
+
+[QF2-D9G2Q2] 
+A speculator owns no stock but buys a put with a $35 strike. The stock ﬁnishes at $43 at expiration. The premium paid 
+was $2 per share. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The put's expiration payoff is zero. ” 
+B. The following statement is incorrect: “The holder should exercise the right to sell for $35 when the market price is $43. ” 
+C. The following statement is incorrect: “The put holder's net loss is $2 per share if the position is held through expiration 
+and there are no other costs. ” 
+D. The following statement is incorrect: “Owning the underlying stock is required in order to buy a put. ” 
+E. The following statement is incorrect: “A long put may be used for speculation as well as to protect stock already 
+owned. ” 
+ 
+Answer Key: 
+ 
+ 726 Rev:081020261230 
+ 
+A. False – The quoted statement is correct. The payoff is max($35 − $43, 0) = $0. 
+B. True – The quoted statement is incorrect. Selling at $35 is unattractive when the stock can be sold in the market for 
+$43. 
+C. False – The quoted statement is correct. With no expiration payoff, the premium paid becomes the position's loss. 
+D. True – The quoted statement is incorrect. A trader may purchase a put without holding the underlying stock. 
+E. False – The quoted statement is correct. A put can express a bearish view or hedge an existing long position.
+
+[QF2-D9G2Q3] 
+A trader writes an uncovered put with a $60 strike and receives a $4 premium. Assume the stock cannot fall below zero 
+and the position is held to expiration. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The writer's maximum proﬁt is $4 per share. ” 
+B. The following statement is incorrect: “If the stock ﬁnishes at $60 or above, the put expires without an exercise payoff. ” 
+C. The following statement is incorrect: “If the stock falls to zero, the writer's option payoff loss before premium is $60 
+per share. ” 
+D. The following statement is incorrect: “Including the received premium, the writer's maximum possible loss is $64 per 
+share. ” 
+E. The following statement is incorrect: “Unlike an uncovered short call, this short put's loss is bounded because the 
+stock price cannot fall below zero. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The writer keeps the $4 premium when no payoff is owed, and cannot earn 
+more from this option position. 
+B. False – The quoted statement is correct. max($60 − stock price, 0) is zero when the stock is at or above $60. 
+C. False – The quoted statement is correct. At zero, the writer must bear the holder's $60-per-share payoff. 
+D. True – The quoted statement is incorrect. The $4 premium offsets part of the $60 obligation, making the maximum net 
+loss $56 per share. 
+E. False – The quoted statement is correct. The worst underlying price for the short put is zero, which bounds its loss. 
+ 
+ 
+ 727 Rev:081020261230 
+G3: Premium, Payoff, Proﬁt, and Breakeven
+
+[QF2-D9G3Q1] 
+An investor pays $6 per share for a $100-strike call and holds it to expiration. Ignore commissions. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The call's expiration payoff is max(stock price − $100, 0). ” 
+B. The following statement is incorrect: “The call buyer's expiration proﬁt is payoff minus the $6 premium. ” 
+C. The following statement is incorrect: “The expiration breakeven stock price is $106. ” 
+D. The following statement is incorrect: “At a stock price of $103, the call has a positive payoff but the buyer has a $3-per-
+share net loss. ” 
+E. The following statement is incorrect: “At a stock price of $100, the buyer recovers the entire premium through exercise. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. A long call pays the amount, if any, by which the stock exceeds the strike. 
+B. False – The quoted statement is correct. Net proﬁt accounts for both the terminal payoff and the initial cost. 
+C. False – The quoted statement is correct. Above the strike, $106 − $100 = $6, exactly offsetting the premium. 
+D. False – The quoted statement is correct. The $3 payoff is less than the $6 paid, leaving a $3 loss. 
+E. True – The quoted statement is incorrect. The call payoff at the strike is zero, so the premium is not recovered.
+
+[QF2-D9G3Q2] 
+An investor pays $5 per share for an $80-strike put and holds it to expiration. Ignore commissions. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The put buyer's expiration breakeven stock price is $75. ” 
+B. The following statement is incorrect: “If the stock ﬁnishes at $77, the put payoff is $3 per share. ” 
+C. The following statement is incorrect: “At $77, a positive put payoff means the position earned a positive net proﬁt. ” 
+D. The following statement is incorrect: “If the stock ﬁnishes at $70, the net proﬁt is $5 per share. ” 
+E. The following statement is incorrect: “If the stock ﬁnishes at or above $80, the buyer's loss is limited to the $5 
+premium. ” 
+ 
+Answer Key: 
+ 
+ 728 Rev:081020261230 
+ 
+A. False – The quoted statement is correct. A $75 stock price creates a $5 payoff, equal to the premium. 
+B. False – The quoted statement is correct. max($80 − $77, 0) = $3. 
+C. True – The quoted statement is incorrect. The $3 payoff does not recover the $5 premium, so the net result is a $2 loss. 
+D. False – The quoted statement is correct. The $10 payoff minus the $5 premium produces a $5 proﬁt. 
+E. False – The quoted statement is correct. The option expires worthless, leaving the premium as the long put's maximum 
+loss.
+
+[QF2-D9G3Q3] 
+One trader buys a $50-strike call for $4 per share, while another writes the same call and receives $4. The stock closes at 
+$61 at expiration. Ignore other costs. 
+ 
+A. The call's expiration payoff to the buyer is $11 per share. 
+B. The buyer's net proﬁt is $7 per share. 
+C. The writer's net proﬁt is $4 per share because the premium was received upfront. 
+D. The writer's net result is a $7-per-share loss. 
+E. For this isolated option contract, the buyer's proﬁt and writer's proﬁt sum to zero under the stated assumptions. 
+ 
+Answer Key: 
+ 
+A. True – The stock exceeds the strike by $11. 
+B. True – The buyer receives $11 after paying $4, producing $7 net proﬁt. 
+C. False – The writer owes $11 at expiration, which exceeds the premium received. 
+D. True – The $4 received minus the $11 obligation equals −$7. 
+E. True – With identical prices and no costs, one side's gain is the other side's loss. 
+ 
+G4: Moneyness and Intrinsic Value
+
+[QF2-D9G4Q1] 
+A stock trades at $52. Consider a $45-strike call, a $52-strike call, and a $60-strike call with the same expiration. 
+ 
+A. The $45-strike call is in the money. 
+B. The $52-strike call is at the money. 
+ 
+ 729 Rev:081020261230 
+C. The $60-strike call is out of the money. 
+D. The $45-strike call has $7 per share of intrinsic value. 
+E. The $60-strike call has negative intrinsic value of −$8 per share. 
+ 
+Answer Key: 
+ 
+A. True – A call is in the money when the stock price exceeds its strike. 
+B. True – The stock price equals the strike. 
+C. True – A call is out of the money when its strike exceeds the stock price. 
+D. True – Call intrinsic value is max($52 − $45, 0) = $7. 
+E. False – Intrinsic value is ﬂoored at zero; it cannot be negative.
+
+[QF2-D9G4Q2] 
+A stock trades at $38. Consider puts with strikes of $32, $38, and $45, all sharing the same expiration. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The $45-strike put is in the money. ” 
+B. The following statement is incorrect: “The $38-strike put is at the money. ” 
+C. The following statement is incorrect: “The $32-strike put is out of the money. ” 
+D. The following statement is incorrect: “The $45-strike put has $7 of intrinsic value per share. ” 
+E. The following statement is incorrect: “Raising a put's strike from $38 to $45 decreases its intrinsic value when the stock 
+remains at $38. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. A put is in the money when its strike exceeds the stock price. 
+B. False – The quoted statement is correct. The strike and stock price are equal. 
+C. False – The quoted statement is correct. Selling at $32 has no exercise value when the stock trades at $38. 
+D. False – The quoted statement is correct. Put intrinsic value is max($45 − $38, 0) = $7. 
+E. True – The quoted statement is incorrect. With the stock ﬁxed, the higher strike raises put intrinsic value from $0 to $7. 
+ 
+ 
+ 730 Rev:081020261230
+
+[QF2-D9G4Q3] 
+A $100-strike call and a $100-strike put share the same underlying and expiration. The stock ﬁrst trades at $94 and later 
+rises to $108. Evaluate moneyness and intrinsic value at those two moments. 
+ 
+A. At $94, the call is out of the money and the put is in the money. 
+B. At $94, the put has $6 per share of intrinsic value. 
+C. At $108, the call has $8 per share of intrinsic value. 
+D. At $108, both the call and put are in the money. 
+E. A change in the stock price can change an option's moneyness even though its strike remains ﬁxed. 
+ 
+Answer Key: 
+ 
+A. True – The stock is below the common strike, favoring the put rather than the call. 
+B. True – The put's intrinsic value is $100 − $94 = $6. 
+C. True – The call's intrinsic value is $108 − $100 = $8. 
+D. False – At $108 the call is in the money, but the put is out of the money. 
+E. True – Moneyness describes the current relationship between stock price and strike. 
+ 
+G5: Time Value and Volatility Intuition
+
+[QF2-D9G5Q1] 
+A stock trades at $100. A $110-strike call with three months remaining trades for $3, even though exercising it immediately 
+would produce no value. 
+ 
+A. The call is currently out of the money. 
+B. Its current intrinsic value is zero. 
+C. Its $3 market price can reﬂect time value arising from the possibility that the stock rises above the strike before 
+expiration. 
+D. Because intrinsic value is zero, a positive option price is necessarily a pricing error. 
+E. If the option reaches expiration with the stock still at $100, its payoff will be zero. 
+ 
+Answer Key: 
+ 
+A. True – The stock price is below the call's $110 strike. 
+ 
+ 731 Rev:081020261230 
+B. True – max($100 − $110, 0) = $0. 
+C. True – Remaining time preserves the possibility of a favorable future price move. 
+D. False – An option can have time value even when it has no intrinsic value. 
+E. True – At expiration, an out-of-the-money call has no exercise payoff.
+
+[QF2-D9G5Q2] 
+Two otherwise identical stocks trade at $50. Stock Calm is expected to remain near $50, while Stock Volatile may move 
+widely upward or downward. Consider $50-strike calls with the same expiration, and hold other pricing inputs constant. 
+ 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Greater uncertainty can make the call on Stock Volatile more valuable. ” 
+B. The following statement is incorrect: “The call holder beneﬁts from large upside moves while the option payoff remains 
+ﬂoored at zero after large downside moves. ” 
+C. The following statement is incorrect: “The possibility of a large downside move makes the long call's expiration payoff 
+negative. ” 
+D. The following statement is incorrect: “Under the stated comparison, volatility can matter even though both stocks have 
+the same current price and the calls have the same strike. ” 
+E. The following statement is incorrect: “A higher option value implies that the market knows Stock Volatile will ﬁnish 
+above $50. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. More dispersion creates more potential for valuable upside outcomes without 
+making the call payoff negative. 
+B. False – The quoted statement is correct. This asymmetry helps explain why volatility can increase an option's value. 
+C. True – The quoted statement is incorrect. A long call's expiration payoff cannot fall below zero. 
+D. False – The quoted statement is correct. Option value depends on the distribution of possible future prices, not only 
+today's price and strike. 
+E. True – The quoted statement is incorrect. A higher value reﬂects uncertainty and asymmetric payoff potential, not 
+certainty about the terminal direction. 
+ 
+ 
+ 732 Rev:081020261230
+
+[QF2-D9G5Q3] 
+An out-of-the-money call is observed 60 days before expiration and again one day before expiration. The stock price, 
+strike, expected volatility, interest rates, and all other relevant inputs are assumed unchanged. 
+ 
+A. With less time remaining, there is less opportunity for the stock to move above the strike. 
+B. Under the stated assumptions, the option's time value would generally be lower one day before expiration. 
+C. Time decay means that the option's intrinsic value must become negative as expiration approaches. 
+D. At expiration, the option's value consists only of its expiration payoff rather than remaining time value. 
+E. Time decay guarantees that an option's observed market price falls every calendar day even when the stock price and 
+volatility actually change. 
+ 
+Answer Key: 
+ 
+A. True – A shorter horizon provides less time for a favorable price move. 
+B. True – Holding other inputs ﬁxed isolates the usual loss of time value as expiration nears. 
+C. False – Intrinsic value is never negative and is determined by stock price relative to strike. 
+D. True – Once no time remains, there is no future optionality beyond the terminal payoff. 
+E. False – Changes in the stock and other pricing inputs can offset or overwhelm time decay in actual markets. 
+ 
+G6: Hedging with Options
+
+[QF2-D9G6Q1] 
+An investor owns stock purchased at $80 and buys a $75-strike put for $3 per share. Both positions are held to the put's 
+expiration. Ignore dividends and other costs. 
+ 
+A. The stock-plus-put position is a protective put strategy. 
+B. If the stock falls to $50, the put's $25 payoff offsets the stock's decline below $75. 
+C. The put establishes a $75 sale ﬂoor for the stock at expiration before considering the $3 insurance cost. 
+D. The hedge guarantees that the combined position cannot lose money relative to the original $80 stock purchase. 
+E. If the stock rises strongly, the investor can leave the put unexercised and retain the stock's upside, less the premium 
+paid. 
+ 
+Answer Key: 
+ 
+ 
+ 733 Rev:081020261230 
+A. True – A protective put combines long stock with a long put on that stock. 
+B. True – At $50, the right to sell for $75 is worth $25 per share. 
+C. True – Exercise protects the terminal stock value below the strike, before including the premium. 
+D. False – The investor can still lose the difference between the $80 purchase price and $75 strike plus the $3 premium. 
+E. True – The put does not require exercise, so upside ownership remains while the premium is a cost.
+
+[QF2-D9G6Q2] 
+An investor owns stock trading at $100 and writes a $110-strike call for a $4 premium. The call and stock are held to 
+expiration. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “This position is a covered call because the investor owns the stock that may have 
+to be delivered. ” 
+B. The following statement is incorrect: “If the stock ﬁnishes at $105, the call expires without exercise payoff and the 
+investor keeps the premium. ” 
+C. The following statement is incorrect: “If the stock ﬁnishes at $130, the short call offsets the stock's gain above $110. ” 
+D. The following statement is incorrect: “The strategy retains unlimited upside from the stock while also collecting the 
+premium. ” 
+E. The following statement is incorrect: “The premium provides a limited cushion against a decline in the stock. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The existing shares cover the delivery obligation created by the written call. 
+B. False – The quoted statement is correct. The call is out of the money at $105, so its writer keeps the premium without 
+an exercise obligation. 
+C. False – The quoted statement is correct. Above $110, the call's loss grows as the stock's additional gain grows, capping 
+combined upside. 
+D. True – The quoted statement is incorrect. The written call gives away gains above the strike, apart from the premium 
+received. 
+E. False – The quoted statement is correct. The $4 received offsets only the ﬁrst $4 of stock loss; larger declines still hurt 
+the combined position. 
+ 
+ 
+ 734 Rev:081020261230
+
+[QF2-D9G6Q3] 
+A portfolio manager owns a broad equity portfolio and is comparing three-month protective puts. A higher-strike put costs 
+more but begins protecting the portfolio after a smaller decline; a lower-strike put costs less but leaves a larger initial loss 
+unprotected. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Choosing a put strike involves a tradeoff between protection level and premium 
+cost. ” 
+B. The following statement is incorrect: “The higher-strike put generally provides a higher terminal ﬂoor, assuming the 
+same underlying exposure. ” 
+C. The following statement is incorrect: “The lower-strike put can be viewed as protection focused on more severe 
+declines. ” 
+D. The following statement is incorrect: “Buying either put eliminates every portfolio risk, including basis risk between the 
+option's underlying and the portfolio. ” 
+E. The following statement is incorrect: “Evaluating the hedge only when markets fall ignores the premium's effect on 
+performance when markets do not fall enough to make the put valuable at expiration. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. More immediate or stronger protection commonly requires a larger upfront 
+premium. 
+B. False – The quoted statement is correct. The right to sell at a higher strike supports a higher protected terminal value. 
+C. False – The quoted statement is correct. A lower strike begins paying only after the underlying has fallen farther. 
+D. True – The quoted statement is incorrect. Mismatched exposures, timing, premium cost, and other portfolio risks can 
+remain. 
+E. False – The quoted statement is correct. Insurance cost reduces performance in outcomes where the protection is 
+unused or insufficiently valuable. 
+ 
+G7: Nonlinear and Asymmetric Payoffs
+
+[QF2-D9G7Q1] 
+Compare buying one share of stock at $50 with buying a $50-strike call for a $5 premium and holding each position to the 
+call's expiration. 
+ 
+A. The stock's dollar gain changes one-for-one with the stock price across all terminal prices. 
+B. The call buyer's maximum loss is the $5 premium. 
+ 
+ 735 Rev:081020261230 
+C. If the stock ﬁnishes at $30, the stock investor loses $20 while the call buyer loses $5. 
+D. If the stock ﬁnishes at $80, the call buyer's net proﬁt is $30 per share. 
+E. The call is equivalent to a ﬁxed multiple of the stock because both positions beneﬁt when the stock rises. 
+ 
+Answer Key: 
+ 
+A. True – Long stock has a linear terminal proﬁt of terminal price minus $50. 
+B. True – The holder can abandon the call, limiting loss to the amount paid. 
+C. True – The stock loses $50 − $30 = $20, while the worthless call loses its $5 premium. 
+D. False – The call payoff is $30, but subtracting the $5 premium leaves $25 net proﬁt. 
+E. False – The call has a kink at the strike and a bounded downside, so its exposure is not a constant leveraged stock 
+position.
+
+[QF2-D9G7Q2] 
+A trader buys a $100-strike call and a $100-strike put on the same stock, with the same expiration. Each option costs $6 
+per share. The stock currently trades at $100, and the trader holds both options to expiration. 
+ 
+A. The total premium paid is $12 per share. 
+B. If the stock ﬁnishes at $100, both options have zero payoff and the position loses $12 per share. 
+C. If the stock ﬁnishes at $125, the call payoff is $25 and the put payoff is zero. 
+D. A sufficiently large move in either direction can produce a positive net proﬁt. 
+E. The combined expiration payoff is linear with the same slope at stock prices below and above $100. 
+ 
+Answer Key: 
+ 
+A. True – The trader pays $6 for each of two options. 
+B. True – Both options ﬁnish at the money with zero payoff, so both premiums are lost. 
+C. True – The call is $25 in the money, while the put is out of the money. 
+D. True – The put beneﬁts from a large fall and the call from a large rise; a move exceeding the total premium produces 
+proﬁt. 
+E. False – The combined payoff is V-shaped, with a negative slope below the strike and positive slope above it. 
+ 
+ 
+ 736 Rev:081020261230
+
+[QF2-D9G7Q3] 
+A risk report compares three unhedged positions held to an option's expiration: long stock, a long call, and an uncovered 
+short call. The call strike is $70, and the report considers increasingly high and low terminal stock prices. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Long stock has substantial downside exposure if the stock falls, but its loss is 
+bounded because the stock cannot fall below zero. ” 
+B. The following statement is incorrect: “The long call has an asymmetric payoff because its loss is limited to the premium 
+while its upside can continue growing. ” 
+C. The following statement is incorrect: “The uncovered short call has limited proﬁt from the premium and potentially 
+unbounded loss as the stock price rises. ” 
+D. The following statement is incorrect: “Below the strike, the long call loses an additional dollar for every additional dollar 
+decline in the stock at expiration. ” 
+E. The following statement is incorrect: “Options introduce state-dependent exposure because their payoff sensitivity 
+differs across regions relative to the strike. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. A long stockholder can lose the stock's full initial value, but not more on an 
+unlevered position. 
+B. False – The quoted statement is correct. The holder may abandon the option on the downside while retaining 
+participation above the strike. 
+C. False – The quoted statement is correct. The premium caps the writer's gain, while the obligation grows with an 
+uncapped stock price. 
+D. True – The quoted statement is incorrect. Once the call is out of the money at expiration, its payoff remains zero as the 
+stock falls farther. 
+E. False – The quoted statement is correct. The payoff slope changes at the strike, creating nonlinear exposure unlike a 
+constant stock position. 
+ 
+  
+ 
+ 737 Rev:081020261230 
+Domain 10: AI-Enabled Investment Processes and Decision Support 
+Domain Summary 
+ AI across the investment workﬂow 
+ Research 
+ Portfolio construction 
+ Execution 
+ Monitoring 
+ Human intelligence plus artiﬁcial intelligence 
+ Knowledge graphs 
+ Symbolic AI 
+ Structured and unstructured data 
+ Explainability 
+ Governance 
+ Operational risk 
+Topic Groups 
+G1: AI Across the Investment Workﬂow 
+ Research 
+ Forecasting 
+ Portfolio construction 
+ Execution 
+ Risk monitoring 
+ Client communication 
+G2: Decision Support vs. Autonomous Decision-Making 
+ Recommendations 
+ Human approval 
+ Full automation 
+ Escalation 
+ Appropriate boundaries for autonomy 
+ 
+ 738 Rev:081020261230 
+G3: Human Intelligence Plus Artiﬁcial Intelligence 
+ Complementary strengths 
+ Domain expertise 
+ Judgment under uncertainty 
+ Human review 
+ Avoiding blind reliance on models 
+G4: Knowledge Graphs and Symbolic Representation 
+ Entities and relationships 
+ Linking companies, people, events, and instruments 
+ Rule-based reasoning 
+ Structured investment knowledge 
+ Combining symbolic and statistical methods 
+G5: Structured and Unstructured Information Integration 
+ Prices and fundamentals 
+ News and ﬁlings 
+ Earnings-call text 
+ Alternative data 
+ Data-quality and provenance concerns 
+G6: Explainability, Governance, and Oversight 
+ Interpreting recommendations 
+ Audit trails 
+ Model approval 
+ Human override 
+ Accountability 
+ Monitoring and review 
+G7: Operational, Model, and Systemic Risk 
+ Production failures 
+ Data outages 
+ Model drift 
+ 
+ 739 Rev:081020261230 
+ Automation errors 
+ Common-model crowding 
+ Risk of correlated AI-driven decisions 
+G1: AI Across the Investment Workﬂow

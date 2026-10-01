@@ -1,0 +1,559 @@
+Domain 1: Reinforcement Learning Problem Framing
+
+[ML2-D1G1Q1] 
+A proprietary trading desk is designing an RL system that chooses among target positions of short, cash, and long at the 
+end of each day. The head trader wants rewards to reﬂect net portfolio performance, including commissions and market 
+impact, and asks the team to verify how each part of the trading problem maps to the RL framework. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The trading algorithm that selects a target position is the agent. 
+B. Only the external market can be part of the environment; portfolio accounting must be part of the agent. 
+ 
+ 429 Rev:081020261230 
+C. The next day's realized net portfolio change is an action because it occurs after the learner's decision. 
+D. Current indicators and the current portfolio position can both be included in the state. 
+E. A reward based on net portfolio change can communicate the desk's objective more directly than a reward based only 
+on whether tomorrow's market return is positive. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The agent is the decision-maker that selects an action. 
+B. True – The underlying claim is incorrect: The environment can include portfolio accounting that applies costs and 
+translates trades and market movements into outcomes. 
+C. True – The underlying claim is incorrect: Realized portfolio change is an outcome that may contribute to reward; the 
+selected target position is the action. 
+D. False – The underlying claim is correct: A state can combine market observations with agent-speciﬁc information such 
+as holdings. 
+E. False – The underlying claim is correct: Net portfolio change incorporates both trading results and the stated 
+implementation costs.
+
+[ML2-D1G1Q2] 
+A warehouse robotics team trains a vehicle to deliver packages while avoiding crowded aisles. The project lead proposes 
+a state containing the robot's location, battery level, package status, and nearby obstacles; the robot may move, wait, or 
+recharge, while the objective penalizes collisions and late deliveries. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The robot's battery level is a candidate state variable rather than an action. 
+B. “Recharge” can be modeled as an action when the robot can choose it at an eligible station. 
+C. A collision penalty is part of the reward signal even though it is negative. 
+D. The human project lead must be the RL agent because the lead deﬁned the objective. 
+E. Nearby obstacle locations should be classiﬁed as actions because the robot reacts to them. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Battery level describes the current decision context. 
+B. False – The underlying claim is correct: An action is a choice available to the agent, and recharging can be one such 
+choice. 
+ 
+ 430 Rev:081020261230 
+C. False – The underlying claim is correct: Rewards may be positive or negative; penalties communicate undesirable 
+outcomes. 
+D. True – The underlying claim is incorrect: The robot's decision-making controller is the agent in this formulation. 
+E. True – The underlying claim is incorrect: Obstacle locations are observed conditions that may enter the state; the 
+robot's chosen response is the action.
+
+[ML2-D1G1Q3] 
+An asset manager wants an RL execution agent to divide a large parent order across the next ten minutes. The trading 
+manager says the current bid-ask spread is “the reward, ” the number of shares sent now is “the state, ” and 
+implementation shortfall should be ignored until evaluation because the terminology does not affect system behavior. 
+ 
+A. The current bid-ask spread must be the reward because narrower spreads usually make execution less expensive. 
+B. The number of shares submitted at the current decision time can be modeled as an action. 
+C. Implementation shortfall can contribute to reward because it measures the quality of execution relative to a 
+benchmark. 
+D. Changing which quantity is used as the reward cannot change the policy the agent learns. 
+E. Remaining shares and remaining time can be useful state variables because they constrain later decisions. 
+ 
+Answer Key: 
+ 
+A. False – The spread is an observed market condition; execution outcomes such as shortfall are more natural reward 
+components. 
+B. True – Order size is a controllable decision in the execution problem. 
+C. True – A negative shortfall or an equivalent execution-quality measure can align learning with the desk's objective. 
+D. False – The reward deﬁnes what behavior the agent is encouraged to optimize. 
+E. True – Both variables affect which actions are feasible or desirable as the deadline approaches. 
+ 
+G2: Sequential Decision-Making
+
+[ML2-D1G2Q1] 
+A portfolio manager is considering a learner that chooses a daily position while transaction costs are charged whenever 
+the position changes. She suggests selecting whichever action has the highest predicted next-day gross return, 
+independently each day, because every daily choice can be evaluated on its own. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+ 431 Rev:081020261230 
+ 
+A. Today's position choice can affect tomorrow's transaction cost because tomorrow's trade depends on the position 
+already held. 
+B. Choosing the best one-step gross return necessarily maximizes cumulative net return. 
+C. Current position may be omitted without loss because today's market indicators fully determine the cost of changing 
+positions. 
+D. The order of actions matters when the consequences depend on prior holdings. 
+E. A sequential-control formulation can account for future consequences that a collection of independent one-step 
+choices may overlook. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Current holdings determine how much trading may be needed at the next 
+decision. 
+B. True – The underlying claim is incorrect: A sequence of locally attractive gross returns may create excessive costs or 
+poor later states. 
+C. True – The underlying claim is incorrect: The cost of a target-position action depends on the position already held, not 
+only on market indicators. 
+D. False – The underlying claim is correct: The same action can have different consequences depending on the preceding 
+position. 
+E. False – The underlying claim is correct: Sequential control evaluates actions in terms of their longer-run effects, not 
+only immediate predictions.
+
+[ML2-D1G2Q2] 
+A delivery drone can take a short route through an area where headwinds often leave it with too little battery to reach a 
+charging station, or a longer route that preserves a safe energy margin. The operations director asks why the controller 
+should consider anything beyond the immediate reduction in distance to the destination. 
+ 
+A. An action that makes the most immediate progress can still reduce the probability of completing the delivery. 
+B. Battery consumption is only an immediate cost and cannot alter the state encountered at the next decision. 
+C. If the short route reduces distance more on the next step, it must be the optimal sequential decision. 
+D. A long-term objective can favor the longer route when it improves expected mission completion. 
+E. Treating every movement as an independent prediction can miss how earlier actions constrain later choices. 
+ 
+Answer Key: 
+ 
+ 
+ 432 Rev:081020261230 
+A. True – Immediate progress may come at the cost of an unsafe future battery state. 
+B. False – The route action changes remaining battery and therefore changes the next state and future options. 
+C. False – Optimality depends on cumulative consequences, not only next-step distance. 
+D. True – Preserving future feasibility can outweigh smaller immediate progress. 
+E. True – Sequential dependencies are central when one action changes the options available later.
+
+[ML2-D1G2Q3] 
+A market-making team must choose bid and ask quotes repeatedly throughout the day. The head of risk notes that 
+aggressive quotes may earn the spread now but also accumulate inventory that becomes costly during a rapid price 
+move, creating tension between immediate revenue and future exposure. 
+ 
+A. Quote choices can affect future inventory as well as immediate trading revenue. 
+B. Given the same market observation, the best quote action must be the same regardless of the desk's current inventory. 
+C. Maximizing the reward from the next ﬁll alone guarantees acceptable end-of-day inventory risk. 
+D. A sequential objective can trade off current spread capture against future inventory-management costs. 
+E. Timing is irrelevant because the total number of quote updates is ﬁxed. 
+ 
+Answer Key: 
+ 
+A. True – Executed quotes change inventory carried into later decisions. 
+B. False – Current inventory changes the risk and downstream consequences of additional ﬁlls. 
+C. False – Repeatedly attractive ﬁlls can accumulate an undesirable or costly position. 
+D. True – RL can value an action using both immediate and downstream consequences. 
+E. False – Early actions shape the state and choices encountered later even with a ﬁxed number of updates. 
+ 
+G3: Reinforcement Learning vs. Supervised Learning
+
+[ML2-D1G3Q1] 
+A hedge fund is comparing two approaches for the same trading problem. One team trains a decision tree to predict next-
+day returns from labeled historical data, while another uses Q-Learning to choose among long, cash, and short actions 
+based on cumulative reward. The portfolio manager asks whether the two learners are solving the same kind of problem. 
+ 
+A. The decision tree is trained from labeled examples. 
+ 
+ 433 Rev:081020261230 
+B. The Q-Learner directly estimates the best trading action from state-action experience. 
+C. The Q-Learner requires a target return label for every state-action pair. 
+D. The decision tree and Q-Learner may use the same market indicators as inputs. 
+E. Comparing the two learners can be appropriate when the goal is to understand how policy learning differs from 
+supervised prediction. 
+ 
+Answer Key: 
+ 
+A. True – The supervised learner requires labeled training examples. 
+B. True – Q-Learning estimates action values from reward-bearing transitions. 
+C. False – Q-Learning learns from rewards and transitions rather than explicit labels for each state-action pair. 
+D. True – The same indicators may be used even though the learning paradigms differ. 
+E. True – The comparison directly assesses an Exam 2 concept.
+
+[ML2-D1G3Q2] 
+A quant team has a classiﬁer that predicts whether tomorrow's return will be positive, but the chief investment officer 
+wants a strategy that chooses positions while accounting for turnover and drawdown. An analyst argues that replacing 
+the labels with the words “buy” and “sell” automatically turns the classiﬁer into an RL agent. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Relabeling supervised targets as actions does not by itself create an RL formulation. 
+B. A supervised classiﬁer must interact with an environment during training to discover whether its labels are correct. 
+C. An RL reward can incorporate consequences such as transaction costs that depend on the chosen action and current 
+holdings. 
+D. A highly accurate direction classiﬁer is guaranteed to produce the policy with the highest cumulative net reward. 
+E. A prediction model may be used within a trading system even when the ﬁnal action-selection problem is sequential. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: RL requires reward-bearing interaction or transition experience, not merely 
+action-like label names. 
+B. True – The underlying claim is incorrect: Supervised training can use a ﬁxed dataset in which the desired labels are 
+already supplied. 
+C. False – The underlying claim is correct: The reward can reﬂect action-dependent portfolio outcomes and 
+implementation costs. 
+ 
+ 434 Rev:081020261230 
+D. True – The underlying claim is incorrect: Accuracy may be misaligned with position sizing, costs, risk, and cumulative 
+trading performance. 
+E. False – The underlying claim is correct: Predictions can be features or components of a broader decision policy.
+
+[ML2-D1G3Q3] 
+A robotics lab has historical camera images labeled “obstacle” or “clear” and logs of robot actions, collisions, and 
+delivery times. The lab director must decide whether to train an image classiﬁer, an RL navigation policy, or both, while 
+real-world exploration is costly. 
+ 
+A. The labeled images can support supervised learning of obstacle recognition. 
+B. The action and outcome logs cannot support policy learning because only labeled camera images contain usable 
+training information. 
+C. An obstacle classiﬁer alone necessarily determines whether the robot should turn, stop, or continue in every situation. 
+D. RL can be useful for optimizing a sequence of navigation choices, while a supervised model can supply perceptual 
+information. 
+E. Costly interaction is a practical consideration that may make unrestricted online RL exploration inappropriate. 
+ 
+Answer Key: 
+ 
+A. True – The images and corresponding labels deﬁne a supervised-learning dataset. 
+B. False – Action, transition, and outcome logs can provide reward-bearing experience relevant to a navigation policy. 
+C. False – Perception identiﬁes conditions but does not necessarily resolve the control tradeoffs among available actions. 
+D. True – Supervised perception and RL control can serve complementary roles. 
+E. True – Exploration may cause collisions or delays, so training design must account for its real cost. 
+ 
+G4: Episodes and Continuing Tasks
+
+[ML2-D1G4Q1] 
+A navigation team trains a robot to travel from a loading dock to one of several delivery stations. The engineering manager 
+proposes ending each training run when the robot reaches a destination, collides, or exceeds 500 steps, then resetting it 
+to a new starting location. 
+ 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+ 
+ 435 Rev:081020261230 
+A. Each run can be treated as an episode with a deﬁned termination condition. 
+B. Reaching a destination can be a terminal event even if another episode begins immediately afterward. 
+C. A 500-step limit cannot end an episode unless the robot has also reached a natural terminal state. 
+D. Resetting the robot means that actions late in one episode must alter the initial state of the next episode. 
+E. Collisions may be modeled as terminal events when the training design ends the run after a collision. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The proposed start and stopping rules deﬁne bounded interactions. 
+B. False – The underlying claim is correct: Terminal refers to the end of the current episode, not the end of all training. 
+C. True – The underlying claim is incorrect: A training design may truncate and reset a run at the step cap even without 
+goal completion or collision. 
+D. True – The underlying claim is incorrect: The reset can initialize the next episode independently according to the team's 
+chosen procedure. 
+E. False – The underlying claim is correct: Whether a collision terminates an episode is part of the problem formulation.
+
+[ML2-D1G4Q2] 
+A market-making system is expected to operate whenever its exchange is open, with positions and risk monitored 
+continuously. The trading lead suggests calling every quote update a complete episode, while the research team 
+proposes treating the task as continuing but using daily boundaries for training and reporting. 
+ 
+A. A continuing task need not have a natural goal state that permanently ends interaction. 
+B. Dividing the training data by day proves that the underlying market-making task is episodic. 
+C. Every individual quote decision must be a separate episode because it produces an immediate outcome. 
+D. If positions are forcibly closed at the end of each day, that reset rule changes the formulated task. 
+E. Episode boundaries should be chosen without considering whether state, holdings, or consequences carry across the 
+boundary. 
+ 
+Answer Key: 
+ 
+A. True – Continuing control problems may operate indeﬁnitely without a natural terminal success state. 
+B. False – A convenient data or reporting boundary does not by itself create a natural terminal state. 
+C. False – An episode normally contains a sequence of related state-action transitions. 
+D. True – Forced liquidation changes both the terminal consequences and the next starting condition. 
+ 
+ 436 Rev:081020261230 
+E. False – Boundaries can distort learning if important consequences or positions are cut off improperly.
+
+[ML2-D1G4Q3] 
+A strategy learner is trained on one calendar year at a time, beginning each year in cash and liquidating on the ﬁnal trading 
+day. The portfolio manager asks whether the calendar year is inherently an episode and whether results would be 
+unchanged if training instead used monthly resets. 
+ 
+A. The team can deﬁne each year as an episode through its initialization and liquidation rules. 
+B. A calendar boundary becomes a terminal condition only because of the modeling and training design, not because 
+markets cease permanently. 
+C. Monthly resets are guaranteed to produce the same learned incentives as annual episodes. 
+D. More frequent forced liquidation makes terminal trading costs less relevant to what the learner experiences. 
+E. Episode design can affect which delayed consequences the learner experiences within a run. 
+ 
+Answer Key: 
+ 
+A. True – Starting in cash and terminating with liquidation creates an explicit episodic structure. 
+B. True – Financial markets continue; the episode boundary is imposed by the formulation. 
+C. False – Monthly resets alter the horizon, available experience, and liquidation frequency. 
+D. False – More frequent liquidation exposes the learner to terminal trading costs more often, potentially increasing their 
+inﬂuence. 
+E. True – Consequences beyond a reset may be excluded or represented differently. 
+ 
+G5: Delayed Rewards and Credit Assignment
+
+[ML2-D1G5Q1] 
+An execution agent submits a sequence of child orders over 30 minutes, but the desk calculates implementation shortfall 
+only after the parent order is complete. The trading manager wants to assign the ﬁnal result entirely to the last child order 
+because it occurred closest to the measured reward. 
+ 
+A. Only the last child order can affect ﬁnal implementation shortfall because that is when the shortfall is calculated. 
+B. Assigning all credit or blame to the ﬁnal action solely because it was most recent can be misleading. 
+C. The delay between actions and the ﬁnal reward creates a credit-assignment challenge. 
+D. Earlier actions cannot inﬂuence the ﬁnal reward once a later action has occurred. 
+ 
+ 437 Rev:081020261230 
+E. Providing informative intermediate rewards may help learning, but poorly designed intermediate rewards could change 
+the behavior being optimized. 
+ 
+Answer Key: 
+ 
+A. False – The calculation time does not erase the effects of prices, sizes, and timing choices made earlier in the 
+sequence. 
+B. True – Temporal proximity does not establish exclusive causal responsibility. 
+C. True – The learner must connect a later outcome to the actions that helped produce it. 
+D. False – Earlier executions affect remaining inventory, average price, and later options. 
+E. True – Reward shaping can improve feedback while also risking misalignment with the ﬁnal objective.
+
+[ML2-D1G5Q2] 
+A robot receives +100 only when it completes a delivery and zero reward at every preceding step. Most early training runs 
+fail before reaching the destination, and the robotics lead is concerned that the learner receives little information about 
+which movements were useful. 
+ 
+A. This is a dense-reward problem because the learner observes a zero after every unsuccessful step. 
+B. A successful terminal reward may need to inﬂuence the estimated value of actions taken earlier in the route. 
+C. Giving +1 for every movement, regardless of direction, is guaranteed to solve the credit-assignment problem without 
+changing incentives. 
+D. Long delays can make it harder to distinguish helpful early actions from irrelevant ones. 
+E. Intermediate rewards based on genuine progress may provide more feedback, but their design should be checked for 
+unintended shortcuts. 
+ 
+Answer Key: 
+ 
+A. False – Frequent zeros do not make feedback dense when informative, differentiating rewards occur only rarely. 
+B. True – Earlier actions contributed to reaching the eventual successful state. 
+C. False – Rewarding every movement may encourage wandering or longer routes. 
+D. True – Many intervening actions separate an early decision from the ﬁnal result. 
+E. True – Shaping can help, but the agent may exploit a proxy that does not match successful delivery. 
+ 
+ 
+ 438 Rev:081020261230
+
+[ML2-D1G5Q3] 
+A trading strategy earns small daily gains by selling tail-risk protection but occasionally experiences a very large loss 
+weeks later. The portfolio manager proposes judging each sell action only by the premium received that day because the 
+later loss cannot reasonably be connected to earlier choices. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Immediate premium income can make the action appear attractive before its delayed risk is realized. 
+B. A long-horizon return should exclude the early premium so that the delayed loss receives all of the credit. 
+C. Evaluating only same-day reward may favor actions with harmful delayed consequences. 
+D. Because the large loss occurs later, it must be unrelated to the positions established earlier. 
+E. Credit assignment is relevant when multiple earlier actions contributed to the exposure present during the loss. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: Short-term reward can conceal the risk accumulated by the position. 
+B. True – The underlying claim is incorrect: A suitable long-horizon return includes both beneﬁts and costs rather than 
+arbitrarily discarding the premium. 
+C. False – The underlying claim is correct: A short evaluation window can systematically undervalue deferred costs. 
+D. True – The underlying claim is incorrect: Earlier trades can create or enlarge the exposure that generates the later loss. 
+E. False – The underlying claim is correct: The learner must determine how to attribute the eventual outcome across the 
+sequence of exposure-building decisions. 
+ 
+G6: Policies and Action Selection
+
+[ML2-D1G6Q1] 
+A Q-Learner has estimated action values for short, cash, and long in each market state. The quant lead says the policy is 
+the complete Q-table itself and that two deployments using the same learned values must always take identical actions. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. A policy speciﬁes how actions are selected in each state. 
+B. Selecting an action with the highest estimated value is always deterministic, even when ties are resolved randomly. 
+C. A stochastic policy can assign nonzero probability to more than one action in the same state. 
+D. The action-value estimates and the rule used to select actions are conceptually identical. 
+E. Two deployments can use the same learned values but different action-selection policies. 
+ 
+ 439 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: The policy maps decision situations to actions or action probabilities. 
+B. True – The underlying claim is incorrect: Random tie-breaking can make action selection stochastic when multiple 
+actions share the maximum value. 
+C. False – The underlying claim is correct: Stochastic policies deﬁne a probability distribution over available actions. 
+D. True – The underlying claim is incorrect: Values evaluate actions, while the policy determines how those evaluations 
+are converted into choices. 
+E. False – The underlying claim is correct: One deployment might act greedily while another retains randomized 
+exploration.
+
+[ML2-D1G6Q2] 
+A risk committee compares a ﬁxed rule that moves to cash whenever volatility exceeds a threshold with an RL policy 
+learned from state-action rewards. The committee chair claims the ﬁxed rule is not a policy because it was written by a 
+human rather than learned from data. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. The ﬁxed volatility rule is a policy because it maps observed states to actions. 
+B. A policy must be learned by reinforcement learning to qualify as a policy. 
+C. A learned policy must outperform a ﬁxed rule because it was optimized from experience. 
+D. Policy quality should be evaluated by relevant outcomes rather than by whether the rule is handwritten or learned. 
+E. If two states fall on opposite sides of the threshold, the ﬁxed policy may select different actions. 
+ 
+Answer Key: 
+ 
+A. False – The underlying claim is correct: A policy can be any speciﬁed state-to-action decision rule. 
+B. True – The underlying claim is incorrect: Policies may be ﬁxed, programmed, learned, deterministic, or stochastic. 
+C. True – The underlying claim is incorrect: Limited data, reward misalignment, or environmental change can make a 
+learned policy worse than a ﬁxed rule. 
+D. False – The underlying claim is correct: Suitability depends on performance, robustness, costs, risk, and other stated 
+objectives. 
+E. False – The underlying claim is correct: The state-dependent threshold determines which action the rule returns. 
+ 
+ 
+ 440 Rev:081020261230
+
+[ML2-D1G6Q3] 
+An autonomous vehicle uses a stochastic lane-selection policy during simulation to gather experience, but the safety 
+manager wants consistent behavior during controlled deployment. The project lead asks whether making deployment 
+deterministic changes the learned values or merely changes how actions are chosen from them. 
+ 
+A. A deterministic policy selects a speciﬁc action for a given state under a ﬁxed decision rule. 
+B. A stochastic policy must assign all probability to the highest-valued action and randomize only when values are tied. 
+C. Changing from stochastic to greedy action selection necessarily retrains all learned action values. 
+D. Deployment consistency can improve when exploratory randomness is removed, though uncertainty in the 
+environment can still produce different outcomes. 
+E. A policy can be stochastic even when the environment's transitions are deterministic. 
+ 
+Answer Key: 
+ 
+A. True – Deterministic action selection returns the same chosen action for the same represented state. 
+B. False – A stochastic policy may deliberately assign nonzero probability to lower-valued actions, such as during 
+exploration. 
+C. False – The selection rule can be changed without necessarily retraining the stored values. 
+D. True – Removing action randomness makes choices more repeatable, but it does not make external outcomes 
+deterministic. 
+E. True – Policy randomness and environment randomness are separate properties. 
+ 
+G7: When Reinforcement Learning Is Appropriate
+
+[ML2-D1G7Q1] 
+A research group has a ﬁxed dataset of earnings-call passages, each labeled by analysts as positive, neutral, or negative. 
+The research director proposes an RL system because reinforcement learning sounds more advanced, even though the 
+immediate goal is only to reproduce those labels for unseen passages. 
+ 
+A. The stated task is naturally formulated as supervised classiﬁcation. 
+B. The analyst sentiment labels are RL rewards rather than supervised training targets. 
+C. RL is necessarily preferable whenever the model will eventually be used by a trading team. 
+D. An RL formulation would require the team to specify actions, rewards, and interactions that the current labeling task 
+does not inherently need. 
+ 
+ 441 Rev:081020261230 
+E. Artiﬁcially adding an agent and reward can increase complexity without improving alignment to the stated prediction 
+goal. 
+ 
+Answer Key: 
+ 
+A. True – The objective is to map inputs to known categorical labels. 
+B. False – The labels are desired outputs for supervised classiﬁcation; they are not rewards resulting from agent actions. 
+C. False – The downstream domain does not determine the most appropriate learning paradigm for every component 
+task. 
+D. True – Those elements are central to RL but unnecessary for ordinary labeled classiﬁcation. 
+E. True – Extra machinery is not beneﬁcial when it does not represent a real sequential decision problem.
+
+[ML2-D1G7Q2] 
+A data-center operator must repeatedly allocate computing jobs among servers while queues, energy prices, and 
+machine temperatures change in response to earlier allocations. The operations chief wants to minimize long-run delay 
+and energy cost but cannot permit risky exploration on the production system. 
+For this question, mark each statement True when the stated claim is incorrect and False when it is correct. 
+ 
+A. Because queues and temperatures are directly measured, each server-allocation decision can be treated as 
+independent of earlier allocations. 
+B. RL may be an appropriate formulation because current allocations affect later states and cumulative cost. 
+C. The cost of exploration is irrelevant once a problem has been identiﬁed as sequential. 
+D. A simulator, historical transition data, or constrained exploration may be considered before unrestricted online 
+learning. 
+E. Suitability for RL does not imply that deployment complexity and safety constraints can be ignored. 
+ 
+Answer Key: 
+ 
+A. True – The underlying claim is incorrect: Observability does not remove sequential dependence; allocations change 
+future queues, temperatures, and options. 
+B. False – The underlying claim is correct: The objective concerns a sequence of decisions and their long-run 
+consequences. 
+C. True – The underlying claim is incorrect: Exploration can degrade service or violate operational limits. 
+D. False – The underlying claim is correct: These approaches can reduce the cost or risk of gathering experience. 
+E. False – The underlying claim is correct: Practical feasibility is part of choosing and governing an RL solution. 
+ 
+ 442 Rev:081020261230
+
+[ML2-D1G7Q3] 
+An asset manager must choose between using RL to rebalance a portfolio over time and using a supervised model to 
+estimate next-month volatility. The chief risk officer asks the team to select the learning approach based on the decision 
+problem rather than using a single technique for both tasks. 
+ 
+A. Estimating next-month volatility must be framed as RL because the observations are ordered in time. 
+B. Rebalancing can be sequential when today's trades affect holdings, costs, and later choices. 
+C. RL is appropriate for every forecasting problem because forecasts inﬂuence future decisions. 
+D. A supervised forecast can be included as a state feature used by an RL rebalancing policy. 
+E. The expected beneﬁt of sequential optimization should be weighed against RL's data, exploration, validation, and 
+governance costs. 
+ 
+Answer Key: 
+ 
+A. False – Temporal ordering alone does not require RL; historical realized volatility can serve as a supervised regression 
+target. 
+B. True – Trades create a portfolio state that carries forward and affects later decisions. 
+C. False – Producing a forecast is not itself necessarily an interactive control problem. 
+D. True – The two approaches can be combined, with prediction informing policy decisions. 
+E. True – RL's ﬂexibility comes with meaningful implementation and oversight costs. 
+ 
+  
+ 
+ 443 Rev:081020261230 
+Domain 2: Markov Decision Processes, Policies, and Values 
+Domain Summary 
+ Markov property 
+ State transitions 
+ Transition probabilities 
+ Rewards and returns 
+ Discounting 
+ State-value and action-value functions 
+ Bellman reasoning 
+ Optimal policies 
+Topic Groups 
+G1: States and the Markov Property 
+ State as sufficient information for future decisions 
+ Dependence on current state rather than full history 
+ Incomplete state representations 
+ Consequences of violating the Markov assumption 
+G2: State Transitions and Environment Dynamics 
+ Movement from one state to another 
+ Deterministic versus stochastic transitions 
+ Transition probabilities 
+ Environment response to actions 
+G3: Rewards, Returns, and Objectives 
+ Immediate reward 
+ Cumulative future reward 
+ Return as a sequence of rewards 
+ Difference between reward and objective 
+ 
+ 444 Rev:081020261230 
+G4: Discount Factor and Time Preference 
+ Weighting immediate versus future rewards 
+ Effects of high and low discount factors 
+ Finite and inﬁnite horizons 
+ Trading implications of short- versus long-horizon objectives 
+G5: State-Value Functions 
+ Expected return from a state 
+ Dependence on the policy 
+ Comparing states 
+ Value as more than immediate reward 
+G6: Action-Value Functions 
+ Expected return from taking an action in a state 
+ Q-values 
+ Choosing among actions 
+ Relationship between state values and action values 
+G7: Bellman Reasoning and Optimal Policies 
+ Recursive decomposition of value 
+ Current reward plus future value 
+ Policy improvement intuition 
+ Optimal value and optimal action choice 
+G1: States and the Markov Property

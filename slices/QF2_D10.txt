@@ -1,0 +1,512 @@
+Domain 10: AI-Enabled Investment Processes and Decision Support
+
+[QF2-D10G1Q1] 
+An asset manager proposes one AI platform to summarize ﬁlings, forecast returns, suggest portfolio weights, route 
+orders, and draft client reports. The chief investment officer asks whether success in the research stage establishes that 
+the entire workﬂow is ready for production. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Each stage should be evaluated against objectives and risks appropriate to that 
+stage. ” 
+B. The following statement is incorrect: “Accurate ﬁling summaries guarantee that the platform's return forecasts will be 
+accurate. ” 
+C. The following statement is incorrect: “A useful forecast can still lead to poor net performance if portfolio construction 
+or execution is ﬂawed. ” 
+D. The following statement is incorrect: “Client-facing output may require controls different from those used for internal 
+research notes. ” 
+E. The following statement is incorrect: “Deploying one platform across the workﬂow eliminates the need to monitor 
+interfaces between stages. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Research quality, forecast skill, portfolio risk, execution quality, and 
+communication accuracy require different tests. 
+B. True – The quoted statement is incorrect. Summarization performance does not establish predictive skill. 
+C. False – The quoted statement is correct. Constraints, sizing, turnover, and trading costs affect realized results. 
+D. False – The quoted statement is correct. External communication creates distinct accuracy, disclosure, and 
+reputational concerns. 
+E. True – The quoted statement is incorrect. Errors can propagate when outputs from one stage become inputs to another, 
+so interfaces require monitoring. 
+ 
+ 
+ 740 Rev:081020261230
+
+[QF2-D10G1Q2] 
+A quantitative fund's AI forecast correctly predicts relative returns, but the optimizer repeatedly concentrates in illiquid 
+securities and the execution system trades urgently. Gross backtest alpha is 6% per year, while estimated costs and 
+impact are 8%. 
+ 
+A. Predictive skill alone is insufficient to establish an investable strategy. 
+B. Under the stated estimates, expected net performance is approximately −2% before other effects. 
+C. Because the forecasts are accurate, liquidity constraints should be removed from portfolio construction. 
+D. Slower or smaller execution may improve net results, although it can introduce timing risk. 
+E. Monitoring only forecast accuracy would miss important causes of poor realized performance. 
+ 
+Answer Key: 
+ 
+A. True – Portfolio construction and execution determine whether forecast value can be captured. 
+B. True – Estimated net performance is 6% gross alpha minus 8% implementation cost, or about −2%. 
+C. False – Accurate forecasts do not remove liquidity or capacity constraints. 
+D. True – Reducing urgency may lower impact but increases exposure to price movement before completion. 
+E. True – Concentration, liquidity, turnover, and execution quality also require monitoring.
+
+[QF2-D10G1Q3] 
+A wealth manager uses AI to draft plain-language explanations of portfolio changes for clients. The system receives 
+approved trades and risk data, but it occasionally invents reasons that were not part of the investment committee's 
+decision. 
+ 
+A. A factually correct list of trades does not guarantee a faithful explanation of why the trades occurred. 
+B. The system should be permitted to infer any plausible rationale because the trades have already been approved. 
+C. Grounding the explanation in approved decision records can reduce unsupported claims. 
+D. Human review may be especially appropriate before high-impact client communications are released. 
+E. Communication quality is unrelated to investment-process governance because it does not directly place trades. 
+ 
+Answer Key: 
+ 
+A. True – Transaction accuracy and rationale accuracy are separate requirements. 
+B. False – A plausible but unsupported rationale can misrepresent the decision process. 
+ 
+ 741 Rev:081020261230 
+C. True – Approved records provide evidence against which generated explanations can be checked. 
+D. True – Errors can create client, compliance, and reputational consequences. 
+E. False – Client communications are part of the investment workﬂow and require accountability. 
+ 
+G2: Decision Support vs. Autonomous Decision-Making
+
+[QF2-D10G2Q1] 
+An asset manager uses an AI system to recommend trades. The chief investment officer proposes allowing the system to 
+execute every recommendation automatically because its backtest outperformed the benchmark. 
+ 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Strong backtest performance alone is insufficient justiﬁcation for full autonomy. ” 
+B. The following statement is incorrect: “Human approval and escalation rules can be appropriate controls. ” 
+C. The following statement is incorrect: “Autonomous execution eliminates model risk. ” 
+D. The following statement is incorrect: “The acceptable level of autonomy should depend on the consequences of error. ” 
+E. The following statement is incorrect: “Decision-support systems can add value without making the ﬁnal investment 
+decision. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Live deployment introduces model, data, implementation, and operational 
+risks not resolved by one backtest. 
+B. False – The quoted statement is correct. Approval and escalation controls can limit the effect of questionable 
+recommendations. 
+C. True – The quoted statement is incorrect. Automation can transmit or amplify model errors. 
+D. False – The quoted statement is correct. Higher-impact or less reversible actions generally warrant stronger controls. 
+E. False – The quoted statement is correct. AI may improve analysis while a human retains decision authority.
+
+[QF2-D10G2Q2] 
+A pension fund lets an AI system rebalance small index-tracking positions within tight limits, but requires committee 
+approval for leverage, new asset classes, or unusually large trades. A risk officer argues that autonomy must be either 
+complete or absent. 
+ 
+ 
+ 742 Rev:081020261230 
+A. The fund can rationally use different autonomy levels for different decisions. 
+B. Predeﬁned position and tracking-error limits can bound some automated actions. 
+C. Requiring approval for novel or high-impact decisions is an example of escalation. 
+D. Partial autonomy is logically inconsistent because a system is either automated or manual. 
+E. Even tightly bounded automation requires monitoring for data and implementation failures. 
+ 
+Answer Key: 
+ 
+A. True – Autonomy can be calibrated to risk, novelty, reversibility, and decision scope. 
+B. True – Limits restrict the range of actions the system may take without approval. 
+C. True – Decisions outside routine authority are routed to a human governance process. 
+D. False – Workﬂows can combine automated routine actions with human-controlled exceptions. 
+E. True – Boundaries do not prevent bad inputs, software faults, or execution problems.
+
+[QF2-D10G2Q3] 
+During a market disruption, an autonomous strategy encounters prices far outside its training range. Its conﬁdence score 
+remains high, but several market-data feeds disagree. The desk must decide whether to keep trading. 
+ 
+A. High model conﬁdence necessarily means the market conditions are familiar to the model. 
+B. Conﬂicting feeds are a reasonable trigger for pausing or escalating automated decisions. 
+C. Out-of-distribution conditions can make historical validation less informative. 
+D. A kill switch or safe fallback can be valuable even if it reduces trading continuity. 
+E. If the system has authority during ordinary markets, humans should never intervene during stress. 
+ 
+Answer Key: 
+ 
+A. False – Models can be conﬁdently wrong, especially outside the conditions represented in training. 
+B. True – Input disagreement undermines the reliability of downstream decisions. 
+C. True – Evidence from familiar regimes may not transfer to novel conditions. 
+D. True – Limiting loss from uncontrolled behavior can outweigh the cost of temporary inactivity. 
+E. False – Stress conditions are a central reason to deﬁne intervention and escalation mechanisms. 
+ 
+ 
+ 743 Rev:081020261230 
+G3: Human Intelligence Plus Artiﬁcial Intelligence
+
+[QF2-D10G3Q1] 
+An AI model ﬂags a manufacturer as attractive after detecting improving margins and positive language in recent reports. 
+An analyst knows that a temporary accounting change boosted reported margins and asks to override the 
+recommendation. 
+ 
+A. The analyst's domain knowledge may identify context omitted from the model's inputs. 
+B. The model's quantitative consistency means the accounting change cannot matter. 
+C. A documented override can improve the decision while preserving accountability. 
+D. The disagreement should prompt investigation of both the model and the analyst's reasoning. 
+E. Human involvement guarantees that the ﬁnal decision will be correct. 
+ 
+Answer Key: 
+ 
+A. True – Relevant institutional or accounting context may not be encoded in the data. 
+B. False – Consistent processing cannot compensate for missing or misleading inputs. 
+C. True – Recording the evidence and authority behind an override supports learning and review. 
+D. True – Either side may be mistaken, so structured challenge is more informative than blind acceptance. 
+E. False – Human judgment also contains biases and errors.
+
+[QF2-D10G3Q2] 
+A research team compares two processes. Team A asks analysts to make forecasts unaided. Team B uses AI to screen 
+thousands of securities, then asks analysts to investigate the most promising and most anomalous cases before 
+positions are approved. 
+ 
+A. Team B uses AI's scalability and human contextual judgment as complementary strengths. 
+B. Screening more securities guarantees a higher information coefficient. 
+C. Reviewing anomalous cases may reveal data errors or regime changes. 
+D. Analyst review is valuable only when it agrees with the AI ranking. 
+E. The combined process should be evaluated as a whole rather than assuming that either component's quality 
+determines ﬁnal performance. 
+ 
+Answer Key: 
+ 
+ 744 Rev:081020261230 
+ 
+A. True – Machines can process breadth while people investigate context and exceptions. 
+B. False – More coverage increases opportunity count but does not guarantee forecast skill. 
+C. True – Anomalies can reﬂect bad data, unusual events, or changing relationships. 
+D. False – Well-supported disagreement is one potential source of human value. 
+E. True – Interactions, selection rules, and implementation shape the output of the joint system.
+
+[QF2-D10G3Q3] 
+An investment committee receives an AI recommendation with a conﬁdence score of 92%. Members routinely approve 
+scores above 90% without examining assumptions. An audit later ﬁnds that the model's score was poorly calibrated in 
+volatile markets. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “A conﬁdence score should be interpreted according to how it was deﬁned and 
+calibrated. ” 
+B. The following statement is incorrect: “A 92% score necessarily means the trade has a 92% probability of being 
+proﬁtable. ” 
+C. The following statement is incorrect: “A ﬁxed approval threshold can create blind reliance if market context is ignored. ” 
+D. The following statement is incorrect: “Human review adds little if reviewers merely repeat the model's decision rule. ” 
+E. The following statement is incorrect: “Calibration should be monitored across relevant regimes, not only over the full 
+sample average. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The meaning of the number depends on the model target and empirical 
+calibration. 
+B. True – The quoted statement is incorrect. The score may represent something else and may not be a calibrated 
+probability of proﬁt. 
+C. False – The quoted statement is correct. Mechanical deference can disguise automation as human oversight. 
+D. False – The quoted statement is correct. Effective review requires independent scrutiny or additional information. 
+E. False – The quoted statement is correct. Aggregate calibration can conceal systematic errors during speciﬁc 
+conditions. 
+ 
+ 
+ 745 Rev:081020261230 
+G4: Knowledge Graphs and Symbolic Representation
+
+[QF2-D10G4Q1] 
+A fund builds a knowledge graph linking companies to subsidiaries, executives, suppliers, commodities, and securities. 
+A news model reports a factory shutdown at a private supplier, and the research team wants to identify potentially 
+affected public holdings. 
+ 
+A. The supplier relationship can connect the news event to securities not named in the article. 
+B. Representing entities separately from their relationships can support multi-step queries. 
+C. Every connected company must experience the same ﬁnancial impact from the shutdown. 
+D. Stale or incorrect relationship data can produce misleading exposure maps. 
+E. The graph can organize candidate relationships without itself proving that an event will affect returns. 
+ 
+Answer Key: 
+ 
+A. True – Graph paths can link an event entity through supply relationships to public ﬁrms and instruments. 
+B. True – Structured nodes and edges enable reasoning across multiple relationship types. 
+C. False – Direction, materiality, substitutes, inventory, and contract terms can differ. 
+D. True – Graph conclusions depend on relationship accuracy and currency. 
+E. True – The graph supplies structured context, not guaranteed causal or predictive conclusions.
+
+[QF2-D10G4Q2] 
+A compliance-aware portfolio system combines a statistical return forecast with symbolic rules: do not buy restricted 
+issuers, keep sector exposure within limits, and escalate securities whose issuer identity is ambiguous. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Statistical forecasts and symbolic rules can serve different roles in the same 
+system. ” 
+B. The following statement is incorrect: “A sufficiently strong forecast should automatically override a restricted-list rule. ” 
+C. The following statement is incorrect: “Explicit rules can make some constraints easier to inspect than constraints 
+learned implicitly from examples. ” 
+D. The following statement is incorrect: “Ambiguous entity resolution can cause a rule to be applied to the wrong security 
+or not applied at all. ” 
+E. The following statement is incorrect: “Symbolic rules guarantee that all portfolio risks have been represented. ” 
+ 
+ 746 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The forecast estimates attractiveness while rules encode constraints and 
+required actions. 
+B. True – The quoted statement is incorrect. A governance restriction is not merely a weaker return forecast. 
+C. False – The quoted statement is correct. Explicit rule logic can often be traced directly, although the full system may 
+remain complex. 
+D. False – The quoted statement is correct. Correctly linking names, issuers, and instruments is necessary for reliable 
+rule application. 
+E. True – The quoted statement is incorrect. Rules cover only the risks and relationships that designers identify and 
+encode.
+
+[QF2-D10G4Q3] 
+A knowledge graph records that Director Lee serves on the boards of Company A and Company B. A model infers that 
+news about Lee should always generate identical trading signals for both companies. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The shared-director relationship is represented as a connection among distinct 
+entities. ” 
+B. The following statement is incorrect: “The connection may justify further research into whether the event affects both 
+companies. ” 
+C. The following statement is incorrect: “The graph relationship alone establishes equal economic materiality for both 
+ﬁrms. ” 
+D. The following statement is incorrect: “Rules can incorporate relationship type, recency, and materiality rather than 
+treating every edge equally. ” 
+E. The following statement is incorrect: “Combining graph context with statistical evidence may be more informative than 
+using the relationship alone.” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. One person entity is linked through board-membership relationships to two 
+company entities. 
+B. False – The quoted statement is correct. The link provides a reason to investigate possible exposure. 
+C. True – The quoted statement is incorrect. The person's role, the event, and each ﬁrm's circumstances determine 
+relevance. 
+ 
+ 747 Rev:081020261230 
+D. False – The quoted statement is correct. Richer symbolic logic can distinguish relationships rather than treating 
+connection as sufficient. 
+E. False – The quoted statement is correct. Statistical evidence can help estimate whether a structured relationship has 
+predictive importance. 
+ 
+G5: Structured and Unstructured Information Integration
+
+[QF2-D10G5Q1] 
+A model combines daily prices and reported fundamentals with text extracted from earnings calls. The text pipeline 
+accidentally attaches several transcripts to the wrong ﬁscal quarter while the numerical data remain correct. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Integrating more data types cannot improve the model when the price data are 
+already accurate. ” 
+B. The following statement is incorrect: “Misaligned transcript dates can create false relationships between language and 
+later returns. ” 
+C. The following statement is incorrect: “Correct structured data do not neutralize errors in the unstructured inputs. ” 
+D. The following statement is incorrect: “Timestamp and entity-alignment checks are important before training. ” 
+E. The following statement is incorrect: “A model may exploit the corrupted alignment and still appear successful in an 
+improperly designed backtest. ” 
+ 
+Answer Key: 
+ 
+A. True – The quoted statement is incorrect. Complementary text may add information even when numerical ﬁelds are 
+correct. 
+B. False – The quoted statement is correct. Incorrect timing can associate information with outcomes it could not properly 
+predict. 
+C. False – The quoted statement is correct. Faulty text features can still distort estimates and decisions. 
+D. False – The quoted statement is correct. Inputs must be linked to the correct company, event, and information-
+availability time. 
+E. False – The quoted statement is correct. Leakage or systematic misalignment can create misleading historical 
+performance. 
+ 
+ 
+ 748 Rev:081020261230
+
+[QF2-D10G5Q2] 
+A hedge fund evaluates satellite-based parking-lot estimates as an alternative-data signal for retailer sales. Coverage is 
+strongest in suburban locations, cloud cover creates missing observations, and the vendor has revised its historical 
+series. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Geographic coverage bias may cause the signal to represent some retailers 
+better than others. ” 
+B. The following statement is incorrect: “Missingness caused by weather is guaranteed to be random with respect to 
+economic conditions. ” 
+C. The following statement is incorrect: “Vendor revisions can make the data available today differ from what would have 
+been available historically. ” 
+D. The following statement is incorrect: “A valid backtest should preserve the information vintages that could actually 
+have been observed at each decision time. ” 
+E. The following statement is incorrect: “Alternative data eliminate the need for provenance and quality controls because 
+they are independent of company reports. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Uneven coverage can create systematic measurement differences across 
+ﬁrms. 
+B. True – The quoted statement is incorrect. Weather patterns may be persistent, regional, and related to observed 
+activity. 
+C. False – The quoted statement is correct. Restated history can introduce look-ahead bias if used as though it were 
+contemporaneously known. 
+D. False – The quoted statement is correct. Point-in-time data are essential for an implementable historical test. 
+E. True – The quoted statement is incorrect. Novel sources often increase the need to understand collection, 
+transformations, rights, and revisions.
+
+[QF2-D10G5Q3] 
+An AI system reads a company's press release, regulatory ﬁling, and earnings-call transcript. The release sounds 
+optimistic, the ﬁling reports weakening cash ﬂow, and management avoids an analyst's question about customer losses. 
+ 
+A. Conﬂicting sources should necessarily be averaged into a neutral signal. 
+B. Source type and provenance can affect how the evidence should be weighted. 
+C. The avoidance of a question may be informative, but its interpretation remains uncertain. 
+ 
+ 749 Rev:081020261230 
+D. Combining text with structured cash-ﬂow data can reveal inconsistency that either source alone might miss. 
+E. Because all three sources concern the same company, they are redundant and provide no incremental information. 
+ 
+Answer Key: 
+ 
+A. False – Conﬂict should be analyzed; mechanical averaging can erase meaningful distinctions. 
+B. True – Documents differ in purpose, controls, timing, and reliability. 
+C. True – Evasion may be a signal, but context and noisy language interpretation matter. 
+D. True – Cross-source comparison can identify tension between narrative and ﬁnancial evidence. 
+E. False – Different sources can contain complementary information even when they share an issuer. 
+ 
+G6: Explainability, Governance, and Oversight
+
+[QF2-D10G6Q1] 
+A credit-oriented fund's model recommends selling a bond, explaining that leverage rose and liquidity weakened. The 
+committee later learns that the model actually relied mostly on an unidentiﬁed text feature and that the displayed 
+explanation was generated after the recommendation. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “A plausible narrative is not necessarily a faithful explanation of the model's 
+decision. ” 
+B. The following statement is incorrect: “Post-hoc explanations should be validated for ﬁdelity as well as readability. ” 
+C. The following statement is incorrect: “If committee members ﬁnd the narrative persuasive, the feature actually used 
+by the model is irrelevant. ” 
+D. The following statement is incorrect: “Misleading explanations can cause reviewers to approve decisions for reasons 
+the model did not use. ” 
+E. The following statement is incorrect: “Explainability can support oversight without proving that the underlying 
+recommendation is correct. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. An explanation can sound reasonable without reﬂecting the model's actual 
+drivers. 
+B. False – The quoted statement is correct. Useful explanations should communicate real model behavior, not merely a 
+coherent story. 
+ 
+ 750 Rev:081020261230 
+C. True – The quoted statement is incorrect. Hidden decision drivers may reveal instability, leakage, bias, or unintended 
+behavior. 
+D. False – The quoted statement is correct. Reviewers cannot meaningfully challenge reasoning that is inaccurately 
+represented. 
+E. False – The quoted statement is correct. Interpretability assists evaluation but does not establish predictive validity.
+
+[QF2-D10G6Q2] 
+An investment ﬁrm is preparing to deploy a material model update. The developer argues that approval is unnecessary 
+because the prior model was approved and the new version has a higher validation Sharpe ratio. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “A material model change can warrant fresh review even when it improves one 
+performance metric. ” 
+B. The following statement is incorrect: “Approval should consider data, assumptions, controls, intended use, and failure 
+modes in addition to historical performance. ” 
+C. The following statement is incorrect: “A higher validation Sharpe ratio guarantees lower operational and model risk. ” 
+D. The following statement is incorrect: “Versioned records can help reconstruct which model produced a decision. ” 
+E. The following statement is incorrect: “Once a model is approved, subsequent monitoring is unnecessary unless 
+realized returns become negative. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. A new version may alter behavior, dependencies, and risks. 
+B. False – The quoted statement is correct. Governance evaluates ﬁtness and controls, not a single metric alone. 
+C. True – The quoted statement is incorrect. Risk can rise despite improved historical risk-adjusted returns. 
+D. False – The quoted statement is correct. Version traceability supports investigation, accountability, and reproducibility. 
+E. True – The quoted statement is incorrect. Drift, data failures, limit breaches, and unusual behavior may appear before 
+negative aggregate returns.
+
+[QF2-D10G6Q3] 
+A portfolio manager overrides an AI recommendation during a liquidity crisis but records neither the reason nor the 
+evidence used. The trade performs well, and management concludes that the override process is therefore effective. 
+ 
+A. A proﬁtable outcome alone does not establish that the override process was sound. 
+ 
+ 751 Rev:081020261230 
+B. Recording the reason, evidence, decision maker, and time would strengthen the audit trail. 
+C. Human overrides should always be prohibited because they reduce model consistency. 
+D. Review of override patterns can reveal either model weaknesses or systematic human bias. 
+E. Accountability requires clarity about who had authority for the ﬁnal decision. 
+ 
+Answer Key: 
+ 
+A. True – Outcome quality and decision-process quality are related but not identical. 
+B. True – Contemporaneous records make later evaluation more reliable. 
+C. False – Overrides can be appropriate when governed, justiﬁed, and monitored. 
+D. True – Repeated disagreements create evidence about both components of the process. 
+E. True – Decision rights must be identiﬁable for meaningful oversight. 
+ 
+G7: Operational, Model, and Systemic Risk
+
+[QF2-D10G7Q1] 
+A live trading model receives a stale price feed after a vendor outage. The values are formatted correctly, so the system 
+continues producing trades based on prices that are 20 minutes old. 
+ 
+A. Schema validation alone may fail to detect the stale-feed problem. 
+B. Freshness checks and cross-feed comparisons could identify the failure. 
+C. Because the model code is functioning as designed, this is not a model or operational risk. 
+D. A fallback that reduces or pauses trading may be safer than continuing with unreliable inputs. 
+E. Monitoring should cover upstream data dependencies as well as the model's output. 
+ 
+Answer Key: 
+ 
+A. True – Correctly formatted values can still be untimely and economically wrong. 
+B. True – Timestamp and independent-source controls can expose stale or inconsistent data. 
+C. False – Reliable code can still produce harmful decisions when production inputs fail. 
+D. True – Controlled degradation can limit damage until trustworthy data return. 
+E. True – End-to-end reliability depends on data, infrastructure, model, and execution components. 
+ 
+ 
+ 752 Rev:081020261230
+
+[QF2-D10G7Q2] 
+A sentiment model performed well when trained, but its signal weakens after companies change disclosure language 
+and investors adopt similar text-analysis tools. The research lead argues that unchanged software means the model has 
+not drifted. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The relationship between inputs and returns can change even when the code is 
+unchanged. ” 
+B. The following statement is incorrect: “Changes in disclosure practices can alter the meaning or distribution of text 
+features. ” 
+C. The following statement is incorrect: “Wider adoption of similar signals may reduce realizable alpha through 
+crowding. ” 
+D. The following statement is incorrect: “Model drift refers only to programming bugs introduced after deployment. ” 
+E. The following statement is incorrect: “Monitoring predictive performance and input distributions can provide evidence 
+of drift. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Market behavior and data-generating processes can evolve around a ﬁxed 
+model. 
+B. False – The quoted statement is correct. New language conventions can break relationships learned from older text. 
+C. False – The quoted statement is correct. Competition and shared positioning can weaken or change the economics of 
+a signal. 
+D. True – The quoted statement is incorrect. Drift concerns changing data or relationships, not just software defects. 
+E. False – The quoted statement is correct. Both feature behavior and outcome relationships are relevant diagnostics.
+
+[QF2-D10G7Q3] 
+Several large funds use similar AI models, data vendors, and risk triggers. After a market shock, the models recommend 
+selling the same securities, and automated execution begins simultaneously across ﬁrms. 
+ 
+A. Individually reasonable risk reductions can collectively intensify market pressure. 
+B. Independent legal ownership of the models guarantees independent trading behavior. 
+C. Common data and model designs can create correlated decisions without explicit coordination. 
+D. Market impact from simultaneous selling may invalidate cost assumptions estimated in normal conditions. 
+E. Diversifying across many securities necessarily eliminates systemic risk from shared AI strategies. 
+ 
+ 753 Rev:081020261230 
+ 
+Answer Key: 
+ 
+A. True – Feedback between common signals, selling, and price declines can amplify stress. 
+B. False – Similar inputs, objectives, and constraints may generate similar actions. 
+C. True – Correlation can emerge from common dependencies rather than communication. 
+D. True – Liquidity and impact can deteriorate when many participants demand the same exit. 
+E. False – Broad portfolios can still share factors, signals, vendors, or synchronized risk controls.

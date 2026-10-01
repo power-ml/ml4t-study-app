@@ -1,0 +1,600 @@
+Domain 3: Alpha Research and Formulaic Signals
+
+[QF2-D3G1Q1] 
+A long-short equity team produces a daily alpha score for each stock, where a larger positive score represents a higher 
+forecasted benchmark-relative return over the next ﬁve trading days. A portfolio manager observes that the highest-
+scored stock lost 2% yesterday and argues that the model must be invalid. The research lead must clarify what the score 
+does and does not claim before the model review. 
+ 
+A. A positive score represents an expectation, not a guarantee, of positive benchmark-relative performance. 
+B. One negative realized return is sufficient to prove that a probabilistic alpha signal has no predictive information. 
+C. Evaluation should compare outcomes with the signal's stated ﬁve-day forecast horizon. 
+D. A stock can have a positive absolute return but a negative active return if its benchmark rises more. 
+E. A larger score should be interpreted as a more favorable forecast under the model, but its numerical magnitude need 
+not equal a return percentage unless the model was calibrated that way. 
+ 
+Answer Key: 
+ 
+A. True – An alpha forecast describes an expected tendency across observations and can be wrong in an individual case. 
+B. False – Predictive quality must be assessed over an appropriate sample rather than inferred from one noisy realization. 
+C. True – A one-day outcome is not automatically aligned with a forecast deﬁned over ﬁve trading days. 
+D. True – Active return is the asset return minus the relevant benchmark return. 
+E. True – Scores can order opportunities without being calibrated directly in units of expected return.
+
+[QF2-D3G1Q2] 
+A pension fund receives two signals for an active equity portfolio. Signal X forecasts an expected excess return of 40 basis 
+points, while Signal Y is a unitless rank from 0 to 100. The chief investment officer wants to allocate twice as much capital 
+to a score of 80 as to a score of 40 without examining how either signal was constructed or calibrated. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Signal X expresses a forecast magnitude in return units, whereas Signal Y may 
+only express relative ordering. ” 
+B. The following statement is incorrect: “A rank of 80 necessarily forecasts twice the active return of a rank of 40. ” 
+ 
+ 623 Rev:081020261230 
+C. The following statement is incorrect: “Mapping either signal into portfolio weights requires decisions about risk, 
+conﬁdence, constraints, and position sizing. ” 
+D. The following statement is incorrect: “A signal can rank securities usefully even if its values are not calibrated expected 
+returns. ” 
+E. The following statement is incorrect: “The realized active return of a position is determined solely by the alpha score 
+assigned at entry. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The stated outputs have different meanings and units. 
+B. True – The quoted statement is incorrect. Ranks preserve order, not proportional distances or return magnitudes. 
+C. False – The quoted statement is correct. A forecast alone does not deﬁne the amount of capital that should be placed 
+at risk. 
+D. False – The quoted statement is correct. Correct ordering can support security selection even without magnitude 
+calibration. 
+E. True – The quoted statement is incorrect. Realized active return also depends on market outcomes, exposure, timing, 
+implementation, and the benchmark.
+
+[QF2-D3G1Q3] 
+A quantitative fund's model assigns identical expected active returns to two stocks, but the estimate for Stock A is based 
+on abundant stable data while Stock B has sparse, noisy observations. The portfolio manager proposes equal positions 
+because the point forecasts match, while the risk officer asks whether forecast conﬁdence should affect implementation 
+under a tight tracking-error limit. 
+ 
+A. Equal point forecasts do not imply equal uncertainty around those forecasts. 
+B. If the fund incorporates forecast conﬁdence, it may rationally assign a smaller position to Stock B. 
+C. A conﬁdence estimate can convert an uncertain forecast into a guaranteed return. 
+D. Historical signal accuracy can inform conﬁdence, although it cannot eliminate future model risk. 
+E. Tracking-error and exposure constraints can prevent the portfolio from taking the position implied by an alpha ranking 
+alone. 
+ 
+Answer Key: 
+ 
+A. True – Forecast magnitude and forecast uncertainty are distinct quantities. 
+B. True – Lower conﬁdence can justify less risk even when the central forecasts are equal. 
+C. False – Conﬁdence characterizes uncertainty; it does not remove it. 
+ 
+ 624 Rev:081020261230 
+D. True – Past reliability is relevant evidence but does not ensure stability out of sample. 
+E. True – Portfolio construction must reconcile forecasts with risk limits and other constraints. 
+ 
+G2: Time-Series vs. Cross-Sectional Signals
+
+[QF2-D3G2Q1] 
+A global futures fund uses one model that forecasts whether each contract's own next-month return will be positive and 
+another that ranks all contracts from strongest to weakest at today's date. The chief risk officer asks whether the models 
+answer the same question and whether either necessarily creates a market-neutral portfolio. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The ﬁrst model is a time-series signal because it evaluates each contract relative 
+to its own history through time. ” 
+B. The following statement is incorrect: “The second model is cross-sectional because it compares contracts with one 
+another at the same point in time. ” 
+C. The following statement is incorrect: “A contract can receive a positive absolute forecast but still rank below most 
+other contracts. ” 
+D. The following statement is incorrect: “A cross-sectional ranking automatically produces a market-neutral portfolio 
+without a portfolio-construction rule. ” 
+E. The following statement is incorrect: “The two models can prescribe different positions because one concerns 
+absolute direction and the other concerns relative attractiveness. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Its prediction concerns the future behavior of an individual series based on 
+information available through time. 
+B. False – The quoted statement is correct. Ranking contemporaneous opportunities is a cross-sectional task. 
+C. False – The quoted statement is correct. A positive forecast may still be weaker than the forecasts for peers. 
+D. True – The quoted statement is incorrect. Neutrality depends on how ranks are mapped to long and short weights and 
+on the resulting exposures. 
+E. False – The quoted statement is correct. Absolute and relative forecasts need not give the same trading instruction.
+
+[QF2-D3G2Q2] 
+During a broad market rally, every stock in a 100-stock universe has a positive predicted return. A market-neutral manager 
+nevertheless plans to buy the top decile and short the bottom decile, while a directional manager plans to hold all stocks 
+ 
+ 625 Rev:081020261230 
+whose own forecasts are positive. The investment committee is comparing the intended use and benchmarking of the 
+two approaches. 
+ 
+A. The market-neutral manager can short bottom-ranked stocks even when their absolute forecasts are positive. 
+B. The directional rule may create substantial market exposure because all stocks pass its positive-forecast threshold. 
+C. The long-short portfolio's objective is naturally evaluated only by whether the overall market rose. 
+D. Cross-sectional performance can depend on the return spread between high- and low-ranked securities. 
+E. A positive forecast for every stock makes a cross-sectional ranking mathematically impossible. 
+ 
+Answer Key: 
+ 
+A. True – The short positions express relative underperformance, not necessarily negative absolute returns. 
+B. True – Holding every positively forecasted stock can leave the strategy broadly long the market. 
+C. False – A relative long-short strategy should be evaluated against its intended benchmark and exposures, not merely 
+market direction. 
+D. True – The ranking is valuable when favored securities outperform disfavored ones. 
+E. False – Positive forecasts can still differ in magnitude and therefore be ranked.
+
+[QF2-D3G2Q3] 
+A currency researcher uses a time-series trend score for each currency and a cross-sectional carry rank across 
+currencies. She combines both signals into one portfolio, but the head trader warns that their scales, horizons, and 
+exposure implications differ. The portfolio must remain within limits on dollar exposure and turnover. 
+ 
+A. The time-series score can recommend the same directional position for many currencies simultaneously. 
+B. A cross-sectional rank inherently states whether each currency will earn a positive absolute return. 
+C. Combining the signals may require scale alignment before their numerical values can be meaningfully weighted. 
+D. Exposure limits may alter the positions even when both signals agree. 
+E. Using both a time-series and a cross-sectional signal guarantees independent information. 
+ 
+Answer Key: 
+ 
+A. True – Each series is assessed against its own history, so common directional recommendations are possible. 
+B. False – A relative ranking identiﬁes stronger and weaker opportunities without necessarily forecasting their absolute 
+signs. 
+ 
+ 626 Rev:081020261230 
+C. True – Differing units and distributions can otherwise cause arbitrary dominance by one signal. 
+D. True – Portfolio constraints govern implementable positions separately from forecast agreement. 
+E. False – The signals may share inputs, respond to the same economic forces, or be empirically correlated. 
+ 
+G3: Ranking, Scaling, and Signal Transformation
+
+[QF2-D3G3Q1] 
+An equity team compares raw earnings-surprise signals across industries. Technology observations have much larger 
+numerical dispersion than utility observations, so the raw composite is dominated by technology stocks. The portfolio 
+manager considers converting scores to within-industry percentile ranks before selecting the top and bottom deciles. 
+ 
+A. Percentile ranking can reduce dominance caused solely by different numerical scales across industries. 
+B. Percentile ranks preserve the ordering of observations within each ranked group. 
+C. The distance between percentile ranks of 90 and 80 necessarily represents the same difference in expected return as 
+the distance between 60 and 50. 
+D. Ranking within industries can reduce unintended industry bets relative to ranking all raw values together. 
+E. Transforming to ranks guarantees that the underlying signal has predictive power. 
+ 
+Answer Key: 
+ 
+A. True – Each observation is placed relative to peers rather than compared using its raw scale. 
+B. True – A monotonic rank transformation retains ordinal information within the group. 
+C. False – Percentile spacing describes position in a distribution, not equal increments of economic value. 
+D. True – Within-industry comparison can keep selection from merely reﬂecting systematic level differences between 
+industries. 
+E. False – Transformation can improve comparability but cannot create genuine information from a nonpredictive input.
+
+[QF2-D3G3Q2] 
+A factor model converts a raw signal to a cross-sectional z-score by subtracting the universe mean and dividing by its 
+standard deviation. On one rebalance date, a data error creates an extreme score that changes both statistics and 
+produces an oversized proposed position. The risk committee considers winsorizing inputs before standardization. 
+ 
+A. A z-score of +2 indicates that the raw observation is two cross-sectional standard deviations above the mean under 
+the stated calculation. 
+ 
+ 627 Rev:081020261230 
+B. An extreme observation can affect the mean and standard deviation used to scale every security. 
+C. Winsorization generally limits extreme values rather than deleting every observation outside the chosen thresholds. 
+D. Winsorization proves that any remaining extreme score reﬂects economically valid information. 
+E. Data-quality investigation remains necessary even if winsorization reduces the position's numerical size. 
+ 
+Answer Key: 
+ 
+A. True – This is the interpretation of the stated standardization. 
+B. True – Both sample statistics are functions of all included observations and may be sensitive to outliers. 
+C. True – Winsorization caps or replaces tail values at selected bounds. 
+D. False – Capping controls inﬂuence but does not establish whether the data or signal is valid. 
+E. True – A transformation should not substitute for identifying and correcting erroneous inputs.
+
+[QF2-D3G3Q3] 
+A researcher ﬁnds that a valuation alpha strongly favors small-cap stocks. The fund wants stock-speciﬁc selection rather 
+than a persistent size exposure, so the researcher regresses the alpha on market capitalization and uses the residual as 
+a neutralized signal. The chief investment officer asks what information this operation removes and whether it is always 
+beneﬁcial. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The residual is constructed to remove the component linearly associated with 
+market capitalization in the ﬁtted sample. ” 
+B. The following statement is incorrect: “Neutralization can reduce an unintended systematic size exposure. ” 
+C. The following statement is incorrect: “Neutralization necessarily improves out-of-sample returns. ” 
+D. The following statement is incorrect: “If size exposure is part of the alpha's genuine economic mechanism, removing 
+it can also remove useful predictive information. ” 
+E. The following statement is incorrect: “After neutralization, the portfolio still requires checks for other exposures and 
+constraints. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Regression residualization subtracts the ﬁtted component related to the 
+speciﬁed control. 
+B. False – The quoted statement is correct. It can isolate variation beyond the chosen size relationship. 
+ 
+ 628 Rev:081020261230 
+C. True – The quoted statement is incorrect. Risk control and predictive performance are empirical tradeoffs, not 
+guaranteed improvements. 
+D. False – The quoted statement is correct. Neutralization can discard intended signal along with unwanted exposure. 
+E. False – The quoted statement is correct. Controlling one characteristic does not ensure neutrality to sectors, beta, 
+liquidity, or other risks. 
+ 
+G4: Formulaic Alpha Construction
+
+[QF2-D3G4Q1] 
+A proprietary desk proposes an alpha equal to 20-day return multiplied by the ratio of current volume to average volume 
+and divided by recent volatility. The research director likes its intuition—strong price moves with volume conﬁrmation 
+and volatility scaling—but requires the team to document the formula's behavior before backtesting. 
+ 
+A. Holding other inputs ﬁxed, a larger positive return produces a larger positive alpha under the stated formula. 
+B. Dividing by volatility can make otherwise similar observations receive different scores. 
+C. If measured volatility approaches zero, the formula can generate unstable or extremely large values unless it is 
+safeguarded. 
+D. Multiplying several plausible inputs guarantees that their combination predicts future returns. 
+E. The signs, units, missing-value treatment, and denominator ﬂoor are part of fully specifying the alpha. 
+ 
+Answer Key: 
+ 
+A. True – With positive volume and volatility terms, the formula increases with positive return. 
+B. True – Lower measured volatility increases the score's magnitude when the numerator is unchanged. 
+C. True – A near-zero denominator can cause numerical explosions, motivating ﬂoors or other robust handling. 
+D. False – Economic intuition must still be validated with properly designed out-of-sample evidence. 
+E. True – These implementation details determine the actual values produced by the formula.
+
+[QF2-D3G4Q2] 
+A hedge fund researcher tests a linear momentum score, its square, its cube, its rank, and dozens of nested logarithmic 
+and conditional versions. The most complicated formula has the best in-sample Sharpe ratio by a small margin. The 
+model-validation committee asks whether complexity is justiﬁed under a requirement for explainability and robust out-
+of-sample performance. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+ 629 Rev:081020261230 
+ 
+A. The following statement is incorrect: “Searching many transformations increases the opportunity to select a formula 
+that ﬁts noise. ” 
+B. The following statement is incorrect: “A nonlinear transformation can be useful when the economic relationship is 
+genuinely nonlinear. ” 
+C. The following statement is incorrect: “The highest in-sample Sharpe ratio necessarily identiﬁes the best live alpha. ” 
+D. The following statement is incorrect: “Incremental complexity should be supported by stable out-of-sample 
+improvement and an interpretable or defensible mechanism. ” 
+E. The following statement is incorrect: “Two formulas that are monotonic transformations of the same input may 
+produce identical rankings even though their raw magnitudes differ. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Multiple testing raises selection bias unless it is controlled and validated. 
+B. False – The quoted statement is correct. Nonlinearity is not inherently inappropriate when evidence and mechanism 
+support it. 
+C. True – The quoted statement is incorrect. In-sample leadership may reﬂect overﬁtting and does not guarantee future 
+performance. 
+D. False – The quoted statement is correct. Small ﬁtted gains may not compensate for fragility, governance burden, or 
+implementation risk. 
+E. False – The quoted statement is correct. Strictly monotonic transformations preserve order while changing scale and 
+spacing.
+
+[QF2-D3G4Q3] 
+A quant team builds a price-volume alpha using a 5-day return, 20-day average volume, and 60-day volatility. The portfolio 
+manager asks the team to optimize all three lookbacks against the same backtest until performance peaks. Trading costs 
+increase sharply for the shortest-horizon variants. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The selected lookbacks deﬁne the alpha's effective memory and 
+responsiveness. ” 
+B. The following statement is incorrect: “Optimizing many parameter combinations on one sample can create data-
+mining bias. ” 
+C. The following statement is incorrect: “Parameter choices are harmless because changing a lookback does not change 
+the economic signal. ” 
+D. The following statement is incorrect: “A more responsive speciﬁcation may raise turnover and reduce net performance 
+despite stronger gross results. ” 
+ 
+ 630 Rev:081020261230 
+E. The following statement is incorrect: “Robustness across nearby parameter values can be more reassuring than a 
+narrow performance spike at one combination. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Each window determines which historical observations enter its component 
+and how quickly it changes. 
+B. False – The quoted statement is correct. Repeatedly choosing the best result can ﬁt sample-speciﬁc noise. 
+C. True – The quoted statement is incorrect. Lookbacks alter the data summarized, the timing of the forecast, and often 
+the resulting positions. 
+D. False – The quoted statement is correct. Faster-changing scores typically require more trading and incur more 
+implementation cost. 
+E. False – The quoted statement is correct. Broad stability suggests the result is less dependent on one precisely ﬁtted 
+choice. 
+ 
+G5: Signal Decay and Holding Period
+
+[QF2-D3G5Q1] 
+A formulaic alpha has strong predictive power for the next 30 minutes, but the portfolio is rebalanced only once each day. 
+The research lead argues that the signal should still work because the forecast direction is correct. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The signal's holding period is mismatched with its decay horizon. ” 
+B. The following statement is incorrect: “A signal can become stale before the portfolio acts on it. ” 
+C. The following statement is incorrect: “Strong short-horizon predictiveness guarantees daily proﬁtability. ” 
+D. The following statement is incorrect: “Faster signal decay often implies higher turnover pressure. ” 
+E. The following statement is incorrect: “Execution timing is part of whether an alpha is realizable. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The signal fades much faster than the rebalance schedule. 
+B. False – The quoted statement is correct. Delayed action can eliminate the predictive value. 
+C. True – The quoted statement is incorrect. A correct short-horizon forecast may not survive a daily holding period. 
+D. False – The quoted statement is correct. Capturing fast-decaying signals usually requires more frequent trading. 
+E. False – The quoted statement is correct. Realizable alpha depends on timely implementation. 
+ 
+ 631 Rev:081020261230
+
+[QF2-D3G5Q2] 
+An event-driven signal earns most of its forecasted return during the ﬁrst two trading days after an announcement and 
+shows no reliable effect after day ﬁve. To reduce turnover, the portfolio manager proposes holding every position for one 
+month. The research team must assess whether the lower trading frequency preserves the intended edge. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Holding for a month exposes capital beyond the period in which the signal has 
+demonstrated predictive value. ” 
+B. The following statement is incorrect: “A longer holding period necessarily increases the cumulative alpha because the 
+trade remains open longer. ” 
+C. The following statement is incorrect: “Positions based on the signal may be stale after its information has been 
+incorporated into prices. ” 
+D. The following statement is incorrect: “The appropriate exit rule should be evaluated relative to the signal's observed 
+decay proﬁle and implementation costs. ” 
+E. The following statement is incorrect: “Reducing turnover can improve net results, but only if the saved costs exceed 
+any alpha lost through slower exits or fewer refreshed positions. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. The stated evidence supports a short-lived effect rather than a month-long 
+forecast. 
+B. True – The quoted statement is incorrect. Extra holding time can add risk or unrelated returns after the edge has 
+disappeared. 
+C. False – The quoted statement is correct. Once the event information is reﬂected in prices, the original forecast may no 
+longer be useful. 
+D. False – The quoted statement is correct. Exit timing should align economic signal persistence with practical trading 
+costs. 
+E. False – The quoted statement is correct. The decision is a net tradeoff rather than an automatic beneﬁt from lower 
+turnover.
+
+[QF2-D3G5Q3] 
+A market-neutral fund measures an alpha's information coefficient one, ﬁve, ten, and twenty days after signal formation. 
+The coefficient is strongest on day one, declines steadily, and becomes statistically indistinguishable from zero by day 
+ten. The head trader asks whether daily rebalancing is automatically optimal despite limited liquidity. 
+ 
+ 
+ 632 Rev:081020261230 
+A. The pattern is evidence that the signal's predictive content decays with age. 
+B. A day-ten coefficient near zero suggests that ten-day-old scores may provide little incremental forecasting value. 
+C. Daily rebalancing must maximize net performance because the day-one coefficient is highest. 
+D. Overlapping positions or staggered rebalancing can be evaluated as ways to balance decay, turnover, and liquidity. 
+E. The decay study should use only information that would have been available at each historical decision time. 
+ 
+Answer Key: 
+ 
+A. True – Predictive association weakens as the observation moves farther from signal formation. 
+B. True – The measured relationship is no longer distinguishable from noise at that horizon. 
+C. False – Faster refresh can incur spreads, impact, and capacity costs that outweigh added gross alpha. 
+D. True – Implementation design can trade some immediacy for lower concentration and trading pressure. 
+E. True – Otherwise look-ahead bias could make the apparent decay proﬁle unreliable. 
+ 
+G6: Combining Multiple Alpha Signals
+
+[QF2-D3G6Q1] 
+A multi-factor equity fund combines value, quality, and momentum alphas using equal weights. Each signal has positive 
+standalone predictive performance, but value and quality are highly correlated in the fund's universe. The chief 
+investment officer assumes that three signals provide three independent sources of diversiﬁcation. 
+ 
+A. Positive standalone performance does not establish that the alphas are independent. 
+B. High correlation between value and quality can reduce the incremental diversiﬁcation gained from combining them. 
+C. Equal weighting guarantees that each signal contributes equal portfolio risk. 
+D. The combined signal should be evaluated for marginal information beyond its components. 
+E. A weaker but less-correlated alpha can sometimes improve a composite more than a stronger redundant alpha. 
+ 
+Answer Key: 
+ 
+A. True – Individual usefulness and pairwise dependence are separate properties. 
+B. True – Signals that move together tend to succeed and fail on similar observations. 
+C. False – Different volatilities, scales, correlations, and portfolio mappings can create unequal risk contributions. 
+D. True – The relevant question is whether combination adds predictive or portfolio value after overlap. 
+E. True – Diversifying information can improve aggregate consistency even when its standalone strength is lower. 
+ 
+ 633 Rev:081020261230
+
+[QF2-D3G6Q2] 
+A research platform outputs three standardized alphas. Their estimated information coefficients are 0.06, 0.04, and 0.02, 
+so the portfolio manager wants weights proportional to those estimates. The validation lead notes that the estimates are 
+noisy, the ﬁrst two signals are correlated, and the third trades much less frequently. 
+ 
+A. Weighting by estimated signal strength may be reasonable, but estimation uncertainty can make exact weights 
+unstable. 
+B. Correlation among alphas is relevant because it affects the incremental information contributed by each one. 
+C. The signal with the smallest information coefficient can never deserve a positive weight. 
+D. Turnover and implementation costs can justify a different weighting from one based only on gross predictive strength. 
+E. Standardization aligns numerical scale but does not make the signals equally reliable or equally costly to trade. 
+ 
+Answer Key: 
+ 
+A. True – Sampling error can make ﬁne distinctions in estimated performance unreliable. 
+B. True – A strong signal adds less when its information substantially duplicates another component. 
+C. False – A weaker signal may still add diversifying, stable, or inexpensive predictive information. 
+D. True – Realizable contribution depends on costs and trading demands as well as gross forecasts. 
+E. True – Comparable units do not equalize economic quality or implementation characteristics.
+
+[QF2-D3G6Q3] 
+A fund creates a composite from four momentum formulas that use 9-, 10-, 11-, and 12-month returns. The backtest is 
+smoother than any one component, and the research team calls the result a four-alpha ensemble. The model-risk 
+committee asks whether the apparent breadth is genuine. 
+ 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “The four alphas are likely to be highly correlated because their inputs and 
+horizons substantially overlap. ” 
+B. The following statement is incorrect: “Averaging nearby speciﬁcations can reduce sensitivity to any single lookback 
+choice. ” 
+C. The following statement is incorrect: “Using four formulas necessarily quadruples the independent information 
+available to the portfolio. ” 
+ 
+ 634 Rev:081020261230 
+D. The following statement is incorrect: “The ensemble may still be useful, but its effective breadth is likely smaller than 
+its raw component count. ” 
+E. The following statement is incorrect: “Correlation and incremental-performance analysis can help distinguish 
+robustness averaging from genuine alpha diversiﬁcation. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. Adjacent momentum windows share most of their return observations and 
+economic mechanism. 
+B. False – The quoted statement is correct. Model averaging can make the result less dependent on one exact parameter. 
+C. True – The quoted statement is incorrect. Redundant transformations do not create proportional independent 
+information. 
+D. False – The quoted statement is correct. Component count overstates breadth when signals behave similarly. 
+E. False – The quoted statement is correct. These tests show whether each component contributes distinct predictive 
+content. 
+ 
+G7: Crowding, Replication, and Realizable Alpha
+
+[QF2-D3G7Q1] 
+A hedge fund discovers that a once-proﬁtable public valuation signal is now followed by many large managers. Its paper 
+backtest still shows attractive gross returns using closing prices, but live orders increasingly move prices and subsequent 
+returns are weaker. The investment committee asks whether popularity can change the opportunity. 
+ 
+A. Competition can cause prices to adjust earlier, reducing the signal's future predictive return. 
+B. Shared use of the signal can create crowded positions that many funds may try to exit simultaneously. 
+C. Historical gross alpha is guaranteed to remain available after a strategy becomes widely known. 
+D. Market impact can increase as more capital attempts to trade the same opportunities. 
+E. Live deterioration may reﬂect both reduced economic alpha and higher implementation costs. 
+ 
+Answer Key: 
+ 
+A. True – Faster exploitation can incorporate the information before later traders act. 
+B. True – Common positioning can amplify losses and liquidity pressure during unwinds. 
+C. False – Alpha can decay as information diffuses, competitors adapt, and market structure changes. 
+D. True – Crowded demand consumes liquidity and can move transaction prices adversely. 
+ 
+ 635 Rev:081020261230 
+E. True – Realized performance combines the opportunity before trading with the cost of capturing it.
+
+[QF2-D3G7Q2] 
+A small-cap strategy reports 8% annualized gross alpha in a backtest that assumes trades execute at the daily close with 
+no price impact. The fund plans to deploy ten times the tested capital, although many target stocks trade only modest 
+daily volume. The chief operating officer requests a capacity assessment before launch. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+A. The following statement is incorrect: “Scaling capital can require larger trades relative to available market volume. ” 
+B. The following statement is incorrect: “Larger participation rates can increase market impact and reduce realizable 
+alpha. ” 
+C. The following statement is incorrect: “If the formula is unchanged, net alpha per dollar must remain unchanged at 
+every asset level. ” 
+D. The following statement is incorrect: “Capacity analysis should consider liquidity, turnover, execution horizon, and the 
+concentration of opportunities. ” 
+E. The following statement is incorrect: “A strategy can have genuine gross predictive value yet be economically 
+unattractive after spreads, fees, slippage, and impact. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. More capital generally produces larger required orders for the same target 
+weights. 
+B. False – The quoted statement is correct. Demanding more liquidity commonly worsens execution prices. 
+C. True – The quoted statement is incorrect. Trading costs and opportunity availability can change nonlinearly with scale. 
+D. False – The quoted statement is correct. These features determine how much capital the strategy can deploy without 
+consuming its edge. 
+E. False – The quoted statement is correct. Forecast quality and net implementability are related but distinct tests.
+
+[QF2-D3G7Q3] 
+A researcher searches thousands of obscure price and volume formulas and selects one with exceptional historical 
+performance but no plausible economic explanation. A simpler competitor signal is linked to delayed investor response, 
+performs somewhat less strongly in sample, and survives across markets and periods. The governance committee must 
+choose which candidate merits further development. 
+For this question, each item asserts that its quoted statement is incorrect. Evaluate the complete A–E items as written. 
+ 
+ 
+ 636 Rev:081020261230 
+A. The following statement is incorrect: “Testing thousands of formulas increases the risk that the selected result is a 
+chance pattern. ” 
+B. The following statement is incorrect: “An economic rationale can guide tests of when and why an alpha should persist 
+or fail. ” 
+C. The following statement is incorrect: “Lack of an economic rationale mathematically proves that the ﬁrst signal has no 
+predictive value. ” 
+D. The following statement is incorrect: “Stability across markets, periods, and reasonable speciﬁcations provides 
+evidence relevant to robustness. ” 
+E. The following statement is incorrect: “The strongest in-sample backtest should automatically override concerns about 
+replication, multiple testing, and realizability. ” 
+ 
+Answer Key: 
+ 
+A. False – The quoted statement is correct. A large search space makes extreme ﬁtted performance more likely even 
+without a durable effect. 
+B. False – The quoted statement is correct. A mechanism supports falsiﬁable expectations and helps distinguish 
+information from coincidence. 
+C. True – The quoted statement is incorrect. A pattern can be predictive without a known explanation, although 
+conﬁdence and governance concerns remain. 
+D. False – The quoted statement is correct. Repeated performance outside the original selection setting is harder to 
+attribute solely to sample noise. 
+E. True – The quoted statement is incorrect. Model selection must account for overﬁtting, independent validation, costs, 
+capacity, and operational feasibility. 
+ 
+  
+ 
+ 637 Rev:081020261230 
+Domain 4: Fundamental Law of Active Portfolio Management 
+Domain Summary 
+ Information coefficient 
+ Information ratio 
+ Breadth 
+ Forecast skill 
+ Independent opportunities 
+ Effective breadth 
+ Skill versus scalability 
+ Concentration versus diversiﬁcation 
+ Limits of the simpliﬁed law 
+Topic Groups 
+G1: Information Coefficient 
+ Correlation between forecasts and outcomes 
+ Positive, zero, and negative skill 
+ Forecast quality 
+ Statistical uncertainty 
+ Interpreting weak but consistent skill 
+G2: Information Ratio 
+ Active return relative to active risk 
+ Residual or benchmark-relative performance 
+ Risk-adjusted alpha 
+ Difference from Sharpe ratio 
+ Comparing active managers 
+G3: Breadth and Number of Opportunities 
+ Number of decisions 
+ More assets versus more frequent trading 
+ Independent opportunities 
+ 
+ 638 Rev:081020261230 
+ Why raw trade count may be misleading 
+ Breadth as scalability 
+G4: The Fundamental Law Relationship 
+ (IR = IC\sqrt{BR}) 
+ Linear effect of skill 
+ Square-root effect of breadth 
+ Implications for strategy design 
+ Numerical reasoning with changes in IC or breadth 
+G5: Effective Breadth and Dependence 
+ Correlated bets 
+ Repeated versions of the same trade 
+ Overstated breadth 
+ Common-factor exposures 
+ Independence assumptions 
+G6: Skill vs. Scale Tradeoffs 
+ Concentrated high-conviction investing 
+ Broad lower-skill quant strategies 
+ Limits to scaling expertise 
+ Automation and breadth 
+ Diminishing returns to added opportunities 
+G7: Limitations and Practical Violations 
+ Time-varying IC 
+ Non-independent bets 
+ Trading costs 
+ Capacity 
+ Unstable forecasts 
+ Why the simpliﬁed law can overstate achievable performance 
+ 
+ 639 Rev:081020261230 
+G1: Information Coefficient
