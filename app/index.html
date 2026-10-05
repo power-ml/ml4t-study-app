@@ -112,7 +112,7 @@ function md(s){if(!s)return'';
 const flags=(t)=>{let f=[];if(ABS.test(t))f.push('absolute → ~74% False');if(NEG.test(t))f.push('negation → check the claim');return f;};
 let route='study';
 const nav=document.getElementById('nav');
-[['study','Study'],['quiz','Quiz / Mock'],['notes','My Notes'],['progress','Readiness'],['tips','Heuristics']].forEach(([k,l])=>{
+[['study','Study'],['quiz','Quiz / Mock'],['notes','🚩 Review'],['progress','Readiness'],['tips','Heuristics']].forEach(([k,l])=>{
   const b=$(`<button data-k="${k}">${l}</button>`);b.onclick=()=>{route=k;store.ui=store.ui||{};store.ui.route=k;save();render();};nav.append(b);});
 // ---- Exam 1 / Exam 2 scope (persisted in store.ui.exam) ----
 function curExam(){return (store.ui&&store.ui.exam)||1;}
@@ -166,6 +166,27 @@ function choiceRow(q,i,mode,sel){
 }
 function noteBox(id){const v=store.notes[id]||'';return `<div class="notebox"><div class="small mut">📝 Note</div><textarea data-note="${id}" placeholder="Your note for ${id}…">${v}</textarea></div>`;}
 function bindNotes(el){el.querySelectorAll('textarea[data-note]').forEach(t=>t.oninput=()=>{const id=t.dataset.note;if(t.value.trim())store.notes[id]=t.value;else delete store.notes[id];noteAnchor(id);save();});}
+// Last quiz result for a question (from store.attempts): {c correct choices, t total, allSame, perfect}
+function attScore(q){const a=store.attempts[q.id];if(!a)return null;
+  const c=q.choices.filter((ch,i)=>a[i]&&(a[i]==='T')===(ch.verdict==='True')).length;
+  const allSame=a.every(x=>x==='T')||a.every(x=>x==='F');return {c,t:q.choices.length,allSame,perfect:!allSame&&c===q.choices.length};}
+function attPill(q){const s=attScore(q);if(!s)return'';
+  return `<span class="pill" style="border-color:var(--${s.perfect?'green':'red'});color:var(--${s.perfect?'green':'red'})">${s.perfect?'✅':'❌'} last quiz ${s.allSame?0:s.c}/${s.t}</span>`;}
+// Mark a question reviewed (idempotent): counts toward today's reviewLog once
+function markReviewed(id){if(store.reviewed[id])return false;const t=today();
+  store.reviewed[id]=t;store.reviewLog[t]=(store.reviewLog[t]||0)+1;return true;}
+// Quiz/notes toolbar: 🚩 flag toggle + 📝 note toggle (note box opens automatically if a note exists)
+function qTools(id){const has=!!store.notes[id];
+  return `<div class="row small" style="margin-top:8px"><label><input type="checkbox" data-qflag="${id}" ${store.flagged[id]?'checked':''}> 🚩 flag for review</label>
+    <button class="btn sec" data-notetog="${id}" style="padding:3px 10px">📝 ${has?'note':'add note'}</button></div>
+    <div data-notewrap="${id}"${has?'':' hidden'}>${noteBox(id)}</div>`;}
+function bindTools(el,onFlag){
+  el.querySelectorAll('input[data-qflag]').forEach(cb=>cb.onchange=()=>{const id=cb.dataset.qflag;
+    if(cb.checked)store.flagged[id]=today();else delete store.flagged[id];
+    const card=cb.closest('.card');if(card)card.classList.toggle('flagged',cb.checked);save();if(onFlag)onFlag(id,cb.checked);});
+  el.querySelectorAll('button[data-notetog]').forEach(b=>b.onclick=()=>{const w=el.querySelector(`[data-notewrap="${b.dataset.notetog}"]`);
+    w.hidden=!w.hidden;if(!w.hidden)w.querySelector('textarea').focus();});
+  bindNotes(el);}
 
 function deepDive(part,dom){const d=D.domains.find(x=>x.part===part&&x.num===dom&&(x.exam||1)===curExam());if(!d)return'';
   const notes=(d.bookNotes||[]).map(n=>`<details class="deep" style="margin-left:12px"><summary>📖 ${n.book} — ${n.title} <span class="small mut">(${n.file})</span></summary><div class="md">${md(n.md)}</div></details>`).join('');
@@ -182,12 +203,13 @@ function studyView(){
   const q=$(`<input id="fq" placeholder="search text…" style="flex:1">`);
   const hideRev=$(`<label class="small">&nbsp;<input type="checkbox" id="hiderev"> hide reviewed</label>`);
   const flagOnly=$(`<label class="small">&nbsp;<input type="checkbox" id="flagonly"> 🚩 flagged only</label>`);
+  const missOnly=$(`<label class="small">&nbsp;<input type="checkbox" id="missonly"> ❌ missed in quiz</label>`);
   const hideWd=$(`<label class="small">&nbsp;<input type="checkbox" id="hidewd" checked> 🚫 hide withdrawn</label>`);
   const revStat=$(`<span class="small mut" id="revstat" style="margin-left:auto"></span>`);
   const revTog=$(`<button class="btn sec" id="revtog" style="padding:4px 10px"></button>`);
   function revLabel(){revTog.textContent=(store.ui&&store.ui.revealAll)?'👁 answers shown':'🙈 self-test (tap to reveal)';}
   revTog.onclick=()=>{store.ui=store.ui||{};store.ui.revealAll=!store.ui.revealAll;save();revLabel();draw();};
-  bar.append('Part:',partSel,'Domain:',domSel,q,hideRev,flagOnly,hideWd,revTog,revStat);v.append(bar);revLabel();
+  bar.append('Part:',partSel,'Domain:',domSel,q,hideRev,flagOnly,missOnly,hideWd,revTog,revStat);v.append(bar);revLabel();
   bar.style.position='sticky';bar.style.zIndex='9';bar.style.background='var(--panel)';bar.style.boxShadow='0 3px 8px rgba(0,0,0,.18)';bar.style.marginTop='0';
   const stickTop=()=>{const h=document.querySelector('header');bar.style.top=((h?h.offsetHeight:52)-1)+'px';};stickTop();setTimeout(stickTop,50);
   function updateRevStats(){const t=(store.reviewLog||{})[today()]||0;const eq=EQ();const eset=new Set(eq.map(q=>q.id));
@@ -201,7 +223,7 @@ function studyView(){
   fillDom();
   const list=$(`<div id="list"></div>`);v.append(list);
   function draw(){const p=partSel.value,d=domSel.value,s=q.value.toLowerCase();const hr=hideRev.querySelector('input').checked;const fo=flagOnly.querySelector('input').checked;const hw=hideWd.querySelector('input').checked;
-    const qs=EQ().filter(x=>(!p||x.part===p)&&(!d||(x.part+'|'+x.domain)===d)&&(!s||JSON.stringify(x).toLowerCase().includes(s))&&(!hr||!store.reviewed[x.id])&&(!fo||store.flagged[x.id])&&(!hw||!x.withdrawn));
+    const qs=EQ().filter(x=>(!p||x.part===p)&&(!d||(x.part+'|'+x.domain)===d)&&(!s||JSON.stringify(x).toLowerCase().includes(s))&&(!hr||!store.reviewed[x.id])&&(!fo||store.flagged[x.id])&&(!missOnly.querySelector('input').checked||(attScore(x)&&!attScore(x).perfect))&&(!hw||!x.withdrawn));
     const wdHidden=hw?EQ().filter(x=>x.withdrawn&&(!p||x.part===p)&&(!d||(x.part+'|'+x.domain)===d)).length:0;
     list.innerHTML=`<div class="small mut" style="margin:8px 0">${qs.length} questions${hr?' · unreviewed only':''}${fo?' · flagged only':''}${wdHidden?` · 🚫 ${wdHidden} withdrawn hidden`:''}</div>`;
     let lastDom='';
@@ -216,14 +238,14 @@ function studyView(){
       const flg=store.flagged[x.id]?'<span class="pill" style="border-color:var(--amber);color:var(--amber)">🚩 flagged</span>':'';
       const wd=x.withdrawn?'<span class="pill" style="border-color:#d64545;color:#d64545">🚫 withdrawn — not on exam</span>':'';
       const art=x.pdfArtifacts?'<span class="pill" style="border-color:#e0a800;color:#e0a800" title="A subscript/symbol in this question may be mis-extracted from the source PDF — verify the formula against the exam material">⚠ check formula glyphs</span>':'';
-      const card=$(`<div class="card${store.reviewed[x.id]?' rev':''}${store.flagged[x.id]?' flagged':''}" data-qid="${x.id}"${x.withdrawn?' style="opacity:.5;border-color:#d64545"':(notYet(x)?' style="opacity:.6"':'')}><div><span class="pill">#${x.n}</span><span class="pill">${x.id}</span><span class="pill">${x.group}</span><span class="pill">📅 wk ${x.weeks.join('/')}</span>${wd}${art}${dup}${inv}${flg}<label class="small" style="float:right">&nbsp;<input type="checkbox" data-flag="${x.id}" ${store.flagged[x.id]?'checked':''}> 🚩 &nbsp; <input type="checkbox" data-rev="${x.id}" ${store.reviewed[x.id]?'checked':''}> reviewed</label></div>${fb}
+      const card=$(`<div class="card${store.reviewed[x.id]?' rev':''}${store.flagged[x.id]?' flagged':''}" data-qid="${x.id}"${x.withdrawn?' style="opacity:.5;border-color:#d64545"':(notYet(x)?' style="opacity:.6"':'')}><div><span class="pill">#${x.n}</span><span class="pill">${x.id}</span><span class="pill">${x.group}</span><span class="pill">📅 wk ${x.weeks.join('/')}</span>${wd}${art}${dup}${inv}${flg}${attPill(x)}<label class="small" style="float:right">&nbsp;<input type="checkbox" data-flag="${x.id}" ${store.flagged[x.id]?'checked':''}> 🚩 &nbsp; <input type="checkbox" data-rev="${x.id}" ${store.reviewed[x.id]?'checked':''}> reviewed</label></div>${fb}
         <div class="q-scenario">${x.scenario}</div>
         <div class="small mut">What it tests: concepts in ${x.domainName} (${x.group}). See Deep dive above.</div>
         ${x.choices.map((c,i)=>choiceRow(x,i,'study')).join('')}
         ${ref}${noteBox(x.id)}</div>`);
       list.append(card);});
     list.querySelectorAll('input[data-rev]').forEach(cb=>cb.onchange=()=>{const id=cb.dataset.rev;const t=today();
-      if(cb.checked){store.reviewLog[t]=(store.reviewLog[t]||0)+1;store.reviewed[id]=t;cb.closest('.card').classList.add('rev');}
+      if(cb.checked){markReviewed(id);cb.closest('.card').classList.add('rev');}
       else{if(store.reviewed[id]===t)store.reviewLog[t]=Math.max(0,(store.reviewLog[t]||0)-1);delete store.reviewed[id];cb.closest('.card').classList.remove('rev');}
       noteAnchor(id);save();updateRevStats();if(hideRev.querySelector('input').checked)draw();});
     list.querySelectorAll('input[data-flag]').forEach(cb=>cb.onchange=()=>{const id=cb.dataset.flag;
@@ -234,9 +256,13 @@ function studyView(){
       const a=ch.querySelector('.ans');if(a)a.hidden=false;
       const tr=ch.querySelector('.tapreveal');if(tr)tr.remove();
       ch.classList.remove('revealable');ch.style.cursor='default';
-      const card=ch.closest('.card[data-qid]');if(card){noteAnchor(card.dataset.qid);save();}}));
+      const card=ch.closest('.card[data-qid]');if(!card)return;const id=card.dataset.qid;
+      // all choices revealed → auto-tick "reviewed" (card stays visible even if "hide reviewed" is on)
+      if(!card.querySelector('.choice.revealable')&&markReviewed(id)){
+        const cb=card.querySelector(`input[data-rev="${id}"]`);if(cb)cb.checked=true;card.classList.add('rev');updateRevStats();}
+      noteAnchor(id);save();}));
     updateRevStats();bindNotes(list);}
-  partSel.onchange=()=>{fillDom();draw();};domSel.onchange=draw;q.oninput=draw;hideRev.querySelector('input').onchange=draw;flagOnly.querySelector('input').onchange=draw;hideWd.querySelector('input').onchange=draw;draw();
+  partSel.onchange=()=>{fillDom();draw();};domSel.onchange=draw;q.oninput=draw;hideRev.querySelector('input').onchange=draw;flagOnly.querySelector('input').onchange=draw;missOnly.querySelector('input').onchange=draw;hideWd.querySelector('input').onchange=draw;draw();
   requestAnimationFrame(()=>{const ui=store.ui||{};                                   // resume where we left off
     const sel=ui.anchor?('#list .card[data-qid="'+(window.CSS&&CSS.escape?CSS.escape(ui.anchor):ui.anchor)+'"]'):null;
     const el=sel&&document.querySelector(sel);
@@ -280,8 +306,9 @@ function runQuiz(qs,area){
   area.innerHTML='';
   state.forEach((s,qi)=>{const q=s.q;const inv=q.polarity==='inverted'?`<span class="pill inv">INVERTED: True = statement is WRONG</span>`:'';
     const fb=q.flag?`<div class="pill inv" style="display:block;margin:6px 0">⚠ ${q.flag}</div>`:'';
-    const card=$(`<div class="card"><div><span class="pill">${qi+1}/${state.length}</span><span class="pill">${q.id}</span><span class="pill">${q.part} D${+q.domain}</span>${inv}</div>${fb}
-      <div class="q-scenario">${q.scenario}</div>${q.choices.map((c,i)=>choiceRow(q,i,'quiz',null)).join('')}</div>`);
+    const card=$(`<div class="card${store.flagged[q.id]?' flagged':''}" data-qid="${q.id}"><div><span class="pill">${qi+1}/${state.length}</span><span class="pill">${q.id}</span><span class="pill">${q.part} D${+q.domain}</span>${inv}<span data-res></span></div>${fb}
+      <div class="q-scenario">${q.scenario}</div>${q.choices.map((c,i)=>choiceRow(q,i,'quiz',null)).join('')}${qTools(q.id)}</div>`);
+    bindTools(card);
     card.querySelectorAll('.tf button').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;s.sel[i]=b.dataset.v;
       card.querySelectorAll(`.tf button[data-i="${i}"]`).forEach(x=>x.className=(x.dataset.v==='T'?'':''));
       card.querySelector(`.tf button[data-i="${i}"][data-v="T"]`).className=s.sel[i]==='T'?'selT':'';
@@ -297,8 +324,9 @@ function gradeQuiz(state,area){
     let correct=q.choices.map((c,i)=>s.sel[i]&&(s.sel[i]==='T')===(c.verdict==='True'));
     let pts=allSame?0:correct.filter(Boolean).length; raw+=pts;
     store.attempts[q.id]=s.sel.slice();store.seen[q.id]=(store.seen[q.id]||0)+1;
+    if(s.sel.every(x=>x!==null))markReviewed(q.id);  // every choice answered → auto-mark reviewed
     store.box=store.box||{}; const allRight=!allSame&&correct.every(Boolean);
-    store.box[q.id]=allRight?Math.min(5,(store.box[q.id]||0)+1):1;  // Leitner: promote if fully correct, else reset to 1
+    store.box[q.id]=allRight?Math.min(5,(store.box[q.id]||0)+1):0;  // Leitner: promote if fully correct, else reset to 0 (sorts before a first-time-correct box 1)
     const k=q.part+q.domain;perDom[k]=perDom[k]||{c:0,t:0};perDom[k].t+=q.choices.length;perDom[k].c+=correct.filter(Boolean).length;
   });save();
   const pct=Math.round(raw/max*100);
@@ -307,20 +335,46 @@ function gradeQuiz(state,area){
     <div style="margin-top:8px"><b>Focus next on:</b> ${rec.slice(0,3).map(r=>r.k.replace(/(ML|QF)(\d+)/,'$1 D$2')+' ('+Math.round(r.p*100)+'%)').join(', ')||'—'}</div>
     ${state.some(s=>s.sel.every(x=>x==='T')||s.sel.every(x=>x==='F'))?'<div style="color:var(--red)">⚠ One or more questions had all-5 marked the same → scored 0 (real-exam rule).</div>':''}</div>`);
   area.prepend(head);
-  // reveal answers inline
-  state.forEach((s,qi)=>{const q=s.q;const card=area.querySelectorAll('.card')[qi+1];if(!card)return;
+  store.lastQuiz={at:today(),ids:state.map(s=>s.q.id)};save();
+  // reveal answers inline + per-question result
+  const cards=[...area.querySelectorAll('.card[data-qid]')];
+  state.forEach((s,qi)=>{const q=s.q;const card=cards[qi];if(!card)return;
+    card.querySelector('[data-res]').innerHTML=attPill(q);
     q.choices.forEach((c,i)=>{const ch=card.querySelectorAll('.choice')[i];if(!ch)return;
       const right=s.sel[i]&&(s.sel[i]==='T')===(c.verdict==='True');ch.classList.add(right?'ok':'bad');
-      ch.insertAdjacentHTML('beforeend',`<div><span class="verdict ${c.verdict==='True'?'v-true':'v-false'}">Answer: ${c.verdict}</span> <span class="why">${inline(c.why)}</span></div>`);});
-    card.insertAdjacentHTML('beforeend',noteBox(q.id));});
-  bindNotes(area);window.scrollTo(0,0);
+      ch.insertAdjacentHTML('beforeend',`<div><span class="verdict ${c.verdict==='True'?'v-true':'v-false'}">Answer: ${c.verdict}</span> <span class="why">${inline(c.why)}</span></div>`);});});
+  // one-click: flag every question that wasn't fully correct
+  const missed=state.filter(s=>!attScore(s.q).perfect).map(s=>s.q.id);
+  if(missed.length){const fm=$(`<button class="btn sec" style="margin-top:8px">🚩 Flag all ${missed.length} missed</button>`);
+    fm.onclick=()=>{missed.forEach(id=>{store.flagged[id]=store.flagged[id]||today();
+      const cb=area.querySelector(`input[data-qflag="${id}"]`);if(cb){cb.checked=true;cb.closest('.card').classList.add('flagged');}});
+      save();fm.textContent=`🚩 ${missed.length} flagged ✓`;fm.disabled=true;};
+    head.append(fm);}
+  window.scrollTo(0,0);
 }
-function notesView(){const v=document.getElementById('view');const ids=Object.keys(store.notes);
-  v.innerHTML=`<div class="card"><h3 style="margin-top:0">My Notes (${ids.length})</h3>${ids.length?'':'<div class="mut">No notes yet — add them from Study or after a quiz.</div>'}</div>`;
-  ids.forEach(id=>{const q=D.questions.find(x=>x.id===id);
-    v.append($(`<div class="card"><span class="pill">${id}</span> ${q?'<span class="pill">'+q.part+' D'+ +q.domain+'</span>':''}
-      <div class="q-scenario small mut">${q?q.scenario.slice(0,160)+'…':''}</div>
-      <div class="notebox">${md(store.notes[id])}</div></div>`));});
+function notesView(){const v=document.getElementById('view');v.innerHTML='';
+  // Review list: questions you flagged, wrote a note on, or missed in a quiz (current exam only)
+  const eset=examQidSet();const missed=q=>{const a=attScore(q);return a&&!a.perfect;};
+  const tests={all:q=>store.flagged[q.id]||store.notes[q.id]||missed(q),flagged:q=>store.flagged[q.id],noted:q=>store.notes[q.id],
+    missed,last:q=>((store.lastQuiz||{}).ids||[]).includes(q.id)};
+  const bar=$(`<div class="card row"><b>Review list</b> Show: <select id="rvf"><option value="all">All (flagged + notes + missed)</option>
+    <option value="flagged">🚩 Flagged</option><option value="noted">📝 Has note</option><option value="missed">❌ Missed in a quiz</option>
+    <option value="last">🕘 Last quiz</option></select><span id="rvc" class="small mut"></span>
+    <button class="btn sec" id="rvquiz">Quiz flagged ▸</button></div>`);
+  const sel=bar.querySelector('#rvf');sel.value=(store.ui&&store.ui.reviewFilter)||'all';
+  bar.querySelector('#rvquiz').onclick=()=>{route='quiz';store.ui.route='quiz';save();render();document.getElementById('qmode').value='flagged';};
+  const list=$(`<div></div>`);v.append(bar,list);
+  function draw(){store.ui.reviewFilter=sel.value;
+    const qs=D.questions.filter(q=>eset.has(q.id)&&tests[sel.value](q));
+    bar.querySelector('#rvc').textContent=`${qs.length} questions · 🚩 ${qs.filter(q=>store.flagged[q.id]).length} flagged · 📝 ${qs.filter(q=>store.notes[q.id]).length} notes`;
+    list.innerHTML=qs.length?'':'<div class="card mut">Nothing here yet — flag 🚩 or add a 📝 note on questions in Study or Quiz.</div>';
+    qs.forEach(q=>{const inv=q.polarity==='inverted'?`<span class="pill inv">INVERTED: True = statement is WRONG</span>`:'';
+      const card=$(`<div class="card${store.flagged[q.id]?' flagged':''}" data-qid="${q.id}"><div><span class="pill">#${q.n}</span><span class="pill">${q.id}</span><span class="pill">${q.part} D${+q.domain} ${q.domainName}</span>${inv}${attPill(q)}</div>
+        <div class="q-scenario">${q.scenario}</div>
+        <details class="deep"><summary>Show choices + answers</summary>${q.choices.map((c,i)=>choiceRow(q,i,'review',null)).join('')}</details>
+        ${qTools(q.id)}</div>`);
+      bindTools(card,()=>{if(sel.value==='flagged')draw();});list.append(card);});}
+  sel.onchange=()=>{save();draw();};draw();
 }
 function progressView(){const v=document.getElementById('view');const m=domAcc();const eset=examQidSet();const nQ=examCount();
   const rl=store.reviewLog||{}; const rdays=Object.keys(rl).filter(d=>rl[d]>0).sort().reverse();
