@@ -295,20 +295,35 @@ function quizView(){
       Object.values(byd).forEach(arr=>{shuffle(arr);qs.push(arr[0],arr[1]);});shuffle(qs);}
     else if(mode==='trap'){pool=pool.filter(q=>q.polarity==='inverted'||q.choices.some(c=>ABS.test(c.text)||NEG.test(c.text)));shuffle(pool);qs=pool.slice(0,n);}
     else if(mode==='flagged'){pool=pool.filter(q=>store.flagged&&store.flagged[q.id]);shuffle(pool);qs=pool.slice(0,n);}
-    else if(mode==='smart'){qs=smartPick(pool,n,part);
-      if(qs.length<n){runQuiz(qs,area);area.prepend($(`<div class="card" style="color:var(--amber)">Only ${qs.length} never-reviewed question(s) left for this selection — try another part/week filter, or the Random / Flagged modes.</div>`));return;}}
+    else if(mode==='smart'){const r=smartPick(pool,n,part);qs=r.qs;runQuiz(qs,area);
+      // tag each card with why it was picked + a composition note when fallbacks were needed
+      const tag={fresh:'🆕 fresh',flagged:'🚩 flagged re-see',repeat:'🔁 repeat'};
+      area.querySelectorAll('.card[data-qid]').forEach(c=>{const t=r.tier[c.dataset.qid];c.firstElementChild.insertAdjacentHTML('beforeend',`<span class="pill">${tag[t]}</span>`);});
+      const cnt=k=>qs.filter(q=>r.tier[q.id]===k).length;
+      if(cnt('fresh')<qs.length||qs.length<n)area.prepend($(`<div class="card small" style="color:var(--amber)">Not enough never-reviewed questions for a balanced 1-per-domain quiz → ${cnt('fresh')} fresh · ${cnt('flagged')} flagged (re-see) · ${cnt('repeat')} repeat${qs.length<n?` · only ${qs.length} available for this filter`:''}.</div>`));
+      return;}
     else {shuffle(pool);qs=pool.slice(0,n);}
     runQuiz(qs,area);};
-  // Smart: random, never reviewed (Study) and never quizzed; split n evenly ML/QF (or all from the chosen part),
-  // one question per domain — domains drawn at random so each pick comes from a different domain until a part's domains run out
+  // Smart pick, in priority order (pool already honors Part / covered-week filters, withdrawn excluded):
+  //  1) fresh (never reviewed in Study, never quizzed), balanced: n split evenly ML/QF, 1 per domain, random domains
+  //  2) any remaining fresh questions — even if from the same domain/part
+  //  3) flagged questions (to see them again)
+  //  4) anything else in the pool
+  // Steps 2–4 still spread across domains (round-robin over random domains) as far as possible.
   function smartPick(pool,n,part){
+    const out=[],tier={},used=new Set();
+    const take=(q,t)=>{out.push(q);tier[q.id]=t;used.add(q.id);};
+    const spread=(cands,k,t)=>{const byd={};cands.filter(q=>!used.has(q.id)).forEach(q=>(byd[q.part+q.domain]=byd[q.part+q.domain]||[]).push(q));
+      const doms=Object.values(byd);doms.forEach(shuffle);shuffle(doms);
+      const hit=new Set(out.map(q=>q.part+q.domain));doms.sort((x,y)=>hit.has(x[0].part+x[0].domain)-hit.has(y[0].part+y[0].domain)); // unused domains first
+      let got=0;while(got<k&&doms.some(d=>d.length)){for(const d of doms){if(got>=k)break;if(d.length){take(d.pop(),t);got++;}}}};
     const fresh=pool.filter(q=>!store.reviewed[q.id]&&!store.attempts[q.id]);
-    const parts=part?[part]:['ML','QF'];const out=[];
-    parts.forEach((p,pi)=>{const want=Math.floor(n/parts.length)+(pi<n%parts.length?1:0);
-      const byd={};fresh.filter(q=>q.part===p).forEach(q=>(byd[q.domain]=byd[q.domain]||[]).push(q));
-      const doms=Object.values(byd);doms.forEach(shuffle);shuffle(doms);let got=0;
-      while(got<want&&doms.some(d=>d.length)){for(const d of doms){if(got>=want)break;if(d.length){out.push(d.pop());got++;}}}});
-    shuffle(out);return out;}
+    const parts=part?[part]:['ML','QF'];
+    parts.forEach((p,pi)=>spread(fresh.filter(q=>q.part===p),Math.floor(n/parts.length)+(pi<n%parts.length?1:0),'fresh'));
+    spread(fresh,n-out.length,'fresh');
+    spread(pool.filter(q=>store.flagged[q.id]),n-out.length,'flagged');
+    spread(pool,n-out.length,'repeat');
+    shuffle(out);return {qs:out,tier};}
 }
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}}
 function runQuiz(qs,area){
