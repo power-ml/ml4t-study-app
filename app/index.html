@@ -274,7 +274,7 @@ function quizView(){
   const cfg=$(`<div class="card"><h3 style="margin-top:0">Build a quiz</h3>
     <div class="row">Mode:
       <select id="qmode">
-        <option value="smart">Smart (unseen + missed first)</option>
+        <option value="smart">Smart (fresh: half ML / half QF, 1 per domain, never reviewed)</option>
         <option value="trap">Trap drill (inverted + absolute/negation)</option>
         <option value="flagged">🚩 Flagged (re-review)</option>
         <option value="random">Random</option>
@@ -295,10 +295,20 @@ function quizView(){
       Object.values(byd).forEach(arr=>{shuffle(arr);qs.push(arr[0],arr[1]);});shuffle(qs);}
     else if(mode==='trap'){pool=pool.filter(q=>q.polarity==='inverted'||q.choices.some(c=>ABS.test(c.text)||NEG.test(c.text)));shuffle(pool);qs=pool.slice(0,n);}
     else if(mode==='flagged'){pool=pool.filter(q=>store.flagged&&store.flagged[q.id]);shuffle(pool);qs=pool.slice(0,n);}
-    else if(mode==='smart'){pool.sort((a,b)=>score(a)-score(b));qs=pool.slice(0,n);}
+    else if(mode==='smart'){qs=smartPick(pool,n,part);
+      if(qs.length<n){runQuiz(qs,area);area.prepend($(`<div class="card" style="color:var(--amber)">Only ${qs.length} never-reviewed question(s) left for this selection — try another part/week filter, or the Random / Flagged modes.</div>`));return;}}
     else {shuffle(pool);qs=pool.slice(0,n);}
     runQuiz(qs,area);};
-  function score(q){const b=(store.box||{})[q.id];return b===undefined?-1:b;} // Leitner: unseen(-1) first, then lowest box (recently-missed) first
+  // Smart: random, never reviewed (Study) and never quizzed; split n evenly ML/QF (or all from the chosen part),
+  // one question per domain — domains drawn at random so each pick comes from a different domain until a part's domains run out
+  function smartPick(pool,n,part){
+    const fresh=pool.filter(q=>!store.reviewed[q.id]&&!store.attempts[q.id]);
+    const parts=part?[part]:['ML','QF'];const out=[];
+    parts.forEach((p,pi)=>{const want=Math.floor(n/parts.length)+(pi<n%parts.length?1:0);
+      const byd={};fresh.filter(q=>q.part===p).forEach(q=>(byd[q.domain]=byd[q.domain]||[]).push(q));
+      const doms=Object.values(byd);doms.forEach(shuffle);shuffle(doms);let got=0;
+      while(got<want&&doms.some(d=>d.length)){for(const d of doms){if(got>=want)break;if(d.length){out.push(d.pop());got++;}}}});
+    shuffle(out);return out;}
 }
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}}
 function runQuiz(qs,area){
