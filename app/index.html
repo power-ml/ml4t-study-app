@@ -140,6 +140,7 @@ function noteAnchor(qid){ if(qid){store.ui=store.ui||{};store.ui.anchor=qid;} }
 setInterval(()=>{ if(route!=='study')return; const cards=[...document.querySelectorAll('#list .card[data-qid]')]; const top=cards.find(c=>c.getBoundingClientRect().bottom>80); if(top&&(!store.ui||store.ui.anchor!==top.dataset.qid)){noteAnchor(top.dataset.qid);save();} },180000);
 window.addEventListener('resize',()=>{const h=document.querySelector('header');const b=document.querySelector('#view .row.card');if(h&&b&&getComputedStyle(b).position==='sticky')b.style.top=(h.offsetHeight-1)+'px';},{passive:true});
 
+const studyGuess={};  // Study-mode self-check guesses {qid:[true|false per choice]} — in-memory only
 function attempt(id){return store.attempts[id];}
 function domAcc(){ // per-domain accuracy from attempts
   const m={};EQ().forEach(q=>{const a=attempt(q.id);if(!a)return;const key=q.part+q.domain;
@@ -160,7 +161,8 @@ function choiceRow(q,i,mode,sel){
     const vc=c.verdict==='True'?'v-true':'v-false';
     const ans=`<div><span class="verdict ${vc}">${c.verdict}${q.polarity==='inverted'?' ('+(c.accurate?'accurate':'incorrect')+')':''}</span></div><div class="why">${inline(c.why)}</div>`;
     if(store.ui&&store.ui.revealAll){ reveal=`<div class="ans">${ans}</div>`; }
-    else { cls+=' revealable'; reveal=`<div class="ans" hidden>${ans}</div><div class="tapreveal small mut">tap to reveal answer ▸</div>`; }
+    else { cls+=' revealable'; tf=`<div class="tf"><button data-g="T">True</button><button data-g="F">False</button> <span class="small mut">your call → reveals</span></div>`;
+      reveal=`<div class="ans" hidden>${ans}</div><div class="tapreveal small mut">or tap to reveal answer ▸</div>`; }
   }
   return `<div class="${cls}" data-ci="${i}"><span class="letter">${c.L}.</span>${c.text}${fl}${tf}${reveal}</div>`;
 }
@@ -252,12 +254,26 @@ function studyView(){
       if(cb.checked)store.flagged[id]=today();else delete store.flagged[id];
       cb.closest('.card').classList.toggle('flagged',cb.checked);
       noteAnchor(id);save();updateRevStats();if(flagOnly.querySelector('input').checked)draw();});
-    list.querySelectorAll('.choice.revealable').forEach(ch=>ch.addEventListener('click',()=>{
+    list.querySelectorAll('.choice.revealable').forEach(ch=>ch.addEventListener('click',e=>{
+      if(!ch.classList.contains('revealable'))return;  // already revealed
+      const card0=ch.closest('.card[data-qid]'),q0=D.questions.find(x=>x.id===card0.dataset.qid),ci=+ch.dataset.ci;
+      // self-check: True/False guess before revealing (session-only; doesn't touch quiz attempts/Leitner)
+      const g=e.target.closest('button[data-g]');
+      if(g){const right=(g.dataset.g==='T')===(q0.choices[ci].verdict==='True');
+        (studyGuess[q0.id]=studyGuess[q0.id]||[])[ci]=right;
+        g.className=g.dataset.g==='T'?'selT':'selF';ch.classList.add(right?'ok':'bad');
+        g.insertAdjacentHTML('afterend',` <b class="${right?'v-true':'v-false'}">${right?'✓ you got it':'✗ missed'}</b>`);}
+      const tfb=ch.querySelector('.tf');if(tfb){tfb.querySelectorAll('button').forEach(b=>b.disabled=true);const h=tfb.querySelector('.mut');if(h)h.remove();if(!g)tfb.remove();}
       const a=ch.querySelector('.ans');if(a)a.hidden=false;
       const tr=ch.querySelector('.tapreveal');if(tr)tr.remove();
       ch.classList.remove('revealable');ch.style.cursor='default';
       const card=ch.closest('.card[data-qid]');if(!card)return;const id=card.dataset.qid;
       // all choices revealed → auto-tick "reviewed" (card stays visible even if "hide reviewed" is on)
+      const gs=studyGuess[id]||[];
+      if(!card.querySelector('.choice.revealable')&&gs.some(x=>x!==undefined)&&!card.querySelector('.selfscore')){
+        const n=gs.filter(x=>x!==undefined).length,c=gs.filter(x=>x===true).length;
+        card.querySelectorAll('.choice')[card.querySelectorAll('.choice').length-1].insertAdjacentHTML('afterend',
+          `<div class="selfscore small" style="margin:6px 0"><b>Self-check: ${c}/${n}</b> correct${n<gs.length||n<card.querySelectorAll('.choice').length?` (${card.querySelectorAll('.choice').length-n} revealed without a guess)`:''}</div>`);}
       if(!card.querySelector('.choice.revealable')&&markReviewed(id)){
         const cb=card.querySelector(`input[data-rev="${id}"]`);if(cb)cb.checked=true;card.classList.add('rev');updateRevStats();}
       noteAnchor(id);save();}));
