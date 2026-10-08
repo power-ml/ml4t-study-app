@@ -1,0 +1,348 @@
+{
+  "part": "QF",
+  "domain": "04",
+  "name": "Portfolio Optimization",
+  "concepts": [
+    {
+      "concept": "Portfolio weights, budget constraint, net vs gross exposure, bounds",
+      "summary": "Fully invested weights sum to 1; shorts are negative weights; gross = sum|w|; box bounds define the feasible set.",
+      "questions": [
+        "QF-D4G1Q1",
+        "QF-D4G1Q2",
+        "QF-D4G1Q3"
+      ],
+      "lecture": "01-09 Optimizers: How to Optimize a Portfolio",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "Optimization Basics",
+          "pdfPages": "60-61",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Decision variables = weights; constraints incl. min/max weights; long-only weights cannot exceed 100%. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 7 Framework for Investing: The Capital Asset Pricing Model (CAPM)",
+          "section": "Basic Hedge Fund Strategies in the CAPM Framework",
+          "pdfPages": "44",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Short positions carry negative weights; Sum(|w_i|) = 1.0 normalization."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "Hedge Fund Strategies",
+          "pdfPages": "15",
+          "kind": "recommended",
+          "verified": true,
+          "note": "130/30: gross long 130% via borrowing, 30% short."
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Markowitz mean-variance framework; Grinold & Kahn on long-short construction; Investopedia 'Portfolio Weight', 'Gross Exposure', 'Net Exposure', 'Portfolio Constraints'",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Minimum-variance and global minimum-variance (GMV) portfolio",
+      "summary": "GMV minimizes sigma with no return target; it uses covariance and is usually a blend, not the single lowest-vol asset.",
+      "questions": [
+        "QF-D4G2Q1",
+        "QF-D4G2Q2",
+        "QF-D4G2Q3",
+        "QF-D4G4Q2"
+      ],
+      "lecture": "02-10 Portfolio Optimization and The Efficient Frontier",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "Why Low Correlation Is Prized",
+          "pdfPages": "58-59",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Blended portfolio volatility can be far less than any component (negative correlation). (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "Portfolio Optimization and the Efficient Frontier",
+          "pdfPages": "61-62",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Minimum-risk portfolio for each target return. The term 'GMV' is not used. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 2 Probability: Univariate Models",
+          "section": "2.8.4 Moments of a linear transformation",
+          "pdfPages": "99-100",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Two-asset variance with covariance term (G2Q2). (Printed page = PDF page - 30.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Markowitz (1952); Investopedia 'Minimum Variance Portfolio', 'Efficient Frontier'; CFA curriculum 'Portfolio Risk and Return'",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Maximum-Sharpe (tangency) portfolio and risk-free rate sensitivity",
+      "summary": "Max-Sharpe is the steepest ray to the frontier; changing R_f can flip Sharpe rankings and move the tangency point.",
+      "questions": [
+        "QF-D4G3Q1",
+        "QF-D4G3Q2",
+        "QF-D4G3Q3"
+      ],
+      "lecture": "01-09 Optimizers: How to Optimize a Portfolio",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "Why Low Correlation Is Prized",
+          "pdfPages": "59-60",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Sharpe = slope of ray from origin; the frontier point on the steepest ray has the highest Sharpe. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "Portfolio Optimization and the Efficient Frontier",
+          "pdfPages": "61",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Steepest ray from the origin maximizes return/risk. Book draws ray from the origin (R_f = 0); CAL and borrowing/lending at R_f are not covered. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "Sharpe Ratio: Combining Return and Risk",
+          "pdfPages": "20-21",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Excess return over the risk-free rate in the numerator."
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Sharpe (1966); Investopedia 'Sharpe Ratio', 'Tangency Portfolio', 'Capital Allocation Line', 'Risk-Free Rate'; CFA curriculum",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Efficient frontier and dominance",
+      "summary": "Efficient portfolios have the lowest sigma per return level; dominated ones lose on both; low-correlation assets shift the frontier.",
+      "questions": [
+        "QF-D4G4Q1",
+        "QF-D4G4Q2",
+        "QF-D4G4Q3"
+      ],
+      "lecture": "02-10 Portfolio Optimization and The Efficient Frontier",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "Portfolio Optimization and the Efficient Frontier",
+          "pdfPages": "61-62",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Optimizing for each target return traces the efficient frontier, which offers lower risk than single assets. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "Risk and Return, Again",
+          "pdfPages": "57-58",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Efficient frontier connects assets above and to the left of all others. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Glossary",
+          "section": "Efficient frontier",
+          "pdfPages": "92",
+          "kind": "other-book",
+          "verified": true,
+          "note": "(Book glossary, not an assigned chapter.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Markowitz (1952); Investopedia 'Efficient Frontier', 'Diversification'",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Estimation error and input sensitivity (error maximization)",
+      "summary": "Optimizers amplify noisy return/covariance estimates into extreme, unstable weights; garbage in, garbage out; shrinkage and bounds help.",
+      "questions": [
+        "QF-D4G5Q1",
+        "QF-D4G5Q2",
+        "QF-D4G5Q3",
+        "QF-D4G7Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "A Dynamic Process",
+          "pdfPages": "62",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Expected returns and correlations 'are not stable values'; re-optimize on a recurring basis. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "No Panacea",
+          "pdfPages": "62",
+          "kind": "other-book",
+          "verified": true,
+          "note": "'Outputs are only as good as inputs'; noisy forecasts, biased data. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 4 Statistics",
+          "section": "4.5.2.1 Shrinkage estimate",
+          "pdfPages": "152-153",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Shrinkage (Ledoit-Wolf) yields a well-conditioned covariance estimate. (Printed page = PDF page - 30.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Michaud (1989) 'The Markowitz optimization enigma'; Ledoit & Wolf shrinkage; Investopedia 'Estimation Error', 'Covariance'; CFA curriculum on optimization inputs",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Practical constraints: long-only, leverage, sector caps, turnover",
+      "summary": "Constraints shrink the feasible set; binding caps lower the unconstrained objective; turnover limits phase in rebalancing and cut costs.",
+      "questions": [
+        "QF-D4G6Q1",
+        "QF-D4G6Q2",
+        "QF-D4G6Q3"
+      ],
+      "lecture": "01-09 Optimizers: How to Optimize a Portfolio",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "Optimization Basics",
+          "pdfPages": "60-61",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Constraints such as max 5% in one issue or 10% in sub-investment-grade bonds; long-only sum <= 100%. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "How to Avoid Common Pitfalls When Applying ML in Finance - Implementation gap",
+          "pdfPages": "30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "High turnover raises trading costs; shorting may be infeasible or costly. (Printed page = PDF page - 22.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Glossary",
+          "section": "Constraint",
+          "pdfPages": "91",
+          "kind": "other-book",
+          "verified": true,
+          "note": "(Book glossary, not an assigned chapter.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Glossary",
+          "section": "Rebalancing",
+          "pdfPages": "94",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Turnover-cap formula (half the sum of absolute weight changes) is not in any book. (Book glossary, not an assigned chapter.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Grinold & Kahn, Active Portfolio Management; Investopedia 'Portfolio Constraints', 'Binding Constraint', 'Portfolio Turnover'",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "In-sample vs out-of-sample evaluation and look-ahead bias",
+      "summary": "Weights fit and scored on the same data overstate performance; ex post optimal weights use unavailable information.",
+      "questions": [
+        "QF-D4G7Q1",
+        "QF-D4G7Q2",
+        "QF-D4G7Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "How to Avoid Common Pitfalls When Applying ML in Finance - Overfitting; Lookahead bias/data leakage",
+          "pdfPages": "28-30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Great backtest that fails out-of-sample; use data only when historically available; chronological train/validation/test splits. (Printed page = PDF page - 22.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "Cautions About Back Testing",
+          "pdfPages": "77-78",
+          "kind": "other-book",
+          "verified": true,
+          "note": "'Peeking' into the future, data mining; cross-validate on separate subsets of time or stocks. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 5 Resampling Methods",
+          "section": "5.1.1 The Validation Set Approach",
+          "pdfPages": "210-212",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Pool-cited 'ISLR ch.5 (validation) by analogy' -- verified: hold-out validation estimates test error. Random split; finance needs a chronological split. (Printed page = PDF page - 8.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Investopedia 'Backtesting', 'Overfitting', 'Look-Ahead Bias'; Grinold & Kahn on realistic implementation; Michaud (1989); Ledoit & Wolf",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    }
+  ],
+  "gaps": "Capital Allocation Line / two-fund separation with a nonzero risk-free rate, the term 'global minimum-variance', and turnover-constraint arithmetic are not in any book in books/ (WHFRD Ch. 10 draws the Sharpe ray from the origin). These rely on pool citations."
+}

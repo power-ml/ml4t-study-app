@@ -1,0 +1,383 @@
+{
+  "part": "QF",
+  "domain": "02",
+  "name": "Risk and Risk-Adjusted Performance",
+  "concepts": [
+    {
+      "concept": "Volatility as dispersion (variance / standard deviation)",
+      "summary": "Sigma measures spread around the mean; equal averages can hide different risk; outliers inflate variance and are not deleted arbitrarily.",
+      "questions": [
+        "QF-D2G1Q1",
+        "QF-D2G1Q2",
+        "QF-D2G1Q3"
+      ],
+      "lecture": "01-04 Statistical Analysis of Time Series",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "How Hedge Funds Are Evaluated (III): Risk",
+          "pdfPages": "19-20",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Risk = volatility; standard deviation of per-period returns; Dow vs fund with similar returns but different volatility (Fig. 2.1)."
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 2 Probabilities",
+          "section": "2.2.2 Expectations and covariances",
+          "pdfPages": "55-56",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Defines var[x]=E[x^2]-E[x]^2 and cov[x,y]; independent -> covariance 0. (Week-2 recommended reading; printed page = PDF page - 20.)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 2 Probability: Univariate Models",
+          "section": "2.2.5.2 Variance of a distribution",
+          "pdfPages": "70-71",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Variance and standard deviation definitions; V[aX+b] = a^2 V[X]. (Printed page = PDF page - 30.)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 2 Probability: Univariate Models",
+          "section": "2.7.1 Student t distribution",
+          "pdfPages": "91-92",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Gaussian is sensitive to outliers; heavy-tailed alternative (supports G1Q3). (Printed page = PDF page - 30.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Glossary",
+          "section": "Standard deviation; Variance; Volatility",
+          "pdfPages": "95-96",
+          "kind": "other-book",
+          "verified": true,
+          "note": "(Book glossary, not an assigned chapter.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Investopedia 'Standard Deviation', 'Volatility', 'Variance', 'Outlier'; CFA curriculum - measures of dispersion, sample statistics",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Drawdown and path-dependent downside risk",
+      "summary": "Drawdown is peak-to-trough loss from the high-water mark; low sigma can still hide a severe drawdown.",
+      "questions": [
+        "QF-D2G2Q1",
+        "QF-D2G2Q2",
+        "QF-D2G2Q3",
+        "QF-D2G6Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "How Hedge Funds Are Evaluated (III): Risk",
+          "pdfPages": "20",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Drawdown defined as maximum drop from peak to trough, as % of peak, supplementing sigma."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "Sharpe Ratio: Combining Return and Risk",
+          "pdfPages": "21",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Drawdown and Sortino ratios measure exposure to downdrafts; relevant to hedge funds."
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Investopedia 'Maximum Drawdown', 'Drawdown'; CFA curriculum - path-dependent / downside risk, liquidity risk",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Sharpe ratio and its annualization",
+      "summary": "Sharpe = (R_p - R_f)/sigma_p; compare risk-adjusted, not raw return; annualize by multiplying by sqrt(periods).",
+      "questions": [
+        "QF-D2G3Q1",
+        "QF-D2G3Q2",
+        "QF-D2G6Q2"
+      ],
+      "lecture": "01-07 Sharpe Ratio and Other Portfolio Statistics",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "Sharpe Ratio: Combining Return and Risk",
+          "pdfPages": "20-21",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Formula with risk-free excess return; S&P example (10%-2.5%)/15% = 0.5. sqrt(252) annualization is not in WHFRD."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "Why Low Correlation Is Prized",
+          "pdfPages": "59",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Sharpe = slope of a ray from the origin on the risk/return plot. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 2 Probability: Univariate Models",
+          "section": "2.2.5.2 Variance of a distribution",
+          "pdfPages": "70-71",
+          "kind": "other-book",
+          "verified": true,
+          "note": "V[aX] = a^2 V[X]: leverage scales sigma linearly (G6Q2); variance of a sum of independent rv's adds (sqrt-time). (Printed page = PDF page - 30.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Investopedia 'Sharpe Ratio' (incl. annualizing), 'Leverage'; CFA curriculum - risk-adjusted performance, return/volatility scaling",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Limits of sigma and Sharpe: skew, fat tails, symmetry",
+      "summary": "Sigma treats upside and downside alike; skewed, fat-tailed strategies (short vol) can show high Sharpe and hide crash risk.",
+      "questions": [
+        "QF-D2G3Q3",
+        "QF-D2G7Q1"
+      ],
+      "lecture": "01-06 Histograms and Scatter Plots",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "How Hedge Funds Are Evaluated (III): Risk",
+          "pdfPages": "20",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Standard deviation 'does not differentiate upward deviations ... from downward deviations'."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "No Panacea",
+          "pdfPages": "62",
+          "kind": "other-book",
+          "verified": true,
+          "note": "'Standard deviation of return is not the only measure of risk'; 'Beware tail risk' (LTCM, black swans, fatter tails). (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 2 Probability: Univariate Models",
+          "section": "2.7.1 Student t distribution",
+          "pdfPages": "91-92",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Heavy tails: more probability mass in the tails than a Gaussian. (Printed page = PDF page - 30.)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 2 Probability: Univariate Models",
+          "section": "2.2.6 Limitations of summary statistics *",
+          "pdfPages": "73",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Identical mean/variance/correlation can come from very different distributions (Anscombe's quartet). (Printed page = PDF page - 30.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Investopedia 'Sharpe Ratio' (limitations), 'Standard Deviation', 'Downside Deviation'; CFA curriculum - skewness/kurtosis, tail risk",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Sortino ratio and downside deviation",
+      "summary": "Sortino = (R - MAR)/downside deviation; penalizes only shortfalls; unstable when few observations fall below target.",
+      "questions": [
+        "QF-D2G4Q1",
+        "QF-D2G4Q2",
+        "QF-D2G4Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "How Hedge Funds Are Evaluated (III): Risk",
+          "pdfPages": "20",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Sortino ratio 'focuses on the downside' vs Sharpe. Mention only: no formula, MAR, or downside-deviation calculation."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "No Panacea",
+          "pdfPages": "62",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Sortino ratio / downside capture may better reflect what risk means to you. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Investopedia 'Sortino Ratio', 'Downside Deviation' (incl. limitations); CFA curriculum - sampling/estimation risk",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Information ratio and tracking error",
+      "summary": "IR = active (excess-over-benchmark) return / tracking error; measures consistency of active skill; Sharpe uses R_f and total sigma.",
+      "questions": [
+        "QF-D2G5Q1",
+        "QF-D2G5Q2",
+        "QF-D2G5Q3"
+      ],
+      "lecture": "02-09 The Fundamental Law of Active Portfolio Management",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 9 The Fundamental Law of Active Portfolio Management",
+          "section": "A Few Definitions - Information Ratio",
+          "pdfPages": "53",
+          "kind": "other-book",
+          "verified": true,
+          "note": "IR = excess return per period / std of excess return; IR(alpha) = mean(alpha)/std(alpha). Book defines excess via CAPM alpha, not an explicit benchmark tracking error. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 9 The Fundamental Law of Active Portfolio Management",
+          "section": "Breadth as More Frequent Trading",
+          "pdfPages": "52",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Return-to-risk ratio 'similar to the Sharpe ratio' but without deducting a risk-free return; called the information ratio. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Grinold & Kahn, Active Portfolio Management (Information Ratio); Investopedia 'Information Ratio', 'Tracking Error', 'Sharpe Ratio'",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Investor-specific risk-return tradeoffs and leverage",
+      "summary": "Higher return does not automatically win; leverage scales return and sigma; suitability depends on constraints and drawdown tolerance.",
+      "questions": [
+        "QF-D2G6Q1",
+        "QF-D2G6Q2",
+        "QF-D2G6Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "Sharpe Ratio: Combining Return and Risk",
+          "pdfPages": "20",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Unavoidable risk-return trade-off; choose lowest risk for a given return or highest return for a given risk."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "Risk and Return, Again",
+          "pdfPages": "57-58",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Risk and return trade-off as a fundamental assumption. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 7 Framework for Investing: The Capital Asset Pricing Model (CAPM)",
+          "section": "Basic Hedge Fund Strategies in the CAPM Framework",
+          "pdfPages": "45",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Leverage magnifies both gains and losses."
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "CFA curriculum - IPS, objectives & constraints, risk tolerance/ability, leverage effects; Investopedia 'Risk-Return Tradeoff', 'Risk Tolerance', 'Leverage'",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Sample-period selection and backtest overfitting",
+      "summary": "Cherry-picked windows and many tried variants inflate Sharpe and understate drawdown; in-sample metrics are estimates.",
+      "questions": [
+        "QF-D2G7Q2",
+        "QF-D2G7Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "How to Avoid Common Pitfalls When Applying ML in Finance - Overfitting; Replicability",
+          "pdfPages": "28-29",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Fantastic backtest that fails out-of-sample; document all tested iterations ('research graveyards'). (Printed page = PDF page - 22.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "Cautions About Back Testing",
+          "pdfPages": "77-78",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Peeking, data mining fallacy, changing markets; cross-validate on subsets. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "No Panacea",
+          "pdfPages": "62",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Portfolios built on a few decades of data omit black-swan events. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Investopedia 'Sharpe Ratio' (limitations), 'Backtesting', 'Fat Tail', 'Maximum Drawdown'; CFA curriculum - survivorship/selection, data-mining bias",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    }
+  ],
+  "gaps": "Sortino ratio, downside deviation and MAR are only named in WHFRD (no formula). The sqrt(252) Sharpe annualization is not stated in any book (course lectures only). Tracking-error-based IR is defined via CAPM alpha in WHFRD Ch. 9 (not benchmark tracking error). Investor suitability/IPS has no book coverage. These rely on pool citations."
+}

@@ -1,0 +1,487 @@
+{
+  "part": "QF",
+  "domain": "10",
+  "name": "Quantitative Strategy Design and Evaluation",
+  "concepts": [
+    {
+      "concept": "Hypothesis-driven signal design vs. data mining",
+      "summary": "Start from a falsifiable economic mechanism; correlations found by search (e.g., ticker letters) are likely chance.",
+      "questions": [
+        "QF-D10G1Q1",
+        "QF-D10G1Q2",
+        "QF-D10G1Q3"
+      ],
+      "lecture": "03-01 How ML is Used at a Hedge Fund",
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 2 Alternative Data and AI in Investment Research",
+          "section": "Where Can AI and Alternative Data Be Additive? Investment Research Use Cases",
+          "pdfPages": "42",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; AI/alt-data 'do not define the investment thesis but help prove or disprove it'"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "How to Avoid Common Pitfalls — Overfitting (feature engineering)",
+          "pdfPages": "28",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; CEO last-name initial is not a sensible feature; SHAP 'smell tests'"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "Find relationships from the data deluge",
+          "pdfPages": "26",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; data mining risks nonrepeatable, nonreplicable relationships"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "Cautions About Back Testing — Data mining",
+          "pdfPages": "77",
+          "kind": "other-book",
+          "verified": true,
+          "note": "'If you cannot identify any plausible theory ... a data mining anomaly'"
+        },
+        {
+          "book": "Lopez de Prado, AFML (backtest overfitting, deflated Sharpe); Investopedia 'Data mining bias'",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "From forecast to trade: net edge vs. costs, hit rate vs. P&L, position sizing",
+      "summary": "Trade only when expected move beats costs; P&L depends on payoff size, not hit rate; size by risk.",
+      "questions": [
+        "QF-D10G2Q1",
+        "QF-D10G2Q2",
+        "QF-D10G2Q3"
+      ],
+      "lecture": "02-09 The Fundamental Law of Active Portfolio Management",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 9 The Fundamental Law of Active Portfolio Management",
+          "section": "Breadth as More Frequent Trading",
+          "pdfPages": "51-52",
+          "kind": "other-book",
+          "verified": true,
+          "note": "expected return = Σ prob × reward; bet sizing changes risk (1 × $1,000 vs 1,000 × $1)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 11 Event Studies",
+          "section": "(chapter opening) conviction is not enough",
+          "pdfPages": "64",
+          "kind": "other-book",
+          "verified": true,
+          "note": "must forecast by how much price will change, and whether it is already priced in"
+        },
+        {
+          "book": "Grinold & Kahn (signal-to-trade, portfolio construction); Lopez de Prado AFML (meta-labeling); Investopedia 'Win rate vs. risk/reward'",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Benchmark selection and return attribution",
+      "summary": "Compare with the investable passive alternative; separate static tilts/factor exposure from timing skill via matched benchmarks or regression.",
+      "questions": [
+        "QF-D10G3Q1",
+        "QF-D10G3Q3"
+      ],
+      "lecture": "02-01 So You Want to be a Hedge Fund Manager",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "How Hedge Funds Are Evaluated (II): Return Versus Benchmark (Relative Return)",
+          "pdfPages": "18-19",
+          "kind": "recommended",
+          "verified": true,
+          "note": "benchmark = nonmanaged relevant comparator; narrower or weighted-index benchmarks for narrower strategies"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "(chapter opening) back-test analysis engine vs benchmark",
+          "pdfPages": "76",
+          "kind": "other-book",
+          "verified": true,
+          "note": "compare strategy to buy-and-hold S&P 500; risk-adjusted comparison"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 7 Framework for Investing: The Capital Asset Pricing Model (CAPM)",
+          "section": "Implications of CAPM",
+          "pdfPages": "43",
+          "kind": "recommended",
+          "verified": true,
+          "note": "disaggregate into beta (market) and alpha (skill)"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "Explainability and performance attribution",
+          "pdfPages": "30-31",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; decompose ML portfolio return into linear / interaction / nonlinear components"
+        },
+        {
+          "book": "Grinold & Kahn (benchmarks, attribution, factor models); CFA performance attribution",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "In-sample vs. out-of-sample discipline (walk-forward validation)",
+      "summary": "Tuning and reporting on the same years overstates performance; hold out later data or walk forward before claiming results.",
+      "questions": [
+        "QF-D10G3Q2"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "Cautions About Back Testing",
+          "pdfPages": "77-78",
+          "kind": "other-book",
+          "verified": true,
+          "note": "peeking into the future; data-mining fallacy; changing market; cross-validate on separate subsets (p.78)"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "How to Avoid Common Pitfalls When Applying ML in Finance — Overfitting",
+          "pdfPages": "28",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; 'fantastic backtest, but out-of-sample ... will not live up to expectations'"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "2.2.1 Measuring the Quality of Fit",
+          "pdfPages": "38-41",
+          "kind": "recommended",
+          "verified": true,
+          "note": "p.40: small training MSE but large test MSE = overfitting; patterns 'caused by random chance'"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "1.2.3 Overfitting and generalization",
+          "pdfPages": "42-43",
+          "kind": "recommended",
+          "verified": true,
+          "note": "generalization gap = population risk − empirical risk; use a held-out test set"
+        },
+        {
+          "book": "Investopedia 'In-sample vs. out-of-sample', 'Walk-forward optimization'; Lopez de Prado AFML (purging/embargo)",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Transaction costs, turnover and gross vs. net returns",
+      "summary": "Cost ≈ turnover × AUM × cost rate; small edges at high turnover vanish net; use no-trade bands.",
+      "questions": [
+        "QF-D10G4Q1",
+        "QF-D10G4Q2",
+        "QF-D10G4Q3"
+      ],
+      "lecture": "02-02 Market Mechanics",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "(chapter opening) four components of back testing",
+          "pdfPages": "76",
+          "kind": "other-book",
+          "verified": true,
+          "note": "market simulator should include commissions and market-impact costs"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 4 Market-Making Mechanics",
+          "section": "Market Spreads",
+          "pdfPages": "25",
+          "kind": "recommended",
+          "verified": true,
+          "note": "bid-ask spread as a trading cost"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "How Hedge Funds Are Evaluated (II): Return Versus Benchmark (Relative Return)",
+          "pdfPages": "18",
+          "kind": "recommended",
+          "verified": true,
+          "note": "frequent trading and fees are a considerable drag"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "Implementation gap",
+          "pdfPages": "30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; ML's high turnover increases trading cost"
+        },
+        {
+          "book": "Grinold & Kahn (net alpha, rebalancing); Investopedia 'Transaction costs', 'Turnover ratio', 'Market impact'",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Capacity, market impact and crowding",
+      "summary": "Larger AUM moves prices against you, eroding net edge; shared signals crowd and cause correlated exits in stress.",
+      "questions": [
+        "QF-D10G5Q1",
+        "QF-D10G5Q2",
+        "QF-D10G5Q3"
+      ],
+      "lecture": "02-02 Market Mechanics",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 4 Market-Making Mechanics",
+          "section": "Matching Orders: The Order Book",
+          "pdfPages": "27-28",
+          "kind": "recommended",
+          "verified": true,
+          "note": "large order walks the book, moving price down the demand curve (impact)"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "Implementation gap",
+          "pdfPages": "30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; small/micro-cap alpha too costly or not enough shares at scale"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "(chapter opening) market impact",
+          "pdfPages": "76",
+          "kind": "other-book",
+          "verified": true,
+          "note": "market impact = price effect of our own increased trading volume"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 15 Hedge Fund Case Study: Long Term Capital Management (LTCM)",
+          "section": "The Fall",
+          "pdfPages": "81-82",
+          "kind": "other-book",
+          "verified": true,
+          "note": "forced, simultaneous deleveraging magnified spreads"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 3 An Illustrative Hedge Fund Strategy: Arbitrage",
+          "section": "(chapter text)",
+          "pdfPages": "23",
+          "kind": "other-book",
+          "verified": true,
+          "note": "opportunities rapidly competed away by other arbitrageurs"
+        },
+        {
+          "book": "Lopez de Prado AFML (strategy capacity); Investopedia 'Crowded trade', 'Liquidity risk'",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Leverage, gross/net exposure and stop-loss risk controls",
+      "summary": "Leverage magnifies gains and losses and adds margin risk; market-neutral net can hide large gross; stops suffer gaps/slippage/whipsaw.",
+      "questions": [
+        "QF-D10G6Q1",
+        "QF-D10G6Q2",
+        "QF-D10G6Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 7 Framework for Investing: The Capital Asset Pricing Model (CAPM)",
+          "section": "Basic Hedge Fund Strategies in the CAPM Framework",
+          "pdfPages": "45",
+          "kind": "recommended",
+          "verified": true,
+          "note": "'Leverage magnifies both gains and losses'; 20–30× leverage"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "Hedge Fund Strategies",
+          "pdfPages": "15",
+          "kind": "recommended",
+          "verified": true,
+          "note": "130/30: gross 160%, net 100%"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 4 Market-Making Mechanics",
+          "section": "Types of Order (Intermediate) — Stop orders",
+          "pdfPages": "26",
+          "kind": "recommended",
+          "verified": true,
+          "note": "stop-loss and trailing stops for risk management"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 16 Opportunities and Challenges for Hedge Funds",
+          "section": "Front-Running",
+          "pdfPages": "87-88",
+          "kind": "other-book",
+          "verified": true,
+          "note": "stop width vs volatility; HFT can trigger resting stops"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 15 Hedge Fund Case Study: Long Term Capital Management (LTCM)",
+          "section": "The Rise; The Fall",
+          "pdfPages": "80-82",
+          "kind": "other-book",
+          "verified": true,
+          "note": "LTCM up to 30:1 leverage, margin calls"
+        },
+        {
+          "book": "Investopedia 'Leverage', 'Margin call', 'Gross/Net exposure', 'Stop-loss order', 'Slippage'; CFA risk management",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Deployment and monitoring: regime drift, backtest vs. live execution, IC decay and retirement",
+      "summary": "Paper-trade/stage rollout; compare against attainable post-signal prices; monitor IC, costs, regimes with predefined retirement rules.",
+      "questions": [
+        "QF-D10G7Q1",
+        "QF-D10G7Q2",
+        "QF-D10G7Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "(chapter opening) forward test / paper trades",
+          "pdfPages": "76",
+          "kind": "other-book",
+          "verified": true
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 9 The Fundamental Law of Active Portfolio Management",
+          "section": "A Few Definitions — Information Coefficient",
+          "pdfPages": "53",
+          "kind": "other-book",
+          "verified": true,
+          "note": "IC = correlation of predictions with actual outcomes"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 9 The Fundamental Law of Active Portfolio Management",
+          "section": "The Fundamental Law in Full; Implications",
+          "pdfPages": "54",
+          "kind": "other-book",
+          "verified": true,
+          "note": "IR = IC × √breadth"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 11 Event Studies",
+          "section": "Assessing and Using Event Studies",
+          "pdfPages": "67",
+          "kind": "other-book",
+          "verified": true,
+          "note": "human sanity checks on automated trading systems"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "Unique Challenges — Stationarity vs. adaptive market, irrationality",
+          "pdfPages": "27",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "Implementation gap",
+          "pdfPages": "30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; backtest trades infeasible in live production"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 2 Alternative Data and AI in Investment Research",
+          "section": "Where Does Data Analysis Come In? (analysis spectrum)",
+          "pdfPages": "47",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; breakpoints (COVID-19) require continuous human reassessment of models"
+        },
+        {
+          "book": "Grinold & Kahn (IC, fundamental law); Lopez de Prado AFML (strategy decay, deflated Sharpe); Investopedia 'Implementation shortfall', 'Paper trading'",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    }
+  ],
+  "gaps": "Turnover-to-cost arithmetic, strategy capacity curves, meta-labeling/return-weighted objectives, walk-forward optimization, implementation shortfall and formal signal-retirement governance are not covered explicitly in books/ (WHFRD Ch.14 and Handbook Ch.1 'Implementation gap' give only qualitative treatment)."
+}

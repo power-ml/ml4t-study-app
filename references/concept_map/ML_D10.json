@@ -1,0 +1,515 @@
+{
+  "part": "ML",
+  "domain": "10",
+  "name": "Model Selection & Practical Tradeoffs",
+  "concepts": [
+    {
+      "concept": "No free lunch: match the model to problem structure",
+      "summary": "No learner is universally best; linear suits proportional effects, trees suit thresholds/interactions; validate out-of-sample.",
+      "questions": [
+        "ML-D10G1Q1",
+        "ML-D10G1Q2",
+        "ML-D10G8Q1",
+        "ML-D10G8Q3"
+      ],
+      "lecture": "Decision Trees",
+      "sources": [
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.2.4 No free lunch theorem",
+          "pdfPages": "43-44",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.1.3 Trees Versus Linear Models",
+          "pdfPages": "348-349",
+          "kind": "recommended",
+          "verified": true,
+          "note": "'Which model is better? It depends on the problem at hand', p.348"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.5 Comparison of Linear Regression with K-Nearest Neighbors",
+          "pdfPages": "120-124",
+          "kind": "recommended",
+          "verified": true,
+          "note": "parametric wins when its form is close to the true f, p.121"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 9 Regularization",
+          "section": "§9.1.2 No free lunch theorem",
+          "pdfPages": "272-273",
+          "kind": "other-book",
+          "verified": true
+        },
+        {
+          "book": "concept",
+          "chapter": null,
+          "section": "No-Free-Lunch theorem / Occam's razor",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Flexibility vs limited data and high dimensionality",
+      "summary": "Many features or adaptive choices on few observations overfit; perfect training fit is weak evidence of generalization.",
+      "questions": [
+        "ML-D10G1Q3",
+        "ML-D10G5Q1",
+        "ML-D10G5Q2"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.5 Comparison of Linear Regression with K-Nearest Neighbors",
+          "pdfPages": "120-124",
+          "kind": "recommended",
+          "verified": true,
+          "note": "curse of dimensionality, p.124"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.2.2 The Bias-Variance Trade-Off",
+          "pdfPages": "41-44",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments (Chen & Zhou)",
+          "section": "Stationarity vs. adaptive market; Small vs. big data",
+          "pdfPages": "27",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook outline in _book_tocs.md has only _Hlk anchors; chapter (PDF p.24-40, Contents p.7) and section heading verified from PDF text; small financial data; simpler algorithm on more data often outperforms, p.27"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.4 Considerations in High Dimensions (6.4.2 What Goes Wrong; 6.4.4 Interpreting Results — multicollinearity)",
+          "pdfPages": "270-275",
+          "kind": "other-book",
+          "verified": true,
+          "note": "ISLP chapter not on the course reading list; irrelevant features drive training MSE to 0 while test MSE rises, p.272"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 16 Exemplar-based Methods",
+          "section": "§16.1 K nearest neighbor (KNN) classification (16.1.2 curse of dimensionality; 16.1.3 reducing speed and memory)",
+          "pdfPages": "577-581",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section); 'KNN classifiers store all the training data' p.580"
+        },
+        {
+          "book": "ISLR",
+          "chapter": null,
+          "section": "ch.6 (regularization/selection); ch.8",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Accuracy vs interpretability under governance",
+      "summary": "A small accuracy gain may not justify losing explainability when decisions must be justified; transparency doesn't certify data.",
+      "questions": [
+        "ML-D10G2Q1",
+        "ML-D10G2Q2",
+        "ML-D10G2Q3",
+        "ML-D10G8Q1"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.1.4 Advantages and Disadvantages of Trees",
+          "pdfPages": "348-349",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments (Chen & Zhou)",
+          "section": "Explainability and performance attribution",
+          "pdfPages": "30-31",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook outline in _book_tocs.md has only _Hlk anchors; chapter (PDF p.24-40, Contents p.7) and section heading verified from PDF text"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.1.3 The Trade-Off Between Prediction Accuracy and Model Interpretability",
+          "pdfPages": "33-35",
+          "kind": "other-book",
+          "verified": true,
+          "note": "ISLP chapter not on the course reading list (course assigns §2.2 only); Fig. 2.7 flexibility vs interpretability, p.34"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 18 Trees, Forests, Bagging, and Boosting",
+          "section": "§18.6 Interpreting tree ensembles (feature importance)",
+          "pdfPages": "650-652",
+          "kind": "other-book",
+          "verified": true
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Model interpretation",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        },
+        {
+          "book": "concept",
+          "chapter": null,
+          "section": "adverse-action explainability; model risk management",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Training vs inference cost: lazy vs eager learners",
+      "summary": "Training and query costs are decoupled; KNN stores data and pays at query time, parametric models predict cheaply.",
+      "questions": [
+        "ML-D10G3Q1",
+        "ML-D10G3Q2",
+        "ML-D10G3Q3",
+        "ML-D10G5Q2",
+        "ML-D10G6Q3"
+      ],
+      "lecture": "03-02 Regression",
+      "sources": [
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 16 Exemplar-based Methods",
+          "section": "§16.1 K nearest neighbor (KNN) classification (16.1.2 curse of dimensionality; 16.1.3 reducing speed and memory)",
+          "pdfPages": "577-581",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section); 'KNN classifiers store all the training data' p.580; exemplar/memory-based: keeps training examples at test time p.577; 'KNN classifiers store all the training data' p.580"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 18 Trees, Forests, Bagging, and Boosting",
+          "section": "§18.1 CART — 18.1.5 Pros and cons (interpretable, monotone-transform invariant, unstable, axis-parallel)",
+          "pdfPages": "636-638",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section); trees are fast to fit and scale well, p.637"
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Computational performance; Nearest Neighbors query complexity",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        },
+        {
+          "book": "ISLR",
+          "chapter": null,
+          "section": "§2.2.3 (cited for KNN inference cost)",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "CITATION PROBLEM: ISLP §2.2.3 (p.44-49) discusses KNN flexibility only, not train/inference cost"
+        }
+      ]
+    },
+    {
+      "concept": "Sensitivity to noise and data quality",
+      "summary": "Least squares is pulled by extreme targets; KNN is scale-sensitive; deep trees are unstable; bagging cannot fix systematic corruption.",
+      "questions": [
+        "ML-D10G4Q1",
+        "ML-D10G4Q2",
+        "ML-D10G4Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.3.3 Potential Problems (4. Outliers, 5. High Leverage, 6. Collinearity)",
+          "pdfPages": "109-118",
+          "kind": "recommended",
+          "verified": true,
+          "note": "4. Outliers p.112-113 (fit shifts with an outlier, Fig. 3.12 p.113)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 4 Classification",
+          "section": "§4.7.6 K-Nearest Neighbors (lab: standardize because KNN depends on scale)",
+          "pdfPages": "192-197",
+          "kind": "other-book",
+          "verified": true,
+          "note": "ISLP chapter not on the course reading list; scale discussion on p.194; KNN depends on variable scale → standardize, p.194"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 11 Linear Regression",
+          "section": "§11.6 Robust linear regression",
+          "pdfPages": "432-435",
+          "kind": "other-book",
+          "verified": true,
+          "note": "squared error penalizes outliers quadratically, p.432"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 18 Trees, Forests, Bagging, and Boosting",
+          "section": "§18.1 CART — 18.1.5 Pros and cons (interpretable, monotone-transform invariant, unstable, axis-parallel)",
+          "pdfPages": "636-638",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section); trees robust to input outliers but unstable, p.637-638"
+        },
+        {
+          "book": "ESL",
+          "chapter": null,
+          "section": "ch.10 robust loss functions",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Preprocessing — StandardScaler",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Data relevance over raw sample size",
+      "summary": "Row count overstates information when much data comes from obsolete regimes; effective relevance matters, not just count.",
+      "questions": [
+        "ML-D10G5Q2",
+        "ML-D10G5Q3",
+        "ML-D10G7Q1"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments (Chen & Zhou)",
+          "section": "Stationarity vs. adaptive market; Small vs. big data",
+          "pdfPages": "27",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook outline in _book_tocs.md has only _Hlk anchors; chapter (PDF p.24-40, Contents p.7) and section heading verified from PDF text; financial markets are nonstationary — they adapt and change, p.27"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Chapter 14: Back Testing Strategies",
+          "section": "Cautions About Back Testing (peeking into the future, data mining, a changing market; cross validate on subsets)",
+          "pdfPages": "77-78",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Ch. 14 is not an assigned WHFRD chapter (assigned: 2,4,5,7,8,12); 'a changing market', p.77-78"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 4 Statistics",
+          "section": "§4.5 Regularization — 4.5.7 Using more data",
+          "pdfPages": "157-158",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section)"
+        },
+        {
+          "book": "concept",
+          "chapter": null,
+          "section": "regime shift / non-stationarity; effective sample size",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Real-time latency constraints",
+      "summary": "Models violating the end-to-end latency budget at peak/tail load are unusable; requirements are strategy-specific.",
+      "questions": [
+        "ML-D10G3Q1",
+        "ML-D10G6Q1",
+        "ML-D10G6Q2",
+        "ML-D10G6Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 16 Exemplar-based Methods",
+          "section": "§16.1 K nearest neighbor (KNN) classification (16.1.2 curse of dimensionality; 16.1.3 reducing speed and memory)",
+          "pdfPages": "577-581",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section); 'KNN classifiers store all the training data' p.580; 16.1.3 speed/memory cost of KNN, p.580 (partial coverage only)"
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Computational performance (latency, throughput)",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        },
+        {
+          "book": "concept",
+          "chapter": null,
+          "section": "deployment constraints, tail latency, match latency budget to holding period",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Production robustness and stability",
+      "summary": "Average backtest can hide regime failures; prefer stable predictions (bagging) and investigate unstable coefficients before reliance.",
+      "questions": [
+        "ML-D10G4Q3",
+        "ML-D10G7Q1",
+        "ML-D10G7Q2",
+        "ML-D10G7Q3"
+      ],
+      "lecture": "03-04 Ensemble Learners - Bagging and Boosting",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.2.1 Bagging (incl. Out-of-Bag Error Estimation, Variable Importance)",
+          "pdfPages": "350-353",
+          "kind": "recommended",
+          "verified": true,
+          "note": "bagging reduces variance of trees, p.350-351"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.3.3 Potential Problems (4. Outliers, 5. High Leverage, 6. Collinearity)",
+          "pdfPages": "109-118",
+          "kind": "recommended",
+          "verified": true,
+          "note": "6. Collinearity reduces accuracy of coefficient estimates, p.115-118"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.4 Considerations in High Dimensions (6.4.2 What Goes Wrong; 6.4.4 Interpreting Results — multicollinearity)",
+          "pdfPages": "270-275",
+          "kind": "other-book",
+          "verified": true,
+          "note": "ISLP chapter not on the course reading list; 6.4.4 extreme multicollinearity in high dimensions, p.274"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 18 Trees, Forests, Bagging, and Boosting",
+          "section": "§18.1 CART — 18.1.5 Pros and cons (interpretable, monotone-transform invariant, unstable, axis-parallel)",
+          "pdfPages": "636-638",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section)"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments (Chen & Zhou)",
+          "section": "Stationarity vs. adaptive market; Small vs. big data",
+          "pdfPages": "27",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook outline in _book_tocs.md has only _Hlk anchors; chapter (PDF p.24-40, Contents p.7) and section heading verified from PDF text"
+        },
+        {
+          "book": "Grinold & Kahn, Active Portfolio Management",
+          "chapter": null,
+          "section": "turnover / exposure stability",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        },
+        {
+          "book": "concept",
+          "chapter": null,
+          "section": "regime-segmented evaluation, monitoring, fallback",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Comparative reasoning across linear, KNN, tree",
+      "summary": "Weigh accuracy, speed, stability and inspectability; small validation-set winners are noisy; improve the system rather than crown one algorithm.",
+      "questions": [
+        "ML-D10G8Q1",
+        "ML-D10G8Q2",
+        "ML-D10G8Q3"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.1.3 Trees Versus Linear Models",
+          "pdfPages": "348-349",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.5 Comparison of Linear Regression with K-Nearest Neighbors",
+          "pdfPages": "120-124",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 5 Resampling Methods",
+          "section": "§5.1.1 The Validation Set Approach",
+          "pdfPages": "210-212",
+          "kind": "other-book",
+          "verified": true,
+          "note": "ISLP chapter not on the course reading list; validation estimate 'can be highly variable', p.211"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.2.4 No free lunch theorem",
+          "pdfPages": "43-44",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Choosing the right estimator",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    }
+  ],
+  "gaps": "No book in books/ covers latency budgets, tail/end-to-end latency, or strategy-specific real-time requirements; train-vs-inference cost decoupling is covered only by ProbML §16.1 (KNN stores all data). Governance/adverse-action explainability is covered only generically (ISLP §8.1.4, Handbook Ch.1 explainability). Pool cites ISLR §2.2.3 for KNN inference cost, but that section does not discuss computation."
+}

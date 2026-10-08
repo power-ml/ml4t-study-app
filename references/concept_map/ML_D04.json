@@ -1,0 +1,473 @@
+{
+  "part": "ML",
+  "domain": "04",
+  "name": "Linear Models & Regression",
+  "concepts": [
+    {
+      "concept": "Linear model form & coefficient interpretation",
+      "summary": "β_j = change per unit X_j holding others fixed; sign ≠ causality; magnitude depends on units; standardize to compare.",
+      "questions": [
+        "ML-D4G1Q1",
+        "ML-D4G1Q2",
+        "ML-D4G1Q3",
+        "ML-D4G1Q4",
+        "ML-D4G1Q5",
+        "ML-D4G1Q6"
+      ],
+      "lecture": "03-02 Regression",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.1.1 Estimating the Coefficients",
+          "pdfPages": "80-81",
+          "kind": "recommended",
+          "verified": true,
+          "note": "residual e_i = y_i - yhat_i, RSS"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.2.1 Estimating the Regression Coefficients",
+          "pdfPages": "90-92",
+          "kind": "recommended",
+          "verified": true,
+          "note": "beta_j = effect of one-unit change holding other predictors fixed (p.90)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.2.1 Ridge Regression",
+          "pdfPages": "248-252",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; p.250: OLS coefficients are scale equivariant (X_j*c -> beta_j/c); standardize before ridge"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 11 Linear Regression",
+          "section": "§11.2 Least squares linear regression",
+          "pdfPages": "401-411",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; p.406: standardize inputs before fitting"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "preprocessing / StandardScaler",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "OLS assumptions, multicollinearity & omitted variables",
+      "summary": "OLS needs no uncorrelated features, only no exact dependence; collinearity inflates variance; omitted correlated variables bias coefficients.",
+      "questions": [
+        "ML-D4G2Q1",
+        "ML-D4G2Q2",
+        "ML-D4G2Q3",
+        "ML-D4G2Q4",
+        "ML-D4G2Q5",
+        "ML-D4G2Q6"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.3.3 Potential Problems",
+          "pdfPages": "109-118",
+          "kind": "recommended",
+          "verified": true,
+          "note": "non-linearity p.109, correlation of error terms p.110, collinearity/VIF p.115"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.2.1 Estimating the Regression Coefficients",
+          "pdfPages": "90-92",
+          "kind": "recommended",
+          "verified": true,
+          "note": "beta_j = effect of one-unit change holding other predictors fixed (p.90)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.1 Subset Selection",
+          "pdfPages": "239-248",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; §6.1.3 choosing the optimal model via validation/CV p.243-248"
+        },
+        {
+          "book": "ESL (Hastie, Tibshirani, Friedman)",
+          "chapter": null,
+          "section": "ch.3 linear methods",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "Elements of Statistical Learning is not in books/; unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Polynomial expansion: linear in parameters, capacity, bias–variance",
+      "summary": "Polynomial/interaction terms keep the model linear in coefficients while raising capacity; choose degree by validation.",
+      "questions": [
+        "ML-D4G3Q1",
+        "ML-D4G3Q2",
+        "ML-D4G3Q3",
+        "ML-D4G3Q4",
+        "ML-D4G3Q5",
+        "ML-D4G3Q6"
+      ],
+      "lecture": "03-02 Regression",
+      "sources": [
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 1 The Deep Learning Revolution",
+          "section": "§1.2.2 Linear models",
+          "pdfPages": "28",
+          "kind": "recommended",
+          "verified": true,
+          "note": "polynomial is linear in the coefficients w -> 'linear model'"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 1 The Deep Learning Revolution",
+          "section": "§1.2.4 Model complexity",
+          "pdfPages": "29-32",
+          "kind": "recommended",
+          "verified": true,
+          "note": "over-fitting with high-order polynomial; more data reduces over-fitting"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.2.2 Regression",
+          "pdfPages": "38-42",
+          "kind": "recommended",
+          "verified": true,
+          "note": "includes polynomial regression and feature engineering (p.40-42)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.3.2 Extensions of the Linear Model",
+          "pdfPages": "103-109",
+          "kind": "recommended",
+          "verified": true,
+          "note": "removing the additive assumption (interaction terms, p.104) and non-linear (polynomial) relationships"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.2.2 The Bias-Variance Trade-Off",
+          "pdfPages": "41-44",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 7 Moving Beyond Linearity",
+          "section": "§7.1 Polynomial Regression",
+          "pdfPages": "298-300",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 5 Resampling Methods",
+          "section": "§5.1.3 k-Fold Cross-Validation",
+          "pdfPages": "214-216",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading"
+        },
+        {
+          "book": "ESL (Hastie, Tibshirani, Friedman)",
+          "chapter": null,
+          "section": "ch.5 basis expansions; orthogonal polynomials",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "Elements of Statistical Learning is not in books/; unverified"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "PolynomialFeatures",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Residual diagnostics & regression error metrics",
+      "summary": "Residual = observed − predicted; OLS residuals sum to zero; patterns reveal misspecification/heteroscedasticity; MSE punishes outliers more than MAE.",
+      "questions": [
+        "ML-D4G4Q1",
+        "ML-D4G4Q2",
+        "ML-D4G4Q3",
+        "ML-D4G4Q4",
+        "ML-D4G4Q5",
+        "ML-D4G4Q6"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.1.1 Estimating the Coefficients",
+          "pdfPages": "80-81",
+          "kind": "recommended",
+          "verified": true,
+          "note": "residual e_i = y_i - yhat_i, RSS"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.1.3 Assessing the Accuracy of the Model",
+          "pdfPages": "86-89",
+          "kind": "recommended",
+          "verified": true,
+          "note": "RSE and R^2"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.3.3 Potential Problems",
+          "pdfPages": "109-118",
+          "kind": "recommended",
+          "verified": true,
+          "note": "non-linearity p.109, correlated errors p.110, heteroscedasticity p.112, outliers p.112, high leverage p.113, collinearity/VIF p.115"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.2.1 Measuring the Quality of Fit",
+          "pdfPages": "38-41",
+          "kind": "recommended",
+          "verified": true,
+          "note": "MSE; training vs test MSE"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 5 Decision Theory",
+          "section": "§5.1 Bayesian decision theory",
+          "pdfPages": "197-209",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; L2 vs L1 vs Huber loss and outlier sensitivity p.206-207; Brier score p.209"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 11 Linear Regression",
+          "section": "§11.6 Robust linear regression *",
+          "pdfPages": "432-435",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; squared error lets outliers dominate the fit"
+        },
+        {
+          "book": "ESL (Hastie, Tibshirani, Friedman)",
+          "chapter": null,
+          "section": "ch.3 (Gauss–Markov theorem)",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "Elements of Statistical Learning is not in books/; unverified"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "Metrics and scoring: regression metrics",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Where linear models fail: non-monotone effects, interactions, linear boundaries",
+      "summary": "Single raw terms can't fit U-shapes, interactions, or clustered regions; logistic boundaries are linear; more data won't fix bias.",
+      "questions": [
+        "ML-D4G5Q1",
+        "ML-D4G5Q2",
+        "ML-D4G5Q3",
+        "ML-D4G5Q4",
+        "ML-D4G5Q5",
+        "ML-D4G5Q6"
+      ],
+      "lecture": "03-02 Regression",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.3.2 Extensions of the Linear Model",
+          "pdfPages": "103-109",
+          "kind": "recommended",
+          "verified": true,
+          "note": "removing the additive assumption (interaction terms, p.104) and non-linear (polynomial) relationships"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.5 Comparison of Linear Regression with K-Nearest Neighbors",
+          "pdfPages": "120-125",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.2.2 The Bias-Variance Trade-Off",
+          "pdfPages": "41-44",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 4 Classification",
+          "section": "§4.5.1 An Analytical Comparison",
+          "pdfPages": "170-173",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; logistic regression log-odds linear in x (p.171)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 9 Support Vector Machines",
+          "section": "§9.3.1 Classification with Non-Linear Decision Boundaries",
+          "pdfPages": "385-386",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; enlarge feature space with polynomial terms to get non-linear boundary"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 5 Single-layer Networks: Classification",
+          "section": "§5.1.1 Two classes",
+          "pdfPages": "151-153",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; linear decision surfaces are hyperplanes; linear separability"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.5.3 Preprocessing discrete input data",
+          "pdfPages": "53-54",
+          "kind": "recommended",
+          "verified": true,
+          "note": "§1.5.3.2 feature crosses: interaction effects"
+        },
+        {
+          "book": "ESL (Hastie, Tibshirani, Friedman)",
+          "chapter": null,
+          "section": "ch.4 linear methods for classification",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "Elements of Statistical Learning is not in books/; unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Regularization: ridge vs. lasso and choosing λ",
+      "summary": "Penalties trade training fit for lower variance; ridge shrinks, lasso zeroes; pick λ by cross-validation, never training error.",
+      "questions": [
+        "ML-D4G6Q1",
+        "ML-D4G6Q2",
+        "ML-D4G6Q3",
+        "ML-D4G6Q4",
+        "ML-D4G6Q5",
+        "ML-D4G6Q6"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 1 The Deep Learning Revolution",
+          "section": "§1.2.5 Regularization",
+          "pdfPages": "32-34",
+          "kind": "recommended",
+          "verified": true,
+          "note": "penalty term added to error function"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.2.1 Ridge Regression",
+          "pdfPages": "248-252",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; p.250: OLS coefficients are scale equivariant (X_j*c -> beta_j/c); standardize before ridge"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.2.2 The Lasso",
+          "pdfPages": "252-260",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; l1 penalty sets some coefficients exactly to zero (p.252)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.2.3 Selecting the Tuning Parameter",
+          "pdfPages": "260-261",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; choose lambda by cross-validation"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 11 Linear Regression",
+          "section": "§11.3 Ridge regression",
+          "pdfPages": "411-415",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 11 Linear Regression",
+          "section": "§11.4 Lasso regression",
+          "pdfPages": "415-429",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 4 Single-layer Networks: Regression",
+          "section": "§4.1.6 Regularized least squares",
+          "pdfPages": "137-138",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "linear_model: Ridge, Lasso",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    }
+  ],
+  "gaps": "Gauss–Markov/BLUE, Q-Q plots/leptokurtic residual diagnostics, and orthogonal polynomials are not covered in any book in books/ (ISLP §3.3.3 covers residual plots but never states Gauss–Markov or uses Q-Q plots); these rely on ESL, which is not in books/."
+}

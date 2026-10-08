@@ -1,0 +1,386 @@
+{
+  "part": "QF",
+  "domain": "08",
+  "name": "Market Efficiency and Arbitrage",
+  "concepts": [
+    {
+      "concept": "Weak-form EMH and the random walk (technical rules, in-sample vs. net-of-cost)",
+      "summary": "Past prices/volume can't predict future prices; an in-sample rule doesn't disprove weak form; momentum must survive costs out-of-sample.",
+      "questions": [
+        "QF-D8G1Q1",
+        "QF-D8G1Q2",
+        "QF-D8G1Q3"
+      ],
+      "lecture": "02-08 Efficient Markets Hypothesis",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 8 The Efficient Market Hypothesis (EMH)—Its Three Versions",
+          "section": "Three Versions of the EMH",
+          "pdfPages": "47",
+          "kind": "recommended",
+          "verified": true,
+          "note": "weak form: historical price/volume cannot predict; technical analysis cannot succeed if weak form holds"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 8 The Efficient Market Hypothesis (EMH)—Its Three Versions",
+          "section": "Debates over the EMH",
+          "pdfPages": "47-48",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Malkiel's 'A Random Walk Down Wall Street'; few managers persistently outperform"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "How Hedge Funds Are Evaluated (II): Return Versus Benchmark (Relative Return)",
+          "pdfPages": "18",
+          "kind": "recommended",
+          "verified": true,
+          "note": "frequent trading and fees are a considerable further drag (net-of-cost)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 5 Resampling Methods",
+          "section": "5.1 Cross-Validation (5.1.1 The Validation Set Approach)",
+          "pdfPages": "210-212",
+          "kind": "other-book",
+          "verified": true,
+          "note": "test vs training error; held-out validation (pool cites ISLR ch.5)"
+        },
+        {
+          "book": "Fama (1965, 1970) EMH / random walk; Grinold & Kahn (implementation shortfall)",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Semi-strong EMH: rapid incorporation of public information",
+      "summary": "Public news (reports, rate announcements) is priced quickly by competing investors; no drift is mandated; price discovery ≠ inefficiency.",
+      "questions": [
+        "QF-D8G2Q1",
+        "QF-D8G2Q2",
+        "QF-D8G2Q3"
+      ],
+      "lecture": "02-08 Efficient Markets Hypothesis",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 8 The Efficient Market Hypothesis (EMH)—Its Three Versions",
+          "section": "What Makes Markets Efficient?",
+          "pdfPages": "46",
+          "kind": "recommended",
+          "verified": true,
+          "note": "speed of price adjustment as efficiency measure; self-interested investors rush to trade on news"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 8 The Efficient Market Hypothesis (EMH)—Its Three Versions",
+          "section": "Three Versions of the EMH",
+          "pdfPages": "47",
+          "kind": "recommended",
+          "verified": true,
+          "note": "semi-strong: prices adjust immediately to all public info; fundamental analysis cannot work"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 11 Event Studies",
+          "section": "(chapter opening) event-study evidence",
+          "pdfPages": "64-65",
+          "kind": "other-book",
+          "verified": true,
+          "note": "MacKinlay: prices react within a day; pre-event drift suggests leakage/anticipation"
+        },
+        {
+          "book": "Fama EMH semi-strong form; event-study speed-of-adjustment literature",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Strong-form EMH, insider/private information and alternative data",
+      "summary": "Strong form says even private info is priced; insider abnormal returns contradict it; costly alt-data sits between public and private.",
+      "questions": [
+        "QF-D8G3Q1",
+        "QF-D8G3Q2",
+        "QF-D8G3Q3"
+      ],
+      "lecture": "02-08 Efficient Markets Hypothesis",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 8 The Efficient Market Hypothesis (EMH)—Its Three Versions",
+          "section": "Introduction (disclosure rules, insider-trading prohibitions)",
+          "pdfPages": "46",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 8 The Efficient Market Hypothesis (EMH)—Its Three Versions",
+          "section": "Three Versions of the EMH",
+          "pdfPages": "47",
+          "kind": "recommended",
+          "verified": true,
+          "note": "strong form: prices reflect all info incl. insiders'"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 13 Data Sources",
+          "section": "Three Illustrative Information Feeds (InsiderInsights)",
+          "pdfPages": "74",
+          "kind": "other-book",
+          "verified": true,
+          "note": "insider buying as positive signal; event study shows ~2% post-buy gain"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 2 Alternative Data and AI in Investment Research",
+          "section": "Data Sourcing in a World of Overwhelming Data Supply",
+          "pdfPages": "43",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; alt-data onboarding/licensing costs can outweigh benefits (costly information)"
+        },
+        {
+          "book": "Grossman & Stiglitz (1980); Seyhun insider-trading studies; Fama strong form",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Arbitrage and the law of one price (cross-market, replication, ETF)",
+      "summary": "Identical assets should trade at one price net of costs; buying cheap/selling rich converges prices; replication arbitrage has residual risks.",
+      "questions": [
+        "QF-D8G4Q1",
+        "QF-D8G4Q2",
+        "QF-D8G4Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 3 An Illustrative Hedge Fund Strategy: Arbitrage",
+          "section": "(chapter text — original arbitrage)",
+          "pdfPages": "22",
+          "kind": "other-book",
+          "verified": true,
+          "note": "same good in two markets (Brent vs Texas oil); nearly identical T-bill issues; arbitraging away inefficiencies"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 15 Hedge Fund Case Study: Long Term Capital Management (LTCM)",
+          "section": "The Rise",
+          "pdfPages": "81",
+          "kind": "other-book",
+          "verified": true,
+          "note": "convertible arbitrage: long convertible / short issuer stock expecting convergence"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 8 The Efficient Market Hypothesis (EMH)—Its Three Versions",
+          "section": "What Makes Markets Efficient?",
+          "pdfPages": "46",
+          "kind": "recommended",
+          "verified": true,
+          "note": "competing arbitrageurs eliminate opportunities almost instantly"
+        },
+        {
+          "book": "Investopedia 'Arbitrage', 'ETF arbitrage'; CFA no-arbitrage pricing / law of one price",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified; ETF creation/redemption mechanism not covered in books/"
+        }
+      ]
+    },
+    {
+      "concept": "Statistical arbitrage and pairs trading (mean reversion, dollar-neutral P&L, threshold overfitting)",
+      "summary": "Trade spreads expected to mean-revert (z-score); P&L from relative moves; optimizing entry thresholds in-sample risks overfitting.",
+      "questions": [
+        "QF-D8G5Q1",
+        "QF-D8G5Q2",
+        "QF-D8G5Q3",
+        "QF-D8G6Q2"
+      ],
+      "lecture": "02-05 How Hedge Funds Use the CAPM",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 3 An Illustrative Hedge Fund Strategy: Arbitrage",
+          "section": "(chapter text — statistical arbitrage, regression to the mean)",
+          "pdfPages": "22-23",
+          "kind": "other-book",
+          "verified": true
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "What Are Hedge Funds?",
+          "pdfPages": "13-14",
+          "kind": "recommended",
+          "verified": true,
+          "note": "A.W. Jones paired long/short trades in competitors"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 15 Hedge Fund Case Study: Long Term Capital Management (LTCM)",
+          "section": "The Rise",
+          "pdfPages": "81",
+          "kind": "other-book",
+          "verified": true,
+          "note": "LTCM 'paired trade' new vs seasoned Treasuries"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "2.2.1 Measuring the Quality of Fit",
+          "pdfPages": "38-41",
+          "kind": "recommended",
+          "verified": true,
+          "note": "p.40: small training MSE but large test MSE = overfitting; patterns 'caused by random chance'"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "Cautions About Back Testing",
+          "pdfPages": "77-78",
+          "kind": "other-book",
+          "verified": true,
+          "note": "peeking into the future; data-mining fallacy; changing market; cross-validate on separate subsets (p.78)"
+        },
+        {
+          "book": "Investopedia 'Statistical arbitrage'; CFA long-short strategies; ISLR ch.5 cross-validation",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Event-driven trades: merger arbitrage and earnings surprises vs. expectations",
+      "summary": "Deal spread compensates completion risk; returns depend on surprise relative to priced-in expectations, not raw good news.",
+      "questions": [
+        "QF-D8G6Q1",
+        "QF-D8G6Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "Hedge Fund Strategies",
+          "pdfPages": "15",
+          "kind": "recommended",
+          "verified": true,
+          "note": "event-driven category; funds known for merger arbitrage"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 11 Event Studies",
+          "section": "(chapter opening) news may already be 'priced into' the stock",
+          "pdfPages": "64-65",
+          "kind": "other-book",
+          "verified": true
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "Unique Challenges of Applying ML — Signal-to-noise ratio and system complexity",
+          "pdfPages": "27",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; great earnings can still see price fall if below expectations"
+        },
+        {
+          "book": "Investopedia 'Merger arbitrage'; post-earnings-announcement drift literature",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Limits to arbitrage: noise-trader/timing risk, crowding and leverage spirals, short-sale constraints",
+      "summary": "Mispricing can widen before converging; margin calls and crowded unwinds force exits; borrow fees/recalls limit shorting.",
+      "questions": [
+        "QF-D8G7Q1",
+        "QF-D8G7Q2",
+        "QF-D8G7Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 15 Hedge Fund Case Study: Long Term Capital Management (LTCM)",
+          "section": "The Fall",
+          "pdfPages": "81-82",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Russian default widened 'irrational' spreads; margin calls forced liquidation; 'irrational longer than you can remain solvent'"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 3 An Illustrative Hedge Fund Strategy: Arbitrage",
+          "section": "(chapter text)",
+          "pdfPages": "23",
+          "kind": "other-book",
+          "verified": true,
+          "note": "small margins, heavy leverage, opportunities competed away"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 4 Market-Making Mechanics",
+          "section": "Types of Order (Intermediate) — Selling short",
+          "pdfPages": "26",
+          "kind": "recommended",
+          "verified": true,
+          "note": "short pays rebate and dividends; unbounded loss"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "Implementation gap",
+          "pdfPages": "30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; shorting may be impossible or infeasible (insufficient shares, excessive borrow cost)"
+        },
+        {
+          "book": "Shleifer & Vishny (1997) 'Limits of Arbitrage'; Shleifer, Inefficient Markets; Miller (1977)",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    }
+  ],
+  "gaps": "ETF creation/redemption arbitrage, Fama's random-walk model (zero-mean innovations), and formal noise-trader/short-recall theory (Shleifer–Vishny, Miller) are not in books/; QF-D8G4Q1 is withdrawn but mapped."
+}

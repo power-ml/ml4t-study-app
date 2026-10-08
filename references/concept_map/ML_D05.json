@@ -1,0 +1,430 @@
+{
+  "part": "ML",
+  "domain": "05",
+  "name": "Instance-Based Learning (KNN)",
+  "concepts": [
+    {
+      "concept": "Distance metrics & feature scaling",
+      "summary": "Euclidean/Manhattan use raw magnitudes, so large-range features dominate; scale with train-fit statistics; metric is a hyperparameter.",
+      "questions": [
+        "ML-D5G1Q1",
+        "ML-D5G1Q2",
+        "ML-D5G1Q3",
+        "ML-D5G1Q4",
+        "ML-D5G1Q5",
+        "ML-D5G1Q6"
+      ],
+      "lecture": "03-02 Regression",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.2.3 The Classification Setting",
+          "pdfPages": "44-50",
+          "kind": "recommended",
+          "verified": true,
+          "note": "error rate, Bayes classifier, KNN classifier (K=1 vs K=100, p.46-48)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 4 Classification",
+          "section": "§4.7.6 K-Nearest Neighbors (lab)",
+          "pdfPages": "192-197",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; p.194: scale of variables matters for KNN distance (salary vs age)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 16 Exemplar-based Methods",
+          "section": "§16.1 K nearest neighbor (KNN) classification",
+          "pdfPages": "577-581",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; instance-/memory-based; Mahalanobis/Euclidean metric; K=1 zero train error, U-shaped test error (p.578); curse of dimensionality, edge length p^(1/D) (p.578-580); speed/memory and approximate NN (p.580); OOD/novelty (p.580-581)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 12 Unsupervised Learning",
+          "section": "§12.4.3 Practical Issues in Clustering",
+          "pdfPages": "538-541",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; scaling variables before computing dissimilarities"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 7 Gradient Descent",
+          "section": "§7.4.1 Data normalization",
+          "pdfPages": "243-244",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; inputs spanning very different ranges -> rescale to zero mean/unit variance"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "Preprocessing data (StandardScaler, MinMaxScaler, QuantileTransformer); Nearest Neighbors (metric)",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "ESL (Hastie, Tibshirani, Friedman)",
+          "chapter": null,
+          "section": "ch.13 prototype and nearest-neighbor methods",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "Elements of Statistical Learning is not in books/; unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Choice of k: bias–variance and boundary complexity",
+      "summary": "k=1 jagged, zero training error, high variance; large k smooth, biased; k=N predicts global mean; tune k by CV.",
+      "questions": [
+        "ML-D5G2Q1",
+        "ML-D5G2Q2",
+        "ML-D5G2Q3",
+        "ML-D5G2Q4",
+        "ML-D5G2Q5",
+        "ML-D5G2Q6"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.2.3 The Classification Setting",
+          "pdfPages": "44-50",
+          "kind": "recommended",
+          "verified": true,
+          "note": "error rate, Bayes classifier, KNN classifier (K=1 vs K=100, p.46-48)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.5 Comparison of Linear Regression with K-Nearest Neighbors",
+          "pdfPages": "120-125",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 16 Exemplar-based Methods",
+          "section": "§16.1 K nearest neighbor (KNN) classification",
+          "pdfPages": "577-581",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; instance-/memory-based; Mahalanobis/Euclidean metric; K=1 zero train error, U-shaped test error (p.578); curse of dimensionality, edge length p^(1/D) (p.578-580); speed/memory and approximate NN (p.580); OOD/novelty (p.580-581)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 5 Resampling Methods",
+          "section": "§5.1.5 Cross-Validation on Classification Problems",
+          "pdfPages": "217-220",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; Fig. 5.8: training vs test vs 10-fold CV error for KNN across 1/K"
+        },
+        {
+          "book": "ESL (Hastie, Tibshirani, Friedman)",
+          "chapter": null,
+          "section": "ch.13; effective degrees of freedom ≈ N/k",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "Elements of Statistical Learning is not in books/; unverified"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "Nearest Neighbors Classification (weights='uniform' vs 'distance')",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Noise, outliers & local influence",
+      "summary": "A mislabeled neighbor dominates at k=1; larger k or distance weighting dilutes it; influence is local, unlike OLS leverage.",
+      "questions": [
+        "ML-D5G3Q1",
+        "ML-D5G3Q2",
+        "ML-D5G3Q3",
+        "ML-D5G3Q4",
+        "ML-D5G3Q5",
+        "ML-D5G3Q6"
+      ],
+      "lecture": "03-02 Regression",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.5 Comparison of Linear Regression with K-Nearest Neighbors",
+          "pdfPages": "120-125",
+          "kind": "recommended",
+          "verified": true,
+          "note": "p.121: larger K gives smoother, less variable fit; changing one observation has smaller effect"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.2.3 The Classification Setting",
+          "pdfPages": "44-50",
+          "kind": "recommended",
+          "verified": true,
+          "note": "error rate, Bayes classifier, KNN classifier (K=1 vs K=100, p.46-48)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 16 Exemplar-based Methods",
+          "section": "§16.1 K nearest neighbor (KNN) classification",
+          "pdfPages": "577-581",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; instance-/memory-based; Mahalanobis/Euclidean metric; K=1 zero train error, U-shaped test error (p.578); curse of dimensionality, edge length p^(1/D) (p.578-580); speed/memory and approximate NN (p.580); OOD/novelty (p.580-581)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.3.3 Potential Problems",
+          "pdfPages": "109-118",
+          "kind": "recommended",
+          "verified": true,
+          "note": "high-leverage points in OLS (p.113) for contrast"
+        },
+        {
+          "book": "ESL (Hastie, Tibshirani, Friedman)",
+          "chapter": null,
+          "section": "ch.13",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "Elements of Statistical Learning is not in books/; unverified"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "Nearest Neighbors (weights='distance'); Novelty and Outlier Detection",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Curse of dimensionality",
+      "summary": "Irrelevant dimensions add distance noise; data sparsify (edge length q^(1/p)); distances concentrate; select or reduce features.",
+      "questions": [
+        "ML-D5G4Q1",
+        "ML-D5G4Q2",
+        "ML-D5G4Q3",
+        "ML-D5G4Q4",
+        "ML-D5G4Q5",
+        "ML-D5G4Q6"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.5 Comparison of Linear Regression with K-Nearest Neighbors",
+          "pdfPages": "120-125",
+          "kind": "recommended",
+          "verified": true,
+          "note": "p.124: curse of dimensionality — KNN degrades with added noise predictors"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 16 Exemplar-based Methods",
+          "section": "§16.1 K nearest neighbor (KNN) classification",
+          "pdfPages": "577-581",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; instance-/memory-based; Mahalanobis/Euclidean metric; K=1 zero train error, U-shaped test error (p.578); curse of dimensionality, edge length p^(1/D) (p.578-580); speed/memory and approximate NN (p.580); OOD/novelty (p.580-581)"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 6 Deep Neural Networks",
+          "section": "§6.1.1 The curse of dimensionality",
+          "pdfPages": "190-193",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 6 Deep Neural Networks",
+          "section": "§6.1.2 High-dimensional spaces",
+          "pdfPages": "193-194",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; volume concentrates in thin shell"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.4.3 Regression in High Dimensions",
+          "pdfPages": "273-274",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; p.274: test error rises with added noise features (curse of dimensionality)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.3 Dimension Reduction Methods",
+          "pdfPages": "261-270",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; PCR directions found without using Y (unsupervised), p.263/268"
+        },
+        {
+          "book": "ESL (Hastie, Tibshirani, Friedman)",
+          "chapter": null,
+          "section": "§2.5 local methods in high dimensions",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "Elements of Statistical Learning is not in books/; unverified"
+        },
+        {
+          "book": "Beyer et al. (1999), When is 'nearest neighbor' meaningful?",
+          "chapter": null,
+          "section": "distance concentration",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "Common pitfalls: data leakage; PCA",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Lazy learning: training vs. inference cost",
+      "summary": "Training just stores data; brute-force query and memory scale O(N·p); tree indexes degrade in high dimensions.",
+      "questions": [
+        "ML-D5G5Q1",
+        "ML-D5G5Q2",
+        "ML-D5G5Q3",
+        "ML-D5G5Q4",
+        "ML-D5G5Q5",
+        "ML-D5G5Q6"
+      ],
+      "lecture": "03-02 Regression",
+      "sources": [
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 16 Exemplar-based Methods",
+          "section": "§16.1 K nearest neighbor (KNN) classification",
+          "pdfPages": "577-581",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; instance-/memory-based; Mahalanobis/Euclidean metric; K=1 zero train error, U-shaped test error (p.578); curse of dimensionality, edge length p^(1/D) (p.578-580); speed/memory and approximate NN (p.580); OOD/novelty (p.580-581)"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 3 Standard Distributions",
+          "section": "§3.5.3 Nearest-neighbours",
+          "pdfPages": "122-124",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; KNN requires the entire training set to be stored -> expensive computation (p.123)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 7 Moving Beyond Linearity",
+          "section": "§7.6 Local Regression",
+          "pdfPages": "311-313",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; p.311: memory-based - like nearest neighbors, needs all training data at each prediction"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "Nearest Neighbors (algorithms, KDTree/BallTree complexity)",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "ESL (Hastie, Tibshirani, Friedman)",
+          "chapter": null,
+          "section": "ch.13 prototype methods",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "Elements of Statistical Learning is not in books/; unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Trading suitability: latency, ANN, drift, distance as warning",
+      "summary": "Too slow for HFT without approximate search; fine for low-frequency tasks; stale data needs pruning; large neighbor distance flags novelty.",
+      "questions": [
+        "ML-D5G6Q1",
+        "ML-D5G6Q2",
+        "ML-D5G6Q3",
+        "ML-D5G6Q4",
+        "ML-D5G6Q5",
+        "ML-D5G6Q6"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 16 Exemplar-based Methods",
+          "section": "§16.1 K nearest neighbor (KNN) classification",
+          "pdfPages": "577-581",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; instance-/memory-based; Mahalanobis/Euclidean metric; K=1 zero train error, U-shaped test error (p.578); curse of dimensionality, edge length p^(1/D) (p.578-580); speed/memory and approximate NN (p.580); OOD/novelty (p.580-581)"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "Challenges: 'Stationarity vs. adaptive market, irrationality'",
+          "pdfPages": "27",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF has no usable bookmark outline; chapter span/heading verified from PDF text; markets are nonstationary and adapt"
+        },
+        {
+          "book": "Malkov & Yashunin, HNSW; LSH literature",
+          "chapter": null,
+          "section": "approximate nearest neighbor search",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "Nearest Neighbors (performance)",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    }
+  ],
+  "gaps": "No book in books/ gives the KNN effective-degrees-of-freedom ≈ N/k heuristic, k-d/ball-tree degradation thresholds, HNSW/LSH details, or HFT latency analysis; these rely on ESL, scikit-learn, and ANN papers (unverified)."
+}

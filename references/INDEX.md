@@ -21,13 +21,18 @@ _Built 2026-09-29 via isolated sub-agents (text extracted with `pypdf`; poppler 
 | ISLP | §3.5 Linear Regression vs KNN | 5 | `ISLP/Ch03-5_LinReg_vs_KNN.md` | ML D4, D5 |
 | ISLP | §8.1 Decision Trees | 4 | `ISLP/Ch08-1_Decision_Trees.md` | ML D6 |
 | ISLP | §8.2 Bagging, Random Forests, Boosting | 4 | `ISLP/Ch08-2_Bagging_RF_Boosting.md` | ML D7 |
+| What Hedge Funds Really Do (Romero & Balch) `What Hedge Funds Really Do - An Introduction to Portfolio Management.pdf` | Ch. 2 So You Want to Be a Hedge Fund Manager | 5 | `WhatHedgeFundsReallyDo/Ch02_So_You_Want_to_Be_a_Hedge_Fund_Manager.md` | QF D1 (returns, CAGR, Rule of 72), D2 (volatility, Sharpe, drawdown), D7/D10 (benchmarks, fees) |
+| What Hedge Funds Really Do | Ch. 4 Market-Making Mechanics | 5 | `WhatHedgeFundsReallyDo/Ch04_Market_Making_Mechanics.md` | QF D5 (spreads, orders, order book, shorting, HFT); D8 |
+| What Hedge Funds Really Do | Ch. 5 Introduction to Company Valuation | 6 | `WhatHedgeFundsReallyDo/Ch05_Company_Valuation.md` | QF D6 (book value, PV, DDM, perpetuity); D1 |
+| What Hedge Funds Really Do | Ch. 7 Framework for Investing: CAPM | 6 | `WhatHedgeFundsReallyDo/Ch07_CAPM.md` | QF D7 (alpha, beta, beta-balanced hedge); D3; D8 |
+| What Hedge Funds Really Do | Ch. 8 The Efficient Market Hypothesis — Three Versions | 7 | `WhatHedgeFundsReallyDo/Ch08_Efficient_Market_Hypothesis.md` | QF D8 (EMH forms); D6, D10 |
+| What Hedge Funds Really Do | Ch. 12 Overcoming Data Quirks to Design Trading Strategies | 7 | `WhatHedgeFundsReallyDo/Ch12_Overcoming_Data_Quirks.md` | QF D9 (adjusted prices, fill forward/backward, survivor bias); D10; ML D2 |
 
 
 ## Not covered (and why)
-- **What Hedge Funds Really Do** — Ch. 2, 4, 5, 7, 8, 12 (weeks 5–7, recommended). **Book not in `books/`** — skipped per direction. This is the main QF-side reading, so QF domains rely on the study-note references + the Handbook until the book is added.
+- **What Hedge Funds Really Do** — now distilled (2026-10-07) for the Exam-1 chapters (Ch. 2, 4, 5, 7, 8, 12) in `WhatHedgeFundsReallyDo/`. **Ch. 9/10 (Exam-2, week 10) still pending.** Book has no separate printed page numbers (PDF page labels = PDF page numbers, offset 0).
 - **Optional** readings (e.g., Machine Learning Ch.1/3/8, Python for Finance, papers) — excluded per scope, unless the exam prep guide references a concept from them.
 - **Exam-2 material** (weeks 8+: RL, deep nets, options, etc.) — out of scope for now.
 
 ## Notes
-- Page offsets differ per book (recorded in each file's header): ISLP PDF = book page + 11; Deep Learning PDF = book + 20; verify against the book if a page cite matters.
-- To add "What Hedge Funds Really Do" later: drop the PDF in `books/`, then distill Ch. 2,4,5,7,8,12 into `references/WhatHedgeFundsReallyDo/` and add rows here.
+- Page offsets differ per book (recorded in each file's header): ISLP PDF offset varies (book+11 in Ch.1, +9 in Ch.3, +7 by Ch.8 — the website PDF drops/inserts pages); concept-map links use PDF pages from the bookmarks, so they're unaffected; Deep Learning PDF = book + 20; verify against the book if a page cite matters.

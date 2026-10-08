@@ -1,0 +1,337 @@
+{
+  "part": "QF",
+  "domain": "07",
+  "name": "CAPM, Alpha, Beta and Hedging",
+  "concepts": [
+    {
+      "concept": "Return decomposition: market model regression (alpha intercept, beta slope, residual)",
+      "summary": "r_i = β·r_m + α + residual; alpha = intercept, beta = slope; residual = actual − predicted; benchmark-dependent.",
+      "questions": [
+        "QF-D7G1Q1",
+        "QF-D7G1Q2",
+        "QF-D7G1Q3"
+      ],
+      "lecture": "02-04 The Capital Asset Pricing Model (CAPM)",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 7 Framework for Investing: The Capital Asset Pricing Model (CAPM)",
+          "section": "The ABCs of CAPM: Alphas, Betas, and Correlations",
+          "pdfPages": "40-43",
+          "kind": "recommended",
+          "verified": true,
+          "note": "regression line Return(XOM) = beta × Return(SPX) + alpha; alpha = intercept, beta = slope (p.41–42)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 7 Framework for Investing: The Capital Asset Pricing Model (CAPM)",
+          "section": "Implications of CAPM",
+          "pdfPages": "43",
+          "kind": "recommended",
+          "verified": true,
+          "note": "disaggregates performance into market (beta) and company-specific (alpha)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "3.1.1 Estimating the Coefficients",
+          "pdfPages": "80-81",
+          "kind": "recommended",
+          "verified": true,
+          "note": "intercept/slope; residual e_i = y_i − ŷ_i (p.80)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 9 The Fundamental Law of Active Portfolio Management",
+          "section": "A Few Definitions — Information Ratio",
+          "pdfPages": "53",
+          "kind": "other-book",
+          "verified": true,
+          "note": "alpha component 'sometimes called the residual'; market risk vs skill risk"
+        },
+        {
+          "book": "Bodie-Kane-Marcus, Investments (index model / Security Characteristic Line); Grinold & Kahn (residual return)",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Beta as market sensitivity (incl. negative beta)",
+      "summary": "β = 1.5 moves 1.5× the market; market β = 1; negative beta means inverse co-movement and hedge value.",
+      "questions": [
+        "QF-D7G2Q1",
+        "QF-D7G2Q2",
+        "QF-D7G4Q3"
+      ],
+      "lecture": "02-04 The Capital Asset Pricing Model (CAPM)",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 7 Framework for Investing: The Capital Asset Pricing Model (CAPM)",
+          "section": "The ABCs of CAPM: Alphas, Betas, and Correlations",
+          "pdfPages": "41-42",
+          "kind": "recommended",
+          "verified": true,
+          "note": "beta 1.5 rises/falls 1.5× market (p.42); downward scatter ⇒ negative correlation (p.41); low/negative correlation dampens portfolio volatility"
+        },
+        {
+          "book": "Sharpe CAPM; Investopedia 'Beta', 'Negative Beta'; Grinold & Kahn (beta/exposure)",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified; negative-beta hedging and regime instability not explicitly discussed in WHFRD"
+        }
+      ]
+    },
+    {
+      "concept": "Computing beta: Cov/Var and correlation × volatility ratio (correlation ≠ beta)",
+      "summary": "β = Cov(i,m)/Var(m) = ρ·σ_i/σ_m; high-vol low-correlation stocks can have low beta; correlation measures tightness, not slope.",
+      "questions": [
+        "QF-D7G2Q3",
+        "QF-D7G4Q1",
+        "QF-D7G4Q2"
+      ],
+      "lecture": "02-04 The Capital Asset Pricing Model (CAPM)",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 7 Framework for Investing: The Capital Asset Pricing Model (CAPM)",
+          "section": "The ABCs of CAPM: Alphas, Betas, and Correlations",
+          "pdfPages": "42-43",
+          "kind": "recommended",
+          "verified": true,
+          "note": "correlation = 'tightness' of scatter around the regression line, distinct from slope (beta)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "3.1.1 Estimating the Coefficients",
+          "pdfPages": "80-81",
+          "kind": "recommended",
+          "verified": true,
+          "note": "least-squares slope β̂1 = Σ(x−x̄)(y−ȳ)/Σ(x−x̄)² (eq. 3.4) = sample Cov/Var"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 2 Probabilities",
+          "section": "2.2.2 Expectations and covariances",
+          "pdfPages": "54-55",
+          "kind": "recommended",
+          "verified": true,
+          "note": "defines var[x] and cov[x,y] (eqs. 2.46–2.47); beta formula itself not stated"
+        },
+        {
+          "book": "Sharpe CAPM; Investopedia 'How to Calculate Beta', 'Correlation'; CFA (β = ρ·σ_i/σ_m)",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified; β = ρ·σ_i/σ_m identity not stated in any book in books/"
+        }
+      ]
+    },
+    {
+      "concept": "CAPM expected return, Jensen's alpha, buying beta vs. seeking alpha",
+      "summary": "CAPM: E(r)=r_f+β(r_m−r_f); alpha = actual − CAPM-expected; high bull-market returns from high beta are not alpha.",
+      "questions": [
+        "QF-D7G3Q1",
+        "QF-D7G3Q3"
+      ],
+      "lecture": "02-04 The Capital Asset Pricing Model (CAPM)",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 7 Framework for Investing: The Capital Asset Pricing Model (CAPM)",
+          "section": "Implications of CAPM",
+          "pdfPages": "43",
+          "kind": "recommended",
+          "verified": true,
+          "note": "'buying beta' vs 'seeking alpha'; high-beta stocks also fall farther on down days"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 7 Framework for Investing: The Capital Asset Pricing Model (CAPM)",
+          "section": "An Overview of CAPM",
+          "pdfPages": "39-40",
+          "kind": "recommended",
+          "verified": true,
+          "note": "CAPM separates returns from broad market movements vs those that do not"
+        },
+        {
+          "book": "Sharpe CAPM / Security Market Line; Investopedia 'CAPM', 'Jensen's Measure'",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified; WHFRD's CAPM equation omits r_f; the SML form and Jensen's alpha arithmetic are not in books/"
+        }
+      ]
+    },
+    {
+      "concept": "Statistical vs. economic significance of alpha (net of costs)",
+      "summary": "Alpha needs a t-stat/SE check and must survive fees and costs; significant-but-tiny alpha may be economically worthless.",
+      "questions": [
+        "QF-D7G3Q2"
+      ],
+      "lecture": "02-04 The Capital Asset Pricing Model (CAPM)",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "3.1.2 Assessing the Accuracy of the Coefficient Estimates",
+          "pdfPages": "84-86",
+          "kind": "recommended",
+          "verified": true,
+          "note": "standard errors, H0: β=0, t = β̂/SE(β̂), p-values (section spans 81–86)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "How Hedge Funds Are Evaluated (II): Return Versus Benchmark (Relative Return)",
+          "pdfPages": "18-19",
+          "kind": "recommended",
+          "verified": true,
+          "note": "fees absorb at least half of excess return; trading costs and fees drag on alpha"
+        },
+        {
+          "book": "Grinold & Kahn (information ratio, t-stat of alpha); CFA hypothesis testing / performance evaluation",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Portfolio beta aggregation, leverage, gross vs. net exposure",
+      "summary": "Portfolio beta = Σ w_i·β_i (shorts negative); leverage scales beta contribution and magnifies gains and losses; gross ≠ net exposure.",
+      "questions": [
+        "QF-D7G5Q1",
+        "QF-D7G5Q2",
+        "QF-D7G5Q3",
+        "QF-D7G4Q3"
+      ],
+      "lecture": "02-05 How Hedge Funds Use the CAPM",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 7 Framework for Investing: The Capital Asset Pricing Model (CAPM)",
+          "section": "Basic Hedge Fund Strategies in the CAPM Framework",
+          "pdfPages": "43-45",
+          "kind": "recommended",
+          "verified": true,
+          "note": "portfolio return = weighted average; beta-balanced condition Σ β_i·w_i = 0 with Σ|w_i| = 1 (p.44); leverage magnifies gains and losses (p.45)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "Hedge Fund Strategies",
+          "pdfPages": "15",
+          "kind": "recommended",
+          "verified": true,
+          "note": "leverage ('gearing'); 130/30 long/short gross exposure example"
+        },
+        {
+          "book": "Grinold & Kahn (portfolio exposures); Investopedia 'Portfolio Beta', 'Gross Exposure'; Bodie-Kane-Marcus (net beta exposure)",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Dollar-neutral vs. beta-neutral hedging",
+      "summary": "Equal dollars long/short is not market-neutral unless betas match; beta-neutral hedge sizes legs by β ratio (unequal dollars).",
+      "questions": [
+        "QF-D7G6Q1",
+        "QF-D7G6Q2",
+        "QF-D7G6Q3",
+        "QF-D7G7Q2"
+      ],
+      "lecture": "02-05 How Hedge Funds Use the CAPM",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 7 Framework for Investing: The Capital Asset Pricing Model (CAPM)",
+          "section": "Basic Hedge Fund Strategies in the CAPM Framework",
+          "pdfPages": "43-45",
+          "kind": "recommended",
+          "verified": true,
+          "note": "50% XOM / −50% SPY is dollar balanced but not beta balanced (β 0.77 vs 1.0); beta-balanced = 56% XOM / −44% SPY (p.44)"
+        },
+        {
+          "book": "Investopedia 'Market-Neutral Strategy', 'Beta Hedging', 'Pairs Trade'; Grinold & Kahn (beta-neutral construction)",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Index hedges: removing systematic risk, retaining alpha and idiosyncratic/residual risk",
+      "summary": "Shorting the index offsets the market component; alpha and stock-specific risk remain; hedge-ratio and basis errors leave residual exposure.",
+      "questions": [
+        "QF-D7G7Q1",
+        "QF-D7G7Q2",
+        "QF-D7G7Q3"
+      ],
+      "lecture": "02-05 How Hedge Funds Use the CAPM",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 7 Framework for Investing: The Capital Asset Pricing Model (CAPM)",
+          "section": "Basic Hedge Fund Strategies in the CAPM Framework",
+          "pdfPages": "43-44",
+          "kind": "recommended",
+          "verified": true,
+          "note": "long XOM + short SPX: short offsets market fall; return left ≈ 0.5 × long alpha when betas match; hedges drag in up markets"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 9 The Fundamental Law of Active Portfolio Management",
+          "section": "Breadth as Diversification",
+          "pdfPages": "51",
+          "kind": "other-book",
+          "verified": true,
+          "note": "systematic vs specific risk; diversification mutes specific risk only"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 16 Opportunities and Challenges for Hedge Funds",
+          "section": "Performance",
+          "pdfPages": "84",
+          "kind": "other-book",
+          "verified": true,
+          "note": "A.W. Jones hedging away systematic (market) risk; 'market neutral' aspiration"
+        },
+        {
+          "book": "Bodie-Kane-Marcus (hedging with index futures); Investopedia 'Basis Risk', 'Hedge'",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified; index-futures basis risk and return drag of futures not covered in books/"
+        }
+      ]
+    }
+  ],
+  "gaps": "β = ρ·σ_i/σ_m identity, the CAPM Security Market Line with r_f (Jensen's alpha arithmetic), index-futures basis risk, and negative-beta regime instability are not stated in books/; WHFRD Ch.7 gives the r = β·r_m + α regression form without r_f."
+}

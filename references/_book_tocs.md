@@ -1,0 +1,1316 @@
+# Book outlines (auto-extracted PDF bookmarks) — used to verify concept-map citations
+
+_PDF page numbers (not printed book pages). Generated 2026-10-07 via pypdf._
+
+
+## Deep Learning_ Foundations and Concepts-Springer (2024).pdf (656 PDF pages)
+
+- Preface — p.5
+  - Goals of the book — p.5
+  - Responsible use of technology — p.6
+  - Structure of the book — p.6
+  - References — p.7
+  - Exercises — p.8
+  - Mathematical notation — p.8
+  - Acknowledgements — p.9
+- Contents — p.11
+- 1 The Deep Learning Revolution — p.21
+  - 1.1. The Impact of Deep Learning — p.22
+    - 1.1.1 Medical diagnosis — p.22
+    - 1.1.2 Protein structure — p.23
+    - 1.1.3 Image synthesis — p.24
+    - 1.1.4 Large language models — p.25
+  - 1.2. A Tutorial Example — p.26
+    - 1.2.1 Synthetic data — p.26
+    - 1.2.2 Linear models — p.28
+    - 1.2.3 Error function — p.28
+    - 1.2.4 Model complexity — p.29
+    - 1.2.5 Regularization — p.32
+    - 1.2.6 Model selection — p.34
+  - 1.3. A Brief History of Machine Learning — p.36
+    - 1.3.1 Single-layer networks — p.37
+    - 1.3.2 Backpropagation — p.38
+    - 1.3.3 Deep networks — p.40
+- 2 Probabilities — p.43
+  - 2.1. The Rules of Probability — p.45
+    - 2.1.1 A medical screening example — p.45
+    - 2.1.2 The sum and product rules — p.46
+    - 2.1.3 Bayes’ theorem — p.48
+    - 2.1.4 Medical screening revisited — p.50
+    - 2.1.5 Prior and posterior probabilities — p.51
+    - 2.1.6 Independent variables — p.51
+  - 2.2. Probability Densities — p.52
+    - 2.2.1 Example distributions — p.53
+    - 2.2.2 Expectations and covariances — p.54
+  - 2.3. The Gaussian Distribution — p.56
+    - 2.3.1 Mean and variance — p.57
+    - 2.3.2 Likelihood function — p.57
+    - 2.3.3 Bias of maximum likelihood — p.59
+    - 2.3.4 Linear regression — p.60
+  - 2.4. Transformation of Densities — p.62
+    - 2.4.1 Multivariate distributions — p.64
+  - 2.5. Information Theory — p.66
+    - 2.5.1 Entropy — p.66
+    - 2.5.2 Physics perspective — p.67
+    - 2.5.3 Differential entropy — p.69
+    - 2.5.4 Maximum entropy — p.70
+    - 2.5.5 Kullback–Leibler divergence — p.71
+    - 2.5.6 Conditional entropy — p.73
+    - 2.5.7 Mutual information — p.74
+  - 2.6. Bayesian Probabilities — p.74
+    - 2.6.1 Model parameters — p.75
+    - 2.6.2 Regularization — p.76
+    - 2.6.3 Bayesian machine learning — p.77
+  - Exercises — p.78
+- 3 Standard Distributions — p.84
+  - 3.1. Discrete Variables — p.85
+    - 3.1.1 Bernoulli distribution — p.85
+    - 3.1.2 Binomial distribution — p.86
+    - 3.1.3 Multinomial distribution — p.87
+  - 3.2. The Multivariate Gaussian — p.89
+    - 3.2.1 Geometry of the Gaussian — p.90
+    - 3.2.2 Moments — p.93
+    - 3.2.3 Limitations — p.94
+    - 3.2.4 Conditional distribution — p.95
+    - 3.2.5 Marginal distribution — p.98
+    - 3.2.6 Bayes’ theorem — p.100
+    - 3.2.7 Maximum likelihood — p.103
+    - 3.2.8 Sequential estimation — p.104
+    - 3.2.9 Mixtures of Gaussians — p.105
+  - 3.3. Periodic Variables — p.108
+    - 3.3.1 Von Mises distribution — p.108
+  - 3.4. The Exponential Family — p.113
+    - 3.4.1 Sufficient statistics — p.116
+  - 3.5. Nonparametric Methods — p.117
+    - 3.5.1 Histograms — p.117
+    - 3.5.2 Kernel densities — p.119
+    - 3.5.3 Nearest-neighbours — p.122
+  - Exercises — p.124
+- 4 Single-layer Networks: Regression — p.130
+  - 4.1. Linear Regression — p.131
+    - 4.1.1 Basis functions — p.131
+    - 4.1.2 Likelihood function — p.133
+    - 4.1.3 Maximum likelihood — p.134
+    - 4.1.4 Geometry of least squares — p.136
+    - 4.1.5 Sequential learning — p.136
+    - 4.1.6 Regularized least squares — p.137
+    - 4.1.7 Multiple outputs — p.138
+  - 4.2. Decision theory — p.139
+  - 4.3. The Bias–Variance Trade-off — p.142
+  - Exercises — p.147
+- 5 Single-layer Networks: Classification — p.150
+  - 5.1. Discriminant Functions — p.151
+    - 5.1.1 Two classes — p.151
+    - 5.1.2 Multiple classes — p.153
+    - 5.1.3 1-of-K coding — p.154
+    - 5.1.4 Least squares for classification — p.155
+  - 5.2. Decision Theory — p.157
+    - 5.2.1 Misclassification rate — p.158
+    - 5.2.2 Expected loss — p.159
+    - 5.2.3 The reject option — p.161
+    - 5.2.4 Inference and decision — p.162
+    - 5.2.5 Classifier accuracy — p.166
+    - 5.2.6 ROC curve — p.167
+  - 5.3. Generative Classifiers — p.169
+    - 5.3.1 Continuous inputs — p.171
+    - 5.3.2 Maximum likelihood solution — p.172
+    - 5.3.3 Discrete features — p.175
+    - 5.3.4 Exponential family — p.175
+  - 5.4. Discriminative Classifiers — p.176
+    - 5.4.1 Activation functions — p.177
+    - 5.4.2 Fixed basis functions — p.177
+    - 5.4.3 Logistic regression — p.178
+    - 5.4.4 Multi-class logistic regression — p.180
+    - 5.4.5 Probit regression — p.182
+    - 5.4.6 Canonical link functions — p.183
+  - Exercises — p.185
+- 6 Deep Neural Networks — p.189
+  - 6.1. Limitations of Fixed Basis Functions — p.190
+    - 6.1.1 The curse of dimensionality — p.190
+    - 6.1.2 High-dimensional spaces — p.193
+    - 6.1.3 Data manifolds — p.194
+    - 6.1.4 Data-dependent basis functions — p.196
+  - 6.2. Multilayer Networks — p.198
+    - 6.2.1 Parameter matrices — p.199
+    - 6.2.2 Universal approximation — p.199
+    - 6.2.3 Hidden unit activation functions — p.200
+    - 6.2.4 Weight-space symmetries — p.203
+  - 6.3. Deep Networks — p.204
+    - 6.3.1 Hierarchical representations — p.205
+    - 6.3.2 Distributed representations — p.205
+    - 6.3.3 Representation learning — p.206
+    - 6.3.4 Transfer learning — p.207
+    - 6.3.5 Contrastive learning — p.209
+    - 6.3.6 General network architectures — p.211
+    - 6.3.7 Tensors — p.212
+  - 6.4. Error Functions — p.212
+    - 6.4.1 Regression — p.212
+    - 6.4.2 Binary classification — p.214
+    - 6.4.3 multiclass classification — p.215
+  - 6.5. Mixture Density Networks — p.216
+    - 6.5.1 Robot kinematics example — p.216
+    - 6.5.2 Conditional mixture distributions — p.217
+    - 6.5.3 Gradient optimization — p.219
+    - 6.5.4 Predictive distribution — p.220
+  - Exercises — p.222
+- 7 Gradient Descent — p.226
+  - 7.1. Error Surfaces — p.227
+    - 7.1.1 Local quadratic approximation — p.228
+  - 7.2. Gradient Descent Optimization — p.230
+    - 7.2.1 Use of gradient information — p.231
+    - 7.2.2 Batch gradient descent — p.231
+    - 7.2.3 Stochastic gradient descent — p.231
+    - 7.2.4 Mini-batches — p.233
+    - 7.2.5 Parameter initialization — p.233
+  - 7.3. Convergence — p.235
+    - 7.3.1 Momentum — p.237
+    - 7.3.2 Learning rate schedule — p.239
+    - 7.3.3 RMSProp and Adam — p.240
+  - 7.4. Normalization — p.241
+    - 7.4.1 Data normalization — p.243
+    - 7.4.2 Batch normalization — p.244
+    - 7.4.3 Layer normalization — p.246
+  - Exercises — p.247
+- 8 Backpropagation — p.250
+  - 8.1. Evaluation of Gradients — p.251
+    - 8.1.1 Single-layer networks — p.251
+    - 8.1.2 General feed-forward networks — p.252
+    - 8.1.3 A simple example — p.255
+    - 8.1.4 Numerical differentiation — p.256
+    - 8.1.5 The Jacobian matrix — p.257
+    - 8.1.6 The Hessian matrix — p.259
+  - 8.2. Automatic Differentiation — p.261
+    - 8.2.1 Forward-mode automatic differentiation — p.263
+    - 8.2.2 Reverse-mode automatic differentiation — p.266
+  - Exercises — p.267
+- 9 Regularization — p.270
+  - 9.1. Inductive Bias — p.271
+    - 9.1.1 Inverse problems — p.271
+    - 9.1.2 No free lunch theorem — p.272
+    - 9.1.3 Symmetry and invariance — p.273
+    - 9.1.4 Equivariance — p.276
+  - 9.2. Weight Decay — p.277
+    - 9.2.1 Consistent regularizers — p.279
+    - 9.2.2 Generalized weight decay — p.281
+  - 9.3. Learning Curves — p.283
+    - 9.3.1 Early stopping — p.283
+    - 9.3.2 Double descent — p.285
+  - 9.4. Parameter Sharing — p.287
+    - 9.4.1 Soft weight sharing — p.288
+  - 9.5. Residual Connections — p.291
+  - 9.6. Model Averaging — p.294
+    - 9.6.1 Dropout — p.296
+  - Exercises — p.298
+- 10 Convolutional Networks — p.303
+  - 10.1. Computer Vision — p.304
+    - 10.1.1 Image data — p.305
+  - 10.2. Convolutional Filters — p.306
+    - 10.2.1 Feature detectors — p.306
+    - 10.2.2 Translation equivariance — p.307
+    - 10.2.3 Padding — p.310
+    - 10.2.4 Strided convolutions — p.310
+    - 10.2.5 Multi-dimensional convolutions — p.311
+    - 10.2.6 Pooling — p.312
+    - 10.2.7 Multilayer convolutions — p.314
+    - 10.2.8 Example network architectures — p.315
+  - 10.3. Visualizing Trained CNNs — p.318
+    - 10.3.1 Visual cortex — p.318
+    - 10.3.2 Visualizing trained filters — p.319
+    - 10.3.3 Saliency maps — p.321
+    - 10.3.4 Adversarial attacks — p.322
+    - 10.3.5 Synthetic images — p.324
+  - 10.4. Object Detection — p.324
+    - 10.4.1 Bounding boxes — p.325
+    - 10.4.2 Intersection-over-union — p.326
+    - 10.4.3 Sliding windows — p.327
+    - 10.4.4 Detection across scales — p.329
+    - 10.4.5 Non-max suppression — p.330
+    - 10.4.6 Fast region CNNs — p.330
+  - 10.5. Image Segmentation — p.331
+    - 10.5.1 Convolutional segmentation — p.331
+    - 10.5.2 Up-sampling — p.332
+    - 10.5.3 Fully convolutional networks — p.334
+    - 10.5.4 The U-net architecture — p.335
+  - 10.6. Style Transfer — p.336
+  - Exercises — p.338
+- 11 Structured Distributions — p.341
+  - 11.1. Graphical Models — p.342
+    - 11.1.1 Directed graphs — p.342
+    - 11.1.2 Factorization — p.343
+    - 11.1.3 Discrete variables — p.345
+    - 11.1.4 Gaussian variables — p.348
+    - 11.1.5 Binary classifier — p.350
+    - 11.1.6 Parameters and observations — p.350
+    - 11.1.7 Bayes’ theorem — p.352
+  - 11.2. Conditional Independence — p.353
+    - 11.2.1 Three example graphs — p.354
+    - 11.2.2 Explaining away — p.357
+    - 11.2.3 D-separation — p.359
+    - 11.2.4 Naive Bayes — p.360
+    - 11.2.5 Generative models — p.362
+    - 11.2.6 Markov blanket — p.363
+    - 11.2.7 Graphs as filters — p.364
+  - 11.3. Sequence Models — p.365
+    - 11.3.1 Hidden variables — p.368
+  - Exercises — p.369
+- 12 Transformers — p.373
+  - 12.1. Attention — p.374
+    - 12.1.1 Transformer processing — p.376
+    - 12.1.2 Attention coefficients — p.377
+    - 12.1.3 Self-attention — p.378
+    - 12.1.4 Network parameters — p.379
+    - 12.1.5 Scaled self-attention — p.382
+    - 12.1.6 Multi-head attention — p.382
+    - 12.1.7 Transformer layers — p.384
+    - 12.1.8 Computational complexity — p.386
+    - 12.1.9 Positional encoding — p.387
+  - 12.2. Natural Language — p.390
+    - 12.2.1 Word embedding — p.391
+    - 12.2.2 Tokenization — p.393
+    - 12.2.3 Bag of words — p.394
+    - 12.2.4 Autoregressive models — p.395
+    - 12.2.5 Recurrent neural networks — p.396
+    - 12.2.6 Backpropagation through time — p.397
+  - 12.3. Transformer Language Models — p.398
+    - 12.3.1 Decoder transformers — p.399
+    - 12.3.2 Sampling strategies — p.402
+    - 12.3.3 Encoder transformers — p.404
+    - 12.3.4 Sequence-to-sequence transformers — p.406
+    - 12.3.5 Large language models — p.406
+  - 12.4. Multimodal Transformers — p.410
+    - 12.4.1 Vision transformers — p.411
+    - 12.4.2 Generative image transformers — p.412
+    - 12.4.3 Audio data — p.415
+    - 12.4.4 Text-to-speech — p.416
+    - 12.4.5 Vision and language transformers — p.418
+  - Exercises — p.419
+- 13 Graph Neural Networks — p.423
+  - 13.1. Machine Learning on Graphs — p.425
+    - 13.1.1 Graph properties — p.426
+    - 13.1.2 Adjacency matrix — p.426
+    - 13.1.3 Permutation equivariance — p.427
+  - 13.2. Neural Message-Passing — p.428
+    - 13.2.1 Convolutional filters — p.429
+    - 13.2.2 Graph convolutional networks — p.430
+    - 13.2.3 Aggregation operators — p.432
+    - 13.2.4 Update operators — p.434
+    - 13.2.5 Node classification — p.435
+    - 13.2.6 Edge classification — p.436
+    - 13.2.7 Graph classification — p.436
+  - 13.3. General Graph Networks — p.436
+    - 13.3.1 Graph attention networks — p.437
+    - 13.3.2 Edge embeddings — p.437
+    - 13.3.3 Graph embeddings — p.438
+    - 13.3.4 Over-smoothing — p.438
+    - 13.3.5 Regularization — p.439
+    - 13.3.6 Geometric deep learning — p.440
+  - Exercises — p.441
+- 14 Sampling — p.444
+  - 14.1. Basic Sampling Algorithms — p.445
+    - 14.1.1 Expectations — p.445
+    - 14.1.2 Standard distributions — p.446
+    - 14.1.3 Rejection sampling — p.448
+    - 14.1.4 Adaptive rejection sampling — p.450
+    - 14.1.5 Importance sampling — p.452
+    - 14.1.6 Sampling-importance-resampling — p.454
+  - 14.2. Markov Chain Monte Carlo — p.455
+    - 14.2.1 The Metropolis algorithm — p.456
+    - 14.2.2 Markov chains — p.457
+    - 14.2.3 The Metropolis–Hastings algorithm — p.460
+    - 14.2.4 Gibbs sampling — p.461
+    - 14.2.5 Ancestral sampling — p.465
+  - 14.3. Langevin Sampling — p.466
+    - 14.3.1 Energy-based models — p.467
+    - 14.3.2 Maximizing the likelihood — p.468
+    - 14.3.3 Langevin dynamics — p.469
+  - Exercises — p.471
+- 15 Discrete Latent Variables — p.474
+  - 15.1. K-means Clustering — p.475
+    - 15.1.1 Image segmentation — p.479
+  - 15.2. Mixtures of Gaussians — p.481
+    - 15.2.1 Likelihood function — p.483
+    - 15.2.2 Maximum likelihood — p.485
+  - 15.3. Expectation–Maximization Algorithm — p.489
+    - 15.3.1 Gaussian mixtures — p.493
+    - 15.3.2 Relation to K-means — p.495
+    - 15.3.3 Mixtures of Bernoulli distributions — p.496
+  - 15.4. Evidence Lower Bound — p.500
+    - 15.4.1 EM revisited — p.501
+    - 15.4.2 Independent and identically distributed data — p.503
+    - 15.4.3 Parameter priors — p.504
+    - 15.4.4 Generalized EM — p.504
+    - 15.4.5 Sequential EM — p.505
+  - Exercises — p.505
+- 16 Continuous Latent Variables — p.509
+  - 16.1. Principal Component Analysis — p.511
+    - 16.1.1 Maximum variance formulation — p.511
+    - 16.1.2 Minimum-error formulation — p.513
+    - 16.1.3 Data compression — p.515
+    - 16.1.4 Data whitening — p.516
+    - 16.1.5 High-dimensional data — p.518
+  - 16.2. Probabilistic Latent Variables — p.520
+    - 16.2.1 Generative model — p.520
+    - 16.2.2 Likelihood function — p.521
+    - 16.2.3 Maximum likelihood — p.523
+    - 16.2.4 Factor analysis — p.527
+    - 16.2.5 Independent component analysis — p.528
+    - 16.2.6 Kalman filters — p.529
+  - 16.3. Evidence Lower Bound — p.530
+    - 16.3.1 Expectation maximization — p.532
+    - 16.3.2 EM for PCA — p.533
+    - 16.3.3 EM for factor analysis — p.534
+  - 16.4. Nonlinear Latent Variable Models — p.536
+    - 16.4.1 Nonlinear manifolds — p.536
+    - 16.4.2 Likelihood function — p.538
+    - 16.4.3 Discrete data — p.540
+    - 16.4.4 Four approaches to generative modelling — p.541
+  - Exercises — p.541
+- 17 Generative Adversarial Networks — p.546
+  - 17.1. Adversarial Training — p.547
+    - 17.1.1 Loss function — p.548
+    - 17.1.2 GAN training in practice — p.549
+  - 17.2. Image GANs — p.552
+    - 17.2.1 CycleGAN — p.552
+  - Exercises — p.557
+- 18 Normalizing Flows — p.559
+  - 18.1. Coupling Flows — p.561
+  - 18.2. Autoregressive Flows — p.564
+  - 18.3. Continuous Flows — p.566
+    - 18.3.1 Neural differential equations — p.566
+    - 18.3.2 Neural ODE backpropagation — p.567
+    - 18.3.3 Neural ODE flows — p.569
+  - Exercises — p.571
+- 19 Autoencoders — p.574
+  - 19.1. Deterministic Autoencoders — p.575
+    - 19.1.1 Linear autoencoders — p.575
+    - 19.1.2 Deep autoencoders — p.576
+    - 19.1.3 Sparse autoencoders — p.577
+    - 19.1.4 Denoising autoencoders — p.578
+    - 19.1.5 Masked autoencoders — p.578
+  - 19.2. Variational Autoencoders — p.580
+    - 19.2.1 Amortized inference — p.583
+    - 19.2.2 The reparameterization trick — p.585
+  - Exercises — p.589
+- 20 Diffusion Models — p.591
+  - 20.1. Forward Encoder — p.592
+    - 20.1.1 Diffusion kernel — p.593
+    - 20.1.2 Conditional distribution — p.594
+  - 20.2. Reverse Decoder — p.595
+    - 20.2.1 Training the decoder — p.597
+    - 20.2.2 Evidence lower bound — p.598
+    - 20.2.3 Rewriting the ELBO — p.599
+    - 20.2.4 Predicting the noise — p.601
+    - 20.2.5 Generating new samples — p.602
+  - 20.3. Score Matching — p.604
+    - 20.3.1 Score loss function — p.605
+    - 20.3.2 Modified score loss — p.606
+    - 20.3.3 Noise variance — p.607
+    - 20.3.4 Stochastic differential equations — p.608
+  - 20.4. Guided Diffusion — p.609
+    - 20.4.1 Classifier guidance — p.610
+    - 20.4.2 Classifier-free guidance — p.610
+  - Exercises — p.613
+- Appendix B. Calculus of Variations — p.625
+- Appendix C. Lagrange Multipliers — p.628
+- Bibliography — p.632
+- Index — p.648
+
+## Foundations of Machine Learning.pdf (505 PDF pages)
+
+- Contents — p.6
+- Preface — p.14
+- 1 Introduction — p.18
+  - 1.1 What is machine learning? — p.18
+  - 1.2 What kind of problems can be tackled using machine learning? — p.19
+  - 1.3 Some standard learning tasks — p.20
+  - 1.4 Learning stages — p.21
+  - 1.5 Learning scenarios — p.23
+  - 1.6 Generalization — p.24
+- 2 The PAC Learning Framework — p.26
+  - 2.1 The PAC learning model — p.26
+  - 2.2 Guarantees for finite hypothesis sets — consistent case — p.32
+  - 2.3 Guarantees for finite hypothesis sets — inconsistent case — p.36
+  - 2.4 Generalities — p.38
+    - 2.4.1 Deterministic versus stochastic scenarios — p.38
+    - 2.4.2 Bayes error and noise — p.39
+  - 2.5 Chapter notes — p.40
+  - 2.6 Exercises — p.40
+- 3 Rademacher Complexity and VC-Dimension — p.46
+  - 3.1 Rademacher complexity — p.47
+  - 3.2 Growth function — p.51
+  - 3.3 VC-dimension — p.53
+  - 3.4 Lower bounds — p.60
+  - 3.5 Chapter notes — p.65
+  - 3.6 Exercises — p.67
+- 4 Model Selection — p.78
+  - 4.1 Estimation and approximation errors — p.78
+  - 4.2 Empirical risk minimization (ERM) — p.79
+  - 4.3 Structural risk minimization (SRM) — p.81
+  - 4.4 Cross-validation — p.85
+  - 4.5 n-Fold cross-validation — p.88
+  - 4.6 Regularization-based algorithms — p.89
+  - 4.7 Convex surrogate losses — p.90
+  - 4.8 Chapter notes — p.94
+  - 4.9 Exercises — p.95
+- 5 Support Vector Machines — p.96
+  - 5.1 Linear classification — p.96
+  - 5.2 Separable case — p.97
+    - 5.2.1 Primal optimization problem — p.98
+    - 5.2.2 Support vectors — p.100
+    - 5.2.3 Dual optimization problem — p.100
+    - 5.2.4 Leave-one-out analysis — p.102
+  - 5.3 Non-separable case — p.104
+    - 5.3.1 Primal optimization problem — p.105
+    - 5.3.2 Support vectors — p.106
+    - 5.3.3 Dual optimization problem — p.107
+  - 5.4 Margin theory — p.108
+  - 5.5 Chapter notes — p.117
+  - 5.6 Exercises — p.117
+- 6 Kernel Methods — p.122
+  - 6.1 Introduction — p.122
+  - 6.2 Positive definite symmetric kernels — p.125
+    - 6.2.1 Definitions — p.125
+    - 6.2.2 Reproducing kernel Hilbert space — p.127
+    - 6.2.3 Properties — p.129
+  - 6.3 Kernel-based algorithms — p.133
+    - 6.3.1 SVMs with PDS kernels — p.133
+    - 6.3.2 Representer theorem — p.134
+    - 6.3.3 Learning guarantees — p.134
+  - 6.4 Negative definite symmetric kernels — p.136
+  - 6.5 Sequence kernels — p.138
+    - 6.5.1 Weighted transducers — p.139
+    - 6.5.2 Rational kernels — p.143
+  - 6.6 Approximate kernel feature maps — p.147
+  - 6.7 Chapter notes — p.152
+  - 6.8 Exercises — p.154
+- 7 Boosting — p.162
+  - 7.1 Introduction — p.162
+  - 7.2 AdaBoost — p.163
+    - 7.2.1 Bound on the empirical error — p.166
+    - 7.2.2 Relationship with coordinate descent — p.167
+    - 7.2.3 Practical use — p.171
+  - 7.3 Theoretical results — p.171
+    - 7.3.1 VC-dimension-based analysis — p.171
+    - 7.3.2 L1-geometric margin — p.172
+    - 7.3.3 Margin-based analysis — p.174
+    - 7.3.4 Margin maximization — p.178
+    - 7.3.5 Game-theoretic interpretation — p.179
+  - 7.4 L1-regularization — p.182
+  - 7.5 Discussion — p.184
+  - 7.6 Chapter notes — p.185
+  - 7.7 Exercises — p.187
+- 8 On-Line Learning — p.194
+  - 8.1 Introduction — p.195
+  - 8.2 Prediction with expert advice — p.195
+    - 8.2.1 Mistake bounds and Halving algorithm — p.196
+    - 8.2.2 Weighted majority algorithm — p.198
+    - 8.2.3 Randomized weighted majority algorithm — p.200
+    - 8.2.4 Exponential weighted average algorithm — p.203
+  - 8.3 Linear classification — p.207
+    - 8.3.1 Perceptron algorithm — p.207
+    - 8.3.2 Winnow algorithm — p.215
+  - 8.4 On-line to batch conversion — p.218
+  - 8.5 Game-theoretic connection — p.221
+  - 8.6 Chapter notes — p.222
+  - 8.7 Exercises — p.223
+- 9 Multi-Class Classification — p.230
+  - 9.1 Multi-class classification problem — p.230
+  - 9.2 Generalization bounds — p.232
+  - 9.3 Uncombined multi-class algorithms — p.238
+    - 9.3.1 Multi-class SVMs — p.238
+    - 9.3.2 Multi-class boosting algorithms — p.239
+    - 9.3.3 Decision trees — p.241
+  - 9.4 Aggregated multi-class algorithms — p.245
+    - 9.4.1 One-versus-all — p.246
+    - 9.4.2 One-versus-one — p.246
+    - 9.4.3 Error-correcting output codes — p.248
+  - 9.5 Structured prediction algorithms — p.250
+  - 9.6 Chapter notes — p.252
+  - 9.7 Exercises — p.254
+- 10 Ranking — p.256
+  - 10.1 The problem of ranking — p.257
+  - 10.2 Generalization bound — p.258
+  - 10.3 Ranking with SVMs — p.260
+  - 10.4 RankBoost — p.261
+    - 10.4.1 Bound on the empirical error — p.263
+    - 10.4.2 Relationship with coordinate descent — p.265
+    - 10.4.3 Margin bound for ensemble methods in ranking — p.267
+  - 10.5 Bipartite ranking — p.268
+    - 10.5.1 Boosting in bipartite ranking — p.269
+    - 10.5.2 Area under the ROC curve — p.272
+  - 10.6 Preference-based setting — p.274
+    - 10.6.1 Second-stage ranking problem — p.274
+    - 10.6.2 Deterministic algorithm — p.276
+    - 10.6.3 Randomized algorithm — p.277
+    - 10.6.4 Extension to other loss functions — p.279
+  - 10.7 Other ranking criteria — p.279
+  - 10.8 Chapter notes — p.280
+  - 10.9 Exercises — p.281
+- 11 Regression — p.284
+  - 11.1 The problem of regression — p.284
+  - 11.2 Generalization bounds — p.285
+    - 11.2.1 Finite hypothesis sets — p.285
+    - 11.2.2 Rademacher complexity bounds — p.286
+    - 11.2.3 Pseudo-dimension bounds — p.288
+  - 11.3 Regression algorithms — p.292
+    - 11.3.1 Linear regression — p.292
+    - 11.3.2 Kernel ridge regression — p.293
+    - 11.3.3 Support vector regression — p.298
+    - 11.3.4 Lasso — p.302
+    - 11.3.5 Group norm regression algorithms — p.306
+    - 11.3.6 On-line regression algorithms — p.306
+  - 11.4 Chapter notes — p.307
+  - 11.5 Exercises — p.309
+- 12 Maximum Entropy Models — p.312
+  - 12.1 Density estimation problem — p.312
+    - 12.1.1 Maximum Likelihood (ML) solution — p.313
+    - 12.1.2 Maximum a Posteriori (MAP) solution — p.314
+  - 12.2 Density estimation problem augmented with features — p.314
+  - 12.3 Maxent principle — p.315
+  - 12.4 Maxent models — p.316
+  - 12.5 Dual problem — p.316
+  - 12.6 Generalization bound — p.320
+  - 12.7 Coordinate descent algorithm — p.321
+  - 12.8 Extensions — p.323
+  - 12.9 L2-regularization — p.325
+  - 12.10 Chapter notes — p.329
+  - 12.11 Exercises — p.330
+- 13 Conditional Maximum Entropy Models — p.332
+  - 13.1 Learning problem — p.332
+  - 13.2 Conditional Maxent principle — p.333
+  - 13.3 Conditional Maxent models — p.333
+  - 13.4 Dual problem — p.334
+  - 13.5 Properties — p.336
+    - 13.5.1 Optimization problem — p.337
+    - 13.5.2 Feature vectors — p.337
+    - 13.5.3 Prediction — p.338
+  - 13.6 Generalization bounds — p.338
+  - 13.7 Logistic regression — p.342
+    - 13.7.1 Optimization problem — p.342
+    - 13.7.2 Logistic model — p.342
+  - 13.8 L2-regularization — p.343
+  - 13.9 Proof of the duality theorem — p.345
+  - 13.10 Chapter notes — p.347
+  - 13.11 Exercises — p.348
+- 14 Algorithmic Stability — p.350
+  - 14.1 Definitions — p.350
+  - 14.2 Stability-based generalization guarantee — p.351
+  - 14.3 Stability of kernel-based regularization algorithms — p.353
+    - 14.3.1 Application to regression algorithms: SVR and KRR — p.356
+    - 14.3.2 Application to classification algorithms: SVMs — p.358
+    - 14.3.3 Discussion — p.359
+  - 14.4 Chapter notes — p.359
+  - 14.5 Exercises — p.360
+- 15 Dimensionality Reduction — p.364
+  - 15.1 Principal component analysis — p.365
+  - 15.2 Kernel principal component analysis (KPCA) — p.366
+  - 15.3 KPCA and manifold learning — p.368
+    - 15.3.1 Isomap — p.368
+    - 15.3.2 Laplacian eigenmaps — p.369
+    - 15.3.3 Locally linear embedding (LLE) — p.370
+  - 15.4 Johnson-Lindenstrauss lemma — p.371
+  - 15.5 Chapter notes — p.373
+  - 15.6 Exercises — p.373
+- 16 Learning Automata and Languages — p.376
+  - 16.1 Introduction — p.376
+  - 16.2 Finite automata — p.377
+  - 16.3 Efficient exact learning — p.378
+    - 16.3.1 Passive learning — p.379
+    - 16.3.2 Learning with queries — p.380
+    - 16.3.3 Learning automata with queries — p.381
+  - 16.4 Identification in the limit — p.386
+    - 16.4.1 Learning reversible automata — p.387
+  - 16.5 Chapter notes — p.392
+  - 16.6 Exercises — p.393
+- 17 Reinforcement Learning — p.396
+  - 17.1 Learning scenario — p.396
+  - 17.2 Markov decision process model — p.397
+  - 17.3 Policy — p.398
+    - 17.3.1 Definition — p.398
+    - 17.3.2 Policy value — p.399
+    - 17.3.3 Optimal policies — p.399
+    - 17.3.4 Policy evaluation — p.402
+  - 17.4 Planning algorithms — p.404
+    - 17.4.1 Value iteration — p.404
+    - 17.4.2 Policy iteration — p.407
+    - 17.4.3 Linear programming — p.409
+  - 17.5 Learning algorithms — p.410
+    - 17.5.1 Stochastic approximation — p.411
+    - 17.5.2 TD(0) algorithm — p.414
+    - 17.5.3 Q-learning algorithm — p.415
+    - 17.5.4 SARSA — p.419
+    - 17.5.5 TD(-) algorithm — p.419
+    - 17.5.6 Large state space — p.420
+  - 17.6 Chapter notes — p.422
+- Conclusion — p.424
+- A Linear Algebra Review — p.426
+  - A.1 Vectors and norms — p.426
+    - A.1.1 Norms — p.426
+    - A.1.2 Dual norms — p.427
+    - A.1.3 Relationship between norms — p.428
+  - A.2 Matrices — p.428
+    - A.2.1 Matrix norms — p.428
+    - A.2.2 Singular value decomposition — p.429
+    - A.2.3 Symmetric positive semidefinite (SPSD) matrices — p.429
+- B Convex Optimization — p.432
+  - B.1 Differentiation and unconstrained optimization — p.432
+  - B.2 Convexity — p.432
+  - B.3 Constrained optimization — p.436
+  - B.4 Fenchel duality — p.439
+    - B.4.1 Subgradients — p.439
+    - B.4.2 Core — p.440
+    - B.4.3 Conjugate functions — p.440
+  - B.5 Chapter notes — p.443
+  - B.6 Exercises — p.444
+- C Probability Review — p.446
+  - C.1 Probability — p.446
+  - C.2 Random variables — p.446
+  - C.3 Conditional probability and independence — p.448
+  - C.4 Expectation and Markov’s inequality — p.448
+  - C.5 Variance and Chebyshev’s inequality — p.449
+  - C.6 Moment-generating functions — p.451
+  - C.7 Exercises — p.452
+- D Concentration Inequalities — p.454
+  - D.1 Hoeffding’s inequality — p.454
+  - D.2 Sanov’s theorem — p.455
+  - D.3 Multiplicative Chernoff bounds — p.456
+  - D.4 Binomial distribution tails: Upper bounds — p.457
+  - D.5 Binomial distribution tails: Lower bound — p.457
+  - D.6 Azuma’s inequality — p.458
+  - D.7 McDiarmid’s inequality — p.459
+  - D.8 Normal distribution tails: Lower bound — p.460
+  - D.9 Khintchine-Kahane inequality — p.460
+  - D.10 Maximal inequality — p.461
+  - D.11 Chapter notes — p.462
+  - D.12 Exercises — p.462
+- E Notions of Information Theory — p.466
+  - E.1 Entropy — p.466
+  - E.2 Relative entropy — p.467
+  - E.3 Mutual information — p.470
+  - E.4 Bregman divergences — p.470
+  - E.5 Chapter notes — p.473
+  - E.6 Exercises — p.474
+- F Notation — p.476
+- Bibliography — p.478
+- Index — p.492
+
+## ISLP_website.pdf (613 PDF pages)
+
+- Preface — p.3
+- Contents — p.5
+- 1 Introduction — p.12
+  - An Overview of Statistical Learning — p.12
+    - Wage Data — p.12
+    - Stock Market Data — p.13
+    - Gene Expression Data — p.14
+  - A Brief History of Statistical Learning — p.16
+  - This Book — p.17
+  - Who Should Read This Book? — p.19
+  - Notation and Simple Matrix Algebra — p.19
+  - Organization of This Book — p.22
+  - Data Sets Used in Labs and Exercises — p.23
+  - Book Website — p.24
+  - Acknowledgements — p.24
+- 2 Statistical Learning — p.25
+  - 2.1 What Is Statistical Learning? — p.25
+    - 2.1.1 Why Estimate f? — p.27
+    - 2.1.2 How Do We Estimate f? — p.30
+    - 2.1.3 The Trade-Off Between Prediction Accuracy and Model Interpretability — p.33
+    - 2.1.4 Supervised Versus Unsupervised Learning — p.35
+    - 2.1.5 Regression Versus Classification Problems — p.37
+  - 2.2 Assessing Model Accuracy — p.37
+    - 2.2.1 Measuring the Quality of Fit — p.38
+    - 2.2.2 The Bias-Variance Trade-Off — p.41
+    - 2.2.3 The Classification Setting — p.44
+  - 2.3 Lab: Introduction to Python — p.50
+    - 2.3.1 Getting Started — p.50
+    - 2.3.2 Basic Commands — p.50
+    - 2.3.3 Introduction to Numerical Python — p.52
+    - 2.3.4 Graphics — p.58
+    - 2.3.5 Sequences and Slice Notation — p.61
+    - 2.3.6 Indexing Data — p.61
+    - 2.3.7 Loading Data — p.65
+    - 2.3.8 For Loops — p.69
+    - 2.3.9 Additional Graphical and Numerical Summaries — p.71
+  - 2.4 Exercises — p.73
+    - Conceptual — p.73
+    - Applied — p.75
+- 3 Linear Regression — p.78
+  - 3.1 Simple Linear Regression — p.79
+    - 3.1.1 Estimating the Coefficients — p.80
+    - 3.1.2 Assessing the Accuracy of the Coefficient Estimates — p.81
+    - 3.1.3 Assessing the Accuracy of the Model — p.86
+  - 3.2 Multiple Linear Regression — p.89
+    - 3.2.1 Estimating the Regression Coefficients — p.90
+    - 3.2.2 Some Important Questions — p.92
+  - 3.3 Other Considerations in the Regression Model — p.100
+    - 3.3.1 Qualitative Predictors — p.100
+    - 3.3.2 Extensions of the Linear Model — p.103
+    - 3.3.3 Potential Problems — p.109
+  - 3.4 The Marketing Plan — p.118
+  - 3.5 Comparison of Linear Regression with K-Nearest Neighbors — p.120
+  - 3.6 Lab: Linear Regression — p.125
+    - 3.6.1 Importing packages — p.125
+    - 3.6.2 Simple Linear Regression — p.126
+    - 3.6.3 Multiple Linear Regression — p.131
+    - 3.6.4 Multivariate Goodness of Fit — p.132
+    - 3.6.5 Interaction Terms — p.133
+    - 3.6.6 Non-linear Transformations of the Predictors — p.134
+    - 3.6.7 Qualitative Predictors — p.135
+  - 3.7 Exercises — p.136
+    - Conceptual — p.136
+    - Applied — p.138
+- 4 Classification — p.144
+  - 4.1 An Overview of Classification — p.144
+  - 4.2 Why Not Linear Regression? — p.145
+  - 4.3 Logistic Regression — p.147
+    - 4.3.1 The Logistic Model — p.148
+    - 4.3.2 Estimating the Regression Coefficients — p.149
+    - 4.3.3 Making Predictions — p.150
+    - 4.3.4 Multiple Logistic Regression — p.151
+    - 4.3.5 Multinomial Logistic Regression — p.153
+  - 4.4 Generative Models for Classification — p.155
+    - 4.4.1 Linear Discriminant Analysis for p = 1 — p.156
+    - 4.4.2 Linear Discriminant Analysis for p >1 — p.159
+    - 4.4.3 Quadratic Discriminant Analysis — p.165
+    - 4.4.4 Naive Bayes — p.167
+  - 4.5 A Comparison of Classification Methods — p.170
+    - 4.5.1 An Analytical Comparison — p.170
+    - 4.5.2 An Empirical Comparison — p.173
+  - 4.6 Generalized Linear Models — p.176
+    - 4.6.1 Linear Regression on the Bikeshare Data — p.176
+    - 4.6.2 Poisson Regression on the Bikeshare Data — p.178
+    - 4.6.3 Generalized Linear Models in Greater Generality — p.181
+  - 4.7 Lab: Logistic Regression, LDA, QDA, and KNN — p.182
+    - 4.7.1 The Stock Market Data — p.182
+    - 4.7.2 Logistic Regression — p.183
+    - 4.7.3 Linear Discriminant Analysis — p.188
+    - 4.7.4 Quadratic Discriminant Analysis — p.190
+    - 4.7.5 Naive Bayes — p.191
+    - 4.7.6 K-Nearest Neighbors — p.192
+    - 4.7.7 Linear and Poisson Regression on the Bikeshare Data — p.197
+  - 4.8 Exercises — p.202
+    - Conceptual — p.202
+    - Applied — p.205
+- 5 Resampling Methods — p.209
+  - 5.1 Cross-Validation — p.210
+    - 5.1.1 The Validation Set Approach — p.210
+    - 5.1.2 Leave-One-Out Cross-Validation — p.212
+    - 5.1.3 k-Fold Cross-Validation — p.214
+    - 5.1.4 Bias-Variance Trade-Off for k-Fold Cross-Validation — p.216
+    - 5.1.5 Cross-Validation on Classification Problems — p.217
+  - 5.2 The Bootstrap — p.220
+  - 5.3 Lab: Cross-Validation and the Bootstrap — p.223
+    - 5.3.1 The Validation Set Approach — p.224
+    - 5.3.2 Cross-Validation — p.225
+    - 5.3.3 The Bootstrap — p.228
+  - 5.4 Exercises — p.232
+    - Conceptual — p.232
+    - Applied — p.233
+- 6 Linear Model Selection and Regularization — p.237
+  - 6.1 Subset Selection — p.239
+    - 6.1.1 Best Subset Selection — p.239
+    - 6.1.2 Stepwise Selection — p.241
+    - 6.1.3 Choosing the Optimal Model — p.243
+  - 6.2 Shrinkage Methods — p.248
+    - 6.2.1 Ridge Regression — p.248
+    - 6.2.2 The Lasso — p.252
+    - 6.2.3 Selecting the Tuning Parameter — p.260
+  - 6.3 Dimension Reduction Methods — p.261
+    - 6.3.1 Principal Components Regression — p.262
+    - 6.3.2 Partial Least Squares — p.268
+  - 6.4 Considerations in High Dimensions — p.270
+    - 6.4.1 High-Dimensional Data — p.270
+    - 6.4.2 What Goes Wrong in High Dimensions? — p.271
+    - 6.4.3 Regression in High Dimensions — p.273
+    - 6.4.4 Interpreting Results in High Dimensions — p.274
+  - 6.5 Lab: Linear Models and Regularization Methods — p.275
+    - 6.5.1 Subset Selection Methods — p.276
+    - 6.5.2 Ridge Regression and the Lasso — p.281
+    - 6.5.3 PCR and PLS Regression — p.288
+  - 6.6 Exercises — p.291
+    - Conceptual — p.291
+    - Applied — p.294
+- 7 Moving Beyond Linearity — p.297
+  - 7.1 Polynomial Regression — p.298
+  - 7.2 Step Functions — p.300
+  - 7.3 Basis Functions — p.301
+  - 7.4 Regression Splines — p.302
+    - 7.4.1 Piecewise Polynomials — p.302
+    - 7.4.2 Constraints and Splines — p.304
+    - 7.4.3 The Spline Basis Representation — p.304
+    - 7.4.4 Choosing the Number and Locations of the Knots — p.305
+    - 7.4.5 Comparison to Polynomial Regression — p.307
+  - 7.5 Smoothing Splines — p.308
+    - 7.5.1 An Overview of Smoothing Splines — p.308
+    - 7.5.2 Choosing the Smoothing Parameter λ  — p.309
+  - 7.6 Local Regression — p.311
+  - 7.7 Generalized Additive Models — p.313
+    - 7.7.1 GAMs for Regression Problems — p.314
+    - 7.7.2 GAMs for Classification Problems — p.316
+  - 7.8 Lab: Non-Linear Modeling — p.317
+    - 7.8.1 Polynomial Regression and Step Functions — p.318
+    - 7.8.2 Splines — p.323
+    - 7.8.3 Smoothing Splines and GAMs — p.325
+    - 7.8.4 Local Regression — p.332
+  - 7.9 Exercises — p.333
+    - Conceptual — p.333
+    - Applied — p.335
+- 8 Tree-Based Methods — p.338
+  - 8.1 The Basics of Decision Trees — p.338
+    - 8.1.1 Regression Trees — p.338
+    - 8.1.2 Classification Trees — p.344
+    - 8.1.3 Trees Versus Linear Models — p.348
+    - 8.1.4 Advantages and Disadvantages of Trees — p.348
+  - 8.2 Bagging, Random Forests, Boosting, and Bayesian Additive Regression Trees — p.350
+    - 8.2.1 Bagging — p.350
+    - 8.2.2 Random Forests — p.353
+    - 8.2.3 Boosting — p.354
+    - 8.2.4 Bayesian Additive Regression Trees — p.357
+    - 8.2.5 Summary of Tree Ensemble Methods — p.360
+  - 8.3 Lab: Tree-Based Methods — p.361
+    - 8.3.1 Fitting Classification Trees — p.362
+    - 8.3.2 Fitting Regression Trees — p.365
+    - 8.3.3 Bagging and Random Forests — p.367
+    - 8.3.4 Boosting — p.368
+    - 8.3.5 Bayesian Additive Regression Trees — p.369
+  - 8.4 Exercises — p.370
+    - Conceptual — p.370
+    - Applied — p.371
+- 9 Support Vector Machines — p.374
+  - 9.1 Maximal Margin Classifier — p.374
+    - 9.1.1 What Is a Hyperplane? — p.375
+    - 9.1.2 Classification Using a Separating Hyperplane — p.375
+    - 9.1.3 The Maximal Margin Classifier — p.377
+    - 9.1.4 Construction of the Maximal Margin Classifier — p.379
+    - 9.1.5 The Non-separable Case — p.379
+  - 9.2 Support Vector Classifiers — p.380
+    - 9.2.1 Overview of the Support Vector Classifier — p.380
+    - 9.2.2 Details of the Support Vector Classifier — p.381
+  - 9.3 Support Vector Machines — p.384
+    - 9.3.1 Classification with Non-Linear Decision Boundaries — p.385
+    - 9.3.2 The Support Vector Machine — p.386
+    - 9.3.3 An Application to the Heart Disease Data — p.389
+  - 9.4 SVMs with More than Two Classes — p.390
+    - 9.4.1 One-Versus-One Classification — p.391
+    - 9.4.2 One-Versus-All Classification — p.391
+  - 9.5 Relationship to Logistic Regression — p.391
+  - 9.6 Lab: Support Vector Machines — p.394
+    - 9.6.1 Support Vector Classifier — p.394
+    - 9.6.2 Support Vector Machine — p.397
+    - 9.6.3 ROC Curves — p.399
+    - 9.6.4 SVM with Multiple Classes — p.400
+    - 9.6.5 Application to Gene Expression Data — p.401
+  - 9.7 Exercises — p.402
+    - Conceptual — p.402
+    - Applied — p.403
+- 10 Deep Learning — p.406
+  - 10.1 Single Layer Neural Networks — p.407
+  - 10.2 Multilayer Neural Networks — p.409
+  - 10.3 Convolutional Neural Networks — p.413
+    - 10.3.1 Convolution Layers — p.414
+    - 10.3.2 Pooling Layers — p.417
+    - 10.3.3 Architecture of a Convolutional Neural Network — p.417
+    - 10.3.4 Data Augmentation — p.418
+    - 10.3.5 Results Using a Pretrained Classifier — p.419
+  - 10.4 Document Classification — p.420
+  - 10.5 Recurrent Neural Networks — p.423
+    - 10.5.1 Sequential Models for Document Classification — p.425
+    - 10.5.2 Time Series Forecasting — p.427
+    - 10.5.3 Summary of RNNs — p.431
+  - 10.6 When to Use Deep Learning — p.432
+  - 10.7 Fitting a Neural Network — p.434
+    - 10.7.1 Backpropagation — p.435
+    - 10.7.2 Regularization and Stochastic Gradient Descent — p.436
+    - 10.7.3 Dropout Learning — p.438
+    - 10.7.4 Network Tuning — p.438
+  - 10.8 Interpolation and Double Descent — p.439
+  - 10.9 Lab: Deep Learning — p.442
+    - 10.9.1 Single Layer Network on Hitters Data — p.444
+    - 10.9.2 Multilayer Network on the MNIST Digit Data — p.451
+    - 10.9.3 Convolutional Neural Networks — p.455
+    - 10.9.4 Using Pretrained CNN Models — p.459
+    - 10.9.5 IMDB Document Classification — p.461
+    - 10.9.6 Recurrent Neural Networks — p.465
+  - 10.10 Exercises — p.472
+    - Conceptual — p.472
+    - Applied — p.473
+- 11 Survival Analysis and Censored Data — p.475
+  - 11.1 Survival and Censoring Times — p.476
+  - 11.2 A Closer Look at Censoring — p.476
+  - 11.3 The Kaplan–Meier Survival Curve — p.478
+  - 11.4 The Log-Rank Test — p.480
+  - 11.5 Regression Models With a Survival Response — p.482
+    - 11.5.1 The Hazard Function — p.482
+    - 11.5.2 Proportional Hazards — p.484
+    - 11.5.3 Example: Brain Cancer Data — p.488
+    - 11.5.4 Example: Publication Data — p.488
+  - 11.6 Shrinkage for the Cox Model — p.490
+  - 11.7 Additional Topics — p.492
+    - 11.7.1 Area Under the Curve for Survival Analysis — p.492
+    - 11.7.2 Choice of Time Scale — p.493
+    - 11.7.3 Time-Dependent Covariates — p.494
+    - 11.7.4 Checking the Proportional Hazards Assumption — p.494
+    - 11.7.5 Survival Trees — p.494
+  - 11.8 Lab: Survival Analysis — p.495
+    - 11.8.1 Brain Cancer Data — p.495
+    - 11.8.2 Publication Data — p.499
+    - 11.8.3 Call Center Data — p.500
+  - 11.9 Exercises — p.504
+    - Conceptual — p.504
+    - Applied — p.508
+- 12 Unsupervised Learning — p.509
+  - 12.1 The Challenge of Unsupervised Learning — p.509
+  - 12.2 Principal Components Analysis — p.510
+    - 12.2.1 What Are Principal Components? — p.511
+    - 12.2.2 Another Interpretation of Principal Components — p.514
+    - 12.2.3 The Proportion of Variance Explained — p.516
+    - 12.2.4 More on PCA — p.518
+    - 12.2.5 Other Uses for Principal Components — p.521
+  - 12.3 Missing Values and Matrix Completion — p.521
+  - 12.4 Clustering Methods — p.526
+    - 12.4.1 K-Means Clustering — p.527
+    - 12.4.2 Hierarchical Clustering — p.531
+    - 12.4.3 Practical Issues in Clustering — p.538
+  - 12.5 Lab: Unsupervised Learning — p.541
+    - 12.5.1 Principal Components Analysis — p.541
+    - 12.5.2 Matrix Completion — p.545
+    - 12.5.3 Clustering — p.548
+    - 12.5.4 NCI60 Data Example — p.552
+  - 12.6 Exercises — p.558
+    - Conceptual — p.558
+    - Applied — p.560
+- 13 Multiple Testing — p.563
+  - 13.1 A Quick Review of Hypothesis Testing — p.564
+    - 13.1.1 Testing a Hypothesis — p.564
+    - 13.1.2 Type I and Type II Errors — p.568
+  - 13.2 The Challenge of Multiple Testing — p.569
+  - 13.3 The Family-Wise Error Rate — p.571
+    - 13.3.1 What is the Family-Wise Error Rate? — p.571
+    - 13.3.2 Approaches to Control the Family-Wise Error Rate — p.573
+    - 13.3.3 Trade-Off Between the FWER and Power — p.578
+  - 13.4 The False Discovery Rate — p.579
+    - 13.4.1 Intuition for the False Discovery Rate — p.579
+    - 13.4.2 The Benjamini–Hochberg Procedure — p.581
+  - 13.5 A Re-Sampling Approach to p-Values and False Discovery Rates — p.583
+    - 13.5.1 A Re-Sampling Approach to the p-Value — p.584
+    - 13.5.2 A Re-Sampling Approach to the False Discovery Rate — p.585
+    - 13.5.3 When Are Re-Sampling Approaches Useful? — p.587
+  - 13.6 Lab: Multiple Testing — p.589
+    - 13.6.1 Review of Hypothesis Tests — p.589
+    - 13.6.2 Family-Wise Error Rate — p.591
+    - 13.6.3 False Discovery Rate — p.594
+    - 13.6.4 A Re-Sampling Approach — p.596
+  - 13.7 Exercises — p.599
+    - Conceptual — p.599
+    - Applied — p.601
+- Index — p.603
+
+## Probabilistic Machine Learning.pdf (860 PDF pages)
+
+- Preface — p.27
+- 1 Introduction — p.31
+  - 1.1 What is machine learning? — p.31
+  - 1.2 Supervised learning — p.31
+    - 1.2.1 Classification — p.32
+    - 1.2.2 Regression — p.38
+    - 1.2.3 Overfitting and generalization — p.42
+    - 1.2.4 No free lunch theorem — p.43
+  - 1.3 Unsupervised learning — p.44
+    - 1.3.1 Clustering — p.44
+    - 1.3.2 Discovering latent ``factors of variation'' — p.45
+    - 1.3.3 Self-supervised learning — p.46
+    - 1.3.4 Evaluating unsupervised learning — p.46
+  - 1.4 Reinforcement learning — p.47
+  - 1.5 Data — p.49
+    - 1.5.1 Some common image datasets — p.49
+    - 1.5.2 Some common text datasets — p.51
+    - 1.5.3 Preprocessing discrete input data — p.53
+    - 1.5.4 Preprocessing text data — p.54
+    - 1.5.5 Handling missing data — p.56
+  - 1.6 Discussion — p.57
+    - 1.6.1 The relationship between ML and other fields — p.57
+    - 1.6.2 Structure of the book — p.58
+    - 1.6.3 Caveats — p.58
+- I Foundations — p.61
+  - 2 Probability: Univariate Models — p.63
+    - 2.1 Introduction — p.63
+    - 2.2 Random variables — p.65
+    - 2.3 Bayes' rule — p.74
+    - 2.4 Bernoulli and binomial distributions — p.79
+    - 2.5 Categorical and multinomial distributions — p.83
+    - 2.6 Univariate Gaussian (normal) distribution — p.87
+    - 2.7 Some other common univariate distributions * — p.91
+    - 2.8 Transformations of random variables * — p.96
+    - 2.9 Exercises — p.103
+  - 3 Probability: Multivariate Models — p.107
+    - 3.1 Joint distributions for multiple random variables — p.107
+    - 3.2 The multivariate Gaussian (normal) distribution — p.110
+    - 3.3 Linear Gaussian systems * — p.116
+    - 3.4 The exponential family * — p.123
+    - 3.5 Mixture models — p.126
+    - 3.6 Probabilistic graphical models * — p.129
+    - 3.7 Exercises — p.133
+  - 4 Statistics — p.137
+    - 4.1 Introduction — p.137
+    - 4.2 Maximum likelihood estimation (MLE) — p.137
+    - 4.3 Empirical risk minimization (ERM) — p.145
+    - 4.4 Other estimation methods * — p.147
+    - 4.5 Regularization — p.150
+    - 4.6 Bayesian statistics * — p.159
+    - 4.7 Frequentist statistics * — p.184
+    - 4.8 Exercises — p.194
+  - 5 Decision Theory — p.197
+    - 5.1 Bayesian decision theory — p.197
+    - 5.2 Choosing the ``right'' model — p.209
+    - 5.3 Frequentist decision theory — p.219
+    - 5.4 Empirical risk minimization — p.223
+    - 5.5 Frequentist hypothesis testing * — p.228
+    - 5.6 Exercises — p.234
+  - 6 Information Theory — p.237
+    - 6.1 Entropy — p.237
+    - 6.2 Relative entropy (KL divergence) * — p.243
+    - 6.3 Mutual information * — p.247
+    - 6.4 Exercises — p.256
+  - 7 Linear Algebra — p.259
+    - 7.1 Introduction — p.259
+    - 7.2 Matrix multiplication — p.272
+    - 7.3 Matrix inversion — p.279
+    - 7.4 Eigenvalue decomposition (EVD) — p.283
+    - 7.5 Singular value decomposition (SVD) — p.289
+    - 7.6 Other matrix decompositions * — p.294
+    - 7.7 Solving systems of linear equations * — p.296
+    - 7.8 Matrix calculus — p.299
+    - 7.9 Exercises — p.304
+  - 8 Optimization — p.305
+    - 8.1 Introduction — p.305
+    - 8.2 First-order methods — p.312
+    - 8.3 Second-order methods — p.319
+    - 8.4 Stochastic gradient descent — p.322
+    - 8.5 Constrained optimization — p.332
+    - 8.6 Proximal gradient method * — p.338
+    - 8.7 Bound optimization * — p.342
+    - 8.8 Blackbox and derivative free optimization — p.349
+    - 8.9 Exercises — p.350
+- II Linear Models — p.351
+  - 9 Linear Discriminant Analysis — p.353
+    - 9.1 Introduction — p.353
+    - 9.2 Gaussian discriminant analysis — p.353
+    - 9.3 Naive Bayes classifiers — p.362
+    - 9.4 Generative vs discriminative classifiers — p.366
+    - 9.5 Exercises — p.368
+  - 10 Logistic Regression — p.369
+    - 10.1 Introduction — p.369
+    - 10.2 Binary logistic regression — p.369
+    - 10.3 Multinomial logistic regression — p.380
+    - 10.4 Robust logistic regression * — p.390
+    - 10.5 Bayesian logistic regression * — p.393
+    - 10.6 Exercises — p.397
+  - 11 Linear Regression — p.401
+    - 11.1 Introduction — p.401
+    - 11.2 Least squares linear regression — p.401
+    - 11.3 Ridge regression — p.411
+    - 11.4 Lasso regression — p.415
+    - 11.5 Regression splines * — p.429
+    - 11.6 Robust linear regression * — p.432
+    - 11.7 Bayesian linear regression * — p.435
+    - 11.8 Exercises — p.441
+  - 12 Generalized Linear Models * — p.445
+    - 12.1 Introduction — p.445
+    - 12.2 Examples — p.445
+    - 12.3 GLMs with non-canonical link functions — p.447
+    - 12.4 Maximum likelihood estimation — p.448
+    - 12.5 Worked example: predicting insurance claims — p.449
+- III Deep Neural Networks — p.453
+  - 13 Neural Networks for Tabular Data — p.455
+    - 13.1 Introduction — p.455
+    - 13.2 Multilayer perceptrons (MLPs) — p.456
+    - 13.3 Backpropagation — p.468
+    - 13.4 Training neural networks — p.476
+    - 13.5 Regularization — p.485
+    - 13.6 Other kinds of feedforward networks * — p.489
+    - 13.7 Exercises — p.493
+  - 14 Neural Networks for Images — p.497
+    - 14.1 Introduction — p.497
+    - 14.2 Common layers — p.498
+    - 14.3 Common architectures for image classification — p.509
+    - 14.4 Other forms of convolution * — p.516
+    - 14.5 Solving other discriminative vision tasks with CNNs * — p.518
+    - 14.6 Generating images by inverting CNNs * — p.523
+  - 15 Neural Networks for Sequences — p.533
+    - 15.1 Introduction — p.533
+    - 15.2 Recurrent neural networks (RNNs) — p.533
+    - 15.3 1d CNNs — p.546
+    - 15.4 Attention — p.548
+    - 15.5 Transformers — p.556
+    - 15.6 Efficient transformers * — p.563
+    - 15.7 Language models and unsupervised representation learning — p.567
+- IV Nonparametric Models — p.575
+  - 16 Exemplar-based Methods — p.577
+    - 16.1 K nearest neighbor (KNN) classification — p.577
+    - 16.2 Learning distance metrics — p.581
+    - 16.3 Kernel density estimation (KDE) — p.590
+  - 17 Kernel Methods * — p.597
+    - 17.1 Mercer kernels — p.597
+    - 17.2 Gaussian processes — p.604
+    - 17.3 Support vector machines (SVMs) — p.615
+    - 17.4 Sparse vector machines — p.627
+    - 17.5 Exercises — p.631
+  - 18 Trees, Forests, Bagging, and Boosting — p.633
+    - 18.1 Classification and regression trees (CART) — p.633
+    - 18.2 Ensemble learning — p.638
+    - 18.3 Bagging — p.639
+    - 18.4 Random forests — p.640
+    - 18.5 Boosting — p.641
+    - 18.6 Interpreting tree ensembles — p.650
+- V Beyond Supervised Learning — p.655
+  - 19 Learning with Fewer Labeled Examples — p.657
+    - 19.1 Data augmentation — p.657
+    - 19.2 Transfer learning — p.658
+    - 19.3 Semi-supervised learning — p.668
+    - 19.4 Active learning — p.680
+    - 19.5 Meta-learning — p.681
+    - 19.6 Few-shot learning — p.683
+    - 19.7 Weakly supervised learning — p.685
+    - 19.8 Exercises — p.685
+  - 20 Dimensionality Reduction — p.687
+    - 20.1 Principal components analysis (PCA) — p.687
+    - 20.2 Factor analysis * — p.696
+    - 20.3 Autoencoders — p.709
+    - 20.4 Manifold learning * — p.719
+    - 20.5 Word embeddings — p.735
+    - 20.6 Exercises — p.742
+  - 21 Clustering — p.745
+    - 21.1 Introduction — p.745
+    - 21.2 Hierarchical agglomerative clustering — p.747
+    - 21.3 K means clustering — p.752
+    - 21.4 Clustering using mixture models — p.759
+    - 21.5 Spectral clustering * — p.764
+    - 21.6 Biclustering * — p.767
+  - 22 Recommender Systems — p.771
+    - 22.1 Explicit feedback — p.771
+    - 22.2 Implicit feedback — p.777
+    - 22.3 Leveraging side information — p.779
+    - 22.4 Exploration-exploitation tradeoff — p.780
+  - 23 Graph Embeddings * — p.783
+    - 23.1 Introduction — p.783
+    - 23.2 Graph Embedding as an Encoder/Decoder Problem — p.784
+    - 23.3 Shallow graph embeddings — p.786
+    - 23.4 Graph Neural Networks — p.792
+    - 23.5 Deep graph embeddings — p.795
+    - 23.6 Applications — p.799
+  - A Notation — p.803
+    - A.1 Introduction — p.803
+    - A.2 Common mathematical symbols — p.803
+    - A.3 Functions — p.804
+    - A.4 Linear algebra — p.805
+    - A.5 Optimization — p.806
+    - A.6 Probability — p.807
+    - A.7 Information theory — p.807
+    - A.8 Statistics and machine learning — p.808
+    - A.9 Abbreviations — p.809
+  - Index — p.809
+  - Bibliography — p.809
+
+## What Hedge Funds Really Do - An Introduction to Portfolio Management.pdf (104 PDF pages)
+
+- Half Title — p.2
+- Title Page — p.3
+- Copyright — p.4
+- Abstract — p.5
+- Contents — p.6
+- Part 1: The Basics — p.7
+  - Chapter 1: Introduction — p.8
+  - Chapter 2: So You Want to Be a Hedge Fund Manager — p.13
+  - Chapter 3: An Illustrative Hedge Fund Strategy: Arbitrage — p.22
+  - Chapter 4: Market-Making Mechanics — p.25
+  - Chapter 5: Introduction to Company Valuation — p.29
+- Part II: Investing Fundamentals: CAPM and EMH — p.36
+  - Chapter 6: How Valuation Is Used by Hedge Funds — p.37
+  - Chapter 7: Framework for Investing: The Capital Asset Pricing Model (CAPM) — p.39
+  - Chapter 8: The Efficient Market Hypothesis (EMH)-Its Three Versions — p.46
+  - Chapter 9: The Fundamental Law of Active Portfolio Management — p.49
+- Part III: Market Simulation and Portfolio Construction — p.56
+  - Chapter 10: Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization — p.57
+  - Chapter 11: Event Studies — p.64
+  - Chapter 12: Overcoming Data Quirks to Design Trading Strategies — p.68
+  - Chapter 13: Data Sources — p.73
+  - Chapter 14: Back Testing Strategies — p.76
+- Part IV: Case Study and Issues — p.79
+  - Chapter 15: Hedge Fund Case Study: Long Term Capital Management (LTCM) — p.80
+  - Chapter 16: Opportunities and Challenges for Hedge Funds — p.84
+- Teaching Cases — p.89
+- Glossary — p.90
+- Summary — p.97
+- Index — p.98
+- Ad_page — p.103
+- Backcover — p.104
+
+## ai-and-big-data-in-investments.pdf (164 PDF pages)
+
+- _Hlk126308617 — p.25
+- _Hlk125727882 — p.26
+- _Hlk125892368 — p.28
+- _Hlk125962137 — p.31
+- _Hlk125965807 — p.31
+- _Hlk126317368 — p.32
+- _Hlk125963192 — p.33
+- _Hlk125963370 — p.33
+- _Hlk126399770 — p.35
+- _Hlk125633583 — p.40
+- _Hlk125888231 — p.26
+- _Hlk126159160 — p.54
+- _Hlk126658477 — p.57
+- _Hlk126223498 — p.57
+- _Hlk126231816 — p.59
+- _Hlk126233547 — p.61
+- _Hlk126233807 — p.61
+- _Hlk126936703 — p.61
+- _Hlk126938410 — p.61
+- _Hlk126234543 — p.62
+- _Hlk126235451 — p.62
+- _Hlk126571258 — p.65
+- _Hlk126138138 — p.69
+- _Hlk126323536 — p.76
+- _Hlk126223590 — p.76
+- _Hlk126229114 — p.77
+- _Hlk126223658 — p.77
+- _Hlk126142517 — p.77
+- _Hlk126325811 — p.114
+- _Hlk126327980 — p.116
+- _Hlk127199020 — p.119
+- _Hlk126574409 — p.119
+- _Hlk126574502 — p.119
+- _Hlk128569707 — p.120
+- _Hlk126595063 — p.121
+- _Hlk127954672 — p.130
+- OLE_LINK3 — p.130
+- _Hlk127958630 — p.131
+- OLE_LINK1 — p.132
+- _Hlk127963093 — p.133
+- _Hlk127965236 — p.135
+- _Hlk127966493 — p.136
+- _Hlk127966901 — p.136
+- _Hlk127971206 — p.137
+- _Hlk128039089 — p.140
+- _Hlk128039341 — p.140
+- _Hlk128040377 — p.141
+- _Hlk128040635 — p.141
+- _Hlk129176439 — p.144
+- _Hlk128044272 — p.144
+- _Hlk128044243 — p.144
+- _Hlk128049158 — p.145
+- _Hlk128049423 — p.145
+- _Hlk128049482 — p.145
+- _Hlk128059612 — p.148
+- _Hlk128057926 — p.149
+- _Hlk128121472 — p.150
+- _Hlk128122994 — p.151
+- _Hlk128123065 — p.151
+- _Hlk128123649 — p.152
+- _Hlk128123536 — p.152
+- _Hlk130197137 — p.152
+- _Hlk127961916 — p.130
+- _Hlk130197422 — p.149
+- Blank Page — p.2
+- Blank Page — p.163

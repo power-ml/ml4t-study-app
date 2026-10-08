@@ -171,6 +171,8 @@ for p in sorted(glob.glob(os.path.join(ROOT,'references','*','*.md'))):
     txt=open(p).read(); book=os.path.basename(os.path.dirname(p))
     tm=re.search(r'^#\s*(.+)',txt,re.M); title=tm.group(1).strip() if tm else os.path.basename(p)
     doms={(a,int(b)) for a,b in re.findall(r'\b(ML|QF)\s*Domain\s*(\d+)',txt)}
+    if book=='WhatHedgeFundsReallyDo':  # these notes tag domains as "QF D8" (authoritative numbering)
+        doms|={(a,int(b)) for a,b in re.findall(r'\b(ML|QF)\s*D(\d+)\b',txt)}
     reffiles.append({'book':book,'title':title,'file':os.path.relpath(p,ROOT),'md':txt,'doms':doms})
 for d in domains:
     key=(d['part'],int(d['num']))
@@ -178,6 +180,32 @@ for d in domains:
     # (same (part,num) key would otherwise leak Exam-1 notes onto Exam-2). Exam-2 refs: distill later.
     d['bookNotes']=[] if d.get('exam')==2 else [{'book':r['book'],'title':r['title'],'file':r['file'],'md':r['md']} for r in reffiles if key in r['doms']]
 print('reference files:',len(reffiles),'| domains with book notes:',sum(1 for d in domains if d.get('bookNotes')))
+
+# book short-name (as used in concept_map JSON) → PDF filename in ../books/ (served read-only by serve.py at /books/)
+BOOKS={'ISLP':'ISLP_website.pdf','DeepLearning':'Deep Learning_ Foundations and Concepts-Springer (2024).pdf',
+       'ProbML':'Probabilistic Machine Learning.pdf','FoundationsML':'Foundations of Machine Learning.pdf',
+       'Handbook':'ai-and-big-data-in-investments.pdf','WHFRD':'What Hedge Funds Really Do - An Introduction to Portfolio Management.pdf'}
+BOOKS={k:v for k,v in BOOKS.items() if os.path.exists(os.path.join(ROOT,'books',v))}
+# ---- attach Exam-1 concept → book/chapter map (references/concept_map/{ML,QF}_DNN.json) ----
+def src_label(s):
+    return ' · '.join(x for x in [s.get('book'),s.get('chapter'),s.get('section'),
+                                   ('PDF p.'+s['pdfPages']) if s.get('pdfPages') else None] if x)
+def first_page(pp):
+    m=re.match(r'\s*(\d+)',str(pp or '')); return int(m.group(1)) if m else None
+qconcepts={}
+for d in domains:
+    if d.get('exam')==2: continue
+    p=os.path.join(ROOT,'references','concept_map',f"{d['part']}_D{d['num']}.json")
+    if not os.path.exists(p): continue
+    cm=json.load(open(p)); d['conceptMap']=cm.get('concepts',[]); d['conceptGaps']=cm.get('gaps')
+    for c in d['conceptMap']:
+        best=next((s for s in c.get('sources',[]) if s.get('kind') in ('recommended','other-book') and s.get('verified')),None)
+        for qid in c.get('questions',[]):
+            qconcepts.setdefault(qid,[]).append({'concept':c['concept'],'src':src_label(best) if best else None,'lecture':c.get('lecture'),
+                'book':best.get('book') if best else None,'page':first_page(best.get('pdfPages')) if best else None})
+for q in questions:
+    if q.get('exam',1)==1 and q['id'] in qconcepts: q['concepts']=qconcepts[q['id']]
+print('concept map: domains',sum(1 for d in domains if d.get('conceptMap')),'| questions tagged',sum(1 for q in questions if q.get('concepts')))
 
 heur={'absolute_false_pct':74,'negation_inacc_pct':69,'accurate_base_pct':58,
       'positional':{'A':75,'B':63,'C':47,'D':53,'E':50},
@@ -187,7 +215,7 @@ data={'generated':'2026-10-01','counts':{'questions':len(questions),
       'ML':sum(1 for q in questions if q['part']=='ML'),'QF':sum(1 for q in questions if q['part']=='QF'),
       'withdrawn':sum(1 for q in questions if q.get('withdrawn')),
       'pdfArtifacts':sum(1 for q in questions if q.get('pdfArtifacts'))},
-      'heuristics':heur,'domains':domains,'questions':questions,
+      'heuristics':heur,'domains':domains,'questions':questions,'books':BOOKS,
       'overridden':overridden,'suspects':suspects,'withdrawn':sorted(WITHDRAWN)}
 open(os.path.join(HERE,'data.js'),'w').write('window.ML4T='+json.dumps(data,ensure_ascii=False)+';')
 dups=[q['id'] for q in questions if q.get('duplicateOf')]

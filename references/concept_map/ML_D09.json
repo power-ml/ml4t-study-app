@@ -1,0 +1,494 @@
+{
+  "part": "ML",
+  "domain": "09",
+  "name": "Overfitting, Underfitting & Generalization",
+  "concepts": [
+    {
+      "concept": "Diagnosing overfitting vs underfitting",
+      "summary": "Read the train/test pair: low train with high test = overfit; both high and similar = underfit.",
+      "questions": [
+        "ML-D9G1Q1",
+        "ML-D9G1Q2",
+        "ML-D9G1Q3"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.2.1 Measuring the Quality of Fit",
+          "pdfPages": "38-41",
+          "kind": "recommended",
+          "verified": true,
+          "note": "'small training MSE but a large test MSE ... overfitting', p.40"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.2.3 Overfitting and generalization",
+          "pdfPages": "42-43",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 1 The Deep Learning Revolution",
+          "section": "§1.2.4 Model complexity (RMS error, over-fitting, more data)",
+          "pdfPages": "29-32",
+          "kind": "recommended",
+          "verified": true,
+          "note": "E_RMS 'same scale as target' p.30; larger data reduces over-fitting p.31-32"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments (Chen & Zhou)",
+          "section": "How to Avoid Common Pitfalls When Applying ML in Finance — Overfitting (CV, regularization, early stopping, ensembling, holdout)",
+          "pdfPages": "28-29",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook outline in _book_tocs.md has only _Hlk anchors; chapter (PDF p.24-40, Contents p.7) and section heading verified from PDF text; 'research graveyards' documentation p.29; 'fantastic backtest' but poor out-of-sample, p.28"
+        },
+        {
+          "book": "ESL",
+          "chapter": null,
+          "section": "ch.7 Model Assessment and Selection",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Underfitting vs. Overfitting example",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Bias–variance tradeoff and U-shaped validation error",
+      "summary": "More complexity lowers bias, raises variance; validation error falls then rises; low variance is not accuracy.",
+      "questions": [
+        "ML-D9G1Q2",
+        "ML-D9G1Q3",
+        "ML-D9G2Q1",
+        "ML-D9G2Q2"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.2.2 The Bias-Variance Trade-Off",
+          "pdfPages": "41-44",
+          "kind": "recommended",
+          "verified": true,
+          "note": "decomposition eq. 2.7 p.42; variance up, bias down with flexibility p.44"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 4 Single-layer Networks: Regression",
+          "section": "§4.3 The Bias–Variance Trade-off",
+          "pdfPages": "142-147",
+          "kind": "other-book",
+          "verified": true
+        },
+        {
+          "book": "ESL",
+          "chapter": null,
+          "section": "ch.7 bias-variance",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Validation curves",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "KNN k as a capacity knob",
+      "summary": "k=1 tracks training points (low bias, high variance); large k smooths toward constant predictions (high bias).",
+      "questions": [
+        "ML-D9G2Q3"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.2.3 The Classification Setting (KNN, K=1 vs K=100)",
+          "pdfPages": "44-49",
+          "kind": "recommended",
+          "verified": true,
+          "note": "K=1 'overly flexible', K=100 'not sufficiently flexible', U-shaped test error, p.48-49"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.5 Comparison of Linear Regression with K-Nearest Neighbors",
+          "pdfPages": "120-124",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Nearest Neighbors",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "More data vs model capacity; representativeness",
+      "summary": "Representative data reduces variance, not bias; duplicates add nothing; stale-regime data does not generalize.",
+      "questions": [
+        "ML-D9G3Q1",
+        "ML-D9G3Q2",
+        "ML-D9G3Q3"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 1 The Deep Learning Revolution",
+          "section": "§1.2.4 Model complexity (RMS error, over-fitting, more data)",
+          "pdfPages": "29-32",
+          "kind": "recommended",
+          "verified": true,
+          "note": "E_RMS 'same scale as target' p.30; larger data reduces over-fitting p.31-32; 'increasing the size of the data set reduces the over-fitting problem', p.32"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments (Chen & Zhou)",
+          "section": "Stationarity vs. adaptive market; Small vs. big data",
+          "pdfPages": "27",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook outline in _book_tocs.md has only _Hlk anchors; chapter (PDF p.24-40, Contents p.7) and section heading verified from PDF text"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 4 Statistics",
+          "section": "§4.5 Regularization — 4.5.7 Using more data",
+          "pdfPages": "157-158",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section); helps 'assuming the data contains suitably informative examples, and is not too redundant', p.157"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 5 Decision Theory",
+          "section": "§5.4 Empirical risk minimization (5.4.1.1 approximation vs estimation error; 5.4.3 cross-validation)",
+          "pdfPages": "223-227",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section); approximation vs estimation error, p.224"
+        },
+        {
+          "book": "FoundationsML",
+          "chapter": "Ch. 4 Model Selection",
+          "section": "§4.1 Estimation and approximation errors",
+          "pdfPages": "78-79",
+          "kind": "other-book",
+          "verified": true
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Chapter 14: Back Testing Strategies",
+          "section": "Cautions About Back Testing (peeking into the future, data mining, a changing market; cross validate on subsets)",
+          "pdfPages": "77-78",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Ch. 14 is not an assigned WHFRD chapter (assigned: 2,4,5,7,8,12); 'a changing market', p.77-78"
+        },
+        {
+          "book": "ESL",
+          "chapter": null,
+          "section": "ch.7",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        },
+        {
+          "book": "concept",
+          "chapter": null,
+          "section": "regime / covariate shift",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "k-fold cross-validation and tuned-score optimism",
+      "summary": "Each fold is held out once; the best tuned CV score is optimistic, so keep an untouched test set.",
+      "questions": [
+        "ML-D9G4Q1",
+        "ML-D9G4Q2"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 1 The Deep Learning Revolution",
+          "section": "§1.2.6 Model selection (validation/hold-out set, third test set, S-fold CV)",
+          "pdfPages": "34-36",
+          "kind": "recommended",
+          "verified": true,
+          "note": "'over-fitting to the validation data ... keep aside a third test set' p.34; S-fold CV Fig. 1.11 p.35; third test set after repeated validation p.34"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 5 Resampling Methods",
+          "section": "§5.1.3 k-Fold Cross-Validation",
+          "pdfPages": "214-216",
+          "kind": "other-book",
+          "verified": true,
+          "note": "ISLP chapter not on the course reading list"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 5 Resampling Methods",
+          "section": "§5.1.4 Bias-Variance Trade-Off for k-Fold Cross-Validation",
+          "pdfPages": "216-217",
+          "kind": "other-book",
+          "verified": true,
+          "note": "ISLP chapter not on the course reading list"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 4 Statistics",
+          "section": "§4.5 Regularization — 4.5.4 Picking the regularizer using a validation set; 4.5.5 Cross-validation (one-SE rule)",
+          "pdfPages": "154-156",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section); refit on Dtrain∪Dvalid p.155"
+        },
+        {
+          "book": "FoundationsML",
+          "chapter": "Ch. 4 Model Selection",
+          "section": "§4.4 Cross-validation; §4.5 n-Fold cross-validation",
+          "pdfPages": "85-89",
+          "kind": "other-book",
+          "verified": true
+        },
+        {
+          "book": "ESL",
+          "chapter": null,
+          "section": "ch.7 (optimism of training error; CV)",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Time-ordered validation and leakage",
+      "summary": "Random folds on time series train on the future; use forward splits; future-dated features or full-data normalization leak.",
+      "questions": [
+        "ML-D9G4Q3",
+        "ML-D9G5Q1"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments (Chen & Zhou)",
+          "section": "Lookahead bias/data leakage",
+          "pdfPages": "29-30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook outline in _book_tocs.md has only _Hlk anchors; chapter (PDF p.24-40, Contents p.7) and section heading verified from PDF text; use data only when historically available ('point-in-time'), p.29-30"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Chapter 14: Back Testing Strategies",
+          "section": "Cautions About Back Testing (peeking into the future, data mining, a changing market; cross validate on subsets)",
+          "pdfPages": "77-78",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Ch. 14 is not an assigned WHFRD chapter (assigned: 2,4,5,7,8,12); 'Peeking into the future', p.77"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 10 Deep Learning",
+          "section": "§10.5.2 Time Series Forecasting (train pre-1980, test post-1980)",
+          "pdfPages": "427-431",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Week-12 reading (Exam 2); only illustrates a chronological train/test split, not time-series CV"
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "TimeSeriesSplit; Common pitfalls: data leakage",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        },
+        {
+          "book": "concept",
+          "chapter": null,
+          "section": "walk-forward validation / look-ahead bias",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Detecting overfitting: instability and search overfitting",
+      "summary": "Structure swinging across resamples signals variance; trying hundreds of configs on one period surfaces a chance winner.",
+      "questions": [
+        "ML-D9G5Q1",
+        "ML-D9G5Q2",
+        "ML-D9G5Q3"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments (Chen & Zhou)",
+          "section": "How to Avoid Common Pitfalls When Applying ML in Finance — Overfitting (CV, regularization, early stopping, ensembling, holdout)",
+          "pdfPages": "28-29",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook outline in _book_tocs.md has only _Hlk anchors; chapter (PDF p.24-40, Contents p.7) and section heading verified from PDF text; 'research graveyards' documentation p.29; document all tested iterations ('research graveyards'), p.29"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Chapter 14: Back Testing Strategies",
+          "section": "Cautions About Back Testing (peeking into the future, data mining, a changing market; cross validate on subsets)",
+          "pdfPages": "77-78",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Ch. 14 is not an assigned WHFRD chapter (assigned: 2,4,5,7,8,12); 'data mining fallacy', p.77"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.2.1 Bagging (incl. Out-of-Bag Error Estimation, Variable Importance)",
+          "pdfPages": "350-353",
+          "kind": "recommended",
+          "verified": true,
+          "note": "trees suffer from high variance across random splits, p.350"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 18 Trees, Forests, Bagging, and Boosting",
+          "section": "§18.1 CART — 18.1.5 Pros and cons (interpretable, monotone-transform invariant, unstable, axis-parallel)",
+          "pdfPages": "636-638",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section)"
+        },
+        {
+          "book": "concept",
+          "chapter": null,
+          "section": "multiple comparisons / data snooping / deflated Sharpe ratio",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        },
+        {
+          "book": "ESL",
+          "chapter": null,
+          "section": "ch.8 (tree instability, bagging)",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Complexity controls: depth/leaf size, regularization, early stopping",
+      "summary": "Lower depth or larger leaves, moderate penalty, or stopping near best validation iteration trade a little bias for less variance.",
+      "questions": [
+        "ML-D9G6Q1",
+        "ML-D9G6Q2",
+        "ML-D9G6Q3"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.1.1 Regression Trees — Tree Pruning (cost complexity / weakest link)",
+          "pdfPages": "342-344",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 1 The Deep Learning Revolution",
+          "section": "§1.2.5 Regularization",
+          "pdfPages": "32-34",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments (Chen & Zhou)",
+          "section": "How to Avoid Common Pitfalls When Applying ML in Finance — Overfitting (CV, regularization, early stopping, ensembling, holdout)",
+          "pdfPages": "28-29",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook outline in _book_tocs.md has only _Hlk anchors; chapter (PDF p.24-40, Contents p.7) and section heading verified from PDF text; 'research graveyards' documentation p.29; lists cross-validation, regularization, early stopping, ensembling, holdout, p.28"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.2 Shrinkage Methods (6.2.1 Ridge, 6.2.2 Lasso, 6.2.3 Selecting the Tuning Parameter)",
+          "pdfPages": "248-261",
+          "kind": "other-book",
+          "verified": true,
+          "note": "ISLP chapter not on the course reading list; ridge bias-variance p.250; as λ increases flexibility falls: less variance, more bias, p.250"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 9 Regularization",
+          "section": "§9.3.1 Early stopping",
+          "pdfPages": "283-285",
+          "kind": "other-book",
+          "verified": true
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 4 Statistics",
+          "section": "§4.5 Regularization — 4.5.6 Early stopping",
+          "pdfPages": "156-157",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 10 Deep Learning",
+          "section": "§10.7.2 Regularization and Stochastic Gradient Descent (early stopping)",
+          "pdfPages": "436-438",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Week-12 reading (Exam 2); early stopping mentioned p.437"
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Decision Trees: controlling complexity; early stopping",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    }
+  ],
+  "gaps": "Time-series cross-validation schemes (TimeSeriesSplit / walk-forward) are not covered by any book in books/ — ISLP §10.5.2 only shows a single chronological train/test split. Full-dataset normalization leakage within CV folds and the deflated Sharpe ratio / backtest-overfitting statistics are pool-citation only."
+}

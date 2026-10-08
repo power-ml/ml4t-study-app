@@ -1,0 +1,490 @@
+{
+  "part": "ML",
+  "domain": "03",
+  "name": "Feature Engineering & Leakage",
+  "concepts": [
+    {
+      "concept": "Feature construction: derived features, interactions, basis expansions",
+      "summary": "Ratios/growth expose structure; interaction terms encode conditional effects; polynomial terms add capacity—validate out-of-sample.",
+      "questions": [
+        "ML-D3G1Q1",
+        "ML-D3G1Q2",
+        "ML-D3G1Q3"
+      ],
+      "lecture": "03-02 Regression",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.3.2 Extensions of the Linear Model",
+          "pdfPages": "103-109",
+          "kind": "recommended",
+          "verified": true,
+          "note": "removing the additive assumption (interaction terms, p.104) and non-linear (polynomial) relationships"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.5.3 Preprocessing discrete input data",
+          "pdfPages": "53-54",
+          "kind": "recommended",
+          "verified": true,
+          "note": "§1.5.3.2 feature crosses: interaction effects"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.2.2 Regression",
+          "pdfPages": "38-42",
+          "kind": "recommended",
+          "verified": true,
+          "note": "includes polynomial regression and feature engineering (p.40-42)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 7 Moving Beyond Linearity",
+          "section": "§7.1 Polynomial Regression",
+          "pdfPages": "298-300",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 1 The Deep Learning Revolution",
+          "section": "§1.2.4 Model complexity",
+          "pdfPages": "29-32",
+          "kind": "recommended",
+          "verified": true,
+          "note": "over-fitting with high-order polynomial; more data reduces over-fitting"
+        }
+      ]
+    },
+    {
+      "concept": "Non-stationarity & limits of stationarity tests",
+      "summary": "Rolling betas drift under regimes; ADF tests only unit roots; rolling z-scores deflate shocks; trending series drift out-of-distribution.",
+      "questions": [
+        "ML-D3G1Q4",
+        "ML-D3G1Q5",
+        "ML-D3G1Q6",
+        "ML-D3G2Q4",
+        "ML-D3G2Q5"
+      ],
+      "lecture": "01-04 Statistical Analysis of Time Series",
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "Challenges: 'Stationarity vs. adaptive market, irrationality'",
+          "pdfPages": "27",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF has no usable bookmark outline; chapter span/heading verified from PDF text; markets are nonstationary and adapt"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "Pitfalls: 'Peeking' into the future; Data mining; A changing market; cross validation",
+          "pdfPages": "76-78",
+          "kind": "other-book",
+          "verified": true,
+          "note": "WHFRD chapter outside assigned reading (assigned: Ch. 2,4,5,7,8,12)"
+        },
+        {
+          "book": "Hamilton, Time Series Analysis",
+          "chapter": null,
+          "section": "unit-root (ADF) testing; structural change; state-space/Kalman",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "López de Prado, Advances in Financial Machine Learning",
+          "chapter": null,
+          "section": "stationarity / fractional differencing",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "Preprocessing data (StandardScaler caveats)",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Learner-dependent feature scaling",
+      "summary": "Distance/gradient learners need comparable scales; trees are invariant to monotone transforms; scaling changes influence, not information.",
+      "questions": [
+        "ML-D3G2Q1",
+        "ML-D3G2Q2",
+        "ML-D3G2Q3",
+        "ML-D3G2Q6"
+      ],
+      "lecture": "02-06 Technical Analysis",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 4 Classification",
+          "section": "§4.7.6 K-Nearest Neighbors (lab)",
+          "pdfPages": "192-197",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; p.194: scale of variables matters for KNN distance (salary vs age)"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 7 Gradient Descent",
+          "section": "§7.4.1 Data normalization",
+          "pdfPages": "243-244",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; inputs spanning very different ranges -> rescale to zero mean/unit variance"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 18 Trees, Forests, Bagging, and Boosting",
+          "section": "§18.1 Classification and regression trees (CART)",
+          "pdfPages": "633-638",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; p.637: insensitive to monotone transforms (no need to standardize), relatively robust to outliers"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 12 Unsupervised Learning",
+          "section": "§12.2.4 More on PCA",
+          "pdfPages": "518-521",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; scaling variables matters when units differ"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.2.1 Ridge Regression",
+          "pdfPages": "248-252",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; p.250: OLS coefficients are scale equivariant (X_j*c -> beta_j/c); standardize before ridge"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "Preprocessing data (StandardScaler, MinMaxScaler, QuantileTransformer); Nearest Neighbors; Decision Trees",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Irrelevant and redundant (collinear) features",
+      "summary": "Noise features add spurious-fit chances; collinearity destabilizes OLS coefficients and dilutes tree importances; PCA decorrelates.",
+      "questions": [
+        "ML-D3G3Q1",
+        "ML-D3G3Q2",
+        "ML-D3G3Q3",
+        "ML-D3G3Q4",
+        "ML-D3G3Q5"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.3.3 Potential Problems",
+          "pdfPages": "109-118",
+          "kind": "recommended",
+          "verified": true,
+          "note": "§3.3.3 item 6 Collinearity / VIF (p.115-118)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.4.3 Regression in High Dimensions",
+          "pdfPages": "273-274",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; p.274: test error rises with added noise features (curse of dimensionality)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.5 Comparison of Linear Regression with K-Nearest Neighbors",
+          "pdfPages": "120-125",
+          "kind": "recommended",
+          "verified": true,
+          "note": "p.124: adding noise predictors degrades KNN far more than linear regression"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.3 Dimension Reduction Methods",
+          "pdfPages": "261-270",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; PCR directions found without using Y (unsupervised), p.263/268"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "Permutation importance with multicollinear features; Random Forest; PCA",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Feature selection & dimensionality reduction tradeoffs",
+      "summary": "Fewer features cut variance but risk omitted signal; PCA ignores y; ridge shrinks, lasso/subset sparsify; wrapper searches overfit selection.",
+      "questions": [
+        "ML-D3G3Q6",
+        "ML-D3G4Q1",
+        "ML-D3G4Q2",
+        "ML-D3G4Q3",
+        "ML-D3G4Q4",
+        "ML-D3G4Q5",
+        "ML-D3G4Q6"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.1 Subset Selection",
+          "pdfPages": "239-248",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; §6.1.3 choosing the optimal model via validation/CV p.243-248"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.2.1 Ridge Regression",
+          "pdfPages": "248-252",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; p.250: OLS coefficients are scale equivariant (X_j*c -> beta_j/c); standardize before ridge"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.2.2 The Lasso",
+          "pdfPages": "252-260",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; l1 penalty sets some coefficients exactly to zero (p.252)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.3 Dimension Reduction Methods",
+          "pdfPages": "261-270",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; PCR directions found without using Y (unsupervised), p.263/268"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.4.2 What Goes Wrong in High Dimensions?",
+          "pdfPages": "271-273",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "How to Avoid Common Pitfalls: Overfitting",
+          "pdfPages": "28-29",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF has no usable bookmark outline; chapter span/heading verified from PDF text; lists feature selection and removal among anti-overfitting techniques (p.28)"
+        },
+        {
+          "book": "ESL (Hastie, Tibshirani, Friedman)",
+          "chapter": null,
+          "section": "§3.4 shrinkage methods",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "Elements of Statistical Learning is not in books/; unverified"
+        },
+        {
+          "book": "López de Prado, Advances in Financial Machine Learning",
+          "chapter": null,
+          "section": "backtest overfitting, deflated Sharpe",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "SelectFromModel; Nested cross-validation",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Target leakage and pipeline/pooling leakage",
+      "summary": "Features encoding the outcome, or scalers/selectors/sector aggregates fit on pooled data, inflate accuracy; reconstruct point-in-time.",
+      "questions": [
+        "ML-D3G2Q3",
+        "ML-D3G4Q2",
+        "ML-D3G5Q1",
+        "ML-D3G5Q2",
+        "ML-D3G5Q3",
+        "ML-D3G5Q4",
+        "ML-D3G5Q5",
+        "ML-D3G5Q6"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "How to Avoid Common Pitfalls: Lookahead bias/data leakage",
+          "pdfPages": "29-30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF has no usable bookmark outline; chapter span/heading verified from PDF text; quarterly data usable only when available (point-in-time); 'leakage in data' and 'leakage in features'; gap periods between train/val/test"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "Common pitfalls: data leakage; Pipeline; cross_val_score; Nested CV",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "Kaufman et al. (2012), Leakage in Data Mining",
+          "chapter": null,
+          "section": "target leakage",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Look-ahead bias in time-series features and execution",
+      "summary": "Centered windows, backfilled restatements, same-bar close→open or same-auction fills peek forward; chronological splits don't fix them.",
+      "questions": [
+        "ML-D3G6Q1",
+        "ML-D3G6Q2",
+        "ML-D3G6Q3",
+        "ML-D3G6Q4",
+        "ML-D3G6Q5",
+        "ML-D3G6Q6"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "How to Avoid Common Pitfalls: Lookahead bias/data leakage",
+          "pdfPages": "29-30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF has no usable bookmark outline; chapter span/heading verified from PDF text; quarterly data usable only when available (point-in-time); 'leakage in data' and 'leakage in features'; gap periods between train/val/test"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "Pitfalls: 'Peeking' into the future; Data mining; A changing market; cross validation",
+          "pdfPages": "76-78",
+          "kind": "other-book",
+          "verified": true,
+          "note": "WHFRD chapter outside assigned reading (assigned: Ch. 2,4,5,7,8,12)"
+        },
+        {
+          "book": "López de Prado, Advances in Financial Machine Learning",
+          "chapter": null,
+          "section": "point-in-time data, labeling, execution realism",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "'Too good to be true' results and spurious correlation",
+      "summary": "Implausible accuracy jumps or opaque high-importance fields demand lineage audits, ablation/lag tests, and out-of-sample replication.",
+      "questions": [
+        "ML-D3G7Q1",
+        "ML-D3G7Q2",
+        "ML-D3G7Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "Why apply ML (caution on spurious, nonreplicable relationships)",
+          "pdfPages": "26",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF has no usable bookmark outline; chapter span/heading verified from PDF text"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "How to Avoid Common Pitfalls: Overfitting",
+          "pdfPages": "28-29",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF has no usable bookmark outline; chapter span/heading verified from PDF text; fantastic backtest, disappointing out-of-sample; CV/holdout/regularization; 'smell tests'; documenting tested iterations/'research graveyards' p.29"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "Pitfalls: 'Peeking' into the future; Data mining; A changing market; cross validation",
+          "pdfPages": "76-78",
+          "kind": "other-book",
+          "verified": true,
+          "note": "WHFRD chapter outside assigned reading (assigned: Ch. 2,4,5,7,8,12)"
+        },
+        {
+          "book": "Kaufman et al. (2012), Leakage in Data Mining",
+          "chapter": null,
+          "section": "leakage diagnostics",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "Permutation importance",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    }
+  ],
+  "gaps": "No book in books/ covers the ADF/unit-root test, Kalman/state-space beta estimation, quantile-transform behavior, centered-vs-trailing window look-ahead, or tree-importance dilution under collinearity; target/pipeline leakage is covered only briefly by Handbook Ch.1 (p.29-30). These rely on unverified pool citations (Hamilton, López de Prado, scikit-learn, Kaufman et al.)."
+}

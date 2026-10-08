@@ -1,0 +1,361 @@
+{
+  "part": "QF",
+  "domain": "09",
+  "name": "Financial Data and Research Bias",
+  "concepts": [
+    {
+      "concept": "Look-ahead bias and leakage in splits, features and labels",
+      "summary": "Use only data available at decision time; random splits, centered windows, overlapping labels leak future information.",
+      "questions": [
+        "QF-D9G1Q1",
+        "QF-D9G1Q2",
+        "QF-D9G1Q3"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "Lookahead bias/data leakage",
+          "pdfPages": "29-30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; chronological train/validation/test; 'leakage in data' and 'leakage in features'; gap period of months–quarters between splits (purge/embargo analogue)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "Cautions About Back Testing",
+          "pdfPages": "77",
+          "kind": "other-book",
+          "verified": true,
+          "note": "'Peeking' into the future"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 10 Deep Learning",
+          "section": "10.5.2 Time Series Forecasting",
+          "pdfPages": "427-428",
+          "kind": "other-book",
+          "verified": true,
+          "note": "NYSE example: train on data before Jan 2 1980, test after (chronological split)"
+        },
+        {
+          "book": "Lopez de Prado, Advances in Financial ML ch.3, ch.7 (purged k-fold, embargo); Investopedia 'Look-Ahead Bias'",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified; purged/embargoed CV by name not in books/"
+        }
+      ]
+    },
+    {
+      "concept": "Survivorship bias (current constituents, surviving funds, delistings)",
+      "summary": "Samples of survivors omit failures and overstate returns; include dead/delisted names and delisting returns.",
+      "questions": [
+        "QF-D9G2Q1",
+        "QF-D9G2Q2",
+        "QF-D9G5Q3"
+      ],
+      "lecture": "02-07 Dealing with Data",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 12 Overcoming Data Quirks to Design Trading Strategies",
+          "section": "Missing Ticker Symbols",
+          "pdfPages": "71-72",
+          "kind": "recommended",
+          "verified": true,
+          "note": "delistings/symbol changes; scrubbing to full-period survivors causes survivor bias; only 30% of funds survive 10 yrs"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 13 Data Sources",
+          "section": "Desirable Characteristics of Datafeeds",
+          "pdfPages": "73",
+          "kind": "other-book",
+          "verified": true,
+          "note": "data should be free of survivor bias — include dead/delisted stocks"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "No Panacea",
+          "pdfPages": "62",
+          "kind": "other-book",
+          "verified": true,
+          "note": "survivorship bias in hedge fund returns"
+        },
+        {
+          "book": "Investopedia 'Survivorship Bias'; CFA backtesting / data biases",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Selection bias, multiple testing and data snooping (winner's curse)",
+      "summary": "Testing many signals or tuning on one holdout guarantees false positives; best-of-N Sharpe overstates; validate on untouched data.",
+      "questions": [
+        "QF-D9G2Q3",
+        "QF-D9G3Q1",
+        "QF-D9G3Q2",
+        "QF-D9G3Q3"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "How to Avoid Common Pitfalls — Overfitting; Replicability",
+          "pdfPages": "28-29",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; spurious correlations; p-hacking; document all iterations ('research graveyards')"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "Lookahead bias/data leakage",
+          "pdfPages": "30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; excluding a sector (IT in 2000–02) needs justification — sample-selection choice"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 13 Multiple Testing",
+          "section": "13.2 The Challenge of Multiple Testing",
+          "pdfPages": "569-571",
+          "kind": "other-book",
+          "verified": true,
+          "note": "1,024-client stockbroker example; many tests ⇒ some reject by chance"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "Cautions About Back Testing",
+          "pdfPages": "77-78",
+          "kind": "other-book",
+          "verified": true,
+          "note": "peeking into the future; data-mining fallacy; changing market; cross-validate on separate subsets (p.78)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "2.2.1 Measuring the Quality of Fit",
+          "pdfPages": "38-41",
+          "kind": "recommended",
+          "verified": true,
+          "note": "p.40: small training MSE but large test MSE = overfitting; patterns 'caused by random chance'"
+        },
+        {
+          "book": "Bailey & Lopez de Prado, 'The Probability of Backtest Overfitting' / deflated Sharpe; Investopedia 'Data Snooping'",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified; deflated Sharpe ratio not in books/"
+        }
+      ]
+    },
+    {
+      "concept": "Point-in-time data: publication lags, restatements and data vintages",
+      "summary": "Use data as first known on its release date; restated EPS or revised GDP applied to original dates is look-ahead.",
+      "questions": [
+        "QF-D9G4Q1",
+        "QF-D9G4Q2",
+        "QF-D9G4Q3"
+      ],
+      "lecture": "02-07 Dealing with Data",
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "Lookahead bias/data leakage",
+          "pdfPages": "29",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; quarterly results available 40 days after quarter end must be used only when available — 'point-in-time'"
+        },
+        {
+          "book": "Investopedia 'Point-in-Time Data', 'Look-Ahead Bias'; CFA data timing/revisions",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified; restatements and macro data vintages not explicitly discussed in books/"
+        }
+      ]
+    },
+    {
+      "concept": "Corporate actions: split/dividend-adjusted prices and total return",
+      "summary": "Unadjusted splits show fake −50% drops; dividends belong in total return; backtests need adjusted prices.",
+      "questions": [
+        "QF-D9G5Q1",
+        "QF-D9G5Q2"
+      ],
+      "lecture": "02-07 Dealing with Data",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 12 Overcoming Data Quirks to Design Trading Strategies",
+          "section": "Actual Versus Adjusted Stock Price Data",
+          "pdfPages": "68",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 12 Overcoming Data Quirks to Design Trading Strategies",
+          "section": "Stock Splits",
+          "pdfPages": "68-70",
+          "kind": "recommended",
+          "verified": true,
+          "note": "2-for-1 split: prior prices halved; actual data shows 50% one-day drop"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 12 Overcoming Data Quirks to Design Trading Strategies",
+          "section": "Dividends",
+          "pdfPages": "70",
+          "kind": "recommended",
+          "verified": true,
+          "note": "adjust prior prices down by dividend % so backtest captures the dividend"
+        },
+        {
+          "book": "Investopedia 'Adjusted Closing Price', 'Total Return'; CFA return measurement",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Missing and stale data: fill-forward, non-synchronous prices, informative missingness",
+      "summary": "Fill forward then back; stale fills understate volatility; mismatched calendars misalign returns; non-random missingness biases mean imputation.",
+      "questions": [
+        "QF-D9G6Q1",
+        "QF-D9G6Q2",
+        "QF-D9G6Q3"
+      ],
+      "lecture": "02-07 Dealing with Data",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 12 Overcoming Data Quirks to Design Trading Strategies",
+          "section": "Breaks in Series and Missing Data",
+          "pdfPages": "70-71",
+          "kind": "recommended",
+          "verified": true,
+          "note": "'fill forward first, and fill backward where you can't fill forward'"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "1.5.5 Handling missing data",
+          "pdfPages": "56-57",
+          "kind": "recommended",
+          "verified": true,
+          "note": "MCAR / MAR / NMAR; in NMAR 'the lack of information may be informative'"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 12 Unsupervised Learning",
+          "section": "12.3 Missing Values and Matrix Completion",
+          "pdfPages": "521-522",
+          "kind": "other-book",
+          "verified": true,
+          "note": "imputation appropriate only if missingness is random; informative missingness breaks it"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 2 Alternative Data and AI in Investment Research",
+          "section": "Doing the Data Grunt Work",
+          "pdfPages": "45",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; missing values bias averages/sums; understand automated filling layers"
+        },
+        {
+          "book": "Investopedia 'Stale Price'; CFA data alignment / missing data",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified; non-synchronous trading across U.S./foreign calendars not covered in books/"
+        }
+      ]
+    },
+    {
+      "concept": "Nonstationarity, regime dependence and strategy decay",
+      "summary": "Betas, volatility regimes and edges change; full-sample averages hide regime risk; crowding erodes published/learned edges.",
+      "questions": [
+        "QF-D9G7Q1",
+        "QF-D9G7Q2",
+        "QF-D9G7Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "Unique Challenges of Applying ML — Stationarity vs. adaptive market, irrationality",
+          "pdfPages": "27",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; markets learn; published research changes behavior (McLean & Pontiff); data-generating process changes"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 2 Alternative Data and AI in Investment Research",
+          "section": "Where Does Data Analysis Come In? (analysis spectrum)",
+          "pdfPages": "47",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF outline has only _Hlk bookmarks; section heading confirmed in PDF text; breakpoints like COVID-19 broke statistical relationships; humans must keep reassessing"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "Cautions About Back Testing — A changing market",
+          "pdfPages": "77-78",
+          "kind": "other-book",
+          "verified": true,
+          "note": "late-1990s internet backtest example"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "A Dynamic Process",
+          "pdfPages": "62",
+          "kind": "other-book",
+          "verified": true,
+          "note": "returns and correlations are not stable; correlations jump in crises"
+        },
+        {
+          "book": "Lopez de Prado, AFML (strategy decay); CFA nonstationarity / stress testing",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    }
+  ],
+  "gaps": "Purged/embargoed cross-validation (by name), deflated Sharpe ratio, restatements and macro data vintages, and non-synchronous trading across market calendars are not covered in books/ (Handbook Ch.1's 'gap period' and 'point-in-time' are the closest)."
+}

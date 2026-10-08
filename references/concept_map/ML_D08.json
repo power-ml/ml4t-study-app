@@ -1,0 +1,391 @@
+{
+  "part": "ML",
+  "domain": "08",
+  "name": "Model Evaluation & Metrics",
+  "concepts": [
+    {
+      "concept": "Train / validation / test roles",
+      "summary": "Train fits parameters, validation selects models/hyperparameters, test is one final untouched check; refit on train+validation is legitimate.",
+      "questions": [
+        "ML-D8G1Q1",
+        "ML-D8G1Q2"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.2.3 Overfitting and generalization",
+          "pdfPages": "42-43",
+          "kind": "recommended",
+          "verified": true,
+          "note": "three sets; 'test set is not used for model fitting or model selection', p.43"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 1 The Deep Learning Revolution",
+          "section": "§1.2.6 Model selection (validation/hold-out set, third test set, S-fold CV)",
+          "pdfPages": "34-36",
+          "kind": "recommended",
+          "verified": true,
+          "note": "'over-fitting to the validation data ... keep aside a third test set' p.34"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 4 Statistics",
+          "section": "§4.5 Regularization — 4.5.4 Picking the regularizer using a validation set; 4.5.5 Cross-validation (one-SE rule)",
+          "pdfPages": "154-156",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section); refit on Dtrain∪Dvalid p.155"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 5 Resampling Methods",
+          "section": "§5.1.1 The Validation Set Approach",
+          "pdfPages": "210-212",
+          "kind": "other-book",
+          "verified": true,
+          "note": "ISLP chapter not on the course reading list"
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Cross-validation: evaluating estimator performance",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Test-set reuse and selection optimism",
+      "summary": "Repeatedly tuning on test feedback contaminates it; best-of-many scores are optimistic; scarce data makes reuse worse.",
+      "questions": [
+        "ML-D8G1Q2",
+        "ML-D8G1Q3",
+        "ML-D8G6Q1"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 1 The Deep Learning Revolution",
+          "section": "§1.2.6 Model selection (validation/hold-out set, third test set, S-fold CV)",
+          "pdfPages": "34-36",
+          "kind": "recommended",
+          "verified": true,
+          "note": "'over-fitting to the validation data ... keep aside a third test set' p.34; 'over-fitting to the validation data ... keep aside a third test set', p.34"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.2.3 Overfitting and generalization",
+          "pdfPages": "42-43",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments (Chen & Zhou)",
+          "section": "How to Avoid Common Pitfalls When Applying ML in Finance — Overfitting (CV, regularization, early stopping, ensembling, holdout)",
+          "pdfPages": "28-29",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook outline in _book_tocs.md has only _Hlk anchors; chapter (PDF p.24-40, Contents p.7) and section heading verified from PDF text; 'research graveyards' documentation p.29; document all tested iterations ('research graveyards'), p.29"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Chapter 14: Back Testing Strategies",
+          "section": "Cautions About Back Testing (peeking into the future, data mining, a changing market; cross validate on subsets)",
+          "pdfPages": "77-78",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Ch. 14 is not an assigned WHFRD chapter (assigned: 2,4,5,7,8,12); 'data mining fallacy', p.77"
+        },
+        {
+          "book": "concept",
+          "chapter": null,
+          "section": "multiple comparisons / selection bias in evaluation",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "MAE vs MSE vs RMSE",
+      "summary": "MSE squares errors (outlier-heavy, squared units); RMSE restores units; RMSE ≥ MAE, larger gap means more dispersed errors.",
+      "questions": [
+        "ML-D8G2Q1",
+        "ML-D8G2Q2",
+        "ML-D8G2Q3",
+        "ML-D8G4Q3"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.2.1 Measuring the Quality of Fit",
+          "pdfPages": "38-41",
+          "kind": "recommended",
+          "verified": true,
+          "note": "MSE eq. 2.5, p.38"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 1 The Deep Learning Revolution",
+          "section": "§1.2.4 Model complexity (RMS error, over-fitting, more data)",
+          "pdfPages": "29-32",
+          "kind": "recommended",
+          "verified": true,
+          "note": "E_RMS 'same scale as target' p.30; larger data reduces over-fitting p.31-32; E_RMS 'measured on the same scale (and in the same units) as the target', p.30"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 4 Single-layer Networks: Regression",
+          "section": "§4.2 Decision theory (Minkowski loss: q=1 median, q=2 mean)",
+          "pdfPages": "139-142",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Minkowski loss: q=1 → conditional median, q=2 → mean, p.141"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 11 Linear Regression",
+          "section": "§11.6 Robust linear regression",
+          "pdfPages": "432-435",
+          "kind": "other-book",
+          "verified": true,
+          "note": "squared error penalizes outliers quadratically, p.432"
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Metrics and scoring — MAE, MSE, RMSE",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "RMSE ≥ MAE inequality not stated in any book in books/"
+        }
+      ]
+    },
+    {
+      "concept": "Baselines: mean predictor, majority class, buy-and-hold",
+      "summary": "A metric needs a comparator: training-mean for regression, majority class for accuracy, buy-and-hold/cash for strategies.",
+      "questions": [
+        "ML-D8G3Q1",
+        "ML-D8G3Q2",
+        "ML-D8G3Q3"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.1.3 Assessing the Accuracy of the Model (R² = 1 − RSS/TSS, TSS = error of predicting ȳ)",
+          "pdfPages": "86-89",
+          "kind": "recommended",
+          "verified": true,
+          "note": "TSS = Σ(yᵢ−ȳ)² is the squared error of always predicting the mean; R² measures improvement over it, p.88"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 4 Classification",
+          "section": "§4.4.2 Linear Discriminant Analysis for p > 1 (null classifier, confusion matrix)",
+          "pdfPages": "159-165",
+          "kind": "other-book",
+          "verified": true,
+          "note": "ISLP chapter not on the course reading list; null-classifier baseline on p.161; trivial 'null classifier' always predicting No, p.161"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Chapter 14: Back Testing Strategies",
+          "section": "Back testing components (benchmark e.g. buy-and-hold S&P 500; transaction & market-impact costs)",
+          "pdfPages": "76-77",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Ch. 14 is not an assigned WHFRD chapter (assigned: 2,4,5,7,8,12); buy-and-hold S&P 500 as default reference strategy, p.76"
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "DummyRegressor / DummyClassifier",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Fair comparison and leakage-free preprocessing",
+      "summary": "Compare models on the same held-out rows, same metric and units; fit scaling statistics on training data only.",
+      "questions": [
+        "ML-D8G4Q1",
+        "ML-D8G4Q2",
+        "ML-D8G4Q3"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments (Chen & Zhou)",
+          "section": "Lookahead bias/data leakage",
+          "pdfPages": "29-30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook outline in _book_tocs.md has only _Hlk anchors; chapter (PDF p.24-40, Contents p.7) and section heading verified from PDF text; training data must not contain information unavailable in live production, p.30"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 4 Classification",
+          "section": "§4.7.6 K-Nearest Neighbors (lab: standardize because KNN depends on scale)",
+          "pdfPages": "192-197",
+          "kind": "other-book",
+          "verified": true,
+          "note": "ISLP chapter not on the course reading list; scale discussion on p.194; KNN results change with variable scale → standardize, p.194"
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Common pitfalls: data leakage; Pipeline",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        },
+        {
+          "book": "ISLR",
+          "chapter": null,
+          "section": "§2.2.3 (cited for KNN distance scaling)",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "CITATION PROBLEM: ISLP §2.2.3 (p.44-49) does not discuss feature scaling; scaling appears in §4.7.6 lab p.194"
+        }
+      ]
+    },
+    {
+      "concept": "Statistical metric vs economic objective",
+      "summary": "Low RMSE or high hit-rate need not mean profit; costs, magnitude, asymmetric tail losses and turnover decide outcomes.",
+      "questions": [
+        "ML-D8G3Q3",
+        "ML-D8G5Q1",
+        "ML-D8G5Q2",
+        "ML-D8G5Q3"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments (Chen & Zhou)",
+          "section": "Implementation gap (transaction costs, turnover)",
+          "pdfPages": "30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook outline in _book_tocs.md has only _Hlk anchors; chapter (PDF p.24-40, Contents p.7) and section heading verified from PDF text; backtest outperformance lost to transaction costs; ML turnover raises trading cost, p.30"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Chapter 14: Back Testing Strategies",
+          "section": "Back testing components (benchmark e.g. buy-and-hold S&P 500; transaction & market-impact costs)",
+          "pdfPages": "76-77",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Ch. 14 is not an assigned WHFRD chapter (assigned: 2,4,5,7,8,12); simulator should include commissions and market-impact costs, p.76"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 5 Single-layer Networks: Classification",
+          "section": "§5.2.2 Expected loss (asymmetric loss matrix)",
+          "pdfPages": "159-161",
+          "kind": "other-book",
+          "verified": true,
+          "note": "loss matrix: different errors have different consequences, p.159-161"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 5 Decision Theory",
+          "section": "§5.1 Bayesian decision theory (loss matrix, cost-sensitive classification)",
+          "pdfPages": "197-209",
+          "kind": "other-book",
+          "verified": true,
+          "note": "loss matrix p.198; cost-sensitive p.199"
+        },
+        {
+          "book": "Grinold & Kahn, Active Portfolio Management",
+          "chapter": null,
+          "section": "net-of-cost, benchmark-relative evaluation",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        },
+        {
+          "book": "concept",
+          "chapter": null,
+          "section": "quantile (pinball) loss / expected shortfall; hit-rate vs P&L",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Variability and stability of results",
+      "summary": "Scores vary across splits, seeds and regimes; report central tendency and dispersion, not the best run.",
+      "questions": [
+        "ML-D8G6Q1",
+        "ML-D8G6Q2",
+        "ML-D8G6Q3"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.2.1 Bagging (incl. Out-of-Bag Error Estimation, Variable Importance)",
+          "pdfPages": "350-353",
+          "kind": "recommended",
+          "verified": true,
+          "note": "bagging reduces variance of a learner, p.350-351"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 5 Resampling Methods",
+          "section": "§5.1.1 The Validation Set Approach",
+          "pdfPages": "210-212",
+          "kind": "other-book",
+          "verified": true,
+          "note": "ISLP chapter not on the course reading list; validation estimate 'can be highly variable' by split, p.211"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 4 Statistics",
+          "section": "§4.5 Regularization — 4.5.4 Picking the regularizer using a validation set; 4.5.5 Cross-validation (one-SE rule)",
+          "pdfPages": "154-156",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section); refit on Dtrain∪Dvalid p.155; CV standard error / one-standard-error rule, p.156"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Chapter 14: Back Testing Strategies",
+          "section": "Cautions About Back Testing (peeking into the future, data mining, a changing market; cross validate on subsets)",
+          "pdfPages": "77-78",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Ch. 14 is not an assigned WHFRD chapter (assigned: 2,4,5,7,8,12); cross validate on subsets of time periods; results should be similar, p.78"
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Cross-validation — cv score mean and std; random_state",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    }
+  ],
+  "gaps": "No book in books/ states the RMSE ≥ MAE inequality or the RMSE−MAE gap as a dispersion signal; fitting preprocessing statistics on training folds only, scoring all models on identical held-out rows, directional-accuracy-vs-P&L, quantile/expected-shortfall losses, and seed reproducibility are covered only by pool citations (scikit-learn docs, Grinold & Kahn, concepts). Pool cites ISLR §2.2.3 for KNN distance scaling, but that section does not discuss scaling."
+}

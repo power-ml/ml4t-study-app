@@ -1,0 +1,330 @@
+{
+  "part": "QF",
+  "domain": "01",
+  "name": "Investment Returns and Compounding",
+  "concepts": [
+    {
+      "concept": "Holding-period return and multiplicative linking",
+      "summary": "Return = V_t/V_{t-1} - 1 on the starting value; multi-period returns compound (product of 1+r), never sum.",
+      "questions": [
+        "QF-D1G1Q1",
+        "QF-D1G1Q2",
+        "QF-D1G1Q3",
+        "QF-D1G7Q1"
+      ],
+      "lecture": "01-07 Sharpe Ratio and Other Portfolio Statistics",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "How Hedge Funds are Evaluated (I): Return",
+          "pdfPages": "16-17",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Return = [Value(t)/Value(t-1)] - 1 (p.16); annual return = cumprod(daily_returns+1) - 1 (p.17)."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Glossary",
+          "section": "Cumulative rate of return; Compounding",
+          "pdfPages": "91",
+          "kind": "other-book",
+          "verified": true,
+          "note": "(Book glossary, not an assigned chapter.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "CFA curriculum - holding-period return / return measurement; Bodie-Kane-Marcus, Investments - multi-period returns; Investopedia 'Holding Period Return', 'Cumulative Return', 'Rate of Return'",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "CAGR and long-horizon compounding (incl. fee drag)",
+      "summary": "CAGR = (V_end/V_begin)^(1/n) - 1; total/n ignores compounding; small rate or fee gaps compound into large wealth gaps.",
+      "questions": [
+        "QF-D1G2Q1",
+        "QF-D1G2Q2"
+      ],
+      "lecture": "02-01 So You Want to be a Hedge Fund Manager",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "How Hedge Funds are Evaluated (I): Return",
+          "pdfPages": "17",
+          "kind": "recommended",
+          "verified": true,
+          "note": "CAGR worked example $100->$200 over 10 yrs = 7.2%, not 10%; 'ignores the compounding effect'."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "How Hedge Funds Are Evaluated (II): Return Versus Benchmark (Relative Return)",
+          "pdfPages": "18-19",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Fees and frequent trading as a drag on net returns; managers absorbing most profits."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Glossary",
+          "section": "Compound annual growth rate (CAGR); Compounding",
+          "pdfPages": "91",
+          "kind": "other-book",
+          "verified": true,
+          "note": "(Book glossary, not an assigned chapter.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "CFA curriculum - geometric mean / CAGR; Bodie-Kane-Marcus, Investments - costs and compounding; Investopedia 'CAGR', 'Compound Interest'",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Rule of 72",
+      "summary": "Doubling time is roughly 72 / (annual % return); an approximation of compounding, not a guarantee.",
+      "questions": [
+        "QF-D1G2Q3"
+      ],
+      "lecture": "02-01 So You Want to be a Hedge Fund Manager",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "How Hedge Funds are Evaluated (I): Return",
+          "pdfPages": "17-18",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Rule of 72: 8% -> ~9 yrs, 6% -> 12 yrs; also for multiples of two (p.18)."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Glossary",
+          "section": "Rule of 72",
+          "pdfPages": "95",
+          "kind": "other-book",
+          "verified": true,
+          "note": "(Book glossary, not an assigned chapter.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Investopedia 'Rule of 72'; CFA curriculum - compounding intuition",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Arithmetic vs geometric mean and volatility drag",
+      "summary": "Arithmetic mean estimates one period; geometric mean (CAGR) gives realized compound growth and is lower when returns vary.",
+      "questions": [
+        "QF-D1G3Q1",
+        "QF-D1G3Q2",
+        "QF-D1G3Q3",
+        "QF-D1G7Q1"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Glossary",
+          "section": "(Arithmetical) Average rate of return; Compound annual growth rate (CAGR)",
+          "pdfPages": "90-91",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Arithmetic average vs geometric average (CAGR); they 'can diverge significantly' with larger rates or more years. The volatility-drag formula itself is not in the book. (Book glossary, not an assigned chapter.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "How Hedge Funds are Evaluated (I): Return",
+          "pdfPages": "17",
+          "kind": "recommended",
+          "verified": true,
+          "note": "CAGR vs 'simple' growth contrast (7.2% vs 10%)."
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "CFA curriculum - arithmetic vs geometric mean; Bodie-Kane-Marcus, Investments - average returns; Investopedia 'Geometric Mean', 'Volatility Drag'",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Annualizing returns and volatility",
+      "summary": "Returns annualize by compounding (252 trading days, 12 months); volatility scales by sqrt(periods), not linearly.",
+      "questions": [
+        "QF-D1G4Q1",
+        "QF-D1G4Q2",
+        "QF-D1G4Q3"
+      ],
+      "lecture": "01-07 Sharpe Ratio and Other Portfolio Statistics",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "How Hedge Funds are Evaluated (I): Return",
+          "pdfPages": "16-17",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Annualize by compounding daily returns over 252 trading days (260 weekdays minus ~8 holidays). sqrt-time scaling of volatility is NOT in WHFRD."
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 2 Probability: Univariate Models",
+          "section": "2.2.5.2 Variance of a distribution",
+          "pdfPages": "70-71",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Variance of a sum of independent rv's = sum of variances (eq. 2.34) -- the math behind sigma*sqrt(n); not finance-specific. (Printed page = PDF page - 30.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "CFA curriculum - annualizing returns and volatility / time-scale consistency; Bodie-Kane-Marcus - annualization conventions; Investopedia 'Annualized Volatility', 'Effective Annual Rate'",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Portfolio return: weights, long-short and leverage",
+      "summary": "Portfolio return = sum of w_i*r_i; shorts carry negative weights; leverage raises gross exposure and adds financing cost.",
+      "questions": [
+        "QF-D1G5Q1",
+        "QF-D1G5Q2",
+        "QF-D1G5Q3"
+      ],
+      "lecture": "02-05 How Hedge Funds Use the CAPM",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 7 Framework for Investing: The Capital Asset Pricing Model (CAPM)",
+          "section": "Basic Hedge Fund Strategies in the CAPM Framework",
+          "pdfPages": "43-45",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Weighted-average portfolio return worked example (p.43); short leg has negative weight (p.44); leverage magnifies gains and losses (p.45)."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "Hedge Fund Strategies",
+          "pdfPages": "15",
+          "kind": "recommended",
+          "verified": true,
+          "note": "130/30 strategy: 130% long by borrowing 30%, 30% short; leverage ('gearing')."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Glossary",
+          "section": "Leverage; Long/short",
+          "pdfPages": "93",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Financing/borrow cost arithmetic is not worked in the book. (Book glossary, not an assigned chapter.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "CFA curriculum - portfolio return aggregation, leverage and return; Bodie-Kane-Marcus - long/short weights; Investopedia 'Weighted Average Return', '130-30 Strategy', 'Leverage / Margin'",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Gross vs net, fees, and benchmark-relative return",
+      "summary": "Net = gross minus costs/fees; 2-and-20 waterfall; absolute return and benchmark-relative return answer different questions.",
+      "questions": [
+        "QF-D1G6Q1",
+        "QF-D1G6Q2",
+        "QF-D1G6Q3",
+        "QF-D1G2Q2"
+      ],
+      "lecture": "02-01 So You Want to be a Hedge Fund Manager",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "Hedge Fund Fees",
+          "pdfPages": "16",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Expense ratio vs '2 and 20'; performance fee on absolute performance."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "How Hedge Funds are Evaluated (I): Return",
+          "pdfPages": "18",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Worked 2%+20% fee examples (4% and 10% fund returns). Book applies incentive fee to return above the 2% fee, matching G6Q2's 'after the management fee' convention."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "How Hedge Funds Are Evaluated (II): Return Versus Benchmark (Relative Return)",
+          "pdfPages": "18-19",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Benchmarks (S&P 500, narrower indexes); exceeding the benchmark = alpha; trading costs and fees as drag."
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "CFA curriculum - gross vs net, excess return, benchmark selection; Bodie-Kane-Marcus - hedge fund fee structures; Investopedia 'Two and Twenty', 'Excess Return', 'Absolute vs Relative Return'",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Path dependence: offsetting moves, sequence risk, drawdown recovery",
+      "summary": "Equal +/- % moves lose money; withdrawals make return order matter; recovering a loss of L needs L/(1-L).",
+      "questions": [
+        "QF-D1G7Q1",
+        "QF-D1G7Q2",
+        "QF-D1G7Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "How Hedge Funds Are Evaluated (III): Risk",
+          "pdfPages": "20",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Drawdown = maximum peak-to-trough drop as % of peak. Recovery math and sequence-of-returns risk are not covered."
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Investopedia 'Volatility Drag / Recovery Math', 'Sequence Risk', 'Drawdown / Recovery'; CFA curriculum - geometric returns, cash-flow-weighted returns",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    }
+  ],
+  "gaps": "No book in books/ covers sequence-of-returns risk with withdrawals, loss-recovery asymmetry math, volatility-drag formula, sqrt-time volatility scaling (only the underlying variance math, ProbML 2.2.5.2), or leverage financing-cost arithmetic. Those rest on pool citations (CFA/BKM/Investopedia)."
+}

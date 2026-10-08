@@ -1,0 +1,310 @@
+{
+  "part": "QF",
+  "domain": "06",
+  "name": "Valuation and Mispricing",
+  "concepts": [
+    {
+      "concept": "Market price vs. intrinsic value (mispricing is a basis, not proof)",
+      "summary": "Price is observed; intrinsic value is a model estimate. Gaps signal opportunity, analysts can disagree, prices can embed scenario probabilities.",
+      "questions": [
+        "QF-D6G1Q1",
+        "QF-D6G1Q2",
+        "QF-D6G1Q3"
+      ],
+      "lecture": "02-03 What is a Company Worth?",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 5 Introduction to Company Valuation",
+          "section": "Introduction (price vs true value; long underpriced / short overpriced)",
+          "pdfPages": "29",
+          "kind": "recommended",
+          "verified": true,
+          "note": "differing views of value make a market; margin of safety"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 5 Introduction to Company Valuation",
+          "section": "Integrating Asset-Based and Cash Flow–Based Valuations",
+          "pdfPages": "34",
+          "kind": "recommended",
+          "verified": true,
+          "note": "'the challenging part is all the judgments'; different methods/assumptions give different values"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 6 How Valuation Is Used by Hedge Funds",
+          "section": "How and Why Events Affect Prices",
+          "pdfPages": "37",
+          "kind": "other-book",
+          "verified": true,
+          "note": "news that changes expected cash flows changes price (merger-rumor intuition, G1Q3)"
+        },
+        {
+          "book": "Damodaran, Investment Valuation; CFA equity valuation; Investopedia 'Intrinsic Value', 'Risk Arbitrage'",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Book value and price-to-book (limits in distress/liquidation)",
+      "summary": "Book value = assets − liabilities; P/B = price/BVPS; intangibles justify premiums; forced sales can recover below book.",
+      "questions": [
+        "QF-D6G2Q1",
+        "QF-D6G2Q2",
+        "QF-D6G2Q3"
+      ],
+      "lecture": "02-03 What is a Company Worth?",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 5 Introduction to Company Valuation",
+          "section": "Asset-Based Valuation: Book Value",
+          "pdfPages": "29-30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "conservative accounting deflates book; in recession/bankruptcy book may overstate true value; P/B formula"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 5 Introduction to Company Valuation",
+          "section": "Integrating Asset-Based and Cash Flow–Based Valuations",
+          "pdfPages": "34",
+          "kind": "recommended",
+          "verified": true,
+          "note": "book value as 'lower bound' that may need 30–50% haircut in distress sale"
+        },
+        {
+          "book": "Investopedia 'Book Value Per Share', 'Price-to-Book Ratio', 'Liquidation Value', 'Absolute Priority Rule'; CFA asset-based valuation",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified; creditor seniority / absolute priority rule is not discussed in WHFRD"
+        }
+      ]
+    },
+    {
+      "concept": "Time value of money: PV, FV, discount rate, compounding",
+      "summary": "PV = FV/(1+r)^n; discount rate = opportunity cost; later cash flows worth less; compound beats simple growth.",
+      "questions": [
+        "QF-D6G3Q1",
+        "QF-D6G3Q2",
+        "QF-D6G3Q3",
+        "QF-D6G5Q1"
+      ],
+      "lecture": "02-03 What is a Company Worth?",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 5 Introduction to Company Valuation",
+          "section": "Intrinsic Value: Dividend-Based Valuation — Time Value of Money",
+          "pdfPages": "30-32",
+          "kind": "recommended",
+          "verified": true,
+          "note": "PV = FV/(1+DR)^I; $10,000 note at 10% = $9,090.91; two-note PV sum"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 2 So You Want to Be a Hedge Fund Manager",
+          "section": "How Hedge Funds Are Evaluated (I): Return",
+          "pdfPages": "16-18",
+          "kind": "recommended",
+          "verified": true,
+          "note": "CAGR vs simple average: 7.2% compound doubles in 10 yrs vs 10% simple"
+        },
+        {
+          "book": "Investopedia 'Time Value of Money', 'Present Value', 'Compound Interest'; CFA quantitative methods (TVM)",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Dividend discount model, perpetuity and terminal value",
+      "summary": "Value = PV of dividends; perpetuity = D/r; higher r lowers value; distant cash flows carry much value.",
+      "questions": [
+        "QF-D6G4Q1",
+        "QF-D6G4Q2",
+        "QF-D6G4Q3",
+        "QF-D6G5Q2"
+      ],
+      "lecture": "02-03 What is a Company Worth?",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 5 Introduction to Company Valuation",
+          "section": "Intrinsic Value: Dividend-Based Valuation — The Dividend Discount Model",
+          "pdfPages": "32",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Divco $1 dividend at 8%: 10-yr PV $6.71"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 5 Introduction to Company Valuation",
+          "section": "Long-Term Ownership of an Asset",
+          "pdfPages": "33",
+          "kind": "recommended",
+          "verified": true,
+          "note": "perpetuity PV = D/DR = $12.50; years 11–∞ worth $5.79 (terminal-value intuition)"
+        },
+        {
+          "book": "Investopedia 'Gordon Growth Model', 'Dividend Discount Model', 'Terminal Value'; CFA equity valuation (constant-growth DDM, FCFF/DCF)",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified; WHFRD gives only the no-growth perpetuity D/DR — the Gordon D1/(r−g) formula and g<r condition are not in books/"
+        }
+      ]
+    },
+    {
+      "concept": "Growth-based valuation and growth sensitivity (growth vs. value labels)",
+      "summary": "Projected growth compounds; small growth-assumption changes swing value nonlinearly; 'growth'/'value' are descriptors, not return guarantees.",
+      "questions": [
+        "QF-D6G5Q1",
+        "QF-D6G5Q2",
+        "QF-D6G5Q3"
+      ],
+      "lecture": "02-03 What is a Company Worth?",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 5 Introduction to Company Valuation",
+          "section": "Growth-Based Valuations",
+          "pdfPages": "33-34",
+          "kind": "recommended",
+          "verified": true,
+          "note": "'Small differences in growth assumptions can lead to big disparities in valuations' (p.34)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 5 Introduction to Company Valuation",
+          "section": "Asset-Based Valuation: Book Value",
+          "pdfPages": "30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "mature low-growth or troubled firms can trade near/below book (value-style context for G5Q3)"
+        },
+        {
+          "book": "Investopedia 'Growth Stock', 'Value Stock', 'Value Trap', 'Sustainable Growth Rate'; CFA style classification",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified; value-trap concept not named in WHFRD"
+        }
+      ]
+    },
+    {
+      "concept": "Scenario analysis, valuation ranges and margin of safety",
+      "summary": "Probability-weight bear/base/bull cases; report a range, not false precision; margin of safety cushions but cannot eliminate error.",
+      "questions": [
+        "QF-D6G6Q1",
+        "QF-D6G6Q2",
+        "QF-D6G6Q3",
+        "QF-D6G1Q3"
+      ],
+      "lecture": "02-03 What is a Company Worth?",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 5 Introduction to Company Valuation",
+          "section": "What If?",
+          "pdfPages": "34-35",
+          "kind": "recommended",
+          "verified": true,
+          "note": "base/pessimistic/optimistic scenarios; 'better to be roughly right than precisely wrong'; Graham margin of safety; buy below ~80 cents on the dollar"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 5 Introduction to Company Valuation",
+          "section": "Introduction (margin of safety)",
+          "pdfPages": "29",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Graham: buy well below estimate of true value"
+        },
+        {
+          "book": "Graham, The Intelligent Investor; CFA scenario/sensitivity analysis; Investopedia 'Expected Value', 'Scenario Analysis', 'Margin of Safety'",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Trading mispricing: long/short, short-sale risk, timing and forced liquidation",
+      "summary": "Long undervalued, short overvalued; shorts have unbounded loss and carry costs; correct thesis can still lose before convergence.",
+      "questions": [
+        "QF-D6G7Q1",
+        "QF-D6G7Q2",
+        "QF-D6G7Q3"
+      ],
+      "lecture": "02-02 Market Mechanics",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 4 Market-Making Mechanics",
+          "section": "Types of Order (Intermediate) — Selling short",
+          "pdfPages": "26",
+          "kind": "recommended",
+          "verified": true,
+          "note": "short loss theoretically unlimited; short pays rebate/interest and dividends"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 5 Introduction to Company Valuation",
+          "section": "Introduction (long underpriced / short overpriced)",
+          "pdfPages": "29",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 6 How Valuation Is Used by Hedge Funds",
+          "section": "(chapter opening) value long/short screening",
+          "pdfPages": "37",
+          "kind": "other-book",
+          "verified": true,
+          "note": "long firms well below intrinsic value; short firms well above"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 15 Hedge Fund Case Study: Long Term Capital Management (LTCM)",
+          "section": "The Fall",
+          "pdfPages": "81",
+          "kind": "other-book",
+          "verified": true,
+          "note": "margin calls forced liquidation; 'market can remain irrational longer than you can remain solvent'"
+        },
+        {
+          "book": "Investopedia 'Short Selling', 'Short Squeeze', 'Margin Call', 'Catalyst'; CFA risk limits/position sizing",
+          "chapter": null,
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    }
+  ],
+  "gaps": "Gordon constant-growth formula V = D1/(r−g) and the g<r condition, two-stage DCF/terminal-value mechanics, value traps, and absolute priority of creditors in liquidation are not covered in books/ (WHFRD Ch.5 only gives perpetuity D/DR and qualitative growth sensitivity) — rely on pool citations (CFA/Investopedia/Damodaran)."
+}

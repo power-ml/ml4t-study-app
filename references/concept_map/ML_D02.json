@@ -1,0 +1,467 @@
+{
+  "part": "ML",
+  "domain": "02",
+  "name": "Data & Sampling Discipline",
+  "concepts": [
+    {
+      "concept": "Missing-data mechanisms & imputation",
+      "summary": "MCAR/MAR/MNAR determine safety of dropping or imputing; imputation is an estimate; forward-fill risks staleness; record missingness.",
+      "questions": [
+        "ML-D2G1Q1",
+        "ML-D2G1Q2",
+        "ML-D2G1Q3",
+        "ML-D2G1Q4",
+        "ML-D2G1Q5",
+        "ML-D2G1Q6"
+      ],
+      "lecture": "01-05 Incomplete Data",
+      "sources": [
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.5.5 Handling missing data",
+          "pdfPages": "56-57",
+          "kind": "recommended",
+          "verified": true,
+          "note": "MCAR / MAR / NMAR definitions (p.57)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 12 Overcoming Data Quirks to Design Trading Strategies",
+          "section": "Breaks in Series and Missing Data; Missing Ticker Symbols (fill forward / fill backward; survivor bias)",
+          "pdfPages": "70-72",
+          "kind": "recommended",
+          "verified": true,
+          "note": "fill forward p.71; survivor bias p.72"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 2 Alternative Data and AI in Investment Research",
+          "section": "Data sourcing/curation considerations (missing values, sampling and selection bias)",
+          "pdfPages": "45",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF has no usable bookmark outline; chapter span/heading verified from PDF text"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 12 Unsupervised Learning",
+          "section": "§12.3 Missing Values and Matrix Completion",
+          "pdfPages": "521-526",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; p.521: imputation appropriate only if missingness is random (scale battery vs patient too heavy)"
+        },
+        {
+          "book": "Little & Rubin, Statistical Analysis with Missing Data",
+          "chapter": null,
+          "section": "MCAR/MAR/MNAR, complete-case bias",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "Imputation of missing values; SimpleImputer; MissingIndicator",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Outliers: data errors vs. valid extremes; loss sensitivity",
+      "summary": "Verify before deleting; squared loss lets outliers dominate OLS; Huber/MAE robust; trees relatively robust; big NNs not immune.",
+      "questions": [
+        "ML-D2G2Q1",
+        "ML-D2G2Q2",
+        "ML-D2G2Q3",
+        "ML-D2G2Q4",
+        "ML-D2G2Q5",
+        "ML-D2G2Q6"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.3.3 Potential Problems",
+          "pdfPages": "109-118",
+          "kind": "recommended",
+          "verified": true,
+          "note": "§3.3.3 items 4 Outliers (p.112) and 5 High Leverage Points (p.113)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 5 Decision Theory",
+          "section": "§5.1 Bayesian decision theory",
+          "pdfPages": "197-209",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; L2 vs L1 vs Huber loss and outlier sensitivity p.206-207; Brier score p.209"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 11 Linear Regression",
+          "section": "§11.6 Robust linear regression *",
+          "pdfPages": "432-435",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; squared error lets outliers dominate the fit"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 18 Trees, Forests, Bagging, and Boosting",
+          "section": "§18.1 Classification and regression trees (CART)",
+          "pdfPages": "633-638",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; p.637: insensitive to monotone transforms (no need to standardize), relatively robust to outliers"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 2 Alternative Data and AI in Investment Research",
+          "section": "Where Does Data Analysis Come In? (robustness to assumptions and outliers)",
+          "pdfPages": "46",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF has no usable bookmark outline; chapter span/heading verified from PDF text"
+        },
+        {
+          "book": "ESL (Hastie, Tibshirani, Friedman)",
+          "chapter": null,
+          "section": "ch.9 trees; §12 SVR; ch.11 neural nets",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "Elements of Statistical Learning is not in books/; unverified"
+        },
+        {
+          "book": "Ioffe & Szegedy (2015), Batch Normalization",
+          "chapter": null,
+          "section": "BatchNorm sensitivity to outliers",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "López de Prado, Advances in Financial Machine Learning",
+          "chapter": null,
+          "section": "fat tails / winsorization",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Sampling bias: survivorship, selection, dataset shift",
+      "summary": "Sample must mirror deployment population; size or extra features can't fix biased rows; use point-in-time membership.",
+      "questions": [
+        "ML-D2G3Q1",
+        "ML-D2G3Q2",
+        "ML-D2G3Q3",
+        "ML-D2G3Q4",
+        "ML-D2G3Q5",
+        "ML-D2G3Q6"
+      ],
+      "lecture": "02-07 Dealing with Data",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 12 Overcoming Data Quirks to Design Trading Strategies",
+          "section": "Breaks in Series and Missing Data; Missing Ticker Symbols (fill forward / fill backward; survivor bias)",
+          "pdfPages": "70-72",
+          "kind": "recommended",
+          "verified": true,
+          "note": "fill forward p.71; survivor bias p.72"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 13 Data Sources",
+          "section": "Data-source criteria: free of survivor bias",
+          "pdfPages": "73-75",
+          "kind": "other-book",
+          "verified": true,
+          "note": "WHFRD chapter outside assigned reading"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 2 Alternative Data and AI in Investment Research",
+          "section": "Data sourcing/curation considerations (missing values, sampling and selection bias)",
+          "pdfPages": "45",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF has no usable bookmark outline; chapter span/heading verified from PDF text"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "Lookahead bias/data leakage (universe exclusion example: tech bubble without IT firms)",
+          "pdfPages": "30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF has no usable bookmark outline; chapter span/heading verified from PDF text"
+        },
+        {
+          "book": "López de Prado, Advances in Financial Machine Learning",
+          "chapter": null,
+          "section": "backtesting; survivorship",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "Quiñonero-Candela et al., Dataset Shift in Machine Learning",
+          "chapter": null,
+          "section": "covariate/dataset shift",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "Ioannidis (2005), Why Most Published Research Findings Are False",
+          "chapter": null,
+          "section": "publication bias",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Temporal ordering, walk-forward & point-in-time availability",
+      "summary": "Rows aren't exchangeable: split chronologically, use release/availability dates, exclude unmatured labels, avoid full-sample statistics.",
+      "questions": [
+        "ML-D2G4Q1",
+        "ML-D2G4Q2",
+        "ML-D2G4Q3",
+        "ML-D2G4Q4",
+        "ML-D2G4Q5",
+        "ML-D2G4Q6"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "How to Avoid Common Pitfalls: Lookahead bias/data leakage",
+          "pdfPages": "29-30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF has no usable bookmark outline; chapter span/heading verified from PDF text; quarterly data usable only when available (point-in-time); 'leakage in data' and 'leakage in features'; gap periods between train/val/test"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "Pitfalls: 'Peeking' into the future; Data mining; A changing market; cross validation",
+          "pdfPages": "76-78",
+          "kind": "other-book",
+          "verified": true,
+          "note": "WHFRD chapter outside assigned reading (assigned: Ch. 2,4,5,7,8,12)"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "TimeSeriesSplit; Common pitfalls: data leakage",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "López de Prado, Advances in Financial Machine Learning",
+          "chapter": null,
+          "section": "walk-forward / purged CV, embargo, labeling",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "ALFRED / real-time economic data vintages",
+          "chapter": null,
+          "section": "publication-lag concept",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Train/test separation: preprocessing, selection & tuning leakage",
+      "summary": "Any data-dependent step—scaling, imputation, feature selection, model choice—fit on test data leaks even without labels.",
+      "questions": [
+        "ML-D2G1Q2",
+        "ML-D2G1Q6",
+        "ML-D2G5Q1",
+        "ML-D2G5Q2",
+        "ML-D2G5Q3",
+        "ML-D2G5Q4",
+        "ML-D2G5Q5",
+        "ML-D2G5Q6"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "How to Avoid Common Pitfalls: Lookahead bias/data leakage",
+          "pdfPages": "29-30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF has no usable bookmark outline; chapter span/heading verified from PDF text; quarterly data usable only when available (point-in-time); 'leakage in data' and 'leakage in features'; gap periods between train/val/test"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.2.3 Overfitting and generalization",
+          "pdfPages": "42-43",
+          "kind": "recommended",
+          "verified": true,
+          "note": "generalization gap; test set not used for fitting or model selection (p.43)"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 1 The Deep Learning Revolution",
+          "section": "§1.2.6 Model selection",
+          "pdfPages": "34-36",
+          "kind": "recommended",
+          "verified": true,
+          "note": "validation/hold-out set; iterating design many times over-fits validation data -> keep a third test set (p.34)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 5 Resampling Methods",
+          "section": "§5.1.1 The Validation Set Approach",
+          "pdfPages": "210-212",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 6 Linear Model Selection and Regularization",
+          "section": "§6.1 Subset Selection",
+          "pdfPages": "239-248",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; §6.1.3 choosing the optimal model via validation/CV p.243-248"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "Common pitfalls: data leakage; Pipeline; SimpleImputer/KNNImputer/StandardScaler; RFE; nested CV",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "ESL (Hastie, Tibshirani, Friedman)",
+          "chapter": null,
+          "section": "§7.10.2 'the wrong way to do cross-validation'",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "Elements of Statistical Learning is not in books/; unverified"
+        },
+        {
+          "book": "López de Prado, Advances in Financial Machine Learning",
+          "chapter": null,
+          "section": "look-ahead bias",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Data snooping, multiple comparisons & holdout reuse",
+      "summary": "Repeatedly evaluating and reacting to one holdout makes it development data; best-of-many winners favor noise.",
+      "questions": [
+        "ML-D2G5Q2",
+        "ML-D2G6Q1",
+        "ML-D2G6Q2",
+        "ML-D2G6Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 1 The Deep Learning Revolution",
+          "section": "§1.2.6 Model selection",
+          "pdfPages": "34-36",
+          "kind": "recommended",
+          "verified": true,
+          "note": "validation/hold-out set; iterating design many times over-fits validation data -> keep a third test set (p.34)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "Pitfalls: 'Peeking' into the future; Data mining; A changing market; cross validation",
+          "pdfPages": "76-78",
+          "kind": "other-book",
+          "verified": true,
+          "note": "WHFRD chapter outside assigned reading (assigned: Ch. 2,4,5,7,8,12)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 13 Multiple Testing",
+          "section": "§13.2 The Challenge of Multiple Testing",
+          "pdfPages": "569-571",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "How to Avoid Common Pitfalls: Overfitting",
+          "pdfPages": "28-29",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF has no usable bookmark outline; chapter span/heading verified from PDF text; fantastic backtest, disappointing out-of-sample; CV/holdout/regularization; 'smell tests'; documenting tested iterations/'research graveyards' p.29"
+        },
+        {
+          "book": "Bailey & López de Prado, The Deflated Sharpe Ratio",
+          "chapter": null,
+          "section": "backtest overfitting / multiple testing",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "White (2000), A Reality Check for Data Snooping",
+          "chapter": null,
+          "section": "data snooping",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "Dwork et al. (2015), The reusable holdout",
+          "chapter": null,
+          "section": "adaptive data analysis",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    }
+  ],
+  "gaps": "Books in books/ do not cover walk-forward/purged cross-validation mechanics, fit-on-train preprocessing pipelines, winsorization, MNAR missing-indicator features, or reusable-holdout theory; these rest on unverified pool citations (scikit-learn, López de Prado, Little & Rubin, Dwork et al.). ISLP has no 'wrong way to do CV' passage (that is ESL §7.10.2, not in books/)."
+}

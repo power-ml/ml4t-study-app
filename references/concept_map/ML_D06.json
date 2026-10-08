@@ -1,0 +1,522 @@
+{
+  "part": "ML",
+  "domain": "06",
+  "name": "Decision Trees",
+  "concepts": [
+    {
+      "concept": "Prediction flow: one root-to-leaf path, leaf prediction",
+      "summary": "Each observation follows one path to one leaf; regression leaf predicts training mean, classification leaf the majority class.",
+      "questions": [
+        "ML-D6G1Q1",
+        "ML-D6G1Q2",
+        "ML-D6G1Q5"
+      ],
+      "lecture": "Decision Trees",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.1.1 Regression Trees",
+          "pdfPages": "338-344",
+          "kind": "recommended",
+          "verified": true,
+          "note": "prediction = mean of training observations in the region, p.341-342"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.1.2 Classification Trees",
+          "pdfPages": "344-348",
+          "kind": "recommended",
+          "verified": true,
+          "note": "most commonly occurring class, p.344"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 18 Trees, Forests, Bagging, and Boosting",
+          "section": "§18.1 Classification and regression trees (CART)",
+          "pdfPages": "633-638",
+          "kind": "other-book",
+          "verified": true
+        },
+        {
+          "book": "FoundationsML",
+          "chapter": "Ch. 9 Multi-Class Classification",
+          "section": "§9.3.3 Decision trees (majority-vote leaves, impurity decrease, greedy growth, grow-then-prune)",
+          "pdfPages": "241-245",
+          "kind": "other-book",
+          "verified": true
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Decision Trees — prediction; DecisionTreeRegressor",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Trees as interpretable if-then rules",
+      "summary": "Root-to-leaf paths are conjunctive rules, so small trees are explainable and auditable versus black-box models.",
+      "questions": [
+        "ML-D6G1Q3",
+        "ML-D6G1Q4",
+        "ML-D6G6Q3",
+        "ML-D6G6Q5"
+      ],
+      "lecture": "Decision Trees",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.1.4 Advantages and Disadvantages of Trees",
+          "pdfPages": "348-349",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.1.3 Trees Versus Linear Models",
+          "pdfPages": "348-349",
+          "kind": "recommended",
+          "verified": true,
+          "note": "interpretability/visualization as a selection factor, p.348"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 18 Trees, Forests, Bagging, and Boosting",
+          "section": "§18.1 CART — 18.1.5 Pros and cons (interpretable, monotone-transform invariant, unstable, axis-parallel)",
+          "pdfPages": "636-638",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section)"
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Understanding the decision tree structure; advantages/disadvantages",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Impurity measures and split selection",
+      "summary": "Splits maximize impurity/RSS reduction; Gini and entropy are 0 when pure, maximal at p=0.5; classification error is insensitive.",
+      "questions": [
+        "ML-D6G1Q5",
+        "ML-D6G1Q6",
+        "ML-D6G2Q1",
+        "ML-D6G2Q2",
+        "ML-D6G2Q6"
+      ],
+      "lecture": "Decision Trees",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.1.2 Classification Trees",
+          "pdfPages": "344-348",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Gini p.345, entropy p.346, classification error 'not sufficiently sensitive' p.345, node purity p.348"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.1.1 Regression Trees",
+          "pdfPages": "338-344",
+          "kind": "recommended",
+          "verified": true,
+          "note": "RSS minimization over boxes, p.341"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 18 Trees, Forests, Bagging, and Boosting",
+          "section": "§18.1 CART — 18.1.2 Model fitting (greedy growth; optimal partition NP-complete; Gini)",
+          "pdfPages": "635-636",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section)"
+        },
+        {
+          "book": "FoundationsML",
+          "chapter": "Ch. 9 Multi-Class Classification",
+          "section": "§9.3.3 Decision trees (majority-vote leaves, impurity decrease, greedy growth, grow-then-prune)",
+          "pdfPages": "241-245",
+          "kind": "other-book",
+          "verified": true,
+          "note": "impurity decrease of a split, p.243"
+        },
+        {
+          "book": "ESL",
+          "chapter": null,
+          "section": "§9.2.3 Classification Trees (impurity measures)",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Decision Trees — Mathematical formulation",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Greedy recursive binary splitting",
+      "summary": "CART picks the best split now without lookahead; locally optimal is not globally optimal (optimal tree NP-complete).",
+      "questions": [
+        "ML-D6G2Q3",
+        "ML-D6G2Q4",
+        "ML-D6G2Q5",
+        "ML-D6G2Q6",
+        "ML-D6G6Q6",
+        "ML-D6G7Q5",
+        "ML-D6G7Q6"
+      ],
+      "lecture": "Decision Trees",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.1.1 Regression Trees",
+          "pdfPages": "338-344",
+          "kind": "recommended",
+          "verified": true,
+          "note": "'top-down, greedy approach ... recursive binary splitting', p.341"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 18 Trees, Forests, Bagging, and Boosting",
+          "section": "§18.1 CART — 18.1.2 Model fitting (greedy growth; optimal partition NP-complete; Gini)",
+          "pdfPages": "635-636",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 18 Trees, Forests, Bagging, and Boosting",
+          "section": "§18.1 CART — 18.1.5 Pros and cons (interpretable, monotone-transform invariant, unstable, axis-parallel)",
+          "pdfPages": "636-638",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section); inaccuracy partly due to greedy construction, p.638"
+        },
+        {
+          "book": "FoundationsML",
+          "chapter": "Ch. 9 Multi-Class Classification",
+          "section": "§9.3.3 Decision trees (majority-vote leaves, impurity decrease, greedy growth, grow-then-prune)",
+          "pdfPages": "241-245",
+          "kind": "other-book",
+          "verified": true,
+          "note": "greedy construction, p.243"
+        },
+        {
+          "book": "ESL",
+          "chapter": null,
+          "section": "§9.2 Tree-Based Methods (CART)",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Tree depth/complexity: overfitting vs underfitting",
+      "summary": "Unrestricted depth gives ~0 training error and high variance; over-shallow trees underfit interactions; pick depth by validation.",
+      "questions": [
+        "ML-D6G3Q1",
+        "ML-D6G3Q2",
+        "ML-D6G3Q3",
+        "ML-D6G3Q4",
+        "ML-D6G3Q5",
+        "ML-D6G3Q6",
+        "ML-D6G7Q1",
+        "ML-D6G7Q6"
+      ],
+      "lecture": "Decision Trees",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.1.1 Regression Trees — Tree Pruning (cost complexity / weakest link)",
+          "pdfPages": "342-344",
+          "kind": "recommended",
+          "verified": true,
+          "note": "'likely to overfit the data, leading to poor test set performance', p.342"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.2.2 The Bias-Variance Trade-Off",
+          "pdfPages": "41-44",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 18 Trees, Forests, Bagging, and Boosting",
+          "section": "§18.1 CART — 18.1.3 Regularization (deep tree → 0 training error → overfit; max depth / min examples; pruning)",
+          "pdfPages": "636",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section)"
+        },
+        {
+          "book": "FoundationsML",
+          "chapter": "Ch. 9 Multi-Class Classification",
+          "section": "§9.3.3 Decision trees (majority-vote leaves, impurity decrease, greedy growth, grow-then-prune)",
+          "pdfPages": "241-245",
+          "kind": "other-book",
+          "verified": true,
+          "note": "larger trees overfit, p.244"
+        },
+        {
+          "book": "ESL",
+          "chapter": null,
+          "section": "ch.7 Model Assessment and Selection",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Complexity hyperparameters and pruning",
+      "summary": "max depth and minimum leaf size are structural pre-pruning limits; cost-complexity pruning (alpha) is the penalized analog.",
+      "questions": [
+        "ML-D6G4Q1",
+        "ML-D6G4Q2",
+        "ML-D6G4Q3",
+        "ML-D6G4Q4",
+        "ML-D6G4Q5",
+        "ML-D6G4Q6",
+        "ML-D6G7Q1"
+      ],
+      "lecture": "Decision Trees",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.1.1 Regression Trees — Tree Pruning (cost complexity / weakest link)",
+          "pdfPages": "342-344",
+          "kind": "recommended",
+          "verified": true,
+          "note": "stopping rule 'no region contains more than five observations' p.342; cost complexity α p.343-344"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 18 Trees, Forests, Bagging, and Boosting",
+          "section": "§18.1 CART — 18.1.3 Regularization (deep tree → 0 training error → overfit; max depth / min examples; pruning)",
+          "pdfPages": "636",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section)"
+        },
+        {
+          "book": "FoundationsML",
+          "chapter": "Ch. 9 Multi-Class Classification",
+          "section": "§9.3.3 Decision trees (majority-vote leaves, impurity decrease, greedy growth, grow-then-prune)",
+          "pdfPages": "241-245",
+          "kind": "other-book",
+          "verified": true,
+          "note": "stopping heuristics and grow-then-prune, p.243-244"
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Decision Trees — max_depth, min_samples_split, min_samples_leaf, max_leaf_nodes",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Instability / high variance of single trees",
+      "summary": "Small data changes or near-tie splits can flip early splits and restructure the tree; motivates bagging/random forests.",
+      "questions": [
+        "ML-D6G1Q4",
+        "ML-D6G5Q1",
+        "ML-D6G5Q2",
+        "ML-D6G5Q3",
+        "ML-D6G5Q4",
+        "ML-D6G5Q5",
+        "ML-D6G5Q6"
+      ],
+      "lecture": "Decision Trees",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.1.4 Advantages and Disadvantages of Trees",
+          "pdfPages": "348-349",
+          "kind": "recommended",
+          "verified": true,
+          "note": "'trees can be very non-robust', p.349"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.2.1 Bagging (incl. Out-of-Bag Error Estimation, Variable Importance)",
+          "pdfPages": "350-353",
+          "kind": "recommended",
+          "verified": true,
+          "note": "decision trees 'suffer from high variance', p.350"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 18 Trees, Forests, Bagging, and Boosting",
+          "section": "§18.1 CART — 18.1.5 Pros and cons (interpretable, monotone-transform invariant, unstable, axis-parallel)",
+          "pdfPages": "636-638",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section); 'trees are unstable' — omitting one point changes the surface, p.638"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 18 Trees, Forests, Bagging, and Boosting",
+          "section": "§18.2 Ensemble learning (majority vote, correlated mistakes, diversity; 18.2.1 Stacking weights)",
+          "pdfPages": "638-639",
+          "kind": "other-book",
+          "verified": true
+        },
+        {
+          "book": "ESL",
+          "chapter": null,
+          "section": "§9.2; §8.7 Bagging; ch.15 Random Forests",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Strengths: nonlinearity, interactions, no scaling needed",
+      "summary": "Hierarchical splits capture thresholds/interactions; splits depend only on ordering, so monotonic transforms and scaling don't change the tree.",
+      "questions": [
+        "ML-D6G5Q5",
+        "ML-D6G5Q6",
+        "ML-D6G6Q1",
+        "ML-D6G6Q2",
+        "ML-D6G6Q4",
+        "ML-D6G6Q6"
+      ],
+      "lecture": "Decision Trees",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.1.3 Trees Versus Linear Models",
+          "pdfPages": "348-349",
+          "kind": "recommended",
+          "verified": true,
+          "note": "trees can outperform linear models on highly non-linear relationships, p.348-349"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.1.4 Advantages and Disadvantages of Trees",
+          "pdfPages": "348-349",
+          "kind": "recommended",
+          "verified": true,
+          "note": "qualitative predictors without dummy variables, p.349"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 18 Trees, Forests, Bagging, and Boosting",
+          "section": "§18.1 CART — 18.1.5 Pros and cons (interpretable, monotone-transform invariant, unstable, axis-parallel)",
+          "pdfPages": "636-638",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section); 'insensitive to monotone transformations ... no need to standardize', p.637"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.2.3 Boosting",
+          "pdfPages": "354-357",
+          "kind": "recommended",
+          "verified": true,
+          "note": "interaction depth d: d splits involve at most d variables, p.356 (boosting context)"
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Decision Trees — Tips on practical use",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Weaknesses: axis-aligned, piecewise-constant, no extrapolation",
+      "summary": "Axis-parallel splits staircase diagonal boundaries; constant leaves jump at thresholds and cannot extrapolate beyond training range.",
+      "questions": [
+        "ML-D6G1Q5",
+        "ML-D6G7Q2",
+        "ML-D6G7Q3",
+        "ML-D6G7Q4",
+        "ML-D6G7Q5",
+        "ML-D6G7Q6"
+      ],
+      "lecture": "Decision Trees",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.1.3 Trees Versus Linear Models",
+          "pdfPages": "348-349",
+          "kind": "recommended",
+          "verified": true,
+          "note": "piecewise-constant model eq. 8.9 p.348; Fig. 8.7 axis-parallel splits lose on a linear boundary p.349"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 8 Tree-Based Methods",
+          "section": "§8.1.4 Advantages and Disadvantages of Trees",
+          "pdfPages": "348-349",
+          "kind": "recommended",
+          "verified": true,
+          "note": "lower predictive accuracy, p.349"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 18 Trees, Forests, Bagging, and Boosting",
+          "section": "§18.1 CART — 18.1.5 Pros and cons (interpretable, monotone-transform invariant, unstable, axis-parallel)",
+          "pdfPages": "636-638",
+          "kind": "other-book",
+          "verified": true,
+          "note": "subsection heading confirmed in PDF text (outline lists only the parent section); axis-parallel splits, p.638"
+        },
+        {
+          "book": "ESL",
+          "chapter": null,
+          "section": "§9.2 Tree-Based Methods",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        },
+        {
+          "book": "scikit-learn User Guide",
+          "chapter": null,
+          "section": "Decision Trees — disadvantages",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    }
+  ],
+  "gaps": "No book in books/ explicitly states that trees cannot extrapolate beyond the training-response range (only implied by ISLP eq. 8.9 piecewise-constant form). sklearn-specific semantics (min_samples_split does not bound leaf size; max_leaf_nodes best-first growth) and the impurity-concavity claim are covered only by pool citations (scikit-learn docs / ESL). Interaction modeling via sequential splits is only implicit (ISLP §8.1.3, §8.2.3 interaction depth). ML4T random-tree/correlation split detail is in course lecture material only."
+}

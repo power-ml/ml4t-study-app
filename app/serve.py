@@ -3,15 +3,17 @@
 - Serves the static app (index.html, data.js) from this folder.
 - Persists notes + quiz progress to ../notes/ml4t_state.json (and a readable ml4t_notes.md).
 - Read-only to your study files: it ONLY writes inside projects/ml4t_prep/notes/.
+- Serves book PDFs read-only from ../books/ at /books/<exact filename>.pdf (side-panel reader).
 Run:  python3 serve.py    then open the printed URL.
 """
-import http.server, socketserver, json, os, datetime, threading, shutil, glob
+import http.server, socketserver, json, os, datetime, threading, shutil, glob, urllib.parse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 NOTES_DIR = os.environ.get("ML4T_NOTES_DIR") or os.path.join(os.path.dirname(HERE), "notes")  # override for safe testing
 STATE = os.path.join(NOTES_DIR, "ml4t_state.json")
 NOTES_MD = os.path.join(NOTES_DIR, "ml4t_notes.md")
 BACKUP_DIR = os.path.join(NOTES_DIR, "_backups")
+BOOKS_DIR = os.path.join(os.path.dirname(HERE), "books")   # read-only: PDFs for the side-panel reader
 PORT = int(os.environ.get("ML4T_PORT", "8765"))
 KEEP_BACKUPS = 60
 _lock = threading.Lock()
@@ -62,7 +64,23 @@ class H(http.server.SimpleHTTPRequestHandler):
             self.send_response(200); self.send_header("Content-Type", "application/json")
             self.send_header("Content-Length", str(len(body))); self.end_headers(); self.wfile.write(body)
             return
+        if self.path.startswith("/books/"):
+            return self._send_book()
         return super().do_GET()
+    def _send_book(self):
+        """Serve a PDF from ../books/ by exact filename only (allowlist = current *.pdf in that folder;
+        no subpaths, no traversal). Read-only; server binds to 127.0.0.1."""
+        name = urllib.parse.unquote(self.path[len("/books/"):].split("?")[0].split("#")[0])
+        allowed = {f for f in os.listdir(BOOKS_DIR) if f.lower().endswith(".pdf")} if os.path.isdir(BOOKS_DIR) else set()
+        if name not in allowed or "/" in name or "\\" in name:
+            self.send_response(404); self.end_headers(); return
+        fp = os.path.join(BOOKS_DIR, name)
+        self.send_response(200); self.send_header("Content-Type", "application/pdf")
+        self.send_header("Content-Length", str(os.path.getsize(fp)))
+        self.send_header("Cache-Control", "private, max-age=3600"); self.end_headers()
+        with open(fp, "rb") as f:
+            try: shutil.copyfileobj(f, self.wfile, 1 << 20)
+            except (BrokenPipeError, ConnectionResetError): pass
     def do_POST(self):
         if self.path.split("?")[0] == "/api/state":
             n = int(self.headers.get("Content-Length", "0"))

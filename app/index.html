@@ -51,6 +51,13 @@ details.deep summary{cursor:pointer;color:var(--blue);font-weight:600}
 .notebox{border-left:3px solid var(--blue);padding-left:8px;margin-top:8px}
 .kpi{font-size:26px;font-weight:800}
 a{color:var(--blue)}
+#reader{position:fixed;top:0;right:0;bottom:0;width:var(--rw,46vw);min-width:360px;background:var(--panel);border-left:1px solid var(--line);z-index:50;display:flex;flex-direction:column;box-shadow:-6px 0 18px rgba(0,0,0,.35)}
+#reader[hidden]{display:none}
+#reader .rbar{display:flex;gap:8px;align-items:center;padding:6px 10px;border-bottom:1px solid var(--line);font-size:12px}
+#reader .rbar .t{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#reader iframe{flex:1;border:0;width:100%;background:#fff}
+body.reading main,body.reading header{margin-right:var(--rw,46vw)}
+.readlink{cursor:pointer;color:var(--blue);text-decoration:underline dotted}
 </style>
 </head>
 <body>
@@ -60,6 +67,10 @@ a{color:var(--blue)}
   <span class="mut small" id="stat"></span>
 </header>
 <main id="view"></main>
+<aside id="reader" hidden><div class="rbar"><span class="t" id="rtitle"></span>
+  <button class="btn sec" id="rwide" style="padding:2px 8px" title="toggle width">↔</button>
+  <a id="rnew" target="_blank" rel="noopener" class="small">open in tab ↗</a>
+  <button class="btn sec" id="rclose" style="padding:2px 8px">✕</button></div><iframe id="rframe" title="Book reader"></iframe></aside>
 <script src="data.js"></script>
 <script>
 const D=window.ML4T, LS="ml4t_v1";
@@ -112,7 +123,7 @@ function md(s){if(!s)return'';
 const flags=(t)=>{let f=[];if(ABS.test(t))f.push('absolute → ~74% False');if(NEG.test(t))f.push('negation → check the claim');return f;};
 let route='study';
 const nav=document.getElementById('nav');
-[['study','Study'],['quiz','Quiz / Mock'],['notes','🚩 Review'],['progress','Readiness'],['tips','Heuristics']].forEach(([k,l])=>{
+[['study','Study'],['quiz','Quiz / Mock'],['notes','🚩 Review'],['split','⚖ T/F Split'],['progress','Readiness'],['tips','Heuristics']].forEach(([k,l])=>{
   const b=$(`<button data-k="${k}">${l}</button>`);b.onclick=()=>{route=k;store.ui=store.ui||{};store.ui.route=k;save();render();};nav.append(b);});
 // ---- Exam 1 / Exam 2 scope (persisted in store.ui.exam) ----
 function curExam(){return (store.ui&&store.ui.exam)||1;}
@@ -140,6 +151,16 @@ function noteAnchor(qid){ if(qid){store.ui=store.ui||{};store.ui.anchor=qid;} }
 setInterval(()=>{ if(route!=='study')return; const cards=[...document.querySelectorAll('#list .card[data-qid]')]; const top=cards.find(c=>c.getBoundingClientRect().bottom>80); if(top&&(!store.ui||store.ui.anchor!==top.dataset.qid)){noteAnchor(top.dataset.qid);save();} },180000);
 window.addEventListener('resize',()=>{const h=document.querySelector('header');const b=document.querySelector('#view .row.card');if(h&&b&&getComputedStyle(b).position==='sticky')b.style.top=(h.offsetHeight-1)+'px';},{passive:true});
 
+// ---- side-panel book reader: /books/<file>#page=N (browser's built-in PDF viewer) ----
+function bookUrl(book,page){const f=(D.books||{})[book];if(!f)return null;return '/books/'+encodeURIComponent(f)+(page?'#page='+page:'');}
+function openBook(book,page,label){const u=bookUrl(book,page);if(!u)return;
+  const fr=document.getElementById('rframe');fr.src='about:blank';setTimeout(()=>{fr.src=u;},30);  // force reload so #page jumps even within the same book
+  document.getElementById('rtitle').textContent='📖 '+(label||book)+(page?' — PDF p.'+page:'');document.getElementById('rnew').href=u;
+  document.getElementById('reader').hidden=false;document.body.classList.add('reading');}
+function readLink(book,page,label){return bookUrl(book,page)?`<span class="readlink" data-book="${book}" data-page="${page||''}" data-label="${(label||'').replace(/"/g,'&quot;')}">${inline(label||book)}${page&&!/p\.\d/.test(label||'')?' · p.'+page:''}</span>`:inline(label||book);}
+function readLinks(q){const cs=(q.concepts||[]).filter(c=>c.book);if(!cs.length)return'';
+  return `<div class="small" style="margin:6px 0">📖 Read: ${cs.map(c=>`<b>${inline(c.concept)}</b> → ${readLink(c.book,c.page,c.src)}`).join(' &nbsp;|&nbsp; ')}</div>`;}
+document.addEventListener('click',e=>{const l=e.target.closest('[data-book]');if(l){e.preventDefault();e.stopPropagation();openBook(l.dataset.book,+l.dataset.page||null,l.dataset.label);}},true);
 const studyGuess={};  // Study-mode self-check guesses {qid:[true|false per choice]} — in-memory only
 function attempt(id){return store.attempts[id];}
 function domAcc(){ // per-domain accuracy from attempts
@@ -193,8 +214,10 @@ function bindTools(el,onFlag){
 function deepDive(part,dom){const d=D.domains.find(x=>x.part===part&&x.num===dom&&(x.exam||1)===curExam());if(!d)return'';
   const notes=(d.bookNotes||[]).map(n=>`<details class="deep" style="margin-left:12px"><summary>📖 ${n.book} — ${n.title} <span class="small mut">(${n.file})</span></summary><div class="md">${md(n.md)}</div></details>`).join('');
   const notesHdr=(d.bookNotes||[]).length?`<h3>Book notes (${d.bookNotes.length})</h3>${notes}`:'<h3>Book notes</h3><div class="small mut">None mapped to this domain yet.</div>';
-  return `<details class="deep"><summary>📚 Deep dive — concepts, traps, references &amp; book notes for ${part} Domain ${+dom}: ${d.name}</summary>
-    <div class="md"><h3>Cheat-sheet</h3>${md(d.cheatsheet)}<h3>Common traps</h3>${md(d.traps)}<h3>References</h3>${md(d.references)}</div>${notesHdr}</details>`;}
+  const kind={recommended:'📗 recommended','other-book':'📘 other book','project-notes':'🛠 extra notes','pool-citation':'📄 pool citation'};
+  const cmap=(d.conceptMap||[]).length?`<h3>Where to read — concept → book/chapter (${d.conceptMap.length} concepts)</h3><table><tr><th>Concept</th><th>Read</th><th>Lecture</th><th>Qs</th></tr>${d.conceptMap.map(c=>`<tr><td><b>${inline(c.concept)}</b><div class="small mut">${inline(c.summary||'')}</div></td><td>${(c.sources||[]).map(x=>`<div class="small">${kind[x.kind]||x.kind} ${(x.verified&&D.books&&D.books[x.book])?readLink(x.book,parseInt(x.pdfPages)||null,[x.book==='pool-citation'?null:x.book,x.chapter,x.section].filter(Boolean).join(' · ')):inline([x.book==='pool-citation'?null:x.book,x.chapter,x.section].filter(Boolean).join(' · '))}${x.pdfPages?' <span class="mut">(PDF pp.'+x.pdfPages+')</span>':''}${x.verified?' ✔':' <span class="mut">(unverified)</span>'}</div>`).join('')}</td><td class="small">${inline(c.lecture||'—')}</td><td class="small">${(c.questions||[]).length}</td></tr>`).join('')}</table>${d.conceptGaps?`<div class="small mut">Gaps: ${inline(d.conceptGaps)}</div>`:''}`:'';
+  return `<details class="deep"><summary>📚 Deep dive — where to read, concepts, traps, references &amp; book notes for ${part} Domain ${+dom}: ${d.name}</summary>
+    <div class="md">${cmap}<h3>Cheat-sheet</h3>${md(d.cheatsheet)}<h3>Common traps</h3>${md(d.traps)}<h3>References</h3>${md(d.references)}</div>${notesHdr}</details>`;}
 
 function studyView(){
   const v=document.getElementById('view');v.innerHTML='';
@@ -241,7 +264,7 @@ function studyView(){
       const wd=x.withdrawn?'<span class="pill" style="border-color:#d64545;color:#d64545">🚫 withdrawn — not on exam</span>':'';
       const art=x.pdfArtifacts?'<span class="pill" style="border-color:#e0a800;color:#e0a800" title="A subscript/symbol in this question may be mis-extracted from the source PDF — verify the formula against the exam material">⚠ check formula glyphs</span>':'';
       const card=$(`<div class="card${store.reviewed[x.id]?' rev':''}${store.flagged[x.id]?' flagged':''}" data-qid="${x.id}"${x.withdrawn?' style="opacity:.5;border-color:#d64545"':(notYet(x)?' style="opacity:.6"':'')}><div><span class="pill">#${x.n}</span><span class="pill">${x.id}</span><span class="pill">${x.group}</span><span class="pill">📅 wk ${x.weeks.join('/')}</span>${wd}${art}${dup}${inv}${flg}${attPill(x)}<label class="small" style="float:right">&nbsp;<input type="checkbox" data-flag="${x.id}" ${store.flagged[x.id]?'checked':''}> 🚩 &nbsp; <input type="checkbox" data-rev="${x.id}" ${store.reviewed[x.id]?'checked':''}> reviewed</label></div>${fb}
-        <div class="q-scenario">${x.scenario}</div>
+        <div class="q-scenario">${x.scenario}</div>${readLinks(x)}
         <div class="small mut">What it tests: concepts in ${x.domainName} (${x.group}). See Deep dive above.</div>
         ${x.choices.map((c,i)=>choiceRow(x,i,'study')).join('')}
         ${ref}${noteBox(x.id)}</div>`);
@@ -254,6 +277,16 @@ function studyView(){
       if(cb.checked)store.flagged[id]=today();else delete store.flagged[id];
       cb.closest('.card').classList.toggle('flagged',cb.checked);
       noteAnchor(id);save();updateRevStats();if(flagOnly.querySelector('input').checked)draw();});
+    bindReveal(list,updateRevStats);
+    updateRevStats();bindNotes(list);}
+  partSel.onchange=()=>{fillDom();draw();};domSel.onchange=draw;q.oninput=draw;hideRev.querySelector('input').onchange=draw;flagOnly.querySelector('input').onchange=draw;missOnly.querySelector('input').onchange=draw;hideWd.querySelector('input').onchange=draw;draw();
+  requestAnimationFrame(()=>{const ui=store.ui||{};                                   // resume where we left off
+    const sel=ui.anchor?('#list .card[data-qid="'+(window.CSS&&CSS.escape?CSS.escape(ui.anchor):ui.anchor)+'"]'):null;
+    const el=sel&&document.querySelector(sel);
+    if(el)el.scrollIntoView({block:'start'}); else if(ui.scrollY)window.scrollTo(0,ui.scrollY);});
+}
+// Tap-to-reveal + True/False self-check on study-mode cards (shared by Study and T/F Split views)
+function bindReveal(list,onReviewed){
     list.querySelectorAll('.choice.revealable').forEach(ch=>ch.addEventListener('click',e=>{
       if(!ch.classList.contains('revealable'))return;  // already revealed
       const card0=ch.closest('.card[data-qid]'),q0=D.questions.find(x=>x.id===card0.dataset.qid),ci=+ch.dataset.ci;
@@ -275,15 +308,52 @@ function studyView(){
         card.querySelectorAll('.choice')[card.querySelectorAll('.choice').length-1].insertAdjacentHTML('afterend',
           `<div class="selfscore small" style="margin:6px 0"><b>Self-check: ${c}/${n}</b> correct${n<gs.length||n<card.querySelectorAll('.choice').length?` (${card.querySelectorAll('.choice').length-n} revealed without a guess)`:''}</div>`);}
       if(!card.querySelector('.choice.revealable')&&markReviewed(id)){
-        const cb=card.querySelector(`input[data-rev="${id}"]`);if(cb)cb.checked=true;card.classList.add('rev');updateRevStats();}
+        const cb=card.querySelector(`input[data-rev="${id}"]`);if(cb)cb.checked=true;card.classList.add('rev');if(onReviewed)onReviewed(id);}
       noteAnchor(id);save();}));
-    updateRevStats();bindNotes(list);}
-  partSel.onchange=()=>{fillDom();draw();};domSel.onchange=draw;q.oninput=draw;hideRev.querySelector('input').onchange=draw;flagOnly.querySelector('input').onchange=draw;missOnly.querySelector('input').onchange=draw;hideWd.querySelector('input').onchange=draw;draw();
-  requestAnimationFrame(()=>{const ui=store.ui||{};                                   // resume where we left off
-    const sel=ui.anchor?('#list .card[data-qid="'+(window.CSS&&CSS.escape?CSS.escape(ui.anchor):ui.anchor)+'"]'):null;
-    const el=sel&&document.querySelector(sel);
-    if(el)el.scrollIntoView({block:'start'}); else if(ui.scrollY)window.scrollTo(0,ui.scrollY);});
 }
+// ---- True/False split: how many choices you MARK True (after inversion) ----
+const nTrue=q=>q.choices.filter(c=>c.verdict==='True').length;
+const splitKey=q=>{const t=nTrue(q);return `${t}T/${q.choices.length-t}F`;};
+const SPLITS={lop:['1/4 or 4/1 (lopsided)',q=>[1,4].includes(nTrue(q))],bal:['3/2 or 2/3 (balanced)',q=>[2,3].includes(nTrue(q))],
+  '1':['1 True / 4 False',q=>nTrue(q)===1],'4':['4 True / 1 False',q=>nTrue(q)===4],'3':['3 True / 2 False',q=>nTrue(q)===3],'2':['2 True / 3 False',q=>nTrue(q)===2]};
+function splitView(){const v=document.getElementById('view');v.innerHTML='';
+  const ui=store.ui;ui.split=ui.split||{};const f=Object.assign({g:'lop',part:'',pol:'',dom:'',hr:false,hw:true},ui.split);
+  // summary table: split counts by part × polarity (current exam, withdrawn excluded)
+  const eq=EQ().filter(q=>!q.withdrawn);const rows=[['QF','normal'],['ML','normal'],['ML','inverted'],['QF','inverted']]
+    .map(([p,pol])=>[p+' '+pol,eq.filter(q=>q.part===p&&q.polarity===pol)]).filter(r=>r[1].length);rows.push(['All',eq]);
+  const cnt=(qs,t)=>qs.filter(q=>nTrue(q)===t).length;
+  const sum=$(`<div class="card"><h3 style="margin-top:0">⚖ True/False split <span class="small mut">— # of choices you MARK True (inverted Qs counted after the flip) · Exam ${curExam()}, withdrawn excluded</span></h3>
+    <table style="border-collapse:collapse;font-size:13px"><tr>${['Type','#','1T/4F','2T/3F','3T/2F','4T/1F','3/2 or 2/3'].map(h=>`<th style="border:1px solid var(--line);padding:4px 8px">${h}</th>`).join('')}</tr>
+    ${rows.map(([l,qs])=>{const b=cnt(qs,2)+cnt(qs,3);return `<tr><td style="border:1px solid var(--line);padding:4px 8px"><b>${l}</b></td>${[qs.length,cnt(qs,1),cnt(qs,2),cnt(qs,3),cnt(qs,4)].map(x=>`<td style="border:1px solid var(--line);padding:4px 8px;text-align:right">${x}</td>`).join('')}<td style="border:1px solid var(--line);padding:4px 8px;text-align:right">${Math.round(100*b/(qs.length||1))}%</td></tr>`;}).join('')}</table>
+    <div class="small mut" style="margin-top:6px">No question is ever 0T/5F or 5T/0F. Use the split to settle the last uncertain choice.</div></div>`);
+  const bar=$(`<div class="row card">Split: <select id="sg">${Object.entries(SPLITS).map(([k,[l]])=>`<option value="${k}">${l}</option>`).join('')}</select>
+    Part: <select id="sp"><option value="">All</option><option>ML</option><option>QF</option></select>
+    Polarity: <select id="spol"><option value="">All</option><option value="normal">normal</option><option value="inverted">inverted</option></select>
+    Domain: <select id="sd"></select>
+    <label class="small"><input type="checkbox" id="shr"> hide reviewed</label><label class="small"><input type="checkbox" id="shw"> 🚫 hide withdrawn</label>
+    <button class="btn sec" id="squiz" style="padding:4px 10px">Quiz these ▸</button><span id="sc" class="small mut"></span></div>`);
+  const list=$(`<div id="list"></div>`);v.append(sum,bar,list);
+  const el=id=>bar.querySelector('#'+id);
+  el('sg').value=f.g;el('sp').value=f.part;el('spol').value=f.pol;el('shr').checked=f.hr;el('shw').checked=f.hw;
+  function fillDom(){el('sd').innerHTML='<option value="">All</option>'+ED().filter(d=>!el('sp').value||d.part===el('sp').value).map(d=>`<option value="${d.part}|${d.num}">${d.part} D${+d.num} ${d.name}</option>`).join('');el('sd').value=f.dom;if(el('sd').value!==f.dom)el('sd').value='';}
+  fillDom();
+  const pick=()=>EQ().filter(q=>SPLITS[f.g][1](q)&&(!f.part||q.part===f.part)&&(!f.pol||q.polarity===f.pol)&&(!f.dom||(q.part+'|'+q.domain)===f.dom)&&(!f.hr||!store.reviewed[q.id])&&(!f.hw||!q.withdrawn));
+  function draw(){Object.assign(f,{g:el('sg').value,part:el('sp').value,pol:el('spol').value,dom:el('sd').value,hr:el('shr').checked,hw:el('shw').checked});ui.split=f;
+    const qs=pick();el('sc').textContent=`${qs.length} questions · ${qs.filter(q=>store.reviewed[q.id]).length} reviewed`;
+    list.innerHTML=qs.length?'':'<div class="card mut">No questions match this filter.</div>';
+    qs.forEach(x=>{const inv=x.polarity==='inverted'?`<span class="pill inv">INVERTED: True = statement is WRONG</span>`:'';
+      const wd=x.withdrawn?'<span class="pill" style="border-color:#d64545;color:#d64545">🚫 withdrawn — not on exam</span>':'';
+      const card=$(`<div class="card${store.reviewed[x.id]?' rev':''}${store.flagged[x.id]?' flagged':''}" data-qid="${x.id}"><div><span class="pill">#${x.n}</span><span class="pill">${x.id}</span><span class="pill">${x.part} D${+x.domain} ${x.domainName}</span><span class="pill" style="border-color:var(--blue);color:var(--blue)">⚖ ${splitKey(x)}</span>${inv}${wd}${attPill(x)}<label class="small" style="float:right"><input type="checkbox" data-rev="${x.id}" ${store.reviewed[x.id]?'checked':''}> reviewed</label></div>
+        <div class="q-scenario">${x.scenario}</div>${readLinks(x)}${x.choices.map((c,i)=>choiceRow(x,i,'study')).join('')}${qTools(x.id)}</div>`);
+      list.append(card);});
+    list.querySelectorAll('input[data-rev]').forEach(cb=>cb.onchange=()=>{const id=cb.dataset.rev,t=today();
+      if(cb.checked){markReviewed(id);cb.closest('.card').classList.add('rev');}
+      else{if(store.reviewed[id]===t)store.reviewLog[t]=Math.max(0,(store.reviewLog[t]||0)-1);delete store.reviewed[id];cb.closest('.card').classList.remove('rev');}
+      save();if(f.hr)draw();});
+    bindReveal(list);bindTools(list);}
+  ['sg','spol','sd','shr','shw'].forEach(id=>el(id).onchange=()=>{save();draw();});el('sp').onchange=()=>{fillDom();save();draw();};
+  el('squiz').onclick=()=>{const qs=pick().filter(q=>!q.withdrawn);shuffle(qs);route='quiz';ui.route='quiz';save();render();runQuiz(qs.slice(0,+document.getElementById('qn').value||10),document.getElementById('quizarea'));};
+  draw();}
 
 function quizView(){
   const v=document.getElementById('view');v.innerHTML='';
@@ -381,6 +451,7 @@ function gradeQuiz(state,area){
   const cards=[...area.querySelectorAll('.card[data-qid]')];
   state.forEach((s,qi)=>{const q=s.q;const card=cards[qi];if(!card)return;
     card.querySelector('[data-res]').innerHTML=attPill(q);
+    card.querySelector('.q-scenario').insertAdjacentHTML('afterend',readLinks(q));  // book links only after grading (no hints mid-quiz)
     q.choices.forEach((c,i)=>{const ch=card.querySelectorAll('.choice')[i];if(!ch)return;
       const right=s.sel[i]&&(s.sel[i]==='T')===(c.verdict==='True');ch.classList.add(right?'ok':'bad');
       ch.insertAdjacentHTML('beforeend',`<div><span class="verdict ${c.verdict==='True'?'v-true':'v-false'}">Answer: ${c.verdict}</span> <span class="why">${inline(c.why)}</span></div>`);});});
@@ -411,7 +482,7 @@ function notesView(){const v=document.getElementById('view');v.innerHTML='';
     list.innerHTML=qs.length?'':'<div class="card mut">Nothing here yet — flag 🚩 or add a 📝 note on questions in Study or Quiz.</div>';
     qs.forEach(q=>{const inv=q.polarity==='inverted'?`<span class="pill inv">INVERTED: True = statement is WRONG</span>`:'';
       const card=$(`<div class="card${store.flagged[q.id]?' flagged':''}" data-qid="${q.id}"><div><span class="pill">#${q.n}</span><span class="pill">${q.id}</span><span class="pill">${q.part} D${+q.domain} ${q.domainName}</span>${inv}${attPill(q)}</div>
-        <div class="q-scenario">${q.scenario}</div>
+        <div class="q-scenario">${q.scenario}</div>${readLinks(q)}
         <details class="deep"><summary>Show choices + answers</summary>${q.choices.map((c,i)=>choiceRow(q,i,'review',null)).join('')}</details>
         ${qTools(q.id)}</div>`);
       bindTools(card,()=>{if(sel.value==='flagged')draw();});list.append(card);});}
@@ -424,7 +495,12 @@ function progressView(){const v=document.getElementById('view');const m=domAcc()
   const reviewCard=`<div class="card"><h3 style="margin-top:0">📈 Daily review log <span class="small mut">(Exam ${curExam()})</span></h3><div class="small mut">${rlDistinct}/${nQ} distinct questions reviewed · ${rlActions} total review actions (all exams)</div><div style="margin-top:6px">${rlRows}</div></div>`;
   const drs=domReviewStats();
   const drRows=Object.values(drs).sort((a,b)=>(a.reviewed/a.total)-(b.reviewed/b.total)).map(d=>{const pct=Math.round(d.reviewed/d.total*100);const col=pct>=100?'var(--green)':pct>0?'var(--blue)':'var(--line)';return `<div style="margin:5px 0"><div class="small">${d.part} D${+d.domain} ${d.name} — <b>${d.reviewed}/${d.total}</b> (${pct}%)</div><div style="background:var(--panel2);border-radius:6px;height:8px;margin-top:2px"><div style="width:${pct}%;height:8px;border-radius:6px;background:${col}"></div></div></div>`;}).join('');
-  const domReviewCard=`<div class="card"><h3 style="margin-top:0">📚 Review coverage by domain <span class="small mut">— least-reviewed first; prioritize the top</span></h3><div style="margin-top:8px">${drRows}</div></div>`;
+  // per-part totals (ML vs QF vs both), summed from the same per-domain stats
+  const partTot=p=>Object.values(drs).filter(d=>!p||d.part===p).reduce((a,d)=>({r:a.r+d.reviewed,t:a.t+d.total}),{r:0,t:0});
+  const partRows=[['ML','ML'],['QF','QF'],['','Total']].map(([p,l])=>{const s=partTot(p),pct=s.t?Math.round(s.r/s.t*100):0;
+    return `<div style="flex:1;min-width:160px"><div class="small">${l}</div><div class="kpi" style="font-size:20px">${s.r}/${s.t} <span class="small mut">(${pct}%)</span></div><div style="background:var(--panel2);border-radius:6px;height:8px"><div style="width:${pct}%;height:8px;border-radius:6px;background:${pct>=100?'var(--green)':'var(--blue)'}"></div></div></div>`;}).join('');
+  const domReviewCard=`<div class="card"><h3 style="margin-top:0">📚 Review coverage by part</h3><div class="row" style="gap:18px">${partRows}</div>
+    <h3>📚 Review coverage by domain <span class="small mut">— least-reviewed first; prioritize the top</span></h3><div style="margin-top:8px">${drRows}</div></div>`;
   const rag=p=>p>=.85?'g':p>=.7?'a':'r';
   const seen=Object.keys(store.attempts).filter(id=>eset.has(id)).length;
   const glyph={g:'🟢',a:'🟡',r:'🔴'};
@@ -458,13 +534,15 @@ function tipsView(){const h=D.heuristics;const v=document.getElementById('view')
 function render(){document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.k===route));
   const es=document.getElementById('examsel'); if(es)es.value=curExam();
   syncWeekSel(); setStat();
-  ({study:studyView,quiz:quizView,notes:notesView,progress:progressView,tips:tipsView})[route]();}
+  ({study:studyView,quiz:quizView,notes:notesView,split:splitView,progress:progressView,tips:tipsView})[route]();}
 loadState().then(()=>{
   if(!store.week)store.week=8;
   store.reviewed=store.reviewed||{};
   store.reviewLog=store.reviewLog||{};
   store.flagged=store.flagged||{};
   store.ui=store.ui||{}; route=store.ui.route||'study';
+  document.getElementById('rclose').onclick=()=>{document.getElementById('reader').hidden=true;document.body.classList.remove('reading');document.getElementById('rframe').src='about:blank';};
+  document.getElementById('rwide').onclick=()=>{const st=document.documentElement.style;st.setProperty('--rw',st.getPropertyValue('--rw')==='70vw'?'46vw':'70vw');};
   const es=document.getElementById('examsel');
   if(es){es.value=curExam(); es.onchange=()=>{store.ui.exam=+es.value;save();render();};}
   const ws=document.getElementById('weeksel');

@@ -1,0 +1,366 @@
+{
+  "part": "QF",
+  "domain": "03",
+  "name": "Diversification and Correlation",
+  "concepts": [
+    {
+      "concept": "Correlation: meaning, bounds, not causation or independence",
+      "summary": "rho in [-1,1] measures linear co-movement; negative rho is not a guaranteed offset; low rho is not independence.",
+      "questions": [
+        "QF-D3G1Q1",
+        "QF-D3G1Q2"
+      ],
+      "lecture": "01-06 Histograms and Scatter Plots",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 7 Framework for Investing: The Capital Asset Pricing Model (CAPM)",
+          "section": "The ABCs of CAPM: Alphas, Betas, and Correlations",
+          "pdfPages": "40-42",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Correlation from -1.0 to +1.0 (p.40); 'tightness' of scatter around the regression line (p.42)."
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 3 Probability: Multivariate Models",
+          "section": "3.1.2 Correlation",
+          "pdfPages": "108",
+          "kind": "other-book",
+          "verified": true,
+          "note": "rho = Cov/sqrt(V V), -1 <= rho <= 1; degree of linearity, not slope. (Printed page = PDF page - 30.)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 3 Probability: Multivariate Models",
+          "section": "3.1.3 Uncorrelated does not imply independent; 3.1.4 Correlation does not imply causation",
+          "pdfPages": "109",
+          "kind": "other-book",
+          "verified": true,
+          "note": "(Printed page = PDF page - 30.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Glossary",
+          "section": "Correlation",
+          "pdfPages": "91",
+          "kind": "other-book",
+          "verified": true,
+          "note": "(Book glossary, not an assigned chapter.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Investopedia 'Correlation Coefficient', 'Covariance vs. Correlation'; Bodie-Kane-Marcus, Investments (risk & return); CFA curriculum - portfolio risk & return",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Covariance vs correlation and two-asset portfolio variance",
+      "summary": "Cov = rho*s1*s2; portfolio variance = w1^2 s1^2 + w2^2 s2^2 + 2 w1 w2 Cov; higher rho, higher risk.",
+      "questions": [
+        "QF-D3G1Q3",
+        "QF-D3G2Q1",
+        "QF-D3G2Q2",
+        "QF-D3G2Q3",
+        "QF-D3G4Q1"
+      ],
+      "lecture": "02-10 Portfolio Optimization and The Efficient Frontier",
+      "sources": [
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 2 Probabilities",
+          "section": "2.2.2 Expectations and covariances",
+          "pdfPages": "55-56",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Defines var[x]=E[x^2]-E[x]^2 and cov[x,y]; independent -> covariance 0. (Week-2 recommended reading; printed page = PDF page - 20.)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 3 Probability: Multivariate Models",
+          "section": "3.1.1 Covariance",
+          "pdfPages": "107",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Covariance definition and covariance matrix; Cov[Ax+b] = A Cov[x] A^T. (Printed page = PDF page - 30.)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 3 Probability: Multivariate Models",
+          "section": "3.1.2 Correlation",
+          "pdfPages": "108",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Correlation = covariance normalized by the standard deviations. (Printed page = PDF page - 30.)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 2 Probability: Univariate Models",
+          "section": "2.8.4 Moments of a linear transformation",
+          "pdfPages": "99-100",
+          "kind": "other-book",
+          "verified": true,
+          "note": "V[a^T x] = a^T Sigma a; V[x1+x2] = V[x1]+V[x2]+2Cov[x1,x2] -- the portfolio-variance formula. (Printed page = PDF page - 30.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Markowitz portfolio theory; Bodie-Kane-Marcus, Investments (optimal risky portfolios, portfolio math); Investopedia 'Covariance vs. Correlation'; CFA curriculum - statistics/portfolio math",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Specific vs systematic risk and shared factor exposure",
+      "summary": "Diversification removes firm-specific risk, not market or shared-factor risk; dollar-neutral is not factor- or beta-neutral.",
+      "questions": [
+        "QF-D3G3Q1",
+        "QF-D3G3Q2",
+        "QF-D3G3Q3"
+      ],
+      "lecture": "02-04 The Capital Asset Pricing Model (CAPM)",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 9 The Fundamental Law of Active Portfolio Management",
+          "section": "Breadth as Diversification",
+          "pdfPages": "51",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Systematic vs specific risk; diversification mutes specific risk. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 7 Framework for Investing: The Capital Asset Pricing Model (CAPM)",
+          "section": "Implications of CAPM",
+          "pdfPages": "43",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Disaggregates return into market (beta) and company-specific (alpha) parts."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 7 Framework for Investing: The Capital Asset Pricing Model (CAPM)",
+          "section": "Basic Hedge Fund Strategies in the CAPM Framework",
+          "pdfPages": "44",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Dollar-balanced is not beta-balanced; beta-balanced: Sum(beta_i*w_i) = 0 (supports G3Q3)."
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Investopedia 'Systematic vs. Unsystematic Risk'; Bodie-Kane-Marcus (diversification and firm-specific risk); CFA curriculum (factor risk)",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Diversification and hedging via low or negative correlation",
+      "summary": "Combining imperfectly correlated assets cuts risk without cutting expected return; negative correlation hedges at the cost of lagging in booms.",
+      "questions": [
+        "QF-D3G4Q1",
+        "QF-D3G4Q2",
+        "QF-D3G4Q3"
+      ],
+      "lecture": "02-10 Portfolio Optimization and The Efficient Frontier",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "Why Low Correlation Is Prized",
+          "pdfPages": "58-60",
+          "kind": "other-book",
+          "verified": true,
+          "note": "ABC/DEF/GHI example: portfolio volatility far below any component; negatively correlated assets dampen oscillations. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 7 Framework for Investing: The Capital Asset Pricing Model (CAPM)",
+          "section": "The ABCs of CAPM: Alphas, Betas, and Correlations",
+          "pdfPages": "41",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Low or negative correlations dampen portfolio volatility."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Glossary",
+          "section": "Correlation; Modern portfolio theory (MPT)",
+          "pdfPages": "91-93",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Negative correlation hedges; MPT: low or negative correlations can reduce risk without sacrificing return. (Book glossary, not an assigned chapter.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Markowitz portfolio theory; Bodie-Kane-Marcus (two-asset portfolios, perfect hedge); Investopedia 'hedge', 'diversification'",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Concentration risk and position sizing",
+      "summary": "Conviction does not justify outsized weight; equal weights can hide sector concentration; risk contribution depends on covariance.",
+      "questions": [
+        "QF-D3G5Q1",
+        "QF-D3G5Q2",
+        "QF-D3G5Q3"
+      ],
+      "lecture": "02-09 The Fundamental Law of Active Portfolio Management",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 9 The Fundamental Law of Active Portfolio Management",
+          "section": "Breadth as Diversification",
+          "pdfPages": "51",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Advisors limit any single position to no more than ~5% of a portfolio. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 9 The Fundamental Law of Active Portfolio Management",
+          "section": "Implications of the Fundamental Law",
+          "pdfPages": "54",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Concentration (Buffett) is rational only with very high skill (IC). (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Glossary",
+          "section": "Diversification",
+          "pdfPages": "91-92",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Diversification works only 'as long as the assets that are added fluctuate based on different causes' (supports G5Q2). (Book glossary, not an assigned chapter.)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 2 Probability: Univariate Models",
+          "section": "2.8.4 Moments of a linear transformation",
+          "pdfPages": "99-100",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Portfolio variance a^T Sigma a includes covariance terms, so inverse-vol sizing that ignores correlation is incomplete (G5Q3). Math only. (Printed page = PDF page - 30.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "CFA curriculum (risk management, position limits, portfolio risk); Investopedia 'concentration risk', 'diversification limits'; Markowitz covariance matrix (marginal contribution to risk)",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Diminishing marginal diversification and redundancy",
+      "summary": "Each added unrelated holding helps less; a 0.95-correlated strategy adds little; judge an addition by its covariance with the portfolio.",
+      "questions": [
+        "QF-D3G6Q1",
+        "QF-D3G6Q2",
+        "QF-D3G6Q3",
+        "QF-D3G3Q2"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 9 The Fundamental Law of Active Portfolio Management",
+          "section": "Breadth as Diversification",
+          "pdfPages": "51",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Benefit decelerates; beyond 20 to 40 issues gives little additional risk reduction. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "Why Low Correlation Is Prized",
+          "pdfPages": "58-59",
+          "kind": "other-book",
+          "verified": true,
+          "note": "ABC and DEF (rho ~0.9) move in tandem: 'Buying both does not really diversify your portfolio.' (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Glossary",
+          "section": "Diversification",
+          "pdfPages": "91-92",
+          "kind": "other-book",
+          "verified": true,
+          "note": "(Book glossary, not an assigned chapter.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Bodie-Kane-Marcus (portfolio size vs risk curve); Markowitz theory (covariance drives benefit); Investopedia 'diversification', 'diworsification'",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Correlation instability, crisis co-movement and covariance estimation error",
+      "summary": "Correlations rise in crises and tails; calm-sample estimates understate risk; noisy covariance forecasts plus leverage are fragile.",
+      "questions": [
+        "QF-D3G7Q1",
+        "QF-D3G7Q2",
+        "QF-D3G7Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "A Dynamic Process",
+          "pdfPages": "62",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Correlations change; 'in a market meltdown, nothing rises except correlations' (2008). (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 10 Modern Portfolio Theory: The Efficient Frontier and Portfolio Optimization",
+          "section": "No Panacea",
+          "pdfPages": "62",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Outputs only as good as inputs; tail risk underestimated (LTCM). (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 4 Statistics",
+          "section": "4.5.2.1 Shrinkage estimate",
+          "pdfPages": "152-153",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Sample covariance is poorly conditioned in high dimensions; shrinkage toward a diagonal target; cites sklearn LedoitWolf (supports G7Q3). (Printed page = PDF page - 30.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "CFA curriculum (stress testing, tail risk, estimation risk, robust construction); Investopedia 'correlation breakdown'; Ledoit-Wolf shrinkage; Markowitz input sensitivity",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    }
+  ],
+  "gaps": "Conditional/tail correlation measurement and risk-parity / marginal-contribution-to-risk formulas are not developed in any book (ProbML gives only the a^T Sigma a math). Position-limit practice gets only one line (WHFRD p.51). These rest on pool citations."
+}

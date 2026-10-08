@@ -1,0 +1,573 @@
+{
+  "part": "ML",
+  "domain": "01",
+  "name": "Learning Paradigms & Problem Framing",
+  "concepts": [
+    {
+      "concept": "Supervised vs. unsupervised learning",
+      "summary": "Presence of paired targets defines supervised; clustering finds structure without labels and can feed downstream supervised models.",
+      "questions": [
+        "ML-D1G1Q1",
+        "ML-D1G1Q2",
+        "ML-D1G1Q3",
+        "ML-D1G1Q4",
+        "ML-D1G1Q5",
+        "ML-D1G1Q6"
+      ],
+      "lecture": "03-01 How ML is Used at a Hedge Fund",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 1 Introduction",
+          "section": "An Overview of Statistical Learning",
+          "pdfPages": "12-16",
+          "kind": "recommended",
+          "verified": true,
+          "note": "p.12 defines supervised vs unsupervised"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.2 Supervised learning",
+          "pdfPages": "31-44",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.3 Unsupervised learning",
+          "pdfPages": "44-47",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 1 The Deep Learning Revolution",
+          "section": "§1.1 The Impact of Deep Learning",
+          "pdfPages": "22-26",
+          "kind": "recommended",
+          "verified": true,
+          "note": "supervised (lesion labels), unsupervised (image synthesis), self-supervised (LLMs) examples p.23-25"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.1.4 Supervised Versus Unsupervised Learning",
+          "pdfPages": "35-37",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 12 Unsupervised Learning",
+          "section": "§12.1 The Challenge of Unsupervised Learning",
+          "pdfPages": "509-510",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "Choosing the right estimator; Clustering; Novelty and outlier detection",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Regression vs. classification framing",
+      "summary": "Target nature decides: continuous → regression (MSE), discrete → classification (error rate); thresholding discards magnitude.",
+      "questions": [
+        "ML-D1G2Q1",
+        "ML-D1G2Q2",
+        "ML-D1G2Q3",
+        "ML-D1G2Q4",
+        "ML-D1G2Q5",
+        "ML-D1G2Q6",
+        "ML-D1G2Q7",
+        "ML-D1G2Q8"
+      ],
+      "lecture": "03-02 Regression",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.2.1 Measuring the Quality of Fit",
+          "pdfPages": "38-41",
+          "kind": "recommended",
+          "verified": true,
+          "note": "MSE; training vs test MSE"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.2.3 The Classification Setting",
+          "pdfPages": "44-50",
+          "kind": "recommended",
+          "verified": true,
+          "note": "error rate, Bayes classifier, KNN classifier (K=1 vs K=100, p.46-48)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.2.1 Classification",
+          "pdfPages": "32-38",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.2.2 Regression",
+          "pdfPages": "38-42",
+          "kind": "recommended",
+          "verified": true,
+          "note": "includes polynomial regression and feature engineering (p.40-42)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.1.5 Regression Versus Classification Problems",
+          "pdfPages": "37",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 5 Decision Theory",
+          "section": "§5.1 Bayesian decision theory",
+          "pdfPages": "197-209",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; L2 vs L1 vs Huber loss and outlier sensitivity p.206-207; Brier score p.209"
+        },
+        {
+          "book": "Brier (1950), Monthly Weather Review",
+          "chapter": null,
+          "section": "Brier score",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "Original paper not in books/; Brier score itself is verified in ProbML §5.1 (p.209)"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "Probability calibration; Metrics and scoring; Multiclass and multioutput",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Training vs. inference cost (eager vs. lazy)",
+      "summary": "Fit-once/apply-many: training cost ≠ inference cost; lazy KNN stores data and pays per query, scaling with N.",
+      "questions": [
+        "ML-D1G3Q1",
+        "ML-D1G3Q2",
+        "ML-D1G3Q4",
+        "ML-D1G3Q5",
+        "ML-D1G3Q6"
+      ],
+      "lecture": "03-02 Regression",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 3 Linear Regression",
+          "section": "§3.5 Comparison of Linear Regression with K-Nearest Neighbors",
+          "pdfPages": "120-125",
+          "kind": "recommended",
+          "verified": true,
+          "note": "parametric vs non-parametric framing only; does not discuss compute/latency"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.1.2 How Do We Estimate f?",
+          "pdfPages": "30-33",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; parametric vs non-parametric"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 3 Standard Distributions",
+          "section": "§3.5.3 Nearest-neighbours",
+          "pdfPages": "122-124",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; KNN requires the entire training set to be stored -> expensive computation (p.123)"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 16 Exemplar-based Methods",
+          "section": "§16.1 K nearest neighbor (KNN) classification",
+          "pdfPages": "577-581",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; instance-/memory-based; Mahalanobis/Euclidean metric; K=1 zero train error, U-shaped test error (p.578); curse of dimensionality, edge length p^(1/D) (p.578-580); speed/memory and approximate NN (p.580); OOD/novelty (p.580-581)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 7 Moving Beyond Linearity",
+          "section": "§7.6 Local Regression",
+          "pdfPages": "311-313",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; p.311: memory-based - like nearest neighbors, needs all training data at each prediction"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "Computational performance / prediction latency; Nearest Neighbors (query complexity)",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "Vapnik, Statistical Learning Theory",
+          "chapter": null,
+          "section": "empirical vs structural risk",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Hypothesis space, model families & inductive bias",
+      "summary": "Model class constrains representable functions; families differ in inductive bias; flexibility trades against interpretability.",
+      "questions": [
+        "ML-D1G4Q1",
+        "ML-D1G4Q2"
+      ],
+      "lecture": "03-02 Regression",
+      "sources": [
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.2.4 No free lunch theorem",
+          "pdfPages": "43-44",
+          "kind": "recommended",
+          "verified": true,
+          "note": "inductive bias"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.1.3 The Trade-Off Between Prediction Accuracy and Model Interpretability",
+          "pdfPages": "33-35",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.1.2 How Do We Estimate f?",
+          "pdfPages": "30-33",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; parametric vs non-parametric"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 9 Regularization",
+          "section": "§9.1 Inductive Bias",
+          "pdfPages": "271-277",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; §9.1.2 no free lunch theorem p.272"
+        }
+      ]
+    },
+    {
+      "concept": "Bias–variance, overfitting & irreducible error",
+      "summary": "Test error = bias² + variance + irreducible ε; memorization = high variance; more data helps variance, not bias.",
+      "questions": [
+        "ML-D1G4Q3",
+        "ML-D1G4Q4",
+        "ML-D1G4Q5",
+        "ML-D1G4Q6",
+        "ML-D1G5Q1",
+        "ML-D1G5Q4",
+        "ML-D1G5Q5",
+        "ML-D1G5Q6"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.2.2 The Bias-Variance Trade-Off",
+          "pdfPages": "41-44",
+          "kind": "recommended",
+          "verified": true
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.2.1 Measuring the Quality of Fit",
+          "pdfPages": "38-41",
+          "kind": "recommended",
+          "verified": true,
+          "note": "MSE; training vs test MSE"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 1 The Deep Learning Revolution",
+          "section": "§1.2.4 Model complexity",
+          "pdfPages": "29-32",
+          "kind": "recommended",
+          "verified": true,
+          "note": "over-fitting with high-order polynomial; more data reduces over-fitting"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 1 The Deep Learning Revolution",
+          "section": "§1.2.5 Regularization",
+          "pdfPages": "32-34",
+          "kind": "recommended",
+          "verified": true,
+          "note": "penalty term added to error function"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.2.3 Overfitting and generalization",
+          "pdfPages": "42-43",
+          "kind": "recommended",
+          "verified": true,
+          "note": "generalization gap; test set not used for fitting or model selection (p.43)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.1.1 Why Estimate f?",
+          "pdfPages": "27-30",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; reducible vs irreducible error p.27-28"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 4 Single-layer Networks: Regression",
+          "section": "§4.3 The Bias–Variance Trade-off",
+          "pdfPages": "142-147",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading"
+        },
+        {
+          "book": "FoundationsML",
+          "chapter": "Ch. 4 Model Selection",
+          "section": "§4.1 Estimation and approximation errors; §4.2 ERM; §4.3 SRM",
+          "pdfPages": "78-85",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Mohri, not the course's Mitchell; empirical vs structural risk minimization"
+        },
+        {
+          "book": "FoundationsML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.6 Generalization",
+          "pdfPages": "24-25",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Mohri, not the course's Mitchell 'Machine Learning'"
+        },
+        {
+          "book": "ESL (Hastie, Tibshirani, Friedman)",
+          "chapter": null,
+          "section": "§7.3 bias-variance decomposition; §7.9 VC dimension; ch.7 model assessment",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "Elements of Statistical Learning is not in books/; unverified"
+        },
+        {
+          "book": "Vapnik, Statistical Learning Theory",
+          "chapter": null,
+          "section": "VC dimension, empirical vs structural risk",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "Generalization under regime shift & honest out-of-sample tests",
+      "summary": "Generalization assumes stationarity; in-sample reruns aren't evidence; use untouched, later, regime-representative evaluation and retrain cadence.",
+      "questions": [
+        "ML-D1G3Q3",
+        "ML-D1G5Q2",
+        "ML-D1G5Q3"
+      ],
+      "lecture": "03-03 Assessing a Learning Algorithm",
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "Challenges: 'Stationarity vs. adaptive market, irrationality'",
+          "pdfPages": "27",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF has no usable bookmark outline; chapter span/heading verified from PDF text; markets are nonstationary and adapt"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "How to Avoid Common Pitfalls: Overfitting",
+          "pdfPages": "28-29",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF has no usable bookmark outline; chapter span/heading verified from PDF text; fantastic backtest, disappointing out-of-sample; CV/holdout/regularization; 'smell tests'; documenting tested iterations/'research graveyards' p.29"
+        },
+        {
+          "book": "ProbML",
+          "chapter": "Ch. 1 Introduction",
+          "section": "§1.2.3 Overfitting and generalization",
+          "pdfPages": "42-43",
+          "kind": "recommended",
+          "verified": true,
+          "note": "generalization gap; test set not used for fitting or model selection (p.43)"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 1 The Deep Learning Revolution",
+          "section": "§1.2.6 Model selection",
+          "pdfPages": "34-36",
+          "kind": "recommended",
+          "verified": true,
+          "note": "validation/hold-out set; iterating design many times over-fits validation data -> keep a third test set (p.34)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "Pitfalls: 'Peeking' into the future; Data mining; A changing market; cross validation",
+          "pdfPages": "76-78",
+          "kind": "other-book",
+          "verified": true,
+          "note": "WHFRD chapter outside assigned reading (assigned: Ch. 2,4,5,7,8,12)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 5 Resampling Methods",
+          "section": "§5.1.1 The Validation Set Approach",
+          "pdfPages": "210-212",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading"
+        },
+        {
+          "book": "Concept drift / covariate shift (general concept)",
+          "chapter": null,
+          "section": "cited without a specific source",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    },
+    {
+      "concept": "What makes a good model beyond accuracy",
+      "summary": "Judge against the decision: accuracy, robustness, stability, interpretability, costs/turnover, latency, tail risk; accuracy misleads on imbalance.",
+      "questions": [
+        "ML-D1G6Q1",
+        "ML-D1G6Q2",
+        "ML-D1G6Q3",
+        "ML-D1G6Q4",
+        "ML-D1G6Q5",
+        "ML-D1G6Q6"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "How to Avoid Common Pitfalls: Implementation gap; Explainability",
+          "pdfPages": "30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF has no usable bookmark outline; chapter span/heading verified from PDF text; high-turnover ML strategies and trading costs; explainability/attribution"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 2 Alternative Data and AI in Investment Research",
+          "section": "Where Does Data Analysis Come In? (robustness to assumptions and outliers)",
+          "pdfPages": "46",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Handbook PDF has no usable bookmark outline; chapter span/heading verified from PDF text"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.1.3 The Trade-Off Between Prediction Accuracy and Model Interpretability",
+          "pdfPages": "33-35",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading"
+        },
+        {
+          "book": "DeepLearning",
+          "chapter": "Ch. 5 Single-layer Networks: Classification",
+          "section": "§5.2.5 Classifier accuracy",
+          "pdfPages": "166-167",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; accuracy misleading with strongly imbalanced classes (p.167)"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 4 Classification",
+          "section": "§4.4.2 Linear Discriminant Analysis for p >1",
+          "pdfPages": "159-165",
+          "kind": "other-book",
+          "verified": true,
+          "note": "section outside the course-assigned reading; confusion matrix, null-classifier error rate on imbalanced Default data, sensitivity/specificity p.161-162"
+        },
+        {
+          "book": "ISLP",
+          "chapter": "Ch. 2 Statistical Learning",
+          "section": "§2.2.1 Measuring the Quality of Fit",
+          "pdfPages": "38-41",
+          "kind": "recommended",
+          "verified": true,
+          "note": "MSE; training vs test MSE"
+        },
+        {
+          "book": "Grinold & Kahn, Active Portfolio Management",
+          "chapter": null,
+          "section": "net-of-cost / implementation shortfall",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        },
+        {
+          "book": "scikit-learn docs",
+          "chapter": null,
+          "section": "Metrics and scoring (imbalanced classification, precision/recall)",
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false,
+          "note": "cited by question pool; not in books/, unverified"
+        }
+      ]
+    }
+  ],
+  "gaps": "No book in books/ covers production latency SLAs (HFT tick-to-trade, cloud inference cost) or tail-risk metrics such as expected shortfall; books only state that KNN stores all data and its cost grows with N. Pool citations to scikit-learn, Vapnik, ESL, Grinold & Kahn and Brier (1950) are unverified."
+}

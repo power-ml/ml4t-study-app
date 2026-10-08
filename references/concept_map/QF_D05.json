@@ -1,0 +1,366 @@
+{
+  "part": "QF",
+  "domain": "05",
+  "name": "Market Microstructure and Trade Execution",
+  "concepts": [
+    {
+      "concept": "Bid-ask spread, midpoint and relative spread",
+      "summary": "Buy at ask, sell at bid; spread = ask - bid is the round-trip immediacy cost; relative spread = spread/midpoint.",
+      "questions": [
+        "QF-D5G1Q1",
+        "QF-D5G1Q2",
+        "QF-D5G1Q3"
+      ],
+      "lecture": "02-02 Market Mechanics",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 4 Market-Making Mechanics",
+          "section": "Market Spreads",
+          "pdfPages": "25",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Bid/ask, market spread as market-maker profit; liquid markets have smaller spreads; widening spreads signal freezing liquidity."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 4 Market-Making Mechanics",
+          "section": "Matching Orders: The Order Book",
+          "pdfPages": "27",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Spread of $0.05 = 0.5% of the bid-ask midpoint: a very liquid market."
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 8 Machine Learning for Microstructure Data-Driven Execution Algorithms",
+          "section": "Microstructure Data and Analysis",
+          "pdfPages": "123",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Best bid, best ask, spread, mid-price (Exhibit 1). (Ch. 8 is course-recommended for week 13, after Exam 1.) (Printed page = PDF page - 22.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Investopedia 'Bid-Ask Spread'; Harris, Trading and Exchanges (bid/ask quotes, cost of liquidity); CFA curriculum (relative spread, depth)",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Market vs limit orders, marketability and fill risk",
+      "summary": "Market orders guarantee execution, not price; limits guarantee price, not fill; buy limits below the ask rest.",
+      "questions": [
+        "QF-D5G2Q1",
+        "QF-D5G2Q2",
+        "QF-D5G2Q3",
+        "QF-D5G1Q3"
+      ],
+      "lecture": "02-02 Market Mechanics",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 4 Market-Making Mechanics",
+          "section": "Types of Order (Basic)",
+          "pdfPages": "25-26",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Market order accepts whatever price; buy limit at $200 or less, sell limit at $200 or higher."
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 8 Machine Learning for Microstructure Data-Driven Execution Algorithms",
+          "section": "Microstructure Data and Analysis",
+          "pdfPages": "123",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Unmatched limit orders enter the book and provide liquidity; executable (marketable) limit orders take liquidity. (Ch. 8 is course-recommended for week 13, after Exam 1.) (Printed page = PDF page - 22.)"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 8 Machine Learning for Microstructure Data-Driven Execution Algorithms",
+          "section": "From Integrating Predictive Signals into Execution Algorithms to Automatically Learning Policies Using Reinforcement Learning",
+          "pdfPages": "125",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Crossing the spread loses half the spread; passive limit orders have uncertain execution. (Ch. 8 is course-recommended for week 13, after Exam 1.) (Printed page = PDF page - 22.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Investopedia 'Market Order vs. Limit Order', 'Limit Order'; Harris, Trading and Exchanges (order types, execution certainty, priority)",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Order book depth, walking the book and order imbalance",
+      "summary": "Large market orders walk successive levels (average price worse than best quote); depth matters; imbalance is a noisy signal.",
+      "questions": [
+        "QF-D5G3Q1",
+        "QF-D5G3Q2",
+        "QF-D5G3Q3"
+      ],
+      "lecture": "02-02 Market Mechanics",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 4 Market-Making Mechanics",
+          "section": "Matching Orders: The Order Book",
+          "pdfPages": "27-28",
+          "kind": "recommended",
+          "verified": true,
+          "note": "150-share market sell fills 100 @ $99.95 + 50 @ $99.90 = avg $99.933; more offers than bids suggests a price decline (Fig. 4.1)."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 4 Market-Making Mechanics",
+          "section": "The Advantage of Milliseconds",
+          "pdfPages": "27",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Buy/sell volume imbalances predict short-term price trends; speed matters."
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 8 Machine Learning for Microstructure Data-Driven Execution Algorithms",
+          "section": "Microstructure Data and Analysis",
+          "pdfPages": "123-124",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Market order executes against the next level if larger than best-level size; order flow imbalance (OFI) and order book imbalance (OBI) as short-term predictors. (Ch. 8 is course-recommended for week 13, after Exam 1.) (Printed page = PDF page - 22.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Investopedia 'Order Book', 'Market Depth', slippage from walking the book; Harris, Trading and Exchanges (limit order book, depth, imbalance)",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Slippage and market impact",
+      "summary": "Slippage = execution vs pre-trade reference price; impact grows with size relative to liquidity; partly temporary, partly permanent.",
+      "questions": [
+        "QF-D5G4Q1",
+        "QF-D5G4Q2",
+        "QF-D5G4Q3",
+        "QF-D5G7Q1"
+      ],
+      "lecture": "Market Simulator",
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 8 Machine Learning for Microstructure Data-Driven Execution Algorithms",
+          "section": "Introduction",
+          "pdfPages": "122",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Slippage defined vs a reference price before the trade; larger trades have more impact; unsplit market orders push prices. 'Permanent market impact' is named only in passing; temporary vs permanent decomposition is not developed. (Ch. 8 is course-recommended for week 13, after Exam 1.) (Printed page = PDF page - 22.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 4 Market-Making Mechanics",
+          "section": "Matching Orders: The Order Book",
+          "pdfPages": "27",
+          "kind": "recommended",
+          "verified": true,
+          "note": "A sale moves the equilibrium price down the demand curve."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "Back Testing Strategies (chapter introduction)",
+          "pdfPages": "76",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Market impact cost = effect of our trading volume on price; simulators should include it. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 7 Machine Learning and Big Data Trade Execution Support",
+          "section": "Use Case 4: Transaction Cost/Market Impact Prediction",
+          "pdfPages": "119-120",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Market-impact models in transaction cost analysis (TCA). (Printed page = PDF page - 22.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Investopedia 'Slippage', 'Market Impact', 'Liquidity'; Harris, Trading and Exchanges (realized vs quoted price, temporary vs permanent impact)",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Short selling: mechanics, carrying costs and risks",
+      "summary": "Sell-to-open, buy-to-close; profit when price falls; pay borrow fee and dividends; loss is unbounded; recall/squeeze risk.",
+      "questions": [
+        "QF-D5G5Q1",
+        "QF-D5G5Q2",
+        "QF-D5G5Q3"
+      ],
+      "lecture": "02-02 Market Mechanics",
+      "sources": [
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 4 Market-Making Mechanics",
+          "section": "Types of Order (Intermediate)",
+          "pdfPages": "26",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Borrow and sell; pay interest ('rebate') and dividends to lender; sell to open / buy to close; unbounded potential loss."
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Glossary",
+          "section": "Short selling",
+          "pdfPages": "95",
+          "kind": "other-book",
+          "verified": true,
+          "note": "(Book glossary, not an assigned chapter.)"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "How to Avoid Common Pitfalls When Applying ML in Finance - Implementation gap",
+          "pdfPages": "30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Insufficient shares to borrow or excessive borrow costs. Short squeeze and recall are not explicitly covered. (Printed page = PDF page - 22.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Investopedia 'Short Selling' (costs), 'Short Squeeze'; CFA curriculum - short-position mechanics and risks",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Implementation shortfall and transaction-cost drag",
+      "summary": "IS = execution vs decision price (sign flips for sells) plus commissions; spread, impact and commissions cut net return.",
+      "questions": [
+        "QF-D5G6Q1",
+        "QF-D5G6Q2",
+        "QF-D5G6Q3"
+      ],
+      "lecture": "Market Simulator",
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 8 Machine Learning for Microstructure Data-Driven Execution Algorithms",
+          "section": "Introduction",
+          "pdfPages": "122",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Slippage vs the pre-trade reference price, i.e., the core of IS. (Ch. 8 is course-recommended for week 13, after Exam 1.) (Printed page = PDF page - 22.)"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 7 Machine Learning and Big Data Trade Execution Support",
+          "section": "Use Case 4: Transaction Cost/Market Impact Prediction",
+          "pdfPages": "119-120",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Implementation shortfall used as the observed transaction-cost outcome (Exhibit 4). Delay/execution decomposition and sell-side sign convention are not covered. (Printed page = PDF page - 22.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 14 Back Testing Strategies",
+          "section": "Back Testing Strategies (chapter introduction)",
+          "pdfPages": "76",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Simulators should include commissions and market impact costs. (Course-assigned for a later week; not an Exam-1 reading.)"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 1 On Machine Learning Applications in Investments",
+          "section": "How to Avoid Common Pitfalls When Applying ML in Finance - Implementation gap",
+          "pdfPages": "30",
+          "kind": "recommended",
+          "verified": true,
+          "note": "High turnover increases trading costs (G6Q2). (Printed page = PDF page - 22.)"
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "CFA curriculum - Implementation Shortfall (decision-price benchmark, delay/execution, sell-side sign), cost drag and turnover; Investopedia 'Implementation Shortfall', 'Transaction Costs', 'VWAP'",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "concept": "Execution strategy: order splitting, TWAP/VWAP/participation, urgency",
+      "summary": "Splitting cuts impact but adds timing risk; volume-sensitive algos adapt and leak less; alpha decay justifies faster execution.",
+      "questions": [
+        "QF-D5G7Q1",
+        "QF-D5G7Q2",
+        "QF-D5G7Q3"
+      ],
+      "lecture": null,
+      "sources": [
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 8 Machine Learning for Microstructure Data-Driven Execution Algorithms",
+          "section": "Introduction",
+          "pdfPages": "122-123",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Split large orders into slices; impact vs price-risk trade-off; TWAP (even slices) vs VWAP (volume-proportional); front-load on forecast signals. (Ch. 8 is course-recommended for week 13, after Exam 1.) (Printed page = PDF page - 22.)"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 8 Machine Learning for Microstructure Data-Driven Execution Algorithms",
+          "section": "Microstructure Data and Analysis",
+          "pdfPages": "123",
+          "kind": "other-book",
+          "verified": true,
+          "note": "In high volatility it may pay to front-load the schedule. (Ch. 8 is course-recommended for week 13, after Exam 1.) (Printed page = PDF page - 22.)"
+        },
+        {
+          "book": "Handbook",
+          "chapter": "Ch. 7 Machine Learning and Big Data Trade Execution Support",
+          "section": "Use Case 5: Trading Strategy Recommendation Model",
+          "pdfPages": "120-121",
+          "kind": "other-book",
+          "verified": true,
+          "note": "Algo styles (implementation shortfall, VWAP, liquidity seeking, dark) and urgency settings. (Printed page = PDF page - 22.)"
+        },
+        {
+          "book": "WHFRD",
+          "chapter": "Ch. 4 Market-Making Mechanics",
+          "section": "The Advantage of Milliseconds",
+          "pdfPages": "27-28",
+          "kind": "recommended",
+          "verified": true,
+          "note": "Order information is exploitable (front running), which is the basis of information-leakage concerns."
+        },
+        {
+          "book": "pool-citation",
+          "chapter": "Harris, Trading and Exchanges (order splitting, TWAP/VWAP/POV, information leakage, urgency/alpha decay); Investopedia 'Market Impact', 'VWAP'; CFA curriculum - optimal execution scheduling",
+          "section": null,
+          "pdfPages": null,
+          "kind": "pool-citation",
+          "verified": false
+        }
+      ]
+    }
+  ],
+  "gaps": "No book develops the implementation-shortfall decomposition (delay vs execution, sell-side sign), temporary vs permanent impact, short squeeze / share recall, or POV algorithms. Handbook Ch. 7-8 cover these only at a high level. These rely on pool citations (CFA / Harris / Investopedia)."
+}
