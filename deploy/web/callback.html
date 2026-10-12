@@ -1,0 +1,19 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ML4T Exam Prep — signing in</title><!--ML4T_CONFIG-->
+<style>body{font:16px/1.5 -apple-system,"Segoe UI",sans-serif;max-width:420px;margin:18vh auto;padding:0 16px;text-align:center;color:#12203a}a{color:#2563eb}</style></head>
+<body><h2>ML4T Exam Prep</h2><p id="m">Finishing sign-in…</p>
+<script>
+// Cognito redirected back with ?code&state: check state, exchange the code (PKCE) for tokens, set the login cookie.
+(async () => {
+  const C = window.ML4T_HOSTED, q = new URLSearchParams(location.search), p = JSON.parse(sessionStorage.getItem('ml4t_pkce') || '{}');
+  if (!q.get('code') || !p.state || q.get('state') !== p.state) throw new Error('state');
+  const r = await fetch('https://' + C.domain + '/oauth2/token', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ grant_type: 'authorization_code', client_id: C.clientId, code: q.get('code'),
+      redirect_uri: location.origin + '/callback.html', code_verifier: p.verifier }) });
+  if (!r.ok) throw new Error('token');
+  const j = await r.json(), t = { id: j.id_token, refresh: j.refresh_token, exp: Date.now() + j.expires_in * 1000 };
+  localStorage.setItem('ml4t_auth', JSON.stringify(t)); sessionStorage.removeItem('ml4t_pkce');
+  document.cookie = 'ml4t_id=' + t.id + '; Path=/; Secure; SameSite=Strict; Max-Age=' + j.expires_in;
+  location.replace(/^\/(?!\/)/.test(p.next || '') ? p.next : '/');
+})().catch(() => { document.getElementById('m').innerHTML = 'Sign-in did not complete. <a href="/login.html">Try again</a>'; });
+</script></body></html>

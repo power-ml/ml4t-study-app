@@ -1,0 +1,385 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >-
+  ML4T study app, private hosting for one person. Private S3 bucket served only through CloudFront (OAC),
+  every page behind a Cognito login (Lambda@Edge cookie check), progress synced through an
+  authenticated API (API Gateway JWT authorizer -> Lambda -> DynamoDB). Deploy in us-east-1
+  (Lambda@Edge requirement) with deploy/deploy.sh.
+
+Parameters:
+  CognitoDomainPrefix:
+    Type: String
+    AllowedPattern: "^[a-z0-9](?:[a-z0-9-]{1,61}[a-z0-9])$"
+    Description: Globally unique prefix for the Cognito sign-in domain (lowercase letters, digits, hyphens).
+
+Rules:
+  RegionIsUsEast1:
+    Assertions:
+      - Assert: !Equals [!Ref "AWS::Region", us-east-1]
+        AssertDescription: Deploy this stack in us-east-1 (CloudFront Lambda@Edge requirement).
+
+Resources:
+  # ---------- static site: private bucket, readable only by this CloudFront distribution ----------
+  SiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      OwnershipControls:
+        Rules: [{ ObjectOwnership: BucketOwnerEnforced }]
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault: { SSEAlgorithm: AES256 }
+      VersioningConfiguration: { Status: Enabled }
+      LifecycleConfiguration:
+        Rules:
+          - Id: ExpireOldVersions
+            Status: Enabled
+            NoncurrentVersionExpiration: { NoncurrentDays: 30 }
+
+  SiteBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref SiteBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: CloudFrontOACReadOnly
+            Effect: Allow
+            Principal: { Service: cloudfront.amazonaws.com }
+            Action: s3:GetObject
+            Resource: !Sub "${SiteBucket.Arn}/*"
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${Distribution}"
+          - Sid: DenyInsecureTransport
+            Effect: Deny
+            Principal: "*"
+            Action: "s3:*"
+            Resource: [!GetAtt SiteBucket.Arn, !Sub "${SiteBucket.Arn}/*"]
+            Condition: { Bool: { "aws:SecureTransport": "false" } }
+
+  SiteOAC:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Sub "${AWS::StackName}-oac"
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+  # ---------- login: Cognito user pool, admin-created users only ----------
+  UserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: !Sub "${AWS::StackName}-users"
+      AdminCreateUserConfig: { AllowAdminCreateUserOnly: true }
+      UsernameAttributes: [email]
+      AutoVerifiedAttributes: [email]
+      MfaConfiguration: "OPTIONAL"
+      EnabledMfas: [SOFTWARE_TOKEN_MFA]
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 12
+          RequireLowercase: true
+          RequireUppercase: true
+          RequireNumbers: true
+          RequireSymbols: false
+          TemporaryPasswordValidityDays: 7
+      AccountRecoverySetting:
+        RecoveryMechanisms: [{ Name: verified_email, Priority: 1 }]
+      DeletionProtection: ACTIVE
+
+  UserPoolDomain:
+    Type: AWS::Cognito::UserPoolDomain
+    Properties:
+      Domain: !Ref CognitoDomainPrefix
+      UserPoolId: !Ref UserPool
+
+  UserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      UserPoolId: !Ref UserPool
+      ClientName: !Sub "${AWS::StackName}-web"
+      GenerateSecret: false
+      AllowedOAuthFlowsUserPoolClient: true
+      AllowedOAuthFlows: [code]
+      AllowedOAuthScopes: [openid, email]
+      SupportedIdentityProviders: [COGNITO]
+      CallbackURLs: [!Sub "https://${Distribution.DomainName}/callback.html"]
+      LogoutURLs: [!Sub "https://${Distribution.DomainName}/login.html"]
+      ExplicitAuthFlows: [ALLOW_REFRESH_TOKEN_AUTH]
+      PreventUserExistenceErrors: ENABLED
+      EnableTokenRevocation: true
+      IdTokenValidity: 60
+      AccessTokenValidity: 60
+      RefreshTokenValidity: 30
+      TokenValidityUnits: { IdToken: minutes, AccessToken: minutes, RefreshToken: days }
+
+  # ---------- Lambda@Edge: every page needs a valid login cookie (except the sign-in pages) ----------
+  EdgeRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal: { Service: [lambda.amazonaws.com, edgelambda.amazonaws.com] }
+            Action: sts:AssumeRole
+      ManagedPolicyArns: [arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole]
+
+  EdgeAuthFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Runtime: nodejs20.x
+      Handler: index.handler
+      Role: !GetAtt EdgeRole.Arn
+      MemorySize: 128
+      Timeout: 5
+      Code:
+        ZipFile: !Sub |
+          'use strict';
+          // Viewer-request gate: lets the request through only with a valid Cognito ID token in the
+          // ml4t_id cookie (RS256 signature, issuer, token_use=id, not expired); otherwise -> /login.html.
+          const https = require('https'), crypto = require('crypto');
+          const ISS = 'https://cognito-idp.${AWS::Region}.amazonaws.com/${UserPool}';
+          const OPEN = new Set(['/login.html', '/callback.html', '/favicon.ico']);
+          let keys = null, fetchedAt = 0;
+          const b64 = s => Buffer.from(s.replace(/-/g, '+').replace(/_/g, '/'), 'base64');
+          function jwks() {
+            return new Promise((ok, no) => {
+              https.get(ISS + '/.well-known/jwks.json', r => {
+                let b = ''; r.on('data', c => b += c);
+                r.on('end', () => { try { ok(JSON.parse(b).keys); } catch (e) { no(e); } });
+              }).on('error', no);
+            });
+          }
+          async function valid(t) {
+            const p = t.split('.'); if (p.length !== 3) return false;
+            const h = JSON.parse(b64(p[0])), c = JSON.parse(b64(p[1]));
+            if (h.alg !== 'RS256' || c.iss !== ISS || c.token_use !== 'id' || !(c.exp * 1000 > Date.now())) return false;
+            if (!keys || Date.now() - fetchedAt > 3600e3) { keys = await jwks(); fetchedAt = Date.now(); }
+            const k = keys.find(x => x.kid === h.kid); if (!k) return false;
+            return crypto.verify('RSA-SHA256', Buffer.from(p[0] + '.' + p[1]),
+              crypto.createPublicKey({ key: k, format: 'jwk' }), b64(p[2]));
+          }
+          exports.handler = async (e) => {
+            const r = e.Records[0].cf.request;
+            if (OPEN.has(r.uri)) return r;
+            const ck = (r.headers.cookie || []).map(x => x.value).join(';');
+            const m = ck.match(/(?:^|;\s*)ml4t_id=([^;]+)/);
+            try { if (m && await valid(m[1])) return r; } catch (err) { /* treat as not signed in */ }
+            return { status: '302', statusDescription: 'Found', headers: {
+              location: [{ key: 'Location', value: '/login.html?next=' + encodeURIComponent(r.uri) }],
+              'cache-control': [{ key: 'Cache-Control', value: 'no-store' }] } };
+          };
+
+  EdgeAuthVersion:
+    Type: AWS::Lambda::Version
+    Properties:
+      FunctionName: !Ref EdgeAuthFunction
+
+  # ---------- progress API: JWT-authorized, one record per signed-in user ----------
+  StateTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions: [{ AttributeName: pk, AttributeType: S }]
+      KeySchema: [{ AttributeName: pk, KeyType: HASH }]
+      PointInTimeRecoverySpecification: { PointInTimeRecoveryEnabled: true }
+      SSESpecification: { SSEEnabled: true }
+      DeletionProtectionEnabled: true
+
+  StateRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal: { Service: lambda.amazonaws.com }
+            Action: sts:AssumeRole
+      ManagedPolicyArns: [arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole]
+      Policies:
+        - PolicyName: state-table-rw
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: [dynamodb:GetItem, dynamodb:PutItem]
+                Resource: !GetAtt StateTable.Arn
+
+  StateFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Runtime: python3.12
+      Handler: index.handler
+      Role: !GetAtt StateRole.Arn
+      MemorySize: 256
+      Timeout: 10
+      Environment: { Variables: { TABLE: !Ref StateTable } }
+      Code:
+        ZipFile: |
+          # GET/POST /api/state for the signed-in user (Cognito sub from the JWT authorizer).
+          # A save based on an older _rev is merged (per-question maps unioned, newer entries win),
+          # so two devices never overwrite each other. Conditional put guards concurrent writes.
+          import json, os, base64, boto3
+          T = boto3.resource('dynamodb').Table(os.environ['TABLE'])
+          KEYS = {'notes','attempts','seen','reviewed','reviewLog','flagged','box','lastQuiz','ui','week','week2','_rev'}
+          MAPS = ('notes','attempts','seen','reviewed','reviewLog','flagged','box','ui')
+          def merge(cur, inc):
+              out = dict(cur)
+              for k, v in inc.items():
+                  if k == '_rev': continue
+                  if k == 'reviewLog' and isinstance(v, dict):
+                      rl = dict(cur.get(k) or {})
+                      for d, n in v.items(): rl[d] = max(n, rl.get(d, 0))
+                      out[k] = rl
+                  elif isinstance(v, dict) and isinstance(cur.get(k), dict) and k != 'ui':
+                      out[k] = {**cur[k], **v}
+                  else:
+                      out[k] = v
+              return out
+          def resp(code, body):
+              return {'statusCode': code, 'headers': {'content-type': 'application/json', 'cache-control': 'no-store'},
+                      'body': json.dumps(body)}
+          def handler(e, ctx):
+              sub = e['requestContext']['authorizer']['jwt']['claims']['sub']
+              item = T.get_item(Key={'pk': sub}).get('Item')
+              cur = json.loads(item['state']) if item else {}
+              if e['requestContext']['http']['method'] == 'GET':
+                  return resp(200, cur)
+              body = e.get('body') or '{}'
+              if e.get('isBase64Encoded'): body = base64.b64decode(body).decode()
+              if len(body) > 350000: return resp(413, {'error': 'too large'})
+              try: obj = json.loads(body)
+              except ValueError: return resp(400, {'error': 'bad json'})
+              if not isinstance(obj, dict) or any(k in obj and not isinstance(obj[k], dict) for k in MAPS):
+                  return resp(400, {'error': 'bad shape'})
+              obj = {k: v for k, v in obj.items() if k in KEYS}
+              rev = cur.get('_rev', 0)
+              merged = bool(cur) and obj.get('_rev', 0) != rev
+              if merged: obj = merge(cur, obj)
+              obj['_rev'] = rev + 1
+              try:
+                  T.put_item(Item={'pk': sub, 'state': json.dumps(obj), 'rev': obj['_rev']},
+                             ConditionExpression='attribute_not_exists(pk) OR rev = :r',
+                             ExpressionAttributeValues={':r': rev})
+              except T.meta.client.exceptions.ConditionalCheckFailedException:
+                  return resp(409, {'error': 'changed concurrently, retry'})
+              out = {'_rev': obj['_rev'], 'merged': merged}
+              if merged: out['state'] = obj
+              return resp(200, out)
+
+  StateLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/lambda/${StateFunction}"
+      RetentionInDays: 30
+
+  HttpApi:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: !Sub "${AWS::StackName}-api"
+      ProtocolType: HTTP
+
+  JwtAuthorizer:
+    Type: AWS::ApiGatewayV2::Authorizer
+    Properties:
+      ApiId: !Ref HttpApi
+      Name: cognito-jwt
+      AuthorizerType: JWT
+      IdentitySource: [$request.header.X-Ml4t-Auth]
+      JwtConfiguration:
+        Issuer: !Sub "https://cognito-idp.${AWS::Region}.amazonaws.com/${UserPool}"
+        Audience: [!Ref UserPoolClient]
+
+  StateIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref HttpApi
+      IntegrationType: AWS_PROXY
+      IntegrationUri: !GetAtt StateFunction.Arn
+      PayloadFormatVersion: "2.0"
+
+  GetStateRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref HttpApi
+      RouteKey: GET /api/state
+      AuthorizationType: JWT
+      AuthorizerId: !Ref JwtAuthorizer
+      Target: !Sub "integrations/${StateIntegration}"
+
+  PostStateRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref HttpApi
+      RouteKey: POST /api/state
+      AuthorizationType: JWT
+      AuthorizerId: !Ref JwtAuthorizer
+      Target: !Sub "integrations/${StateIntegration}"
+
+  ApiStage:
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      ApiId: !Ref HttpApi
+      StageName: $default
+      AutoDeploy: true
+      DefaultRouteSettings: { ThrottlingRateLimit: 5, ThrottlingBurstLimit: 10 }
+
+  ApiInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref StateFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${HttpApi}/*/*/api/state"
+
+  # ---------- CloudFront: HTTPS only; site from S3 (gated), /api/* to the API (JWT-checked there) ----------
+  Distribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        Comment: !Sub "${AWS::StackName} study app"
+        DefaultRootObject: index.html
+        HttpVersion: http2and3
+        PriceClass: PriceClass_100
+        Origins:
+          - Id: site
+            DomainName: !GetAtt SiteBucket.RegionalDomainName
+            OriginAccessControlId: !GetAtt SiteOAC.Id
+            S3OriginConfig: { OriginAccessIdentity: "" }
+          - Id: api
+            DomainName: !Sub "${HttpApi}.execute-api.${AWS::Region}.amazonaws.com"
+            CustomOriginConfig: { OriginProtocolPolicy: https-only, OriginSSLProtocols: [TLSv1.2] }
+        DefaultCacheBehavior:
+          TargetOriginId: site
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods: [GET, HEAD]
+          CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad          # Managed-CachingDisabled (always fresh after a deploy)
+          ResponseHeadersPolicyId: 67f7725c-6f97-4210-82d7-5512b31e9d03  # Managed-SecurityHeadersPolicy
+          Compress: true
+          LambdaFunctionAssociations:
+            - EventType: viewer-request
+              LambdaFunctionARN: !Ref EdgeAuthVersion
+        CacheBehaviors:
+          - PathPattern: /api/*
+            TargetOriginId: api
+            ViewerProtocolPolicy: https-only
+            AllowedMethods: [GET, HEAD, OPTIONS, PUT, PATCH, POST, DELETE]
+            CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad          # Managed-CachingDisabled
+            OriginRequestPolicyId: b689b0a8-53d0-40ab-baf2-68738e2966ac  # Managed-AllViewerExceptHostHeader
+            ResponseHeadersPolicyId: 67f7725c-6f97-4210-82d7-5512b31e9d03
+            Compress: true
+
+Outputs:
+  SiteUrl: { Value: !Sub "https://${Distribution.DomainName}" }
+  BucketName: { Value: !Ref SiteBucket }
+  DistributionId: { Value: !Ref Distribution }
+  UserPoolId: { Value: !Ref UserPool }
+  ClientId: { Value: !Ref UserPoolClient }
+  CognitoDomain: { Value: !Sub "${CognitoDomainPrefix}.auth.${AWS::Region}.amazoncognito.com" }
