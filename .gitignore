@@ -1,0 +1,10 @@
+# your personal study progress + notes (created on first run)
+user-data/*
+!user-data/README.md
+# book PDFs are copyrighted — bring your own
+books/*
+!books/README.md
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/

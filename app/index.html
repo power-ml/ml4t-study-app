@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ML4T Exam 1 — Study App</title>
+<title>ML4T Exam Prep — Study App</title>
 <style>
 :root{
   --bg:#0f1420; --panel:#161c2b; --panel2:#1d2536; --ink:#e6ebf5; --mut:#93a0b8; --line:#2a3346;
@@ -11,7 +11,7 @@
 }
 @media (prefers-color-scheme: light){:root{--bg:#f6f8fc;--panel:#fff;--panel2:#eef2f8;--ink:#12203a;--mut:#5a6b86;--line:#d7dee9;}}
 *{box-sizing:border-box}
-body{margin:0;font:14px/1.5 -apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+body{margin:0;font:14px/1.5 -apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink)}
 header{position:sticky;top:0;z-index:10;background:var(--panel);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 header h1{font-size:16px;margin:0;color:var(--accent)}
 nav button{background:none;border:1px solid var(--line);color:var(--ink);padding:6px 12px;border-radius:8px;cursor:pointer;margin-right:6px}
@@ -29,7 +29,7 @@ textarea{width:100%;min-height:60px;resize:vertical}
 .verdict{font-weight:700}
 .v-true{color:var(--green)} .v-false{color:var(--red)}
 .why{color:var(--mut);margin-top:6px;font-size:13px}
-.flag{display:inline-block;font-size:11px;color:var(--amber);border:1px solid var(--amber);border-radius:6px;padding:1px 6px;margin-left:6px}
+.hint{display:inline-block;font-size:11px;color:var(--amber);border:1px solid var(--amber);border-radius:6px;padding:1px 6px;margin-left:6px}
 .tf button{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:7px;padding:3px 12px;margin-right:6px;cursor:pointer}
 .tf button.selT{background:var(--green);color:#04240f;border-color:var(--green)}
 .tf button.selF{background:var(--red);color:#2a0606;border-color:var(--red)}
@@ -58,6 +58,39 @@ a{color:var(--blue)}
 #reader iframe{flex:1;border:0;width:100%;background:#fff}
 body.reading main,body.reading header{margin-right:var(--rw,46vw)}
 .readlink{cursor:pointer;color:var(--blue);text-decoration:underline dotted}
+/* flashcards: one question; answer, then flip for full answers + concepts */
+.fc{max-width:780px;margin:12px auto;transition:transform .22s ease-in;transform-origin:center}
+.fc.flipping{transform:perspective(1200px) rotateY(90deg)}
+.fc .card{font-size:15px}
+.fc .tf button{padding:6px 18px;font-size:14px}
+.fc .back h3{font-size:15px;color:var(--accent);margin:16px 0 6px}
+.fc .ansrow{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;background:var(--panel2)}
+.fc .ansrow.ok{border-left:4px solid var(--green);outline:none} .fc .ansrow.bad{border-left:4px solid var(--red);outline:none}
+.fc .why{font-size:14px;color:var(--ink);opacity:.92}
+.fc .keysays{font-size:13px;color:var(--mut);margin-top:6px}
+.fc .concept{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0}
+.fc .src{font-size:14px;margin:6px 0 0 4px}
+.fc .src .note{color:var(--mut);font-size:13px;margin-left:18px}
+.fc .navrow{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+/* small screens (phones) */
+@media (max-width:700px){
+  header{padding:8px 10px;gap:8px} nav{width:100%;overflow-x:auto;white-space:nowrap} nav button{padding:6px 10px}
+  main{padding:8px} .card{padding:12px} .tf button{padding:8px 16px}
+  #view .row.card{position:static!important;box-shadow:none!important}
+  #reader{width:100vw;min-width:0} body.reading main,body.reading header{margin-right:0}
+  .heat{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
+}
+body.nohints .hint{display:none}
+#printarea{display:none}
+@media print{
+  body.printing>*:not(#printarea){display:none!important}
+  body.printing #printarea{display:block;color:#000;background:#fff;font:12pt/1.45 Georgia,serif}
+  #printarea h1{font-size:18pt;margin:0 0 2pt} #printarea .pmeta{font-size:9pt;color:#555;margin-bottom:10pt}
+  #printarea h2{font-size:15pt;border-bottom:1.5pt solid #000;margin:16pt 0 6pt;page-break-after:avoid}
+  #printarea h3{font-size:12.5pt;margin:12pt 0 4pt;page-break-after:avoid}
+  #printarea .pnote{margin:0 0 6pt 10pt;padding-left:8pt;border-left:2pt solid #999} #printarea .pnote.keep{page-break-inside:avoid}
+  #printarea .ptxt{white-space:pre-wrap} #printarea .pq{font-size:9.5pt;color:#444;margin-bottom:2pt}
+}
 </style>
 </head>
 <body>
@@ -75,9 +108,30 @@ body.reading main,body.reading header{margin-right:var(--rw,46vw)}
 <script>
 const D=window.ML4T, LS="ml4t_v1";
 let store={notes:{},attempts:{},seen:{}};
-let SERVER=false, _saveT;
+let SERVER=false, _saveT, AVAIL=new Set();  // AVAIL = book PDFs the local server reports as present
+// ---- hosted mode (deploy/): window.ML4T_HOSTED={domain,clientId} is injected at deploy time. Every /api call
+// then carries the Cognito ID token; tokens refresh silently (30-day session); no token → sign-in page. ----
+const HOST=window.ML4T_HOSTED||null;
+const AUTH={get(){try{return JSON.parse(localStorage.getItem('ml4t_auth')||'null');}catch(e){return null;}},
+  set(t){localStorage.setItem('ml4t_auth',JSON.stringify(t));document.cookie='ml4t_id='+t.id+'; Path=/; Secure; SameSite=Strict; Max-Age='+Math.max(60,Math.floor((t.exp-Date.now())/1000));}};
+function toLogin(){location.href='/login.html?next='+encodeURIComponent(location.pathname);}
+async function idToken(){const a=AUTH.get();if(!a||!a.refresh){toLogin();throw new Error('signed out');}
+  if(Date.now()<a.exp-120000)return a.id;
+  const r=await fetch('https://'+HOST.domain+'/oauth2/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:new URLSearchParams({grant_type:'refresh_token',client_id:HOST.clientId,refresh_token:a.refresh})});
+  if(!r.ok){localStorage.removeItem('ml4t_auth');toLogin();throw new Error('session expired');}
+  const j=await r.json();const t={id:j.id_token,refresh:a.refresh,exp:Date.now()+j.expires_in*1000};AUTH.set(t);return t.id;}
+async function apiState(method,body,extra){const h={'Content-Type':'application/json'};if(HOST)h['X-Ml4t-Auth']=await idToken();
+  const r=await fetch('api/state',Object.assign({method,headers:h,body,cache:'no-store'},extra||{}));
+  if(HOST&&r.status===401){   // token rejected: re-sign-in once; a 2nd rejection right after means a deploy/config problem → stop (no redirect loop)
+    const last=+sessionStorage.getItem('ml4t_401')||0;
+    if(Date.now()-last<120000){setTimeout(()=>setSaved('⚠ sign-in rejected by the server — check the deployment'),0);}
+    else{sessionStorage.setItem('ml4t_401',Date.now());localStorage.removeItem('ml4t_auth');toLogin();}}
+  return r;}
+function signOut(){localStorage.removeItem('ml4t_auth');document.cookie='ml4t_id=; Path=/; Max-Age=0; Secure; SameSite=Strict';
+  location.href='https://'+HOST.domain+'/logout?'+new URLSearchParams({client_id:HOST.clientId,logout_uri:location.origin+'/login.html'});}
 async function loadState(){
-  try{const r=await fetch('api/state',{cache:'no-store'});if(r.ok){const j=await r.json();store=Object.assign({notes:{},attempts:{},seen:{}},j);SERVER=true;return;}}catch(e){}
+  try{const r=await apiState('GET');if(r.ok){const j=await r.json();store=Object.assign({notes:{},attempts:{},seen:{}},j);SERVER=true;return;}}catch(e){}
   try{store=JSON.parse(localStorage.getItem(LS)||'{}');}catch(e){}
   store=Object.assign({notes:{},attempts:{},seen:{}},store);
 }
@@ -86,15 +140,27 @@ function setSaved(t){const el=document.getElementById('savestat');if(el)el.textC
 function persist(){                       // write NOW (server + localStorage mirror)
   const body=JSON.stringify(store);
   try{localStorage.setItem(LS,body);}catch(e){}            // always keep a browser-side backup copy
-  if(SERVER){fetch('api/state',{method:'POST',headers:{'Content-Type':'application/json'},body}).then(()=>setSaved('✓ saved')).catch(()=>setSaved('⚠ save failed (kept in browser)'));}
+  if(SERVER){apiState('POST',body).then(async r=>{
+      if(r.status===409){setTimeout(persist,600);return;}   // hosted: concurrent save from another device → retry (server merges)
+      if(r.status===403){setSaved('⚠ not authorized — reopen the link from the terminal');return;}
+      if(!r.ok){setSaved('⚠ save failed (kept in browser)');return;}
+      const j=await r.json();store._rev=j._rev;
+      // another device saved since we loaded: the server merged both; adopt the merged state (no re-render mid-typing)
+      if(j.merged&&j.state){store=Object.assign({notes:{},attempts:{},seen:{}},j.state);setSaved('✓ saved (merged with another device)');}
+      else setSaved('✓ saved');}).catch(()=>setSaved('⚠ save failed (kept in browser)'));}
   else setSaved('✓ saved (browser)');
   _dirty=false;
 }
 const save=()=>{ _dirty=true; setSaved('saving…'); clearTimeout(_saveT); _saveT=setTimeout(persist,1200); };  // debounced; fully event-driven (no polling timer)
-document.addEventListener('visibilitychange',()=>{ if(document.hidden && _dirty) persist(); });  // flush when tab hidden/app switched/screen locks — battery-friendly
+document.addEventListener('visibilitychange',()=>{ if(document.hidden && _dirty) persist();
+  // coming back to this tab/device: pick up progress saved elsewhere (phone ↔ Mac) if nothing is pending here
+  else if(!document.hidden && SERVER && !_dirty) apiState('GET').then(r=>r.ok?r.json():null).then(j=>{
+    if(j&&j._rev&&j._rev!==store._rev&&!_dirty&&!(document.activeElement&&document.activeElement.tagName==='TEXTAREA')){
+      store=Object.assign({notes:{},attempts:{},seen:{}},j);store.ui=store.ui||{};render();setSaved('✓ synced');}}).catch(()=>{}); });  // flush when tab hidden/app switched/screen locks — battery-friendly
 window.addEventListener('beforeunload',()=>{ if(!_dirty)return;                     // flush on tab close
   try{localStorage.setItem(LS,JSON.stringify(store));}catch(e){}
-  if(SERVER&&navigator.sendBeacon) navigator.sendBeacon('api/state',new Blob([JSON.stringify(store)],{type:'application/json'})); });
+  if(SERVER&&HOST){const a=AUTH.get();if(a&&Date.now()<a.exp)fetch('api/state',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json','X-Ml4t-Auth':a.id},body:JSON.stringify(store)});}
+  else if(SERVER&&navigator.sendBeacon) navigator.sendBeacon('api/state',new Blob([JSON.stringify(store)],{type:'application/json'})); });
 const ABS=/\b(always|never|must|only|all|every|none|guarantee[sd]?|ensures?|cannot|impossible|entirely|completely|zero|100%)\b/i;
 const NEG=/\b(not|cannot|never|no longer|isn't|doesn't|does not|won't|will not|reverses)\b/i;
 const $=(h)=>{const t=document.createElement('template');t.innerHTML=h.trim();return t.content.firstChild;};
@@ -121,9 +187,11 @@ function md(s){if(!s)return'';
   }
   return out.join('').replace(/(<li.*?<\/li>)+/g,m=>'<ul>'+m+'</ul>');}
 const flags=(t)=>{let f=[];if(ABS.test(t))f.push('absolute → ~74% False');if(NEG.test(t))f.push('negation → check the claim');return f;};
+// trap-word hint tags; hidden everywhere when the header "💡 Hints" toggle is off (body.nohints)
+const hintTags=t=>flags(t).map(x=>`<span class="hint">${x}</span>`).join('');
 let route='study';
 const nav=document.getElementById('nav');
-[['study','Study'],['quiz','Quiz / Mock'],['notes','🚩 Review'],['split','⚖ T/F Split'],['progress','Readiness'],['tips','Heuristics']].forEach(([k,l])=>{
+[['study','Study'],['cards','🃏 Flashcards'],['quiz','Quiz / Mock'],['notes','🚩 Review'],['split','⚖ T/F Split'],['progress','Readiness'],['tips','Heuristics']].forEach(([k,l])=>{
   const b=$(`<button data-k="${k}">${l}</button>`);b.onclick=()=>{route=k;store.ui=store.ui||{};store.ui.route=k;save();render();};nav.append(b);});
 // ---- Exam 1 / Exam 2 scope (persisted in store.ui.exam) ----
 function curExam(){return (store.ui&&store.ui.exam)||1;}
@@ -137,6 +205,7 @@ const examSel=$(`<label class="small mut" style="margin-left:16px">🎓 <select 
 document.querySelector('header').append(examSel);
 const WKS={1:[1,2,3,4,5,6,7,8],2:[9,10,11,12,13,14,15,16]};
 document.querySelector('header').append($(`<label class="small mut" style="margin-left:12px">📅 Studied thru week <select id="weeksel"></select></label>`));
+document.querySelector('header').append($(`<label class="small mut" style="margin-left:12px" title="Show trap-word hints (absolute / negation) on choices"><input type="checkbox" id="hintsel"> 💡 Hints</label>`));
 document.querySelector('header').append($(`<span id="savestat" class="small mut" style="margin-left:8px">✓ saved</span>`));
 const studiedWk=()=>curExam()===2?(store.week2||16):(store.week||8);
 const notYet=(x)=>x.weekMax>studiedWk();
@@ -152,12 +221,14 @@ setInterval(()=>{ if(route!=='study')return; const cards=[...document.querySelec
 window.addEventListener('resize',()=>{const h=document.querySelector('header');const b=document.querySelector('#view .row.card');if(h&&b&&getComputedStyle(b).position==='sticky')b.style.top=(h.offsetHeight-1)+'px';},{passive:true});
 
 // ---- side-panel book reader: /books/<file>#page=N (browser's built-in PDF viewer) ----
-function bookUrl(book,page){const f=(D.books||{})[book];if(!f)return null;return '/books/'+encodeURIComponent(f)+(page?'#page='+page:'');}
+function bookUrl(book,page){const f=(D.books||{})[book];if(!f||!AVAIL.has(f))return null;return '/books/'+encodeURIComponent(f)+(page?'#page='+page:'');}
 function openBook(book,page,label){const u=bookUrl(book,page);if(!u)return;
+  if(matchMedia('(max-width:700px)').matches){window.open(u,'_blank','noopener');return;}
   const fr=document.getElementById('rframe');fr.src='about:blank';setTimeout(()=>{fr.src=u;},30);  // force reload so #page jumps even within the same book
   document.getElementById('rtitle').textContent='📖 '+(label||book)+(page?' — PDF p.'+page:'');document.getElementById('rnew').href=u;
   document.getElementById('reader').hidden=false;document.body.classList.add('reading');}
-function readLink(book,page,label){return bookUrl(book,page)?`<span class="readlink" data-book="${book}" data-page="${page||''}" data-label="${(label||'').replace(/"/g,'&quot;')}">${inline(label||book)}${page&&!/p\.\d/.test(label||'')?' · p.'+page:''}</span>`:inline(label||book);}
+const NOPDF=`<span class="small mut" title="Put your own copy of this book in the app's books/ folder (see books/README.md) and restart to open it at this page"> 📥</span>`;
+function readLink(book,page,label){if(!bookUrl(book,page))return inline(label||book)+((D.books||{})[book]?NOPDF:'');return bookUrl(book,page)?`<span class="readlink" data-book="${book}" data-page="${page||''}" data-label="${(label||'').replace(/"/g,'&quot;')}">${inline(label||book)}${page&&!/p\.\d/.test(label||'')?' · p.'+page:''}</span>`:inline(label||book);}
 function readLinks(q){const cs=(q.concepts||[]).filter(c=>c.book);if(!cs.length)return'';
   return `<div class="small" style="margin:6px 0">📖 Read: ${cs.map(c=>`<b>${inline(c.concept)}</b> → ${readLink(c.book,c.page,c.src)}`).join(' &nbsp;|&nbsp; ')}</div>`;}
 document.addEventListener('click',e=>{const l=e.target.closest('[data-book]');if(l){e.preventDefault();e.stopPropagation();openBook(l.dataset.book,+l.dataset.page||null,l.dataset.label);}},true);
@@ -170,7 +241,7 @@ function domAcc(){ // per-domain accuracy from attempts
   return m;}
 
 function choiceRow(q,i,mode,sel){
-  const c=q.choices[i];const fl=flags(c.text).map(x=>`<span class="flag">${x}</span>`).join('');
+  const c=q.choices[i];const fl=hintTags(c.text);
   let tf='',reveal='';
   if(mode==='quiz'){tf=`<div class="tf"><button class="${sel==='T'?'selT':''}" data-i="${i}" data-v="T">True</button><button class="${sel==='F'?'selF':''}" data-i="${i}" data-v="F">False</button></div>`;}
   let cls='choice';
@@ -292,11 +363,12 @@ function bindReveal(list,onReviewed){
       const card0=ch.closest('.card[data-qid]'),q0=D.questions.find(x=>x.id===card0.dataset.qid),ci=+ch.dataset.ci;
       // self-check: True/False guess before revealing (session-only; doesn't touch quiz attempts/Leitner)
       const g=e.target.closest('button[data-g]');
+      if(!g&&e.target.closest('.tf'))return;   // a near-miss on the True/False row (gap/hint text) must not count as a no-guess reveal
       if(g){const right=(g.dataset.g==='T')===(q0.choices[ci].verdict==='True');
         (studyGuess[q0.id]=studyGuess[q0.id]||[])[ci]=right;
         g.className=g.dataset.g==='T'?'selT':'selF';ch.classList.add(right?'ok':'bad');
         g.insertAdjacentHTML('afterend',` <b class="${right?'v-true':'v-false'}">${right?'✓ you got it':'✗ missed'}</b>`);}
-      const tfb=ch.querySelector('.tf');if(tfb){tfb.querySelectorAll('button').forEach(b=>b.disabled=true);const h=tfb.querySelector('.mut');if(h)h.remove();if(!g)tfb.remove();}
+      const tfb=ch.querySelector('.tf');if(tfb){tfb.querySelectorAll('button').forEach(b=>b.disabled=true);const h=tfb.querySelector('.mut');if(h)h.remove();if(!g){tfb.remove();ch.querySelector('.ans').insertAdjacentHTML('afterbegin','<div class="small mut">👁 revealed without a guess</div>');}}
       const a=ch.querySelector('.ans');if(a)a.hidden=false;
       const tr=ch.querySelector('.tapreveal');if(tr)tr.remove();
       ch.classList.remove('revealable');ch.style.cursor='default';
@@ -311,6 +383,80 @@ function bindReveal(list,onReviewed){
         const cb=card.querySelector(`input[data-rev="${id}"]`);if(cb)cb.checked=true;card.classList.add('rev');if(onReviewed)onReviewed(id);}
       noteAnchor(id);save();}));
 }
+// ---- 🃏 Flashcards: answer every choice on the front, flip for answers + concept detail on the back ----
+const KINDLBL={recommended:'📗 recommended','other-book':'📘 other book','project-notes':'🛠 extra notes','pool-citation':'📄 pool citation'};
+function conceptsFor(q){const d=D.domains.find(x=>x.part===q.part&&x.num===q.domain&&(x.exam||1)===(q.exam||1));
+  return ((d&&d.conceptMap)||[]).filter(c=>(c.questions||[]).includes(q.id));}
+function srcLine(s){const lbl=[s.book==='pool-citation'?null:s.book,s.chapter,s.section].filter(Boolean).join(' · ')+(s.pdfPages?` — PDF pp.${s.pdfPages}`:'');
+  const txt=s.verified?readLink(s.book,parseInt(s.pdfPages)||null,lbl):inline(lbl);  // readLink → link if PDF present, else text + 📥 hint
+  return `<div class="src">${KINDLBL[s.kind]||''} ${txt}${s.verified?' ✔':' <span class="mut">(unverified)</span>'}${s.note?`<div class="note">${inline(s.note)}</div>`:''}</div>`;}
+function cardsView(){const v=document.getElementById('view');v.innerHTML='';
+  const ui=store.ui;const f=Object.assign({part:'',dom:'',deck:'all',idx:0,order:null},ui.cards||{});
+  const decks={all:'All questions',unrev:'Not yet reviewed',flagged:'🚩 Flagged',missed:'❌ Missed in a quiz',inv:'Inverted only',lop:'⚖ 1/4 or 4/1 split'};
+  const bar=$(`<div class="row card">Deck: <select id="cdk">${Object.entries(decks).map(([k,l])=>`<option value="${k}">${l}</option>`).join('')}</select>
+    Part: <select id="cp"><option value="">All</option><option>ML</option><option>QF</option></select> Domain: <select id="cd"></select>
+    <button class="btn sec" id="cshuf" style="padding:4px 10px">🔀 Shuffle</button><span id="cpos" class="small mut" style="margin-left:auto"></span></div>`);
+  const host=$(`<div></div>`);v.append(bar,host);const el=id=>bar.querySelector('#'+id);
+  el('cdk').value=f.deck;el('cp').value=f.part;
+  function fillDom(){el('cd').innerHTML='<option value="">All</option>'+ED().filter(d=>!el('cp').value||d.part===el('cp').value).map(d=>`<option value="${d.part}|${d.num}">${d.part} D${+d.num} ${d.name}</option>`).join('');el('cd').value=f.dom;if(el('cd').value!==f.dom)el('cd').value='';}
+  fillDom();
+  const missed=q=>{const a=attScore(q);return a&&!a.perfect;};
+  const tests={all:()=>true,unrev:q=>!store.reviewed[q.id],flagged:q=>store.flagged[q.id],missed,inv:q=>q.polarity==='inverted',lop:q=>[1,4].includes(nTrue(q))};
+  let deck=[];
+  function build(keepPos){Object.assign(f,{deck:el('cdk').value,part:el('cp').value,dom:el('cd').value});
+    const base=EQ().filter(q=>!q.withdrawn&&(!f.part||q.part===f.part)&&(!f.dom||(q.part+'|'+q.domain)===f.dom)&&tests[f.deck](q));
+    const ids=new Set(base.map(q=>q.id));
+    if(f.order){const ord=f.order.filter(id=>ids.has(id));const rest=base.filter(q=>!ord.includes(q.id)).map(q=>q.id);f.order=ord.concat(rest);deck=f.order.map(id=>base.find(q=>q.id===id));}
+    else deck=base;
+    if(!keepPos)f.idx=0;f.idx=Math.min(Math.max(0,f.idx),Math.max(0,deck.length-1));ui.cards=f;}
+  let sel=[],flipped=false;
+  function front(){const q=deck[f.idx];sel=Array(q.choices.length).fill(null);flipped=false;
+    const inv=q.polarity==='inverted'?`<div class="pill inv" style="display:block;margin:6px 0">INVERTED: mark True when the statement is WRONG</div>`:'';
+    host.innerHTML=`<div class="fc"><div class="card${store.flagged[q.id]?' flagged':''}" data-qid="${q.id}">
+      <div><span class="pill">#${q.n}</span><span class="pill">${q.id}</span><span class="pill">${q.part} D${+q.domain} ${q.domainName}</span>${store.reviewed[q.id]?'<span class="pill" style="border-color:var(--green);color:var(--green)">✅ reviewed</span>':''}${attPill(q)}</div>${inv}
+      <div class="q-scenario">${q.scenario}</div>
+      ${q.choices.map((c,i)=>`<div class="choice" data-ci="${i}"><span class="letter">${c.L}.</span>${c.text}${hintTags(c.text)}<div class="tf" style="margin-top:6px"><button data-i="${i}" data-v="T">True</button><button data-i="${i}" data-v="F">False</button></div></div>`).join('')}
+      <div class="navrow" style="margin-top:10px"><button class="btn sec" data-nav="-1">◂ Prev</button><span class="small mut" id="cleft"></span><button class="btn" id="cflip">Flip ▸</button><button class="btn sec" data-nav="1">Skip ▸</button></div></div></div>`;
+    const left=()=>{const n=sel.filter(x=>x===null).length;host.querySelector('#cleft').textContent=n?`${n} unanswered`:'all answered — flip!';};left();
+    host.querySelectorAll('.tf button').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;sel[i]=b.dataset.v;
+      host.querySelectorAll(`.tf button[data-i="${i}"]`).forEach(x=>x.className=x.dataset.v===sel[i]?(sel[i]==='T'?'selT':'selF'):'');left();});
+    host.querySelector('#cflip').onclick=flip;bindNav();posLabel();}
+  function back(){const q=deck[f.idx];flipped=true;
+    const right=q.choices.map((c,i)=>sel[i]!==null&&(sel[i]==='T')===(c.verdict==='True'));
+    const answered=sel.filter(x=>x!==null).length,score=right.filter(Boolean).length,allSame=answered===5&&(sel.every(x=>x==='T')||sel.every(x=>x==='F'));
+    if(answered===q.choices.length&&markReviewed(q.id))save();
+    const cs=conceptsFor(q);
+    const conceptHtml=cs.length?cs.map(c=>`<div class="concept"><b>${inline(c.concept)}</b>${c.lecture?` <span class="pill">🎬 ${inline(c.lecture)}</span>`:''}<div style="margin-top:4px">${inline(c.summary||'')}</div>
+        <div class="small mut" style="margin-top:8px">Where to read:</div>${(c.sources||[]).map(srcLine).join('')}</div>`).join('')
+      :`<div class="mut">No concept map for this question yet — see the domain cheat-sheet below.</div>`;
+    const d=D.domains.find(x=>x.part===q.part&&x.num===q.domain&&(x.exam||1)===(q.exam||1));
+    host.innerHTML=`<div class="fc"><div class="card back${store.flagged[q.id]?' flagged':''}" data-qid="${q.id}">
+      <div><span class="pill">#${q.n}</span><span class="pill">${q.id}</span><span class="pill">${q.part} D${+q.domain} ${q.domainName}</span><span class="pill" style="border-color:var(--blue);color:var(--blue)">⚖ ${splitKey(q)}</span></div>
+      <div class="kpi" style="margin-top:6px">${allSame?0:score}/${q.choices.length}</div><div class="mut small">${answered<q.choices.length?`${q.choices.length-answered} left blank (a blank scores 0 — always guess). `:''}${allSame?'⚠ All 5 marked the same → scores 0 on the real exam. ':''}${q.polarity==='inverted'?'Inverted question: True = the statement is wrong.':''}</div>
+      <div class="q-scenario small mut" style="margin-top:8px">${q.scenario}</div>
+      <h3>Answers</h3>${q.choices.map((c,i)=>{const yours=sel[i]?(sel[i]==='T'?'True':'False'):'—';
+        return `<div class="ansrow ${sel[i]===null?'':(right[i]?'ok':'bad')}"><span class="letter">${c.L}.</span>${c.text}
+          <div style="margin-top:6px"><span class="verdict ${c.verdict==='True'?'v-true':'v-false'}">Answer: ${c.verdict}</span>${q.polarity==='inverted'?` <span class="small mut">(statement is ${c.accurate?'accurate':'incorrect'})</span>`:''} · <span class="small">you: <b>${yours}</b> ${sel[i]===null?'':right[i]?'✓':'✗'}</span></div>
+          <div class="why" style="margin-top:6px">${inline(c.why)}</div>${c.whyPool&&c.whyPool!==c.why?`<div class="keysays">Answer key: ${inline(c.whyPool)}</div>`:''}</div>`;}).join('')}
+      <h3>Concepts tested</h3>${conceptHtml}
+      ${q.reference?`<h3>Reference</h3><div>${inline(q.reference)}</div>`:''}
+      ${d?`<details class="deep"><summary>Domain cheat-sheet &amp; common traps — ${q.part} D${+q.domain}</summary><div class="md">${md(d.cheatsheet)}<h3>Common traps</h3>${md(d.traps)}</div></details>`:''}
+      ${qTools(q.id)}
+      <div class="navrow" style="margin-top:12px"><button class="btn sec" data-nav="-1">◂ Prev</button><button class="btn sec" id="cunflip">↺ Try again</button><button class="btn" data-nav="1">Next ▸</button></div></div></div>`;
+    bindTools(host);host.querySelector('#cunflip').onclick=()=>animate(front);bindNav();posLabel();}
+  function animate(fn){const c=host.querySelector('.fc');if(!c){fn();return;}c.classList.add('flipping');
+    setTimeout(()=>{fn();const n=host.querySelector('.fc');n.classList.add('flipping');void n.offsetWidth;n.classList.remove('flipping');},220);}
+  function flip(){animate(back);}
+  function go(dx){if(!deck.length)return;f.idx=(f.idx+dx+deck.length)%deck.length;ui.cards=f;save();draw();window.scrollTo(0,0);}
+  function bindNav(){host.querySelectorAll('[data-nav]').forEach(b=>b.onclick=()=>go(+b.dataset.nav));}
+  function posLabel(){el('cpos').textContent=deck.length?`card ${f.idx+1} / ${deck.length}`:'';}
+  function draw(){if(!deck.length){host.innerHTML='<div class="card mut">No cards in this deck — change the filters.</div>';posLabel();return;}front();}
+  ['cdk','cd'].forEach(id=>el(id).onchange=()=>{build();save();draw();});el('cp').onchange=()=>{fillDom();build();save();draw();};
+  el('cshuf').onclick=()=>{const ids=deck.map(q=>q.id);shuffle(ids);f.order=ids;build();save();draw();};
+  cardsView.key=e=>{if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;
+    if(e.key==='ArrowRight')go(1);else if(e.key==='ArrowLeft')go(-1);else if((e.key==='Enter'||e.key===' ')&&!flipped&&deck.length){e.preventDefault();flip();}};
+  build(true);draw();}
+document.addEventListener('keydown',e=>{if(route==='cards'&&cardsView.key)cardsView.key(e);});
 // ---- True/False split: how many choices you MARK True (after inversion) ----
 const nTrue=q=>q.choices.filter(c=>c.verdict==='True').length;
 const splitKey=q=>{const t=nTrue(q);return `${t}T/${q.choices.length-t}F`;};
@@ -369,16 +515,39 @@ function quizView(){
       Count: <input id="qn" type="number" value="10" min="1" max="40" style="width:70px">
       Part: <select id="qpart"><option value="">All</option><option>ML</option><option>QF</option></select>
       <label class="small">&nbsp;<input type="checkbox" id="qcov"> covered only (≤ studied week)</label>
+      <label class="small">&nbsp;<input type="checkbox" id="qunrev"> not-reviewed only</label>
       <button class="btn" id="qstart">Start</button>
-    </div><div class="small mut">Scored the real way: 1 pt per correct True/False; marking all 5 the same = 0 for that question. "Covered only" excludes domains you haven't studied yet.</div></div>`);
+    </div>
+    <details id="qdoms" style="margin-top:8px"><summary class="small" style="cursor:pointer">Domains: <b id="qdsum"></b> <span class="small mut">(tap to choose one or more)</span></summary>
+      <div class="row small" style="margin:6px 0"><button class="btn sec" data-qd="all" style="padding:2px 8px">All</button><button class="btn sec" data-qd="none" style="padding:2px 8px">None</button><button class="btn sec" data-qd="ML" style="padding:2px 8px">ML only</button><button class="btn sec" data-qd="QF" style="padding:2px 8px">QF only</button><span class="mut">counts = not reviewed / total</span></div>
+      <div id="qdlist" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:2px 12px"></div></details>
+    <div class="small" id="qavail" style="margin-top:6px"></div>
+    <div class="small mut">Scored the real way: 1 pt per correct True/False; marking all 5 the same = 0 for that question. "Covered only" excludes domains you haven't studied yet. Question IDs, domains and the INVERTED label stay hidden until you submit.</div></div>`);
   v.append(cfg);const area=$(`<div id="quizarea"></div>`);v.append(area);
+  const qcfg=store.ui.quiz=Object.assign({mode:'smart',n:10,part:'',cov:false,unrev:false,doms:null},store.ui.quiz||{});
+  const el=id=>cfg.querySelector('#'+id), dk=d=>d.part+'|'+d.num;
+  el('qmode').value=qcfg.mode;el('qn').value=qcfg.n;el('qpart').value=qcfg.part;el('qcov').checked=qcfg.cov;el('qunrev').checked=qcfg.unrev;
+  const notRev=q=>!store.reviewed[q.id];
+  el('qdlist').innerHTML=ED().map(d=>{const qs=EQ().filter(q=>q.part===d.part&&q.domain===d.num&&!q.withdrawn);
+    return `<label><input type="checkbox" data-dom="${dk(d)}"> ${d.part} D${+d.num} ${d.name} <span class="mut">(${qs.filter(notRev).length}/${qs.length})</span></label>`;}).join('');
+  const boxes=[...el('qdlist').querySelectorAll('input[data-dom]')];
+  const valid=new Set(ED().map(dk));const chosen=new Set((qcfg.doms||[...valid]).filter(k=>valid.has(k)));
+  boxes.forEach(b=>b.checked=chosen.has(b.dataset.dom));
+  function buildPool(){const part=el('qpart').value,cov=el('qcov').checked,unrev=el('qunrev').checked,ds=new Set(boxes.filter(b=>b.checked).map(b=>b.dataset.dom));
+    return EQ().filter(q=>!q.withdrawn&&(!part||q.part===part)&&(!cov||q.weekMax<=studiedWk())&&ds.has(q.part+'|'+q.domain)&&(!unrev||notRev(q)));}
+  function sync(){const ds=boxes.filter(b=>b.checked);
+    el('qdsum').textContent=ds.length===boxes.length?'All ('+boxes.length+')':ds.length?ds.length+' selected: '+ds.slice(0,3).map(b=>b.dataset.dom.replace('|',' D').replace(/D0?(\d)/,'D$1')).join(', ')+(ds.length>3?' …':''):'none selected';
+    Object.assign(qcfg,{mode:el('qmode').value,n:+el('qn').value||10,part:el('qpart').value,cov:el('qcov').checked,unrev:el('qunrev').checked,doms:ds.map(b=>b.dataset.dom)});
+    const n=buildPool().length;el('qavail').innerHTML=n?`<b>${n}</b> questions match these filters`:'<span style="color:var(--red)">No questions match — pick at least one domain or relax the filters.</span>';save();}
+  cfg.querySelectorAll('button[data-qd]').forEach(b=>b.onclick=()=>{const m=b.dataset.qd;boxes.forEach(x=>x.checked=m==='all'||(m!=='none'&&x.dataset.dom.startsWith(m+'|')));sync();});
+  [...boxes,el('qmode'),el('qn'),el('qpart'),el('qcov'),el('qunrev')].forEach(x=>x.onchange=sync);sync();
   cfg.querySelector('#qstart').onclick=()=>{
     const mode=cfg.querySelector('#qmode').value,n=+cfg.querySelector('#qn').value,part=cfg.querySelector('#qpart').value;
-    const cov=cfg.querySelector('#qcov').checked;
-    let pool=EQ().filter(q=>!q.withdrawn&&(!part||q.part===part)&&(!cov||q.weekMax<=studiedWk()));
+    let pool=buildPool();
+    if(!pool.length){el('qavail').scrollIntoView({block:'center'});return;}
     let qs=[];
-    if(mode==='exam'){const byd={};EQ().forEach(q=>{if(q.withdrawn)return;(byd[q.part+q.domain]=byd[q.part+q.domain]||[]).push(q);});
-      Object.values(byd).forEach(arr=>{shuffle(arr);qs.push(arr[0],arr[1]);});shuffle(qs);}
+    if(mode==='exam'){const byd={};pool.forEach(q=>{(byd[q.part+q.domain]=byd[q.part+q.domain]||[]).push(q);});
+      Object.values(byd).forEach(arr=>{shuffle(arr);qs.push(...arr.slice(0,2));});shuffle(qs);}
     else if(mode==='trap'){pool=pool.filter(q=>q.polarity==='inverted'||q.choices.some(c=>ABS.test(c.text)||NEG.test(c.text)));shuffle(pool);qs=pool.slice(0,n);}
     else if(mode==='flagged'){pool=pool.filter(q=>store.flagged&&store.flagged[q.id]);shuffle(pool);qs=pool.slice(0,n);}
     else if(mode==='smart'){const r=smartPick(pool,n,part);qs=r.qs;runQuiz(qs,area);
@@ -415,9 +584,8 @@ function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;
 function runQuiz(qs,area){
   const state=qs.map(q=>({q,sel:Array(q.choices.length).fill(null)}));
   area.innerHTML='';
-  state.forEach((s,qi)=>{const q=s.q;const inv=q.polarity==='inverted'?`<span class="pill inv">INVERTED: True = statement is WRONG</span>`:'';
-    const fb=q.flag?`<div class="pill inv" style="display:block;margin:6px 0">⚠ ${q.flag}</div>`:'';
-    const card=$(`<div class="card${store.flagged[q.id]?' flagged':''}" data-qid="${q.id}"><div><span class="pill">${qi+1}/${state.length}</span><span class="pill">${q.id}</span><span class="pill">${q.part} D${+q.domain}</span>${inv}<span data-res></span></div>${fb}
+  state.forEach((s,qi)=>{const q=s.q;   // while answering: position only — ID/domain/INVERTED/banners are revealed on submit
+    const card=$(`<div class="card${store.flagged[q.id]?' flagged':''}" data-qid="${q.id}"><div><span class="pill"><b>Q ${qi+1}</b> / ${state.length}</span><span data-meta></span><span data-res></span></div><div data-banner></div>
       <div class="q-scenario">${q.scenario}</div>${q.choices.map((c,i)=>choiceRow(q,i,'quiz',null)).join('')}${qTools(q.id)}</div>`);
     bindTools(card);
     card.querySelectorAll('.tf button').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;s.sel[i]=b.dataset.v;
@@ -451,6 +619,12 @@ function gradeQuiz(state,area){
   const cards=[...area.querySelectorAll('.card[data-qid]')];
   state.forEach((s,qi)=>{const q=s.q;const card=cards[qi];if(!card)return;
     card.querySelector('[data-res]').innerHTML=attPill(q);
+    card.querySelector('[data-meta]').innerHTML=`<span class="pill">#${q.n}</span><span class="pill">${q.id}</span><span class="pill">${q.part} D${+q.domain} ${q.domainName}</span><span class="pill">📅 wk ${q.weeks.join('/')}</span>`+(q.polarity==='inverted'?`<span class="pill inv">INVERTED: True = statement is WRONG</span>`:'');
+    if(q.flag)card.querySelector('[data-banner]').innerHTML=`<div class="pill inv" style="display:block;margin:6px 0">⚠ ${q.flag}</div>`;
+    const tools=card.querySelector('input[data-qflag]').closest('.row');
+    tools.insertAdjacentHTML('afterbegin',`<label><input type="checkbox" data-qrev="${q.id}" ${store.reviewed[q.id]?'checked':''}> ✅ reviewed</label>`);
+    tools.querySelector('input[data-qrev]').onchange=e=>{const id=q.id,t=today();
+      if(e.target.checked)markReviewed(id);else{if(store.reviewed[id]===t)store.reviewLog[t]=Math.max(0,(store.reviewLog[t]||0)-1);delete store.reviewed[id];}save();};
     card.querySelector('.q-scenario').insertAdjacentHTML('afterend',readLinks(q));  // book links only after grading (no hints mid-quiz)
     q.choices.forEach((c,i)=>{const ch=card.querySelectorAll('.choice')[i];if(!ch)return;
       const right=s.sel[i]&&(s.sel[i]==='T')===(c.verdict==='True');ch.classList.add(right?'ok':'bad');
@@ -464,6 +638,20 @@ function gradeQuiz(state,area){
     head.append(fm);}
   window.scrollTo(0,0);
 }
+// ---- 🖨 Print notes: current exam, grouped ML → QF, by domain, ordered by group/question (no G/Q labels) ----
+const qOrder=id=>{const m=id.match(/D(\d+)G(\d+)Q(\d+)/);return m?[+m[1],+m[2],+m[3]]:[0,0,0];};
+function printNotes(withQ){
+  const esc=t=>(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  const qs=EQ().filter(q=>store.notes[q.id]).sort((a,b)=>{const pa=a.part.localeCompare(b.part);if(pa)return pa;const x=qOrder(a.id),y=qOrder(b.id);return x[0]-y[0]||x[1]-y[1]||x[2]-y[2];});
+  if(!qs.length){alert('No notes for Exam '+curExam()+' yet.');return;}
+  let html=`<h1>ML4T Exam ${curExam()} — My Notes</h1><div class="pmeta">${qs.length} notes · printed ${today()}</div>`,lastPart='',lastDom='';
+  qs.forEach(q=>{if(q.part!==lastPart){html+=`<h2>${q.part==='ML'?'Machine Learning (ML)':'Quantitative Finance (QF)'}</h2>`;lastPart=q.part;lastDom='';}
+    const dk=q.part+q.domain;if(dk!==lastDom){html+=`<h3>${q.part}-D${+q.domain} · ${esc(q.domainName)}</h3>`;lastDom=dk;}
+    html+=`<div class="pnote${store.notes[q.id].length<500?' keep':''}">${withQ?`<div class="pq">${esc(q.scenario)}</div>`:''}<div class="ptxt">${esc(store.notes[q.id])}</div></div>`;});
+  let pa=document.getElementById('printarea');if(!pa){pa=document.createElement('div');pa.id='printarea';document.body.append(pa);}
+  pa.innerHTML=html;document.body.classList.add('printing');
+  const done=()=>{document.body.classList.remove('printing');window.removeEventListener('afterprint',done);};
+  window.addEventListener('afterprint',done);setTimeout(()=>window.print(),50);}
 function notesView(){const v=document.getElementById('view');v.innerHTML='';
   // Review list: questions you flagged, wrote a note on, or missed in a quiz (current exam only)
   const eset=examQidSet();const missed=q=>{const a=attScore(q);return a&&!a.perfect;};
@@ -472,8 +660,11 @@ function notesView(){const v=document.getElementById('view');v.innerHTML='';
   const bar=$(`<div class="card row"><b>Review list</b> Show: <select id="rvf"><option value="all">All (flagged + notes + missed)</option>
     <option value="flagged">🚩 Flagged</option><option value="noted">📝 Has note</option><option value="missed">❌ Missed in a quiz</option>
     <option value="last">🕘 Last quiz</option></select><span id="rvc" class="small mut"></span>
-    <button class="btn sec" id="rvquiz">Quiz flagged ▸</button></div>`);
+    <button class="btn sec" id="rvquiz">Quiz flagged ▸</button>
+    <button class="btn sec" id="rvprint" title="Print all your notes for this exam, grouped by part and domain">🖨 Print notes</button>
+    <label class="small"><input type="checkbox" id="rvpq"> include question</label></div>`);
   const sel=bar.querySelector('#rvf');sel.value=(store.ui&&store.ui.reviewFilter)||'all';
+  bar.querySelector('#rvprint').onclick=()=>printNotes(bar.querySelector('#rvpq').checked);
   bar.querySelector('#rvquiz').onclick=()=>{route='quiz';store.ui.route='quiz';save();render();document.getElementById('qmode').value='flagged';};
   const list=$(`<div></div>`);v.append(bar,list);
   function draw(){store.ui.reviewFilter=sel.value;
@@ -533,9 +724,12 @@ function tipsView(){const h=D.heuristics;const v=document.getElementById('view')
 }
 function render(){document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.k===route));
   const es=document.getElementById('examsel'); if(es)es.value=curExam();
+  const hs=document.getElementById('hintsel'); if(hs)hs.checked=store.ui.hints!==false; document.body.classList.toggle('nohints',store.ui.hints===false);
   syncWeekSel(); setStat();
-  ({study:studyView,quiz:quizView,notes:notesView,split:splitView,progress:progressView,tips:tipsView})[route]();}
-loadState().then(()=>{
+  ({study:studyView,cards:cardsView,quiz:quizView,notes:notesView,split:splitView,progress:progressView,tips:tipsView})[route]();}
+loadState().then(async()=>{
+  if(HOST)document.querySelector('header').append($(`<button class="btn sec" style="padding:3px 10px;margin-left:8px" onclick="signOut()">Sign out</button>`));
+  if(SERVER&&!HOST){try{const r=await fetch('api/books',{cache:'no-store'});if(r.ok)AVAIL=new Set(await r.json());}catch(e){}}
   if(!store.week)store.week=8;
   store.reviewed=store.reviewed||{};
   store.reviewLog=store.reviewLog||{};
@@ -545,6 +739,7 @@ loadState().then(()=>{
   document.getElementById('rwide').onclick=()=>{const st=document.documentElement.style;st.setProperty('--rw',st.getPropertyValue('--rw')==='70vw'?'46vw':'70vw');};
   const es=document.getElementById('examsel');
   if(es){es.value=curExam(); es.onchange=()=>{store.ui.exam=+es.value;save();render();};}
+  document.getElementById('hintsel').onchange=e=>{store.ui.hints=e.target.checked;document.body.classList.toggle('nohints',!e.target.checked);save();};
   const ws=document.getElementById('weeksel');
   if(ws){ws.onchange=()=>{if(curExam()===2)store.week2=+ws.value;else store.week=+ws.value;save();render();};}
   render();

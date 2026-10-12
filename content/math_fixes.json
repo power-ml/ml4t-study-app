@@ -1,0 +1,1098 @@
+[
+ {
+  "qid": "ML-D4G1Q6",
+  "file": "slices/ML_D04.txt",
+  "page": 105,
+  "note": "X₁ subscript",
+  "original": " 𝑋ଵ: Earnings Yield  ",
+  "corrected": " X₁: Earnings Yield  "
+ },
+ {
+  "qid": "ML-D4G1Q6",
+  "file": "slices/ML_D04.txt",
+  "page": 105,
+  "note": "X₂ subscript",
+  "original": " 𝑋ଶ: Debt-to-Equity Ratio  ",
+  "corrected": " X₂: Debt-to-Equity Ratio  "
+ },
+ {
+  "qid": "ML-D4G1Q6",
+  "file": "slices/ML_D04.txt",
+  "page": 105,
+  "note": "X₃ subscript",
+  "original": " 𝑋ଷ: Three-Month Historical Volatility  ",
+  "corrected": " X₃: Three-Month Historical Volatility  "
+ },
+ {
+  "qid": "ML-D4G1Q6",
+  "file": "slices/ML_D04.txt",
+  "page": 105,
+  "note": "fitted regression equation",
+  "original": "𝑦ො = 0.02 + 0.045𝑋ଵ− 0.012𝑋ଶ− 0.038𝑋ଷ ",
+  "corrected": "ŷ = 0.02 + 0.045X₁ − 0.012X₂ − 0.038X₃ "
+ },
+ {
+  "qid": "ML-D4G1Q6",
+  "file": "slices/ML_D04.txt",
+  "page": 105,
+  "note": "X₂",
+  "original": "−0.012 for 𝑋ଶimplies",
+  "corrected": "−0.012 for X₂ implies"
+ },
+ {
+  "qid": "ML-D4G1Q6",
+  "file": "slices/ML_D04.txt",
+  "page": 105,
+  "note": "X₁, X₃, X₂ in choice C",
+  "original": "indicate that 𝑋ଵhas the \nlargest estimated effect on the model’s prediction per one-standard-deviation increase, followed by 𝑋ଷand then 𝑋ଶ, ",
+  "corrected": "indicate that X₁ has the \nlargest estimated effect on the model’s prediction per one-standard-deviation increase, followed by X₃ and then X₂, "
+ },
+ {
+  "qid": "ML-D4G1Q6",
+  "file": "slices/ML_D04.txt",
+  "page": 105,
+  "note": "X₁, X₃ in choice D",
+  "original": "increasing 𝑋ଵby one standard deviation changes the \npredicted next-month return by a ﬁxed amount of +0.045, regardless of the value of 𝑋ଷ. ",
+  "corrected": "increasing X₁ by one standard deviation changes the \npredicted next-month return by a ﬁxed amount of +0.045, regardless of the value of X₃. "
+ },
+ {
+  "qid": "ML-D4G1Q6",
+  "file": "slices/ML_D04.txt",
+  "page": 105,
+  "note": "X₂, X₃ in choice E",
+  "original": "E. If 𝑋ଶand 𝑋ଷare highly",
+  "corrected": "E. If X₂ and X₃ are highly"
+ },
+ {
+  "qid": "ML-D4G1Q6",
+  "file": "slices/ML_D04.txt",
+  "page": 105,
+  "note": "X₁ = X₂ = X₃ = 0",
+  "original": "sample means, 𝑋ଵ =\n𝑋ଶ =𝑋ଷ = 0, so",
+  "corrected": "sample means, X₁ =\nX₂ = X₃ = 0, so"
+ },
+ {
+  "qid": "ML-D4G1Q6",
+  "file": "slices/ML_D04.txt",
+  "page": 105,
+  "note": "answer C",
+  "original": "Here, 𝑋ଵhas the largest estimated effect, followed by 𝑋ଷand then \n𝑋ଶ. ",
+  "corrected": "Here, X₁ has the largest estimated effect, followed by X₃ and then \nX₂. "
+ },
+ {
+  "qid": "ML-D4G1Q6",
+  "file": "slices/ML_D04.txt",
+  "page": 105,
+  "note": "answer D",
+  "original": "effect of 𝑋ଵis constant. A one-standard-deviation increase in 𝑋ଵtherefore changes the prediction by +0.045 at every value \nof 𝑋ଷ. ",
+  "corrected": "effect of X₁ is constant. A one-standard-deviation increase in X₁ therefore changes the prediction by +0.045 at every value \nof X₃. "
+ },
+ {
+  "qid": "ML-D4G2Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 108,
+  "note": "X₁",
+  "original": " 𝑋ଵ: Change in the 10-year",
+  "corrected": " X₁: Change in the 10-year"
+ },
+ {
+  "qid": "ML-D4G2Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 108,
+  "note": "X₂",
+  "original": " 𝑋ଶ: Change in the 2-year",
+  "corrected": " X₂: Change in the 2-year"
+ },
+ {
+  "qid": "ML-D4G2Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 108,
+  "note": "choice A",
+  "original": "between 𝑋ଵand 𝑋ଶdirectly violates",
+  "corrected": "between X₁ and X₂ directly violates"
+ },
+ {
+  "qid": "ML-D4G2Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 108,
+  "note": "R² superscript (choice C)",
+  "original": "model’s 𝑅ଶand overall F-statistic must",
+  "corrected": "model’s R² and overall F-statistic must"
+ },
+ {
+  "qid": "ML-D4G2Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 108,
+  "note": "R² superscript (answer C)",
+  "original": "The 𝑅ଶand overall F-",
+  "corrected": "The R² and overall F-"
+ },
+ {
+  "qid": "ML-D4G2Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 108,
+  "note": "answer D",
+  "original": "between 𝑋ଵand 𝑋ଶdoes not",
+  "corrected": "between X₁ and X₂ does not"
+ },
+ {
+  "qid": "ML-D4G3Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 113,
+  "note": "powers X, X², …, X¹⁵ (superscripts)",
+  "original": "predictors 𝑋,𝑋ଶ, … ,𝑋ଵହrepresent distinct nonlinear transformations of 𝑋. ",
+  "corrected": "predictors X, X², …, X¹⁵ represent distinct nonlinear transformations of X. "
+ },
+ {
+  "qid": "ML-D4G3Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 113,
+  "note": "display list of powers",
+  "original": "𝑋,  𝑋ଶ,  𝑋ଷ,  𝑋ସ ",
+  "corrected": "X, X², X³, X⁴ "
+ },
+ {
+  "qid": "ML-D4G3Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 114,
+  "note": "powers in choice A",
+  "original": "because 𝑋, 𝑋ଶ, 𝑋ଷ, and 𝑋ସmay be highly",
+  "corrected": "because X, X², X³, and X⁴ may be highly"
+ },
+ {
+  "qid": "ML-D4G3Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 114,
+  "note": "sum of squared residuals display",
+  "original": "෍(\n௡\n௜ୀଵ\n𝑦௜ −𝑦ො௜)ଶ ",
+  "corrected": "Σᵢ₌₁ⁿ (yᵢ − ŷᵢ)² "
+ },
+ {
+  "qid": "ML-D4G4Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 118,
+  "note": "residual definition display",
+  "original": "predicted by the ﬁtted model: \n𝑒௜ =𝑦௜ −𝑦ො௜ ",
+  "corrected": "predicted by the ﬁtted model: \neᵢ = yᵢ − ŷᵢ "
+ },
+ {
+  "qid": "ML-D4G4Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 118,
+  "note": "residual definition display",
+  "original": "residual for each observation: \n𝑒௜ =𝑦௜ −𝑦ො௜ ",
+  "corrected": "residual for each observation: \neᵢ = yᵢ − ŷᵢ "
+ },
+ {
+  "qid": "ML-D4G4Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 118,
+  "note": "yᵢ and ŷᵢ",
+  "original": "where 𝑦௜is the observed Sharpe ratio and 𝑦ො௜is the",
+  "corrected": "where yᵢ is the observed Sharpe ratio and ŷᵢ is the"
+ },
+ {
+  "qid": "ML-D4G4Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 118,
+  "note": "R² (choice E)",
+  "original": "in-sample 𝑅ଶof 0.00",
+  "corrected": "in-sample R² of 0.00"
+ },
+ {
+  "qid": "ML-D4G4Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 118,
+  "note": "answer A residual definition",
+  "original": "deﬁned as 𝑒௜ =𝑦௜ −𝑦ො௜. It",
+  "corrected": "deﬁned as eᵢ = yᵢ − ŷᵢ. It"
+ },
+ {
+  "qid": "ML-D4G4Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 119,
+  "note": "sum of squared residuals display",
+  "original": "෍𝑒௜ଶ\n௡\n௜ୀଵ\n",
+  "corrected": "Σᵢ₌₁ⁿ eᵢ²\n"
+ },
+ {
+  "qid": "ML-D4G4Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 119,
+  "note": "R² = 0",
+  "original": "intercept, 𝑅ଶ = 0means",
+  "corrected": "intercept, R² = 0 means"
+ },
+ {
+  "qid": "ML-D4G4Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 119,
+  "note": "R² = 1",
+  "original": "corresponds to 𝑅ଶ = 1, provided",
+  "corrected": "corresponds to R² = 1, provided"
+ },
+ {
+  "qid": "ML-D4G4Q6",
+  "file": "slices/ML_D04.txt",
+  "page": 119,
+  "note": "residual definition display",
+  "original": "𝑒௜ =𝑦௜ −𝑦ො௜, ",
+  "corrected": "eᵢ = yᵢ − ŷᵢ, "
+ },
+ {
+  "qid": "ML-D4G5Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 122,
+  "note": "X₁ feature label",
+  "original": " 𝑋ଵ: Interest Coverage Ratio  ",
+  "corrected": " 𝑋₁: Interest Coverage Ratio  "
+ },
+ {
+  "qid": "ML-D4G5Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 122,
+  "note": "X₂ feature label",
+  "original": " 𝑋ଶ: Leverage Ratio  ",
+  "corrected": " 𝑋₂: Leverage Ratio  "
+ },
+ {
+  "qid": "ML-D4G5Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 122,
+  "note": "scenario logit model",
+  "original": "The team ﬁts a standard logistic regression model using only the two original features: \nlogቆ 𝑝(𝑋)\n1 −𝑝(𝑋)ቇ=𝛽଴+𝛽ଵ𝑋ଵ+𝛽ଶ𝑋ଶ ",
+  "corrected": "The team ﬁts a standard logistic regression model using only the two original features: \nlog(𝑝(𝑋)/(1 − 𝑝(𝑋))) = 𝛽₀ + 𝛽₁𝑋₁ + 𝛽₂𝑋₂ "
+ },
+ {
+  "qid": "ML-D4G5Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 123,
+  "note": "choice A X₁, X₂",
+  "original": "𝑋ଵand 𝑋ଶproduces a linear decision boundary in the original two-dimensional feature space. ",
+  "corrected": "𝑋₁and 𝑋₂produces a linear decision boundary in the original two-dimensional feature space. "
+ },
+ {
+  "qid": "ML-D4G5Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 123,
+  "note": "choice B X₁, X₂",
+  "original": "B. Without an interaction term, the model assumes that the effect of 𝑋ଵon the log-odds of a downgrade does not depend \non the value of 𝑋ଶ, preventing it from directly representing the hypothesized compounding effect. ",
+  "corrected": "B. Without an interaction term, the model assumes that the effect of 𝑋₁on the log-odds of a downgrade does not depend \non the value of 𝑋₂, preventing it from directly representing the hypothesized compounding effect. "
+ },
+ {
+  "qid": "ML-D4G5Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 123,
+  "note": "choice D X₁X₂",
+  "original": "D. The team can retain the logistic regression framework while adding an interaction feature, 𝑋ଵ𝑋ଶ, allowing the effect of ",
+  "corrected": "D. The team can retain the logistic regression framework while adding an interaction feature, 𝑋₁𝑋₂, allowing the effect of "
+ },
+ {
+  "qid": "ML-D4G5Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 123,
+  "note": "key A boundary equation",
+  "original": "𝛽଴+𝛽ଵ𝑋ଵ+𝛽ଶ𝑋ଶ = logቀ 𝑐\n1 −𝑐ቁ, ",
+  "corrected": "𝛽₀ + 𝛽₁𝑋₁ + 𝛽₂𝑋₂ = log(𝑐/(1 − 𝑐)), "
+ },
+ {
+  "qid": "ML-D4G5Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 123,
+  "note": "key A (X₁,X₂)",
+  "original": "which is a straight line in the (𝑋ଵ,𝑋ଶ)feature space. Therefore, logistic regression using only the two raw features cannot ",
+  "corrected": "which is a straight line in the (𝑋₁,𝑋₂)feature space. Therefore, logistic regression using only the two raw features cannot "
+ },
+ {
+  "qid": "ML-D4G5Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 123,
+  "note": "key B X₁, β₁, X₂",
+  "original": "one-unit increase in 𝑋ଵis always 𝛽ଵ, regardless of the value of 𝑋ଶ. The model therefore cannot directly express a ",
+  "corrected": "one-unit increase in 𝑋₁is always 𝛽₁, regardless of the value of 𝑋₂. The model therefore cannot directly express a "
+ },
+ {
+  "qid": "ML-D4G5Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 123,
+  "note": "key D logit with interaction",
+  "original": "D. True – Adding 𝑋ଵ𝑋ଶproduces the model \nlogቆ 𝑝(𝑋)\n1 −𝑝(𝑋)ቇ=𝛽଴+𝛽ଵ𝑋ଵ+𝛽ଶ𝑋ଶ+𝛽ଷ𝑋ଵ𝑋ଶ. ",
+  "corrected": "D. True – Adding 𝑋₁𝑋₂produces the model \nlog(𝑝(𝑋)/(1 − 𝑝(𝑋))) = 𝛽₀ + 𝛽₁𝑋₁ + 𝛽₂𝑋₂ + 𝛽₃𝑋₁𝑋₂. "
+ },
+ {
+  "qid": "ML-D4G5Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 123,
+  "note": "key D X₁, X₂",
+  "original": "The model remains linear in its coefficients, but the interaction term allows the effect of 𝑋ଵon the log-odds to vary with \n𝑋ଶ, and vice versa. This can represent the hypothesized joint distress effect and produce a nonlinear boundary in the ",
+  "corrected": "The model remains linear in its coefficients, but the interaction term allows the effect of 𝑋₁on the log-odds to vary with \n𝑋₂, and vice versa. This can represent the hypothesized joint distress effect and produce a nonlinear boundary in the "
+ },
+ {
+  "qid": "ML-D4G5Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 124,
+  "note": "X₁ label",
+  "original": " 𝑋ଵ: Log Market Capitalization  ",
+  "corrected": " 𝑋₁: Log Market Capitalization  "
+ },
+ {
+  "qid": "ML-D4G5Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 124,
+  "note": "X₂ label",
+  "original": " 𝑋ଶ: Six-Month Momentum  ",
+  "corrected": " 𝑋₂: Six-Month Momentum  "
+ },
+ {
+  "qid": "ML-D4G5Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 124,
+  "note": "scenario additive OLS model",
+  "original": "additive Ordinary Least Squares (OLS) model: \n𝑦ො =𝛽଴+𝛽ଵ𝑋ଵ+𝛽ଶ𝑋ଶ ",
+  "corrected": "additive Ordinary Least Squares (OLS) model: \nŷ = 𝛽₀ + 𝛽₁𝑋₁ + 𝛽₂𝑋₂ "
+ },
+ {
+  "qid": "ML-D4G5Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 124,
+  "note": "choice A β₂",
+  "original": "A. In the additive model, a one-unit increase in momentum changes the predicted return by 𝛽ଶ, regardless of the ",
+  "corrected": "A. In the additive model, a one-unit increase in momentum changes the predicted return by 𝛽₂, regardless of the "
+ },
+ {
+  "qid": "ML-D4G5Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 124,
+  "note": "choice C X₁X₂",
+  "original": "C. Adding the interaction feature 𝑋ଵ𝑋ଶwould allow the estimated effect of momentum on predicted returns to vary as a ",
+  "corrected": "C. Adding the interaction feature 𝑋₁𝑋₂would allow the estimated effect of momentum on predicted returns to vary as a "
+ },
+ {
+  "qid": "ML-D4G5Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 124,
+  "note": "choice D X₁X₂",
+  "original": "D. Once the interaction term 𝑋ଵ𝑋ଶis added, the model is no longer a linear regression model because its prediction is no ",
+  "corrected": "D. Once the interaction term 𝑋₁𝑋₂is added, the model is no longer a linear regression model because its prediction is no "
+ },
+ {
+  "qid": "ML-D4G5Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 124,
+  "note": "key A additive model",
+  "original": "A. True – In the additive model, \n𝑦ො =𝛽଴+𝛽ଵ𝑋ଵ+𝛽ଶ𝑋ଶ, ",
+  "corrected": "A. True – In the additive model, \nŷ = 𝛽₀ + 𝛽₁𝑋₁ + 𝛽₂𝑋₂, "
+ },
+ {
+  "qid": "ML-D4G5Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 124,
+  "note": "key A partial derivative",
+  "original": "the marginal effect of momentum is \n𝜕𝑦ො\n𝜕𝑋ଶ\n=𝛽ଶ. ",
+  "corrected": "the marginal effect of momentum is \n𝜕ŷ/𝜕𝑋₂ = 𝛽₂. "
+ },
+ {
+  "qid": "ML-D4G5Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 124,
+  "note": "key A X₁",
+  "original": "This effect is constant at every value of 𝑋ଵ. Consequently, the model cannot directly represent a positive momentum ",
+  "corrected": "This effect is constant at every value of 𝑋₁. Consequently, the model cannot directly represent a positive momentum "
+ },
+ {
+  "qid": "ML-D4G5Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 125,
+  "note": "key C interaction model",
+  "original": "C. True – Adding the interaction term produces \n𝑦ො =𝛽଴+𝛽ଵ𝑋ଵ+𝛽ଶ𝑋ଶ+𝛽ଷ𝑋ଵ𝑋ଶ. ",
+  "corrected": "C. True – Adding the interaction term produces \nŷ = 𝛽₀ + 𝛽₁𝑋₁ + 𝛽₂𝑋₂ + 𝛽₃𝑋₁𝑋₂. "
+ },
+ {
+  "qid": "ML-D4G5Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 125,
+  "note": "key C partial derivative",
+  "original": "The marginal effect of momentum then becomes \n𝜕𝑦ො\n𝜕𝑋ଶ\n=𝛽ଶ+𝛽ଷ𝑋ଵ. ",
+  "corrected": "The marginal effect of momentum then becomes \n𝜕ŷ/𝜕𝑋₂ = 𝛽₂ + 𝛽₃𝑋₁. "
+ },
+ {
+  "qid": "ML-D4G5Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 125,
+  "note": "key C β₂+β₃X₁",
+  "original": "The momentum slope can therefore vary with company size. If the estimated coefficients cause 𝛽ଶ+𝛽ଷ𝑋ଵto cross zero ",
+  "corrected": "The momentum slope can therefore vary with company size. If the estimated coefficients cause 𝛽₂ + 𝛽₃𝑋₁to cross zero "
+ },
+ {
+  "qid": "ML-D4G5Q5",
+  "file": "slices/ML_D04.txt",
+  "page": 125,
+  "note": "key D coefficients and (X₁,X₂)",
+  "original": "D. False – The expanded model remains a linear regression model because it is linear in the coefficients 𝛽଴,𝛽ଵ,𝛽ଶ,𝛽ଷ. The \ninteraction makes the relationship nonadditive—and potentially nonlinear when viewed in the original (𝑋ଵ,𝑋ଶ)feature ",
+  "corrected": "D. False – The expanded model remains a linear regression model because it is linear in the coefficients 𝛽₀,𝛽₁,𝛽₂,𝛽₃. The \ninteraction makes the relationship nonadditive—and potentially nonlinear when viewed in the original (𝑋₁,𝑋₂)feature "
+ },
+ {
+  "qid": "ML-D4G6Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 128,
+  "note": "choice B L1 penalty",
+  "original": "B. Ridge regression uses an 𝐿ଵpenalty, \n𝜆෍∣\n௣\n௝ୀଵ\n𝛽௝ ∣, ",
+  "corrected": "B. Ridge regression uses an 𝐿₁penalty, \n𝜆 Σⱼ₌₁ᵖ ∣𝛽ⱼ∣, "
+ },
+ {
+  "qid": "ML-D4G6Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 129,
+  "note": "key A penalized RSS objective (braces as printed)",
+  "original": "⎩⎪⎨\n⎪⎧\nා ቌ𝑦௜ −𝛽଴−෍𝑥௜௝\n௣\n௝ୀଵ\n𝛽௝ቍ\nଶ௡\n௜ୀଵ\n+𝜆𝑃(𝛽)\n⎭⎪⎬\n⎪⎫\n. ",
+  "corrected": "{Σᵢ₌₁ⁿ (𝑦ᵢ − 𝛽₀ − Σⱼ₌₁ᵖ 𝑥ᵢⱼ𝛽ⱼ)² + 𝜆𝑃(𝛽)}. "
+ },
+ {
+  "qid": "ML-D4G6Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 129,
+  "note": "key B L2 penalty",
+  "original": "B. False – Ridge regression uses the 𝐿ଶpenalty, \n𝜆෍𝛽௝ଶ\n௣\n௝ୀଵ\n. ",
+  "corrected": "B. False – Ridge regression uses the 𝐿₂penalty, \n𝜆 Σⱼ₌₁ᵖ 𝛽ⱼ². "
+ },
+ {
+  "qid": "ML-D4G6Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 129,
+  "note": "key B L1 penalty",
+  "original": "It generally shrinks coefficients toward zero without setting them exactly to zero. Lasso uses the 𝐿ଵpenalty, \n𝜆෍∣\n௣\n௝ୀଵ\n𝛽௝ ∣, ",
+  "corrected": "It generally shrinks coefficients toward zero without setting them exactly to zero. Lasso uses the 𝐿₁penalty, \n𝜆 Σⱼ₌₁ᵖ ∣𝛽ⱼ∣, "
+ },
+ {
+  "qid": "ML-D4G6Q4",
+  "file": "slices/ML_D04.txt",
+  "page": 129,
+  "note": "key E L₁",
+  "original": "E. True – Lasso is especially useful when the underlying signal is sparse because its 𝐿ଵpenalty can remove features by ",
+  "corrected": "E. True – Lasso is especially useful when the underlying signal is sparse because its 𝐿₁penalty can remove features by "
+ },
+ {
+  "qid": "ML-D5G1Q5",
+  "file": "slices/ML_D05.txt",
+  "page": 136,
+  "note": "X₁ label",
+  "original": " 𝑋ଵ: Market Capitalization, measured in U.S. dollars and ranging from approximately $100 million to $1 trillion  ",
+  "corrected": " 𝑋₁: Market Capitalization, measured in U.S. dollars and ranging from approximately $100 million to $1 trillion  "
+ },
+ {
+  "qid": "ML-D5G1Q5",
+  "file": "slices/ML_D05.txt",
+  "page": 136,
+  "note": "X₂ label",
+  "original": " 𝑋ଶ: Debt-to-Equity Ratio, ranging from approximately 0.0 to 5.0  ",
+  "corrected": " 𝑋₂: Debt-to-Equity Ratio, ranging from approximately 0.0 to 5.0  "
+ },
+ {
+  "qid": "ML-D5G1Q5",
+  "file": "slices/ML_D05.txt",
+  "page": 136,
+  "note": "key A Euclidean distance",
+  "original": "𝑑(𝑥,𝑦) =ඥ(𝑥ଵ−𝑦ଵ)ଶ+(𝑥ଶ−𝑦ଶ)ଶ. ",
+  "corrected": "𝑑(𝑥,𝑦) = √((𝑥₁ − 𝑦₁)² + (𝑥₂ − 𝑦₂)²). "
+ },
+ {
+  "qid": "ML-D5G1Q5",
+  "file": "slices/ML_D05.txt",
+  "page": 137,
+  "note": "key D Manhattan distance",
+  "original": "𝑑(𝑥,𝑦) =∣𝑥ଵ −𝑦ଵ ∣ +∣𝑥ଶ−𝑦ଶ ∣. ",
+  "corrected": "𝑑(𝑥,𝑦) = ∣𝑥₁ − 𝑦₁∣ + ∣𝑥₂ − 𝑦₂∣. "
+ },
+ {
+  "qid": "ML-D5G1Q5",
+  "file": "slices/ML_D05.txt",
+  "page": 137,
+  "note": "key E z-score (no garbled glyph, but fraction flattened to 'z=x−μ / σ'; fixed for correctness)",
+  "original": "E. True – Z-score standardization transforms a feature according to \n𝑧=𝑥−𝜇\n𝜎 . ",
+  "corrected": "E. True – Z-score standardization transforms a feature according to \n𝑧 = (𝑥 − 𝜇)/𝜎. "
+ },
+ {
+  "qid": "ML-D5G1Q6",
+  "file": "slices/ML_D05.txt",
+  "page": 137,
+  "note": "X₁ label",
+  "original": " 𝑋ଵ: Daily VIX level, typically ranging from 10 to 80  ",
+  "corrected": " 𝑋₁: Daily VIX level, typically ranging from 10 to 80  "
+ },
+ {
+  "qid": "ML-D5G1Q6",
+  "file": "slices/ML_D05.txt",
+  "page": 137,
+  "note": "X₂ label",
+  "original": " 𝑋ଶ: 10-Year Treasury yield, expressed as a decimal, such as 0.04for 4%  ",
+  "corrected": " 𝑋₂: 10-Year Treasury yield, expressed as a decimal, such as 0.04for 4%  "
+ },
+ {
+  "qid": "ML-D5G1Q6",
+  "file": "slices/ML_D05.txt",
+  "page": 137,
+  "note": "X₃ label",
+  "original": " 𝑋ଷ: Daily S&P 500 return, expressed as a decimal, such as −0.02for −2% ",
+  "corrected": " 𝑋₃: Daily S&P 500 return, expressed as a decimal, such as −0.02for −2% "
+ },
+ {
+  "qid": "ML-D5G1Q6",
+  "file": "slices/ML_D05.txt",
+  "page": 138,
+  "note": "key A 3-feature Euclidean distance",
+  "original": "𝑑(𝑎,𝑏)=ට൫𝑋ଵ,௔−𝑋ଵ,௕൯ଶ+൫𝑋ଶ,௔−𝑋ଶ,௕൯ଶ+൫𝑋ଷ,௔−𝑋ଷ,௕൯ଶ. ",
+  "corrected": "𝑑(𝑎,𝑏) = √((𝑋_(1,a) − 𝑋_(1,b))² + (𝑋_(2,a) − 𝑋_(2,b))² + (𝑋_(3,a) − 𝑋_(3,b))²). "
+ },
+ {
+  "qid": "ML-D5G1Q6",
+  "file": "slices/ML_D05.txt",
+  "page": 138,
+  "note": "key B cosine similarity",
+  "original": "cos(𝑎,𝑏) = 𝑎𝘛𝑏\n∥𝑎∥ଶ∥𝑏∥ଶ\n. ",
+  "corrected": "cos(𝑎,𝑏) = 𝑎ᵀ𝑏/(∥𝑎∥₂∥𝑏∥₂). "
+ },
+ {
+  "qid": "ML-D5G1Q6",
+  "file": "slices/ML_D05.txt",
+  "page": 138,
+  "note": "key C z-score",
+  "original": "𝑧௜௝ =𝑥௜௝−𝜇௝\n𝜎௝\n, ",
+  "corrected": "𝑧ᵢⱼ = (𝑥ᵢⱼ − 𝜇ⱼ)/𝜎ⱼ, "
+ },
+ {
+  "qid": "ML-D5G1Q6",
+  "file": "slices/ML_D05.txt",
+  "page": 138,
+  "note": "key C μⱼ, σⱼ",
+  "original": "where 𝜇௝and 𝜎௝are estimated from the training data. After standardization, a one-standard-deviation difference ",
+  "corrected": "where 𝜇ⱼand 𝜎ⱼare estimated from the training data. After standardization, a one-standard-deviation difference "
+ },
+ {
+  "qid": "ML-D5G1Q6",
+  "file": "slices/ML_D05.txt",
+  "page": 138,
+  "note": "key D min-max normalization",
+  "original": "𝑥norm= 𝑥−𝑥୫୧୬\n𝑥୫ୟ୶−𝑥୫୧୬\n. ",
+  "corrected": "𝑥ₙₒᵣₘ = (𝑥 − 𝑥ₘᵢₙ)/(𝑥ₘₐₓ − 𝑥ₘᵢₙ). "
+ },
+ {
+  "qid": "ML-D5G2Q6",
+  "file": "slices/ML_D05.txt",
+  "page": 143,
+  "note": "X₁ label",
+  "original": " 𝑋ଵ: Inﬂation Momentum  ",
+  "corrected": " 𝑋₁: Inﬂation Momentum  "
+ },
+ {
+  "qid": "ML-D5G2Q6",
+  "file": "slices/ML_D05.txt",
+  "page": 143,
+  "note": "X₂ label",
+  "original": " 𝑋ଶ: Central Bank Balance Sheet Growth  ",
+  "corrected": " 𝑋₂: Central Bank Balance Sheet Growth  "
+ },
+ {
+  "qid": "ML-D5G2Q6",
+  "file": "slices/ML_D05.txt",
+  "page": 143,
+  "note": "key A KNN regression estimate",
+  "original": "A. True – In KNN regression, the prediction for an input 𝑥଴is \n𝑓መ(𝑥଴) =1\n𝐾 ෍ 𝑦௜\n௜∈𝒩಼(௫బ)\n. ",
+  "corrected": "A. True – In KNN regression, the prediction for an input 𝑥₀is \nf̂(𝑥₀) = (1/𝐾) Σ_(𝑖∈𝒩_K(𝑥₀)) 𝑦ᵢ. "
+ },
+ {
+  "qid": "ML-D5G2Q6",
+  "file": "slices/ML_D05.txt",
+  "page": 144,
+  "note": "key D K=N mean prediction",
+  "original": "𝑓መ(𝑥଴) =1\n𝑁෍𝑦௜\nே\n௜ୀଵ\n=𝑦ത ",
+  "corrected": "f̂(𝑥₀) = (1/𝑁) Σᵢ₌₁ᴺ 𝑦ᵢ = ȳ "
+ },
+ {
+  "qid": "ML-D5G2Q6",
+  "file": "slices/ML_D05.txt",
+  "page": 144,
+  "note": "key D x₀",
+  "original": "for every 𝑥଴. The ﬁtted surface is therefore constant and does not use the feature values to distinguish among ",
+  "corrected": "for every 𝑥₀. The ﬁtted surface is therefore constant and does not use the feature values to distinguish among "
+ },
+ {
+  "qid": "ML-D5G4Q5",
+  "file": "slices/ML_D05.txt",
+  "page": 152,
+  "note": "key A volume fraction r^p",
+  "original": "is 𝑟occupies a fraction \n𝑟௣ ",
+  "corrected": "is 𝑟occupies a fraction \n𝑟ᵖ "
+ },
+ {
+  "qid": "ML-D5G4Q5",
+  "file": "slices/ML_D05.txt",
+  "page": 152,
+  "note": "key A side length r = q^(1/p)",
+  "original": "𝑟 =𝑞ଵ/௣. ",
+  "corrected": "𝑟 = 𝑞^(1/𝑝). "
+ },
+ {
+  "qid": "ML-D5G4Q5",
+  "file": "slices/ML_D05.txt",
+  "page": 152,
+  "note": "key B relative contrast",
+  "original": "𝐷୫ୟ୶−𝐷୫୧୬\n𝐷୫୧୬\n→ 0 as 𝑝→ ∞, ",
+  "corrected": "(𝐷ₘₐₓ − 𝐷ₘᵢₙ)/𝐷ₘᵢₙ → 0 as 𝑝→ ∞, "
+ },
+ {
+  "qid": "ML-D5G4Q5",
+  "file": "slices/ML_D05.txt",
+  "page": 152,
+  "note": "key B Dmin, Dmax",
+  "original": "where 𝐷୫୧୬and 𝐷୫ୟ୶are the minimum and maximum distances from the query point among the available observations. ",
+  "corrected": "where 𝐷ₘᵢₙand 𝐷ₘₐₓare the minimum and maximum distances from the query point among the available observations. "
+ },
+ {
+  "qid": "ML-D5G4Q5",
+  "file": "slices/ML_D05.txt",
+  "page": 152,
+  "note": "key B ratio → 1",
+  "original": "𝐷୫୧୬\n𝐷୫ୟ୶\n→ 1. ",
+  "corrected": "𝐷ₘᵢₙ/𝐷ₘₐₓ → 1. "
+ },
+ {
+  "qid": "ML-D5G4Q5",
+  "file": "slices/ML_D05.txt",
+  "page": 153,
+  "note": "key D squared Euclidean distance",
+  "original": "𝑑ଶ(𝑥,𝑧) =෍(\n௣\n௝ୀଵ\n𝑥௝ −𝑧௝)ଶ. ",
+  "corrected": "𝑑²(𝑥,𝑧) = Σⱼ₌₁ᵖ (𝑥ⱼ − 𝑧ⱼ)². "
+ },
+ {
+  "qid": "ML-D5G4Q5",
+  "file": "slices/ML_D05.txt",
+  "page": 153,
+  "note": "key E Manhattan distance",
+  "original": "𝑑ଵ(𝑥,𝑧) =෍∣\n௣\n௝ୀଵ\n𝑥௝ −𝑧௝ ∣, ",
+  "corrected": "𝑑₁(𝑥,𝑧) = Σⱼ₌₁ᵖ ∣𝑥ⱼ − 𝑧ⱼ∣, "
+ },
+ {
+  "qid": "ML-D5G5Q4",
+  "file": "slices/ML_D05.txt",
+  "page": 157,
+  "note": "coefficient vector β ∈ ℝ^(p+1)",
+  "original": "coefficient vector 𝜷∈ ℝ௣ାଵ, requiring 𝑂(𝑝)model storage. ",
+  "corrected": "coefficient vector 𝜷∈ ℝᵖ⁺¹, requiring 𝑂(𝑝)model storage. "
+ },
+ {
+  "qid": "ML-D6G1Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 169,
+  "note": "feature X₁ (RSI)",
+  "original": " 𝑋ଵ: 14-Day Relative Strength Index (RSI), bounded between 0 and 100  ",
+  "corrected": " 𝑋₁: 14-Day Relative Strength Index (RSI), bounded between 0 and 100  "
+ },
+ {
+  "qid": "ML-D6G1Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 169,
+  "note": "feature X₂ (MA crossover)",
+  "original": " 𝑋ଶ: Simple Moving Average Crossover Ratio, a continuous decimal-valued feature  ",
+  "corrected": " 𝑋₂: Simple Moving Average Crossover Ratio, a continuous decimal-valued feature  "
+ },
+ {
+  "qid": "ML-D6G1Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 169,
+  "note": "split Xⱼ ≤ s",
+  "original": "B. CART partitions the feature space using axis-aligned splits of the form 𝑋௝ ≤𝑠. These splits",
+  "corrected": "B. CART partitions the feature space using axis-aligned splits of the form 𝑋ⱼ ≤𝑠. These splits"
+ },
+ {
+  "qid": "ML-D6G1Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 169,
+  "note": "diagonal X₁+X₂>C",
+  "original": "as 𝑋ଵ+𝑋ଶ >𝐶. \nC. At each internal node",
+  "corrected": "as 𝑋₁+𝑋₂ >𝐶. \nC. At each internal node"
+ },
+ {
+  "qid": "ML-D6G1Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 169,
+  "note": "split Xⱼ ≤ s; Xⱼ",
+  "original": "A. False – CART evaluates a split using one feature at a time. For a candidate split 𝑋௝ ≤𝑠, the algorithm depends on which \nobservations fall on each side of the threshold—not on whether 𝑋௝is measured",
+  "corrected": "A. False – CART evaluates a split using one feature at a time. For a candidate split 𝑋ⱼ ≤𝑠, the algorithm depends on which \nobservations fall on each side of the threshold—not on whether 𝑋ⱼis measured"
+ },
+ {
+  "qid": "ML-D6G1Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 169,
+  "note": "R₁(j,s)={x: xⱼ≤s}, R₂(j,s)={x: xⱼ>s}",
+  "original": "𝑅ଵ(𝑗,𝑠) =൛𝑥:𝑥௝ ≤𝑠ൟ,  𝑅ଶ(𝑗,𝑠) =൛𝑥:𝑥௝ >𝑠ൟ. ",
+  "corrected": "𝑅₁(𝑗,𝑠) ={𝑥:𝑥ⱼ ≤𝑠},  𝑅₂(𝑗,𝑠) ={𝑥:𝑥ⱼ >𝑠}. "
+ },
+ {
+  "qid": "ML-D6G1Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 170,
+  "note": "diagonal boundary display",
+  "original": "value. However, a diagonal boundary such as \n𝑋ଵ+𝑋ଶ >𝐶 \n",
+  "corrected": "value. However, a diagonal boundary such as \n𝑋₁+𝑋₂ >𝐶 \n"
+ },
+ {
+  "qid": "ML-D6G1Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 170,
+  "note": "CART SSE split criterion (two sums)",
+  "original": "෍ ൫𝑦௜ −𝑦തோభ൯ଶ\n௫೔∈ோభ൫𝑗,𝑠൯\n+ ෍ ൫𝑦௜ −𝑦തோమ൯ଶ\n௫೔∈ோమ൫𝑗,𝑠൯\n. ",
+  "corrected": "Σ_(𝑥ᵢ∈𝑅₁(𝑗,𝑠)) (𝑦ᵢ −ȳ_(𝑅₁))² + Σ_(𝑥ᵢ∈𝑅₂(𝑗,𝑠)) (𝑦ᵢ −ȳ_(𝑅₂))². "
+ },
+ {
+  "qid": "ML-D6G1Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 170,
+  "note": "leaf R_m",
+  "original": "For a leaf 𝑅௠, the prediction",
+  "corrected": "For a leaf 𝑅ₘ, the prediction"
+ },
+ {
+  "qid": "ML-D6G1Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 170,
+  "note": "leaf mean f̂(x)=ȳ_(Rₘ)=(1/|Rₘ|)Σ_(i:xᵢ∈Rₘ) yᵢ",
+  "original": "𝑓መ(𝑥) =𝑦തோ೘ = 1\n∣ 𝑅௠∣ ෍ 𝑦௜\n௜:௫೔∈ோ೘\n. ",
+  "corrected": "𝑓̂(𝑥) =ȳ_(𝑅ₘ) = (1/∣𝑅ₘ∣) Σ_(𝑖:𝑥ᵢ∈𝑅ₘ) 𝑦ᵢ. "
+ },
+ {
+  "qid": "ML-D6G1Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 170,
+  "note": "ŷnew ∈ [y_(min,train), y_(max,train)]",
+  "original": "𝑦ොnew∈ൣ𝑦୫୧୬,train,𝑦୫ୟ୶,train൧. ",
+  "corrected": "ŷ_new∈[𝑦_(min,train), 𝑦_(max,train)]. "
+ },
+ {
+  "qid": "ML-D6G1Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 171,
+  "note": "X₁",
+  "original": " 𝑋ଵ: Bid-Ask Spread  ",
+  "corrected": " 𝑋₁: Bid-Ask Spread  "
+ },
+ {
+  "qid": "ML-D6G1Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 171,
+  "note": "X₂",
+  "original": " 𝑋ଶ: Order Book Depth  ",
+  "corrected": " 𝑋₂: Order Book Depth  "
+ },
+ {
+  "qid": "ML-D6G1Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 171,
+  "note": "X₃",
+  "original": " 𝑋ଷ: Trade Volume  ",
+  "corrected": " 𝑋₃: Trade Volume  "
+ },
+ {
+  "qid": "ML-D6G1Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 171,
+  "note": "classification error Eₘ = 1 − maxₖ(p̂ₘₖ) (stem)",
+  "original": "𝐸௠= 1 − max௞ (𝑝̂௠௞), ",
+  "corrected": "𝐸ₘ= 1 − maxₖ (𝑝̂ₘₖ), "
+ },
+ {
+  "qid": "ML-D6G1Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 171,
+  "note": "p̂ₘ₁ = p",
+  "original": "B. In a binary node with 𝑝̂௠ଵ=𝑝,",
+  "corrected": "B. In a binary node with 𝑝̂ₘ₁=𝑝,"
+ },
+ {
+  "qid": "ML-D6G1Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 171,
+  "note": "classification error (answer key)",
+  "original": "𝐸௠= 1 − max௞ (𝑝̂௠௞). ",
+  "corrected": "𝐸ₘ= 1 − maxₖ (𝑝̂ₘₖ). "
+ },
+ {
+  "qid": "ML-D6G1Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 172,
+  "note": "Xⱼ ≤ s versus Xⱼ > s",
+  "original": "D. True – CART evaluates candidate splits according to the partition they create, such as \n𝑋௝ ≤𝑠 versus 𝑋௝ >𝑠. ",
+  "corrected": "D. True – CART evaluates candidate splits according to the partition they create, such as \n𝑋ⱼ ≤𝑠 versus 𝑋ⱼ >𝑠. "
+ },
+ {
+  "qid": "ML-D6G1Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 172,
+  "note": "X₁ > 0, X₁ ≤ s, ln(X₁)",
+  "original": "For example, if 𝑋ଵ > 0, a split based on 𝑋ଵ ≤𝑠has a corresponding split on ln(𝑋ଵ)at ln(𝑠).",
+  "corrected": "For example, if 𝑋₁ > 0, a split based on 𝑋₁ ≤𝑠has a corresponding split on ln(𝑋₁)at ln(𝑠)."
+ },
+ {
+  "qid": "ML-D6G1Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 172,
+  "note": "weights w_L, w_R; vectors p_L, p_R",
+  "original": "weights 𝑤௅and 𝑤ோand probability vectors 𝑝௅and 𝑝ோ. Then ",
+  "corrected": "weights 𝑤_Land 𝑤_Rand probability vectors 𝑝_Land 𝑝_R. Then "
+ },
+ {
+  "qid": "ML-D6G1Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 172,
+  "note": "p = w_L p_L + w_R p_R",
+  "original": "𝑝=𝑤௅𝑝௅ +𝑤ோ𝑝ோ. ",
+  "corrected": "𝑝=𝑤_L𝑝_L +𝑤_R𝑝_R. "
+ },
+ {
+  "qid": "ML-D6G1Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 172,
+  "note": "concavity I(p) ≥ w_L I(p_L) + w_R I(p_R)",
+  "original": "𝐼(𝑝) ≥𝑤௅𝐼(𝑝௅)+𝑤ோ𝐼(𝑝ோ). ",
+  "corrected": "𝐼(𝑝) ≥𝑤_L𝐼(𝑝_L)+𝑤_R𝐼(𝑝_R). "
+ },
+ {
+  "qid": "ML-D6G1Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 172,
+  "note": "ΔI = I(p) − [w_L I(p_L) + w_R I(p_R)]",
+  "original": "Δ𝐼 =𝐼(𝑝)−[𝑤௅𝐼(𝑝௅)+𝑤ோ𝐼(𝑝ோ)], ",
+  "corrected": "Δ𝐼 =𝐼(𝑝)−[𝑤_L𝐼(𝑝_L)+𝑤_R𝐼(𝑝_R)], "
+ },
+ {
+  "qid": "ML-D6G3Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 180,
+  "note": "R²_train",
+  "original": "MSEtrain= 0.000and 𝑅trainଶ = 1.000 ",
+  "corrected": "MSEtrain= 0.000and 𝑅²train = 1.000 "
+ },
+ {
+  "qid": "ML-D6G3Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 180,
+  "note": "ȳtrain (historical mean)",
+  "original": "𝑦തtrain \n",
+  "corrected": "ȳtrain \n"
+ },
+ {
+  "qid": "ML-D6G3Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 180,
+  "note": "log₂(p)",
+  "original": "maximum depth to logଶ(𝑝), where",
+  "corrected": "maximum depth to log₂(𝑝), where"
+ },
+ {
+  "qid": "ML-D6G3Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 181,
+  "note": "Xⱼ ≤ s versus Xⱼ > s",
+  "original": "B. True – A standard CART split has the form \n𝑋௝ ≤𝑠 versus 𝑋௝ >𝑠. \n \nEach split divides",
+  "corrected": "B. True – A standard CART split has the form \n𝑋ⱼ ≤𝑠 versus 𝑋ⱼ >𝑠. \n \nEach split divides"
+ },
+ {
+  "qid": "ML-D6G3Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 181,
+  "note": "terminal region Rₘ",
+  "original": "terminal region 𝑅௠is typically",
+  "corrected": "terminal region 𝑅ₘis typically"
+ },
+ {
+  "qid": "ML-D6G3Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 181,
+  "note": "f̂(x) = ȳ_(Rₘ)",
+  "original": "𝑓መ(𝑥) =𝑦തோ೘. ",
+  "corrected": "𝑓̂(𝑥) =ȳ_(𝑅ₘ). "
+ },
+ {
+  "qid": "ML-D6G3Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 181,
+  "note": "Rₘ single observation",
+  "original": "If 𝑅௠contains only one training observation 𝑖, then ",
+  "corrected": "If 𝑅ₘcontains only one training observation 𝑖, then "
+ },
+ {
+  "qid": "ML-D6G3Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 181,
+  "note": "f̂(xᵢ) = yᵢ",
+  "original": "𝑓መ(𝑥௜) =𝑦௜. ",
+  "corrected": "𝑓̂(𝑥ᵢ) =𝑦ᵢ. "
+ },
+ {
+  "qid": "ML-D6G3Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 181,
+  "note": "log₂(p)",
+  "original": "impose a logଶ(𝑝)limit",
+  "corrected": "impose a log₂(𝑝)limit"
+ },
+ {
+  "qid": "ML-D6G3Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 181,
+  "note": "log₂(N)",
+  "original": "logଶ(𝑁), ",
+  "corrected": "log₂(𝑁), "
+ },
+ {
+  "qid": "ML-D6G3Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 183,
+  "note": "Training Error_A = 0",
+  "original": "Training Error஺ = 0 ",
+  "corrected": "Training Error_A = 0 "
+ },
+ {
+  "qid": "ML-D6G3Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 183,
+  "note": "Training Error_B ≥ Training Error_A",
+  "original": "Training Error஻ ≥Training Error஺. ",
+  "corrected": "Training Error_B ≥Training Error_A. "
+ },
+ {
+  "qid": "ML-D6G4Q4",
+  "file": "slices/ML_D06.txt",
+  "page": 185,
+  "note": "L₁ and L₂ regularization (stem E)",
+  "original": "E. Unlike 𝐿ଵand 𝐿ଶregularization",
+  "corrected": "E. Unlike 𝐿₁and 𝐿₂regularization"
+ },
+ {
+  "qid": "ML-D6G4Q4",
+  "file": "slices/ML_D06.txt",
+  "page": 186,
+  "note": "L₁ and L₂ regularization (answer key)",
+  "original": "This differs from 𝐿ଵand 𝐿ଶregularization",
+  "corrected": "This differs from 𝐿₁and 𝐿₂regularization"
+ },
+ {
+  "qid": "ML-D6G4Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 187,
+  "note": "2³ = 8 leaves (stem A)",
+  "original": "no more than 2ଷ = 8terminal leaves.",
+  "corrected": "no more than 2³ = 8terminal leaves."
+ },
+ {
+  "qid": "ML-D6G4Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 188,
+  "note": "2³ = 8 (answer key)",
+  "original": "tree can contain at most \n2ଷ = 8 \n",
+  "corrected": "tree can contain at most \n2³ = 8 \n"
+ },
+ {
+  "qid": "ML-D6G5Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 191,
+  "note": "feature labels X₁ and X₃ (subscripts)",
+  "original": "After reﬁtting, the root split changes from 𝑋ଵ, the 14-Day RSI, to 𝑋ଷ, 10-Day Volatility. Because all subsequent nodes are ",
+  "corrected": "After reﬁtting, the root split changes from 𝑋₁, the 14-Day RSI, to 𝑋₃, 10-Day Volatility. Because all subsequent nodes are "
+ },
+ {
+  "qid": "ML-D6G5Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 193,
+  "note": "split rule X_j ≤ s versus X_j > s (subscript j)",
+  "original": "B. False – Standard CART evaluates splits according to the partition of observations produced by a threshold: \n𝑋௝ ≤𝑠 versus 𝑋௝ >𝑠. ",
+  "corrected": "B. False – Standard CART evaluates splits according to the partition of observations produced by a threshold: \n𝑋ⱼ ≤𝑠 versus 𝑋ⱼ >𝑠. "
+ },
+ {
+  "qid": "ML-D6G5Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 193,
+  "note": "axis-aligned split X_j ≤ s (subscript j)",
+  "original": "A strictly increasing transformation preserves the ordering of the observations. Thus, a split at 𝑋௝ ≤𝑠has an equivalent ",
+  "corrected": "A strictly increasing transformation preserves the ordering of the observations. Thus, a split at 𝑋ⱼ ≤𝑠has an equivalent "
+ },
+ {
+  "qid": "ML-D6G5Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 193,
+  "note": "display formula X_j ≤ s ⟺ ln(X_j) ≤ ln(s) (subscript j)",
+  "original": "𝑋௝ ≤𝑠  ⟺  ln൫𝑋௝൯≤ ln(𝑠), \nwhen 𝑋௝ > 0. Z-score standardization similarly preserves ordering when it uses a positive standard deviation. ",
+  "corrected": "𝑋ⱼ ≤𝑠  ⟺  ln(𝑋ⱼ)≤ ln(𝑠), \nwhen 𝑋ⱼ > 0. Z-score standardization similarly preserves ordering when it uses a positive standard deviation. "
+ },
+ {
+  "qid": "ML-D6G6Q4",
+  "file": "slices/ML_D06.txt",
+  "page": 196,
+  "note": "split rule X_j ≤ s versus X_j > s (subscript j)",
+  "original": "A. False – The statement is accurate. A standard CART split partitions observations according to a threshold: \n𝑋௝ ≤𝑠 versus 𝑋௝ >𝑠. ",
+  "corrected": "A. False – The statement is accurate. A standard CART split partitions observations according to a threshold: \n𝑋ⱼ ≤𝑠 versus 𝑋ⱼ >𝑠. "
+ },
+ {
+  "qid": "ML-D6G6Q4",
+  "file": "slices/ML_D06.txt",
+  "page": 196,
+  "note": "display formula X_j ≤ s ⟺ ln(X_j) ≤ ln(s) (subscript j)",
+  "original": "For example, when 𝑋௝ > 0, \n𝑋௝ ≤𝑠  ⟺  ln൫𝑋௝൯≤ ln(𝑠). ",
+  "corrected": "For example, when 𝑋ⱼ > 0, \n𝑋ⱼ ≤𝑠  ⟺  ln(𝑋ⱼ)≤ ln(𝑠). "
+ },
+ {
+  "qid": "ML-D6G6Q4",
+  "file": "slices/ML_D06.txt",
+  "page": 196,
+  "note": "X₂ split conditional on X₁ > s₁ (subscripts)",
+  "original": "split on 𝑋ଶonly after an earlier split establishes that 𝑋ଵ >𝑠ଵ. This allows the effect of one feature to depend on the value ",
+  "corrected": "split on 𝑋₂only after an earlier split establishes that 𝑋₁ >𝑠₁. This allows the effect of one feature to depend on the value "
+ },
+ {
+  "qid": "ML-D6G6Q4",
+  "file": "slices/ML_D06.txt",
+  "page": 197,
+  "note": "axis-aligned split X_j ≤ s (subscript j)",
+  "original": " 197 Rev:081020261230 \n𝑋௝ ≤𝑠. ",
+  "corrected": " 197 Rev:081020261230 \n𝑋ⱼ ≤𝑠. "
+ },
+ {
+  "qid": "ML-D6G6Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 198,
+  "note": "display formula X_j ≤ s ⟺ ln(X_j) ≤ ln(s) (subscript j)",
+  "original": "For example, when dollar volume is positive, \n𝑋௝ ≤𝑠  ⟺  ln൫𝑋௝൯≤ ln(𝑠). ",
+  "corrected": "For example, when dollar volume is positive, \n𝑋ⱼ ≤𝑠  ⟺  ln(𝑋ⱼ)≤ ln(𝑠). "
+ },
+ {
+  "qid": "ML-D6G6Q6",
+  "file": "slices/ML_D06.txt",
+  "page": 199,
+  "note": "X₂ split conditional on X₁ > s₁ (subscripts)",
+  "original": "For example, the tree may split on 𝑋ଶonly within the branch where 𝑋ଵ >𝑠ଵ. This allows the effect of 𝑋ଶto differ across \nregions deﬁned by 𝑋ଵ, capturing an interaction without requiring the analyst to construct an explicit 𝑋ଵ𝑋ଶterm. Because ",
+  "corrected": "For example, the tree may split on 𝑋₂only within the branch where 𝑋₁ >𝑠₁. This allows the effect of 𝑋₂to differ across \nregions deﬁned by 𝑋₁, capturing an interaction without requiring the analyst to construct an explicit 𝑋₁𝑋₂term. Because "
+ },
+ {
+  "qid": "ML-D6G7Q4",
+  "file": "slices/ML_D06.txt",
+  "page": 202,
+  "note": "axis-aligned split X_j ≤ s (subscript j)",
+  "original": "Trees construct boundaries through axis-aligned splits of the form \n𝑋௝ ≤𝑠. ",
+  "corrected": "Trees construct boundaries through axis-aligned splits of the form \n𝑋ⱼ ≤𝑠. "
+ },
+ {
+  "qid": "ML-D6G7Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 203,
+  "note": "axis-aligned split X_j ≤ s (subscript j)",
+  "original": "A. False – Standard Decision Trees use axis-aligned splits of the form \n𝑋௝ ≤𝑠. ",
+  "corrected": "A. False – Standard Decision Trees use axis-aligned splits of the form \n𝑋ⱼ ≤𝑠. "
+ },
+ {
+  "qid": "ML-D6G7Q5",
+  "file": "slices/ML_D06.txt",
+  "page": 203,
+  "note": "diagonal boundary X₁ + X₂ > 0 (subscripts 1,2)",
+  "original": "𝑋ଵ+𝑋ଶ > 0, ",
+  "corrected": "𝑋₁+𝑋₂ > 0, "
+ }
+]
